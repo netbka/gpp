@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -11,10 +10,6 @@ export default defineEventHandler(async (event) => {
   var result = await prisma.profile.findUnique({
     where: {
       user_id: user_id,
-    },
-    include: {
-      speciality: true,
-      profilesMedicalSubSpecialities: true,
     },
   });
   ///console.log(event.context.user.user_metadata.name);

@@ -21,9 +21,16 @@
     max-width: 1280px;
   }
 }
+
 @media (min-width: 1536px) {
   .container {
     max-width: 1536px;
+  }
+}
+@media (min-width: 1536px) {
+  .m-l {
+    padding-left: calc((100vw - 1546px) / 2);
+    padding-right: calc((100vw - 1546px) / 2);
   }
 }
 

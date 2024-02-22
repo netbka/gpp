@@ -1,35 +1,33 @@
 <template>
-  
-    <q-btn-dropdown v-if="user" stretch flat label="Account Settings">
-      <div class="row no-wrap q-pa-md">
-        <div class="column">
-          <div class="text-h6 q-mb-md">Profile</div>
-          <NuxtLink to="/profile" class="btn btn-rounded">Edit</NuxtLink>
-        </div>
-
-        <q-separator vertical inset class="q-mx-lg" />
-
-        <div class="column items-center">
-          <q-avatar size="72px">
-            <img :src="profile" />
-          </q-avatar>
-
-          <div class="text-subtitle1 q-mt-md q-mb-xs">{{ name }}</div>
-
-          <q-btn
-            color="primary"
-            label="Logout"
-            push
-            size="sm"
-            v-close-popup
-            @click="logout"
-          />
-        </div>
+  <q-btn-dropdown v-if="user" stretch flat label="Profile">
+    <div class="row no-wrap q-pa-md">
+      <div class="column">
+        <div class="text-h6 q-mb-md">Profile</div>
+        <NuxtLink to="/profile" class="btn btn-rounded">Edit</NuxtLink>
       </div>
-    </q-btn-dropdown>
 
-    <q-btn stretch flat label="Login" v-else to="/login" />
-  
+      <q-separator vertical inset class="q-mx-lg" />
+
+      <div class="column items-center">
+        <q-avatar size="72px">
+          <img :src="profile" />
+        </q-avatar>
+
+        <div class="text-subtitle1 q-mt-md q-mb-xs">{{ name }}</div>
+
+        <q-btn
+          color="primary"
+          label="Logout"
+          push
+          size="sm"
+          v-close-popup
+          @click="logout"
+        />
+      </div>
+    </div>
+  </q-btn-dropdown>
+
+  <q-btn stretch flat label="Login" v-else to="/login" />
 </template>
 
 <script lang="ts" setup>

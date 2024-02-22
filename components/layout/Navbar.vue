@@ -1,11 +1,9 @@
 <template>
-  <q-header reveal elevated class="bg-primary text-accent">
-    <q-toolbar class="">
-      <q-toolbar-title class="">
-        <a href="/"
-          ><q-avatar> <img :src="logo" /> </q-avatar
-        ></a>
-        DRNOW
+  <q-header reveal elevated class="bg-white text-primary">
+    <q-toolbar class="m-l">
+      <q-toolbar-title>
+        <q-avatar> <img :src="logo" /> </q-avatar>
+        ЖПП
       </q-toolbar-title>
 
       <LayoutNavBarMenu></LayoutNavBarMenu>
@@ -13,11 +11,10 @@
       <q-btn stretch flat label="Link" />
       <q-separator dark vertical />
       <q-btn stretch flat label="Link" />
-      <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
   </q-header>
 </template>
 
 <script lang="ts" setup>
-import logo from "/logosmall.png";
+import logo from "/logo110.png";
 </script>

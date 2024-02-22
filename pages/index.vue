@@ -7,7 +7,7 @@
       <p class="text-h3">
         Video appointments available! Connect with your doctor from anywhere.
       </p>
-      <NuxtLink to="/doctors" class="flex gap-2"> Book Appointment </NuxtLink>
+      <!-- <NuxtLink to="/doctors" class="flex gap-2"> Book Appointment </NuxtLink> -->
     </div>
     <div class="col-7">
       <div class="">
