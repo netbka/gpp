@@ -20,7 +20,7 @@ export const urlToFile = async (url: string | URL, filename: string) => {
 
 export const getProfile = async (fileName: string) => {
   const supabase = useSupabaseClient();
-  const { data, error } = await supabase.storage.from("avatar").getPublicUrl(fileName);
+  const { data, error } = await supabase.storage.from("avatars").getPublicUrl(fileName);
   //if (error) return "https://eu.ui-avatars.com/api/?name=" + firstName + "+" + lastName + "&size=48";
   //console.log(data);
   if (error) throw nodataError;
@@ -29,7 +29,7 @@ export const getProfile = async (fileName: string) => {
 
 export const updateUserAvatar = async (fileToUpload: File, filename: string) => {
   const supabase = useSupabaseClient();
-  let { error: uploadError } = await supabase.storage.from("avatar").upload(filename, fileToUpload, {
+  let { error: uploadError } = await supabase.storage.from("avatars").upload(filename, fileToUpload, {
     upsert: true,
   });
   if (uploadError) throw uploadError;
@@ -38,7 +38,6 @@ export const updateUserAvatar = async (fileToUpload: File, filename: string) => 
 };
 
 export const genericAvatar = async (name: string, filename: string) => {
-  console.log(name);
   const response = await fetch("https://eu.ui-avatars.com/api/?name=" + name + "&size=48");
   const blob = await response.blob();
   const newFile = new File([blob], filename, { type: blob.type });

@@ -1,8 +1,9 @@
 <template>
   <q-select
-    v-model="store.currentSubItem"
-    label="Medical Sub Speciality"
-    :options="store.currentItem.subspecs"
+    dense
+    v-model="store.currentItem"
+    label="Я занимаюсь"
+    :options="store.items"
     lazy-rules
     clearable
     fill-input
@@ -13,30 +14,36 @@
     :loading="store.loading"
     option-label="name"
     multiple
+    :input-style="{ fontSize: '12px' }"
   >
     <template v-slot:option="scope">
       <q-item v-bind="scope.itemProps">
         <q-item-section>
           <q-item-label>{{ scope.opt.name }} </q-item-label>
-          <q-item-label caption> {{ scope.opt.description }} </q-item-label>
         </q-item-section>
       </q-item>
     </template>
+    <!-- <template v-slot:selected-item="scope">
+      <span>
+        {{ scope.opt.name }}
+      </span>
+    </template> -->
   </q-select>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
-  selectedSubSpecIds: {
+  selectedIds: {
     type: Array,
   },
 });
-const { selectedSubSpecIds } = props;
-
-import { useMedSpecStore } from "~/stores/medspec";
-const store = useMedSpecStore();
+const { selectedIds } = props;
+console.log(selectedIds);
+import { useSportTypeStore } from "~/stores/sporttype";
+const store = useSportTypeStore();
+store.fetchAll();
 onMounted(async () => {
-  store.currentSubItem = selectedSubSpecIds;
+  store.currentItem = selectedIds;
 });
 
 //await store.fetchAll();
@@ -47,6 +54,7 @@ onMounted(async () => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100%;
+  width: 350px !important;
+  font-size: 12px;
 }
 </style>

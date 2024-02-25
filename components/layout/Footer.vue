@@ -8,10 +8,12 @@
     </div>
   </footer> -->
 
-  <q-footer elevated class="bg-grey-8 text-white">
-    <q-toolbar>
+  <q-footer elevated class="bg-grey-1 text-primary">
+    <q-toolbar class="m-l">
       <q-toolbar-title>
-        <div class="text-right text-body2">Title</div>
+        <div class="text-right text-body2">
+          Я<q-icon name="favorite" color="red" />ОФП
+        </div>
       </q-toolbar-title>
     </q-toolbar>
   </q-footer>

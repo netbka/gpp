@@ -15,18 +15,18 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt", "nuxt-lodash"],
-  lodash: {
-    prefix: "_",
-    prefixSkip: ["string"],
-    upperAfterPrefix: false,
-    exclude: ["map"],
-    alias: [
-      ["camelCase", "stringToCamelCase"], // => stringToCamelCase
-      ["kebabCase", "stringToKebab"], // => stringToKebab
-      ["isDate", "isLodashDate"], // => _isLodashDate
-    ],
-  },
+  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt"],
+  // lodash: {
+  //   prefix: "_",
+  //   prefixSkip: ["string"],
+  //   upperAfterPrefix: false,
+  //   exclude: ["map"],
+  //   alias: [
+  //     ["camelCase", "stringToCamelCase"], // => stringToCamelCase
+  //     ["kebabCase", "stringToKebab"], // => stringToKebab
+  //     ["isDate", "isLodashDate"], // => _isLodashDate
+  //   ],
+  // },
   plugins: [
     "~/plugins/prisma-client.ts",
 
@@ -39,7 +39,7 @@ export default defineNuxtConfig({
     plugins: ["Notify"],
     extras: {
       font: "roboto-font",
-      fontIcons: ["fontawesome-v6"],
+      //fontIcons: ["fontawesome-v6"],
     },
     sassVariables: "~/assets/styles/quasar.sass",
 
@@ -76,11 +76,15 @@ export default defineNuxtConfig({
     // pageTransition: { name: "page", mode: "out-in" },
 
     head: {
-      title: "DrNow - schedule and consult doctor online",
+      title: "Я.ОФП - просто тренировки",
       charset: "utf-16",
       viewport: "width=500, initial-scale=1",
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        // { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        // { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true },
+        // { href: "https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap", rel: "stylesheet" },
+
         //{ rel: "preconnect", href: "https://fonts.googleapis.com" },
         //{ rel: "preconnect", href: "https://fonts.gstatic.com" },
         //{ rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" },
@@ -113,7 +117,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/login",
       callback: "/profile",
-      exclude: ["/", "/public/*", "/doctors", "/doctors/*"],
+      exclude: ["/", "/public/*", "/exercise", "/exercise/*"],
     },
   },
 });

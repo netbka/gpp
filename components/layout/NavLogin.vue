@@ -1,5 +1,5 @@
 <template>
-  <q-btn-dropdown v-if="user" stretch flat label="Profile">
+  <q-btn-dropdown v-if="user" stretch flat label="Профиль">
     <div class="row no-wrap q-pa-md">
       <div class="column">
         <div class="text-h6 q-mb-md">Profile</div>
@@ -27,7 +27,7 @@
     </div>
   </q-btn-dropdown>
 
-  <q-btn stretch flat label="Login" v-else to="/login" />
+  <q-btn stretch flat label="Вход" v-else to="/login" />
 </template>
 
 <script lang="ts" setup>

@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   var result = await prisma.profile.findMany({
-    include: {
-      speciality: true,
-      profilesMedicalSubSpecialities: true,
-    },
+    // include: {
+    //   speciality: true,
+    //   profilesMedicalSubSpecialities: true,
+    // },
   });
 
   return result;

@@ -1,38 +1,32 @@
 <template>
-  <div class="row back_main">
-    <div class="col-5">
-      <h1 class="text-white text-bold leading-tight q-pa-md">
-        Dr Now. Connecting healthcare.
-      </h1>
-      <p class="text-h3">
-        Video appointments available! Connect with your doctor from anywhere.
-      </p>
-      <!-- <NuxtLink to="/doctors" class="flex gap-2"> Book Appointment </NuxtLink> -->
-    </div>
-    <div class="col-7">
-      <div class="">
-        <img :src="background" alt="" class="window-height pic" />
+  <div class="back_main">
+    <div class="row window-height-100 wrap justify-center items-center content-center">
+      <div class="col-6 q-pa-md">
+        <div class="text-black text-bold text-h3">Онлайн тренажер ОФП</div>
+        <p class="text-h4">Подбор разных упражнений на все группы мышц</p>
+        <p class="text-body1">
+          Регистрируйтесь, чтобы сохранять свои программы и отслеживать прогресс
+        </p>
+
+        <q-btn outline color="primary" @click="redirect">К тренировкам </q-btn>
+      </div>
+      <div class="col-6">
+        <div class="q-mt-lg">
+          <img :src="background" alt="" class="hero-sizing pic" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import background from "~/assets/images/mainpage_small.webp";
+import background from "/sportivnyye-logotipy.png";
+const redirect = async () => {
+  await navigateTo({ path: "/exercise" });
+};
 </script>
 
-<style>
-.bg-blue-teal-gradient {
-  background: rgb(49, 130, 206);
-  background: linear-gradient(
-    90deg,
-    rgba(49, 130, 206, 1) 0%,
-    rgba(56, 178, 172, 1) 100%
-  );
-}
-
+<style scoped>
 .pic {
-  top: 0;
-  position: absolute;
 }
 </style>

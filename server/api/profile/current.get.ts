@@ -11,8 +11,11 @@ export default defineEventHandler(async (event) => {
     where: {
       user_id: user_id,
     },
+    include: {
+      profilesSportType: true,
+    },
   });
-  ///console.log(event.context.user.user_metadata.name);
+
   if (result === null) {
     var fullName = event.context.user.user_metadata.name.split(" ");
 

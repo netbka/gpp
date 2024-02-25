@@ -1,0 +1,16 @@
+// <template>
+//   <div>
+//     <div class="row q-mt-md wrap justify-center items-center content-center">
+//       <div class="col-8"><ExcerciseCounter></ExcerciseCounter></div>
+//       <div class="col-4"><ExcerciseSetting></ExcerciseSetting></div>
+//     </div>
+//   </div>
+// </template>
+
+// <script lang="ts" setup>
+// import { useProfileStore } from "~/stores/profile";
+// const store = useProfileStore();
+// await store.fetchAll();
+// </script>
+
+// <style></style>

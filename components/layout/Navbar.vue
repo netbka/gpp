@@ -2,19 +2,31 @@
   <q-header reveal elevated class="bg-white text-primary">
     <q-toolbar class="m-l">
       <q-toolbar-title>
-        <q-avatar> <img :src="logo" /> </q-avatar>
-        ЖПП
+        <q-avatar @click="redirect">
+          <img :src="logo" class="cursor-pointer" />
+        </q-avatar>
+        <span class="text-weight-thin logo-text">Просто ОФП</span>
       </q-toolbar-title>
 
-      <LayoutNavBarMenu></LayoutNavBarMenu>
       <q-separator dark vertical />
-      <q-btn stretch flat label="Link" />
+      <q-btn stretch flat label="Занятия" @click="redirectEx" />
       <q-separator dark vertical />
-      <q-btn stretch flat label="Link" />
+      <LayoutNavLogin></LayoutNavLogin>
     </q-toolbar>
   </q-header>
 </template>
 
 <script lang="ts" setup>
 import logo from "/logo110.png";
+const redirect = async () => {
+  await navigateTo({ path: "/" });
+};
+const redirectEx = async () => {
+  await navigateTo({ path: "/exercise" });
+};
 </script>
+<style scoped>
+.logo-text {
+  letter-spacing: -1px;
+}
+</style>

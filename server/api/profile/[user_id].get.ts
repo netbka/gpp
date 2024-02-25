@@ -7,10 +7,10 @@ export default defineEventHandler(async (event) => {
     where: {
       user_id: user_id,
     },
-    include: {
-      speciality: true,
-      profilesMedicalSubSpecialities: true,
-    },
+    // include: {
+    //   speciality: true,
+    //   profilesMedicalSubSpecialities: true,
+    // },
   });
   return result;
 });

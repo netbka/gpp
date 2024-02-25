@@ -2,59 +2,52 @@
   <q-page class="flex flex-center items-center justify-center back_main">
     <q-card class="q-pa-md" style="width: 500px">
       <q-card-section>
-        <div class="text-h5 text-center">Login</div>
+        <div class="text-h5 text-center">Вход</div>
+        <div class="text-overline text-center">с помощью почты</div>
       </q-card-section>
       <q-separator />
       <q-card-section>
         <q-form @submit="onSubmit">
-          <q-input label="Username" v-model="username" />
-          <q-input label="Password" type="password" v-model="password" />
-          <q-btn type="submit" label="Login" class="full-width q-mt-md" />
+          <q-input label="логин" v-model="username" />
+          <q-input label="пароль" type="password" v-model="password" />
+          <q-btn type="submit" label="Войти" class="full-width q-mt-md" outline />
         </q-form>
 
-        <div class="row col-gutter-sm">
-          <div class="col">
-            <q-btn
-              outline
-              @click="loginGithub"
-              label="GitHub"
-              align="between"
-              class="btn-fixed-width"
-              icon="fa-brands fa-github"
-            >
-            </q-btn>
+        <q-card-section>
+          <q-separator />
+          <div class="row q-col-gutter-md q-mt-xs">
+            <div class="col">
+              <q-btn
+                color="blue-5"
+                outline
+                @click="loginGoogle"
+                label="Google"
+                class="full-width"
+                icon="fa-brands fa-google"
+              >
+              </q-btn>
+            </div>
+            <div class="col">
+              <q-btn
+                outline
+                color="blue"
+                @click="loginFacebook"
+                label="Facebook"
+                align="between"
+                class="full-width"
+                icon="fa-brands fa-facebook"
+              >
+              </q-btn>
+            </div>
           </div>
-          <div class="col">
-            <q-btn
-              color="blue-5"
-              outline
-              @click="loginGoogle"
-              label="Google"
-              align="between"
-              class="btn-fixed-width"
-              icon="fa-brands fa-google"
-            >
-            </q-btn>
-          </div>
-          <div class="col">
-            <q-btn
-              outline
-              color="blue"
-              @click="loginFacebook"
-              label="Facebook"
-              align="between"
-              class="btn-fixed-width"
-              icon="fa-brands fa-facebook"
-            >
-            </q-btn>
-          </div>
-        </div>
+        </q-card-section>
       </q-card-section>
     </q-card>
   </q-page>
 </template>
 
 <script setup lang="ts">
+//import google from "/google-icon.svg";
 definePageMeta({
   layout: "auth",
 });

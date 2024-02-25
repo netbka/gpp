@@ -9,8 +9,8 @@ interface ProfileStoreState {
 export const useProfileStore = defineStore("ProfileStore", {
   state: (): ProfileStoreState => ({
     profiles: [],
-    currentProfile: { id: 0, lastName: "", firstName: "", user_id: "", biography: "", birthDay: "", city: "", specialityId: null, speciality: {}, profilesMedicalSubSpecialities: [] },
-    profile: { id: 0, lastName: "", firstName: "", user_id: "", biography: "", birthDay: "", city: "", specialityId: null, speciality: {}, profilesMedicalSubSpecialities: [] },
+    currentProfile: { id: 0, lastName: "", firstName: "", user_id: "", birthDay: null, profilesSportType: [] },
+    profile: { id: 0, lastName: "", firstName: "", user_id: "", birthDay: null, profilesSportType: [] },
   }),
 
   actions: {
@@ -30,9 +30,7 @@ export const useProfileStore = defineStore("ProfileStore", {
       const { data } = await useFetch("/api/profile/current", {
         method: "get",
       });
-
       if (data.value !== null) this.currentProfile = Object.assign({}, data.value);
-      this.currentProfile.biography = this.currentProfile.biography ? this.currentProfile.biography : "";
     },
     async updateCurrentUser() {
       const { data, pending, error, refresh } = await $fetch("/api/profile/current", {

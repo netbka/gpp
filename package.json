@@ -10,19 +10,20 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "seed": "node prisma/seed"
   },
   "devDependencies": {
     "@nuxtjs/supabase": "^1.1.5",
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.8.1",
     "nuxt": "^3.10.1",
-    "nuxt-lodash": "^2.5.3",
     "nuxt-quasar-ui": "^2.0.7",
     "vite": "^5.1.3"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.9",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "quasar": "^2.14.2",
     "sass": "^1.70.0",
