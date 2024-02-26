@@ -37,7 +37,7 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
         exercise: [
           {
             id: "2-1",
-            name: "Отживание",
+            name: "Отжимание",
             description: "Описание отжимания",
             duration: 60,
           },
@@ -50,6 +50,26 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
         ],
         rest: 30,
         repeats: 2,
+      },
+      {
+        id: "3",
+        name: "Заминка",
+        exercise: [
+          {
+            id: "3-1",
+            name: "Разножка",
+            description: "Описание бега на месте",
+            duration: 60,
+          },
+          {
+            id: "3-2",
+            name: "Прыжки на месте",
+            description: "Описание прыжки на стопе",
+            duration: 60,
+          },
+        ],
+        rest: 30,
+        repeats: 1,
       },
     ],
   }),

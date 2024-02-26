@@ -21,7 +21,10 @@
 
     <q-card-section horizontal>
       <q-card-section class="col-7">
-        <div class="text-subtitle1">Упражнения</div>
+        <div class="text-subtitle1">План тренировки</div>
+        <div>
+          <ExerciseNested :data="store.defaultItem"></ExerciseNested>
+        </div>
       </q-card-section>
 
       <q-separator vertical />
@@ -30,152 +33,6 @@
         <div class="text-subtitle1 text-center text-bold">Настройки</div>
         <q-separator />
         <div class="text-subtitle1 text-center text-bold">Разминка</div>
-
-        <div class="row q-col-gutter-xs text-center">
-          <div class="col-4">Упражнение</div>
-          <div class="col-4">Количество</div>
-          <div class="col-4">Отдых</div>
-        </div>
-        <div class="row q-col-gutter-xs text-center">
-          <div class="col-4">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainDurationMin"
-              label="Секунды"
-              :disable="start"
-              type="number"
-              max="180"
-              min="0"
-              class="text-center"
-              input-style="text-align: center"
-            />
-          </div>
-          <div class="col-4">Кол-ство</div>
-          <div class="col-4">Отдых</div>
-        </div>
-
-        <div class="text-subtitle2 text-center q-mb-sm">Продолжительность упражнения</div>
-
-        <div class="row justify-evenly">
-          <div class="col-3">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainDurationMin"
-              label="Минуты"
-              :disable="start"
-              type="number"
-              max="59"
-              min="0"
-              class="text-center"
-              input-style="text-align: center"
-            />
-          </div>
-          <div class="col-3">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainDurationSec"
-              label="Секунды"
-              :disable="start"
-              type="number"
-              max="60"
-              min="0"
-              input-style="text-align: center"
-              step="15"
-            />
-          </div>
-        </div>
-        <div class="text-subtitle2 text-center q-my-sm">Продолжительность перерыва</div>
-
-        <div class="row justify-evenly">
-          <div class="col-3">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainRestDurationMin"
-              label="Минуты"
-              :disable="start"
-              type="number"
-              max="59"
-              min="0"
-              class="text-center"
-              input-style="text-align: center"
-            />
-          </div>
-          <div class="col-3">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainRestDurationSec"
-              label="Секунды"
-              :disable="start"
-              type="number"
-              max="60"
-              min="0"
-              input-style="text-align: center"
-              step="15"
-            />
-          </div>
-        </div>
-        <div class="row text-center">
-          <div class="col-4">Упражнение</div>
-          <div class="col-4">Отдых</div>
-          <div class="col-4">Повторы</div>
-        </div>
-        <div class="row text-center q-col-gutter-xs">
-          <div class="col-4">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainDurationExercise"
-              label="Секунды"
-              :disable="start"
-              type="number"
-              max="60"
-              min="0"
-              input-style="text-align: center"
-              step="15"
-            />
-          </div>
-          <div class="col-4">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainDurationRest"
-              label="Секунды"
-              :disable="start"
-              type="number"
-              max="60"
-              min="0"
-              input-style="text-align: center"
-              step="15"
-            />
-          </div>
-          <div class="col-4">
-            <q-input
-              bg-color="white"
-              dense
-              outlined
-              v-model="settings.mainCount"
-              label="количество"
-              :disable="start"
-              type="number"
-              max="60"
-              min="0"
-              input-style="text-align: center"
-              step="15"
-            />
-          </div>
-        </div>
       </q-card-section>
     </q-card-section>
     <q-separator />
@@ -202,6 +59,10 @@
 
 <script lang="ts" setup>
 import exerciseSmall from "/exerciseSmall.png";
+import { useExcerciseStore } from "~/stores/exercise";
+
+const store = useExcerciseStore();
+let name = "nested-draggable";
 const emits = defineEmits(["start", "restart"]);
 let start = ref(false);
 let error = ref(false);
@@ -209,36 +70,6 @@ const startTimer = () => {
   start.value = !start.value;
   emits("start", start.value);
 };
-const settings = reactive({
-  wuDuration: 60,
-  wuDurationRest: 30,
-  wuCount: 2,
-
-  // wuDurationSec: 0,
-  // wuDurationMin: 2,
-
-  // mainDurationSec: 0,
-  // mainDurationMin: 1,
-  // mainRestDurationSec: 30,
-  // mainRestDurationMin: 0,
-
-  mainDurationExercise: 60,
-  mainDurationRest: 30,
-  mainCount: 8,
-  mainRepeat: 8,
-
-  cdDuration: 60,
-  cdDurationRest: 30,
-  cdCount: 2,
-
-  // cdDurationSec: 0,
-  // cdDurationMin: 2,
-  // cdCount: 2,
-});
-// const restartTimer = () => {
-
-//   emits("restart", start.value);
-// };
 
 let startBtn = reactive({
   textStart: "Погнали",

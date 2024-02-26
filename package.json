@@ -27,6 +27,7 @@
     "pinia": "^2.1.7",
     "quasar": "^2.14.2",
     "sass": "^1.70.0",
+    "vue-draggable-next": "^2.2.1",
     "vue-flatpickr-component": "^11.0.3"
   }
 }
