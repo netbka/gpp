@@ -19,17 +19,20 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
             id: "1-1",
             name: "Бег на месте",
             description: "Описание бега на месте",
-            duration: 60,
+            duration: 10,
+            active: false,
           },
           {
             id: "1-2",
             name: "Прыжки на месте",
             description: "Описание прыжки на стопе",
             duration: 60,
+            active: false,
           },
         ],
-        rest: 30,
+        //rest: 30,
         repeats: 1,
+        active: false,
       },
       {
         id: "2",
@@ -39,17 +42,20 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
             id: "2-1",
             name: "Отжимание",
             description: "Описание отжимания",
-            duration: 60,
+            duration: 70,
+            active: false,
           },
           {
             id: "2-2",
             name: "Приседания",
             description: "Описание приседания",
             duration: 60,
+            active: false,
           },
         ],
-        rest: 30,
+        //rest: 30,
         repeats: 2,
+        active: false,
       },
       {
         id: "3",
@@ -60,16 +66,19 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
             name: "Разножка",
             description: "Описание бега на месте",
             duration: 60,
+            active: false,
           },
           {
             id: "3-2",
             name: "Прыжки на месте",
             description: "Описание прыжки на стопе",
             duration: 60,
+            active: false,
           },
         ],
-        rest: 30,
+        //rest: 30,
         repeats: 1,
+        active: false,
       },
     ],
   }),
@@ -84,6 +93,21 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
       });
 
       if (data.value.length > 0) this.items = data.value;
+    },
+    calculateDuration() {
+      var totalduration = 0;
+      this.defaultItem.forEach((parent) => {
+        var phaseduration = 0;
+        parent.exercise.forEach((child) => {
+          phaseduration += parseInt(child.duration);
+          //console.log(parseInt(phaseduration));
+        });
+        //phaseduration += parseInt(parent.rest);
+        phaseduration = phaseduration * parseInt(parent.repeats);
+        totalduration += phaseduration;
+        // console.log("phase:" + parent.name + "duration" + phaseduration);
+      });
+      return totalduration;
     },
   },
 });

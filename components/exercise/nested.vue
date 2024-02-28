@@ -43,7 +43,10 @@
             :key="el.name"
           >
             <div class="col-9">
-              <span class="text-weight-thin font12">{{ el.name }}</span>
+              <span v-show="el.active">
+                <q-spinner-grid color="primary" size="1em" class="q-mr-sm" />
+              </span>
+              <span class="text-weight-thin font12">{{ el.name }} </span>
             </div>
             <div class="col-2">
               <q-input
@@ -52,7 +55,7 @@
                 dense
                 v-model="el.duration"
                 style="width: 43px; padding: 0 !important"
-                max="60"
+                max="600"
                 min="0"
                 input-style="text-align: center; font-size:11px; margin-top: 6px !important; "
                 step="10"
@@ -66,7 +69,7 @@
             </div>
           </div>
         </draggable>
-        <div class="row justify-center bg-orange-1 q-pa-sm q-mx-lg shadow-1">
+        <!-- <div class="row justify-center bg-orange-1 q-pa-sm q-mx-lg shadow-1">
           <div class="col-5 text-caption">Отдых</div>
           <div class="col-5">
             <q-input
@@ -75,7 +78,7 @@
               dense
               v-model="el.rest"
               style="width: 43px; padding: 0 !important"
-              max="60"
+              max="300"
               min="0"
               input-style="text-align: center; font-size:11px; margin-top: 6px !important; "
               step="10"
@@ -84,7 +87,7 @@
               label="сек."
             />
           </div>
-        </div>
+        </div> -->
         <!-- 
             <li v-for="el in el.exercise" :key="el.name">
             <p>{{ el.name }}</p>
@@ -112,20 +115,20 @@ export default {
       type: Array,
     },
   },
-  methods: {
-    onSort(event) {
-      console.log(event);
-      const { from, removed, added } = event;
+  // methods: {
+  //   onSort(event) {
+  //     console.log(event);
+  //     const { from, removed, added } = event;
 
-      //Check if the dragged item is trying to be dropped onto its parent
-      //   if (added.parentNode === removed.parentNode) {
-      //     // Invalid drop, prevent sorting (optional)
-      //     event.detail.cancel();
-      //   } else {
-      //     // Other logic for valid sorting
-      //   }
-    },
-  },
+  //     //Check if the dragged item is trying to be dropped onto its parent
+  //     //   if (added.parentNode === removed.parentNode) {
+  //     //     // Invalid drop, prevent sorting (optional)
+  //     //     event.detail.cancel();
+  //     //   } else {
+  //     //     // Other logic for valid sorting
+  //     //   }
+  //   },
+  // },
   components: {
     draggable: VueDraggableNext,
   },

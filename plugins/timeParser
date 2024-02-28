@@ -1,0 +1,12 @@
+// export default defineNuxtPlugin((nuxtApp) => {
+//   return {
+//     provide: {
+//       numToMin: (val: number) => {
+//         return Math.floor(val / 60);
+//       },
+//       numToSec: (val: number) => {
+//         return Math.floor(val % 60);
+//       },
+//     },
+//   };
+// });

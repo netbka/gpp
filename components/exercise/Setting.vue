@@ -9,9 +9,12 @@
 
       <q-item-section>
         <div class="row">
-          <div class="col-6">
+          <div class="col-6 self-center">
             <q-item-label>Настройки занятия</q-item-label>
-            <q-item-label caption>Продолжительность </q-item-label>
+            <q-item-label caption
+              >Продолжительность: {{ numToMin(duration) }} мин.
+              {{ numToSec(duration) }} сек.</q-item-label
+            >
           </div>
         </div>
       </q-item-section>
@@ -60,9 +63,9 @@
 <script lang="ts" setup>
 import exerciseSmall from "/exerciseSmall.png";
 import { useExcerciseStore } from "~/stores/exercise";
-
 const store = useExcerciseStore();
-let name = "nested-draggable";
+const duration = computed(() => store.calculateDuration());
+
 const emits = defineEmits(["start", "restart"]);
 let start = ref(false);
 let error = ref(false);

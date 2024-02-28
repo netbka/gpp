@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   // },
   plugins: [
     "~/plugins/prisma-client.ts",
+    //"~/plugins/timeParser.ts",
 
     // ... other plugins
   ],

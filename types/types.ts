@@ -10,12 +10,14 @@ export interface Exercise {
   name: String;
   description: String;
   duration: Number;
+  active: Boolean;
 }
 
 export interface ExerciseGroup {
   id: String;
   name: String;
   exercise: Exercise[];
-  rest: Number;
+  //rest: Number;
   repeats: Number;
+  active: Boolean;
 }
