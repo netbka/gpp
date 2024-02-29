@@ -7,11 +7,16 @@
             :isStarted="startTimer"
             :duration="duration"
             ref="childcounter"
+            @stopTimer="stopTimer"
           ></ExerciseCounter>
         </ClientOnly>
       </div>
       <div class="col-6 self-start">
-        <ExerciseSetting @start="execTimer" @restart="restart"></ExerciseSetting>
+        <ExerciseSetting
+          @start="execTimer"
+          @restart="restart"
+          ref="exercise"
+        ></ExerciseSetting>
       </div>
     </div>
   </div>
@@ -19,6 +24,7 @@
 
 <script setup>
 const childcounter = ref(null);
+const exercise = ref(null);
 
 let startTimer = ref(false);
 let duration = ref(60);
@@ -30,7 +36,9 @@ const restart = () => {
   childcounter.value.resetCounter();
   //childcounter.value.resetCounter();
 };
-
+const stopTimer = () => {
+  exercise.value.stopTimer();
+};
 // <ExerciseCounter></ExerciseCounter>
 // <ExerciseSetting></ExerciseSetting>
 </script>

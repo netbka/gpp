@@ -63,6 +63,7 @@
 <script lang="ts" setup>
 import exerciseSmall from "/exerciseSmall.png";
 import { useExcerciseStore } from "~/stores/exercise";
+
 const store = useExcerciseStore();
 const duration = computed(() => store.calculateDuration());
 
@@ -83,6 +84,14 @@ let startBtn = reactive({
 
   textPause: "Пауза",
   iconPause: "pause",
+});
+
+let stopTimer = () => {
+  start.value = false;
+};
+
+defineExpose({
+  stopTimer,
 });
 </script>
 

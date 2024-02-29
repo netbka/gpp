@@ -9,6 +9,9 @@
       <div v-for="el in data" :key="el.name" class="bg-grey-11 q-my-xs q-pb-xs">
         <div class="bg-blue-3 q-pa-sm q-mb-sm shadow-2 row cursor-pointer">
           <div class="col-9 text-weight-bold text-uppercase self-center">
+            <span v-show="el.active">
+              <q-spinner-grid color="primary" size="1em" class="q-mr-sm" />
+            </span>
             {{ el.name }}
           </div>
           <div class="col-2">
@@ -44,7 +47,7 @@
           >
             <div class="col-9">
               <span v-show="el.active">
-                <q-spinner-grid color="primary" size="1em" class="q-mr-sm" />
+                <q-spinner-rings color="primary" size="1em" class="q-mr-sm" />
               </span>
               <span class="text-weight-thin font12">{{ el.name }} </span>
             </div>
