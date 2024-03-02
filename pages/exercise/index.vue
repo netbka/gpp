@@ -1,30 +1,17 @@
 <template>
   <div class="back_main">
     <div class="row window-height-100 justify-evenly">
-      <div class="col-6 q-pa-md">
+      <div class="col-6 q-pl-sm">
         <!-- <ExerciseVideo :videoId="'321'"></ExerciseVideo> -->
         <ClientOnly>
-          <ExerciseCounter
-            :isStarted="startTimer"
-            :duration="duration"
-            ref="childcounter"
-            @stopTimer="stopTimer"
-          ></ExerciseCounter>
+          <ExerciseCounter ref="childcounter"></ExerciseCounter>
         </ClientOnly>
+        <ExerciseBtnCtrl @restart="restart"></ExerciseBtnCtrl>
       </div>
       <div class="col-6 self-start">
-        <ExerciseSetting
-          @start="execTimer"
-          @restart="restart"
-          ref="exercise"
-        ></ExerciseSetting>
+        <ExerciseTabs></ExerciseTabs>
       </div>
     </div>
-    <!-- <div class="row">
-    <div class="col-12 content-start">
-        <ExerciseVideo :videoId="'23851ShinyOwl'"></ExerciseVideo>
-      </div>
-      </div> -->
   </div>
 </template>
 
@@ -32,21 +19,19 @@
 const childcounter = ref(null);
 const exercise = ref(null);
 
-let startTimer = ref(false);
-let duration = ref(60);
-const execTimer = (val) => {
-  startTimer.value = val;
-};
+//let startTimer = ref(false);
+//let duration = ref(60);
+// const execTimer = (val) => {
+//   startTimer.value = val;
+// };
 
 const restart = () => {
-  childcounter.value.resetCounter();
+  childcounter.value.resetTraining();
   //childcounter.value.resetCounter();
 };
 const stopTimer = () => {
-  exercise.value.stopTimer();
+  exercise.value.resetTraining();
 };
-// <ExerciseCounter></ExerciseCounter>
-// <ExerciseSetting></ExerciseSetting>
 </script>
 
 <style scoped>

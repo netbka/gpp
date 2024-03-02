@@ -14,7 +14,7 @@
             </span>
             {{ el.name }}
           </div>
-          <div class="col-3">
+          <div class="col-3 text-right">
             <baseDurationInput
               v-model="el.repeats"
               :label="'повторы'"
@@ -49,13 +49,13 @@
             v-for="el in el.exercise"
             :key="el.name"
           >
-            <div class="col-9">
+            <div class="col-9 col-sm-7">
               <span v-show="el.active">
                 <q-spinner-rings color="primary" size="1em" class="q-mr-sm" />
               </span>
               <span class="text-weight-thin font12">{{ el.name }} </span>
             </div>
-            <div class="col-2">
+            <div class="col-2 col-sm-4 text-right">
               <baseDurationInput
                 v-model="el.duration"
                 :label="'сек.'"
@@ -155,7 +155,8 @@ ul {
 }
 .dragArea {
   min-height: 50px;
-  outline: 1px dashed;
+  outline: 0.5px dashed;
+  outline-color: #46474b42;
 }
 .super-small.q-field--dense {
   .q-field__control-container,

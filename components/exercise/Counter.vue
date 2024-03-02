@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center q-ml-sm">
     <q-knob
       show-value
       font-size="48px"
@@ -50,16 +50,20 @@ let resetCounter = () => {
   timer.value = 100;
   grpIndex.value = 0;
   exrIndex.value = 0;
+  //counterDuration.value = 0;
 };
-defineExpose({
-  resetCounter,
-});
+
 const resetTraining = () => {
   store.resetActive();
   resetCounter();
   emits("stopTimer");
   store.getInitialActiveGroup();
 };
+
+defineExpose({
+  resetTraining,
+});
+
 const showExerciseName = () => {
   const index = store.getActiveExcerciseIndex();
   try {
@@ -118,7 +122,7 @@ const startTimer = () => {
 };
 
 const isStarted = computed(() => {
-  return props.isStarted;
+  return store.isStarted;
 });
 const stopTimer = function () {
   clearInterval(intervalId);

@@ -169,6 +169,14 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
         });
       });
     },
+    setDuration(val: number) {
+      this.defaultItem.forEach((parent) => {
+        //parent.duration = val;
+        parent.exercise.forEach((child) => {
+          child.duration = val;
+        });
+      });
+    },
     // getNextExercise() {
     //   var grpIndex = this.defaultItem.findIndex((item) => item["id"] === this.activeGroup.id);
     //   var exerciseIndex = this.defaultItem[grpIndex].exercise.findIndex((item) => item["id"] === this.activeGroup.exercise[0].id);

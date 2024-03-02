@@ -38,7 +38,7 @@ const props = defineProps({
   },
 });
 const { selectedIds } = props;
-console.log(selectedIds);
+
 import { useSportTypeStore } from "~/stores/sporttype";
 const store = useSportTypeStore();
 store.fetchAll();

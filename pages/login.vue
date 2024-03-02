@@ -70,14 +70,14 @@ const loginGithub = async () => {
   if (process.env.NODE_ENV === "development") {
     baseUrl = "http://localhost:3000";
   } else {
-    baseUrl = "https://drnow.netlify.app/";
+    baseUrl = "https://ofp.netlify.app/";
   }
   //console.log(redirectTo);
   //const host = `${window.location.origin}`;
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      redirectTo: baseUrl + "/profile",
+      redirectTo: baseUrl + "/exercise",
     },
   });
   if (error) {
@@ -103,7 +103,7 @@ const loginGoogle = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: host + "/profile",
+      redirectTo: host + "/exercise",
 
       queryParams: {
         access_type: "offline",
@@ -121,7 +121,7 @@ const loginFacebook = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: host + "/profile",
+      redirectTo: host + "/exercise",
     },
   });
   if (error) {

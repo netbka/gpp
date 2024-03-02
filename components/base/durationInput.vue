@@ -25,7 +25,7 @@
       </q-input>
     </span>
     <span v-show="!visibleEdit">
-      <q-chip square size="sm" color="">
+      <q-chip square size="sm" color="" class="">
         <q-avatar
           icon="edit"
           color="accent"
