@@ -40,7 +40,7 @@ export default defineNuxtConfig({
     plugins: ["Notify"],
     extras: {
       font: "roboto-font",
-      //fontIcons: ["fontawesome-v6"],
+      fontIcons: ["fontawesome-v6"],
     },
     sassVariables: "~/assets/styles/quasar.sass",
 
