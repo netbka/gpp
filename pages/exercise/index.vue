@@ -2,7 +2,7 @@
   <div class="back_main">
     <div class="row window-height-100 justify-evenly">
       <div class="col-6 q-pa-md">
-        <ExerciseVideo :videoId="'321'"></ExerciseVideo>
+        <!-- <ExerciseVideo :videoId="'321'"></ExerciseVideo> -->
         <ClientOnly>
           <ExerciseCounter
             :isStarted="startTimer"
