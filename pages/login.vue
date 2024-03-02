@@ -122,21 +122,22 @@ const loginGoogle = async () => {
   }
 };
 const loginFacebook = async () => {
-  let baseUrl;
-  if (process.env.NODE_ENV === "development") {
-    baseUrl = "http://localhost:3000";
-  } else {
-    baseUrl = "https://myofp.netlify.app/";
-  }
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "facebook",
-    options: {
-      redirectTo: baseUrl + "/exercise",
-    },
-  });
-  if (error) {
-    console.log(error);
-  }
+  console.log(process.env.NODE_ENV);
+  // let baseUrl;
+  // if (process.env.NODE_ENV === "development") {
+  //   baseUrl = "http://localhost:3000";
+  // } else {
+  //   baseUrl = "https://myofp.netlify.app/";
+  // }
+  // const { error } = await supabase.auth.signInWithOAuth({
+  //   provider: "facebook",
+  //   options: {
+  //     redirectTo: baseUrl + "/exercise",
+  //   },
+  // });
+  // if (error) {
+  //   console.log(error);
+  // }
 };
 const username = ref("");
 const password = ref("");
