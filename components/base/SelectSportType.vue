@@ -39,7 +39,7 @@ const props = defineProps({
 });
 const { selectedIds } = props;
 
-import { useSportTypeStore } from "~/stores/sporttype";
+import { useSportTypeStore } from "~/stores/sportType";
 const store = useSportTypeStore();
 store.fetchAll();
 onMounted(async () => {
