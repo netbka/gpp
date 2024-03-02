@@ -99,11 +99,16 @@ const loginGithub = async () => {
 const loginGoogle = async () => {
   //const redirectTo = `${window.location.origin}${query.redirectTo}`;
   //console.log(redirectTo);
-  const host = `${window.location.origin}`;
+  let baseUrl;
+  if (process.env.NODE_ENV === "development") {
+    baseUrl = "http://localhost:3000";
+  } else {
+    baseUrl = "https://ofp.netlify.app/";
+  }
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: host + "/exercise",
+      redirectTo: baseUrl + "/exercise",
 
       queryParams: {
         access_type: "offline",
@@ -117,11 +122,16 @@ const loginGoogle = async () => {
   }
 };
 const loginFacebook = async () => {
-  const host = `${window.location.origin}`;
+  let baseUrl;
+  if (process.env.NODE_ENV === "development") {
+    baseUrl = "http://localhost:3000";
+  } else {
+    baseUrl = "https://ofp.netlify.app/";
+  }
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: host + "/exercise",
+      redirectTo: baseUrl + "/exercise",
     },
   });
   if (error) {
