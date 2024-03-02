@@ -70,7 +70,7 @@ const loginGithub = async () => {
   if (process.env.NODE_ENV === "development") {
     baseUrl = "http://localhost:3000";
   } else {
-    baseUrl = "https://ofp.netlify.app/";
+    baseUrl = "https://myofp.netlify.app/";
   }
   //console.log(redirectTo);
   //const host = `${window.location.origin}`;
@@ -99,11 +99,11 @@ const loginGithub = async () => {
 const loginGoogle = async () => {
   //const redirectTo = `${window.location.origin}${query.redirectTo}`;
   //console.log(redirectTo);
-  let baseUrl;
+  let baseUrl = "https://myofp.netlify.app/";
   if (process.env.NODE_ENV === "development") {
     baseUrl = "http://localhost:3000";
   } else {
-    baseUrl = "https://ofp.netlify.app/";
+    baseUrl = "https://myofp.netlify.app/";
   }
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -126,7 +126,7 @@ const loginFacebook = async () => {
   if (process.env.NODE_ENV === "development") {
     baseUrl = "http://localhost:3000";
   } else {
-    baseUrl = "https://ofp.netlify.app/";
+    baseUrl = "https://myofp.netlify.app/";
   }
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
