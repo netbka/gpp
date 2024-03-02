@@ -5,7 +5,7 @@
       font-size="48px"
       class="q-ma-md"
       v-model="timer"
-      size="400px"
+      size="300px"
       :thickness="0.05"
       color="primary"
       track-color="grey-2"
@@ -18,7 +18,7 @@
     {{ store.activeGroup.name }}
 
     <br />
-    {{ store.getActiveExcerciseIndex() }}
+    {{ showExerciseName() }}
   </div>
 </template>
 
@@ -58,8 +58,16 @@ const resetTraining = () => {
   store.resetActive();
   resetCounter();
   emits("stopTimer");
+  store.getInitialActiveGroup();
 };
-
+const showExerciseName = () => {
+  const index = store.getActiveExcerciseIndex();
+  try {
+    return index > 0
+      ? store.activeGroup.exercise[index].name
+      : store.activeGroup.exercise[0].name;
+  } catch (error) {}
+};
 const startTimer = () => {
   if (store.calculateDuration() === 0) return; // no exercises available
   if (grpIndex.value + 1 > store.defaultItem.length && this.activeGroup.repeats === 0) {
@@ -80,7 +88,7 @@ const startTimer = () => {
       }
       if (store.activeGroup.repeats === 0) {
         grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
-        if (grpIndex < 0) {
+        if (grpIndex.value < 0) {
           resetTraining();
           return;
         }

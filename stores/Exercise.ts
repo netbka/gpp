@@ -11,6 +11,7 @@ interface ExcerciseStoreState {
 
 export const useExcerciseStore = defineStore("ExcerciseStore", {
   state: (): ExcerciseStoreState => ({
+    isStarted: false,
     activeGroup: {},
     //activeExercise: null,
     items: [],
@@ -36,7 +37,7 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
           },
         ],
         //rest: 30,
-        repeats: 2,
+        repeats: 1,
         active: false,
       },
       {
@@ -47,19 +48,19 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
             id: "2-1",
             name: "Отжимание",
             description: "Описание отжимания",
-            duration: 70,
+            duration: 1,
             active: false,
           },
           {
             id: "2-2",
             name: "Приседания",
             description: "Описание приседания",
-            duration: 60,
+            duration: 1,
             active: false,
           },
         ],
         //rest: 30,
-        repeats: 2,
+        repeats: 1,
         active: false,
       },
       {
@@ -70,14 +71,14 @@ export const useExcerciseStore = defineStore("ExcerciseStore", {
             id: "3-1",
             name: "Разножка",
             description: "Описание бега на месте",
-            duration: 60,
+            duration: 1,
             active: false,
           },
           {
             id: "3-2",
             name: "Прыжки на месте",
             description: "Описание прыжки на стопе",
-            duration: 60,
+            duration: 1,
             active: false,
           },
         ],

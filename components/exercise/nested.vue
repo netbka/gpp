@@ -6,16 +6,20 @@
       :list="data"
       :group="{ name: 'parent', pull: 'clone', put: false }"
     >
-      <div v-for="el in data" :key="el.name" class="bg-grey-11 q-my-xs q-pb-xs">
+      <div v-for="el in data" :key="el.name" class="bgcolor q-my-xs q-pb-xs">
         <div class="bg-blue-3 q-pa-sm q-mb-sm shadow-2 row cursor-pointer">
-          <div class="col-9 text-weight-bold text-uppercase self-center">
+          <div class="col-8 text-weight-bold text-uppercase self-center">
             <span v-show="el.active">
               <q-spinner-grid color="primary" size="1em" class="q-mr-sm" />
             </span>
             {{ el.name }}
           </div>
-          <div class="col-2">
-            <q-input
+          <div class="col-3">
+            <baseDurationInput
+              v-model="el.repeats"
+              :label="'повторы'"
+            ></baseDurationInput>
+            <!-- <q-input
               bg-color="white"
               dense
               v-model="el.repeats"
@@ -27,7 +31,7 @@
               class="super-small float-right"
               type="number"
               label="повторы"
-            />
+            /> -->
           </div>
           <div class="col-1 self-center">
             <q-icon flat round dense name="drag_handle" class="float-right" />
@@ -41,7 +45,7 @@
           :group="{ name: 'exercise' }"
         >
           <div
-            class="row q-pa-sm shadow-1 q-mx-md q-my-sm bg-blue-grey-2"
+            class="row q-pa-sm shadow-1 q-mx-md q-my-sm bg-blue-grey-1"
             v-for="el in el.exercise"
             :key="el.name"
           >
@@ -52,7 +56,11 @@
               <span class="text-weight-thin font12">{{ el.name }} </span>
             </div>
             <div class="col-2">
-              <q-input
+              <baseDurationInput
+                v-model="el.duration"
+                :label="'сек.'"
+              ></baseDurationInput>
+              <!-- <q-input
                 color="blue-grey-14"
                 bg-color="white"
                 dense
@@ -65,7 +73,7 @@
                 class="super-small float-right"
                 type="number"
                 label="сек."
-              />
+              /> -->
             </div>
             <div class="col-1 self-center">
               <q-icon flat round dense name="drag_handle" class="float-right" />
@@ -167,5 +175,8 @@ ul {
   .q-field__label {
     top: 1px !important;
   }
+}
+.bgcolor {
+  background-color: #10a4de0f;
 }
 </style>

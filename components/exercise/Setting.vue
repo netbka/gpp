@@ -88,6 +88,7 @@ let startBtn = reactive({
 
 let stopTimer = () => {
   start.value = false;
+  emits("start", false);
 };
 
 defineExpose({

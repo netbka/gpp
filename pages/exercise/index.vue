@@ -1,7 +1,8 @@
 <template>
   <div class="back_main">
     <div class="row window-height-100 justify-evenly">
-      <div class="col-6 q-pa-md self-center">
+      <div class="col-6 q-pa-md">
+        <ExerciseVideo :videoId="'321'"></ExerciseVideo>
         <ClientOnly>
           <ExerciseCounter
             :isStarted="startTimer"
@@ -19,6 +20,11 @@
         ></ExerciseSetting>
       </div>
     </div>
+    <!-- <div class="row">
+    <div class="col-12 content-start">
+        <ExerciseVideo :videoId="'23851ShinyOwl'"></ExerciseVideo>
+      </div>
+      </div> -->
   </div>
 </template>
 
