@@ -117,7 +117,7 @@ export default defineNuxtConfig({
     redirect: true,
     redirectOptions: {
       login: "/login",
-      callback: "/profile",
+      callback: "/exercise",
       exclude: ["/", "/public/*", "/exercise", "/exercise/*"],
     },
   },
