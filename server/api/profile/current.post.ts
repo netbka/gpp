@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
 
     body = omit(body, ["user_id", "id", "profilesSportType", "newItems"]);
     //console.log(body);
+
     const result = await prisma.profile.update({
       where: {
         user_id: user_id,
@@ -31,6 +32,11 @@ export default defineEventHandler(async (event) => {
     });
     return result;
   } catch (error) {
+    
+    // throw createError({
+    //   statusCode: 500,
+    //   statusMessage: "Something bad happened on the server",
+    // });
     console.log("error on submit", error);
   } finally {
     await prisma.$disconnect();

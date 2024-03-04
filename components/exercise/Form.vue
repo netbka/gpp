@@ -7,8 +7,8 @@
             bg-color="white"
             dense
             outlined
-            v-model="store.currentProfile.firstName"
-            label="Имя *"
+            v-model="store.currentItem.name"
+            label="Название упражнения *"
             :rules="[(val) => !!val || 'Нужно указать значение']"
             :disable="loading"
             :input-style="{ fontSize: '12px' }"
@@ -20,8 +20,8 @@
           <q-input
             dense
             outlined
-            v-model="store.currentProfile.lastName"
-            label="Фамилия"
+            v-model="store.currentItem.description"
+            label="Описание"
             :disable="loading"
             :input-style="{ fontSize: '12px' }"
           />
@@ -29,9 +29,23 @@
       </div>
       <div class="row q-my-md">
         <div class="col-12">
-          <BaseSelectSportType
-            :selectedIds="store.currentProfile.profilesSportType"
-          ></BaseSelectSportType>
+          <q-input
+            dense
+            outlined
+            v-model="store.currentItem.duration"
+            label="Прододжительность (сек.)"
+            :disable="loading"
+            :input-style="{ fontSize: '12px' }"
+            max="300"
+            min="10"
+            step="5"
+            type="number"
+          />
+        </div>
+      </div>
+      <div class="row q-my-md">
+        <div class="col-12">
+          <BaseSelectMuscle v-model="store.currentItem.muscle"></BaseSelectMuscle>
         </div>
       </div>
       <q-separator />
@@ -59,34 +73,21 @@
 </template>
 
 <script setup>
-// import { useQuasar } from "quasar";
-// const $q = useQuasar();
+import { useQuasar } from "quasar";
+const $q = useQuasar();
 
-import { useProfileStore } from "~/stores/profile";
-const store = useProfileStore();
-
-import { useSportTypeStore } from "~/stores/sportType";
-const storeSportType = useSportTypeStore();
+import { useExerciseStore } from "~/stores/exercise";
+const store = useExerciseStore();
 
 const loading = ref(false);
 onMounted(async () => {});
 
 const onSubmit = async () => {
   loading.value = true;
-  store.currentProfile.newItems = storeSportType.currentItem;
-  try {
-    await store.updateCurrentUser();
-
-    // if (error.value) {
-    //   console.log(error.value);
-    // }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    loading.value = false;
-  }
-
-  store.currentProfile.profilesSportType = storeSportType.currentItem;
+  // store.currentProfile.newItems = storeSportType.currentItem;
+  await store.updateCurrentItem();
+  // store.currentProfile.profilesSportType = storeSportType.currentItem;
+  loading.value = false;
 };
 
 const onReset = () => {

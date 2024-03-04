@@ -77,7 +77,7 @@ const loginGithub = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      redirectTo: baseUrl + "/exercise",
+      redirectTo: baseUrl + "/workout",
     },
   });
   if (error) {
@@ -108,7 +108,7 @@ const loginGoogle = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: baseUrl + "/exercise",
+      redirectTo: baseUrl + "/workout",
 
       queryParams: {
         access_type: "offline",
@@ -131,7 +131,7 @@ const loginFacebook = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: baseUrl + "/exercise",
+      redirectTo: baseUrl + "/workout",
     },
   });
   if (error) {

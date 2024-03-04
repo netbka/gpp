@@ -6,9 +6,9 @@
         dense
         :model-value="Number(modelValue)"
         style="width: 65px; padding: 0 !important"
-        max="300"
-        min="10"
-        step="5"
+        max="100"
+        min="1"
+        step="1"
         type="number"
         input-style="text-align: center; font-size:12px; margin-top: 2px !important; "
         class="super-small float-right"
@@ -28,7 +28,7 @@
       <q-chip square size="0.8em" color="" class="">
         <q-avatar
           icon="edit"
-          color="orange-13"
+          color="deep-orange-13"
           text-color="white"
           @click="visibleEdit = !visibleEdit"
         />

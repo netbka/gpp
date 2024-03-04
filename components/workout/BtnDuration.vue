@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useExcerciseStore } from "~/stores/exercise";
-const store = useExcerciseStore();
+import { useWorkoutStore } from "~/stores/workout";
+const store = useWorkoutStore();
 const setDuration = (val) => {
   store.setDuration(val);
 };

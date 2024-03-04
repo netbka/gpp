@@ -84,8 +84,8 @@
 
 <script lang="ts" setup>
 import exerciseSmall from "/exerciseSmall.png";
-import { useExcerciseStore } from "~/stores/exercise";
-const store = useExcerciseStore();
+import { useWorkoutStore } from "~/stores/workout";
+const store = useWorkoutStore();
 const duration = computed(() => store.calculateDuration());
 const setDuration = (val) => {
   store.setDuration(val);

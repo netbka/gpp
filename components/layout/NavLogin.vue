@@ -2,8 +2,9 @@
   <q-btn-dropdown v-if="user" stretch flat label="Профиль">
     <div class="row no-wrap q-pa-md">
       <div class="column">
-        <div class="text-h6 q-mb-md">Profile</div>
-        <NuxtLink to="/profile" class="btn btn-rounded">Edit</NuxtLink>
+        <div class="text-h6 q-mb-md">Профиль</div>
+        <NuxtLink to="/profile" class="btn btn-rounded">Редактировать</NuxtLink>
+        <NuxtLink to="/exercise" class="btn btn-rounded">Мои занятия</NuxtLink>
       </div>
 
       <q-separator vertical inset class="q-mx-lg" />
@@ -17,7 +18,7 @@
 
         <q-btn
           color="primary"
-          label="Logout"
+          label="Выход"
           push
           size="sm"
           v-close-popup

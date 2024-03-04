@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useExcerciseStore } from "~/stores/exercise";
-const store = useExcerciseStore();
+import { useWorkoutStore } from "~/stores/workout";
+const store = useWorkoutStore();
 
 const emits = defineEmits(["stopTimer"]);
 const props = defineProps({
@@ -57,6 +57,7 @@ const resetTraining = () => {
   store.resetActive();
   resetCounter();
   emits("stopTimer");
+  store.isStarted = false;
   store.getInitialActiveGroup();
 };
 

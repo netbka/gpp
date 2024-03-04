@@ -16,35 +16,96 @@ datasource db {
 model Profile {
     id Int @id @default(autoincrement())
 
-    firstName                      String?
-    lastName                       String?
-    nickname String?
-    birthDay                       DateTime?
-    
-    avatarPath                     String?
+    firstName String?
+    lastName  String?
+    nickname  String?
+    birthDay  DateTime?
+
+    avatarPath        String?
     // specialityId                   Int?
     // speciality                     MedicalSpeciality?     @relation(fields: [specialityId], references: [id])
-    createdAt                      DateTime               @default(now())
-    updatedAt                      DateTime               @updatedAt
-    user_id                        String                 @unique @db.Uuid
-    user_auth_info                 users                  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    profilesSportType           SportType[] @relation("ProfileSportType")
+    createdAt         DateTime    @default(now())
+    updatedAt         DateTime    @updatedAt
+    user_id           String      @unique @db.Uuid
+    user_auth_info    users       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    profilesSportType SportType[] @relation("ProfileSportType")
 
     @@schema("public")
 }
 
 model SportType {
-    id          Int                    @id @default(autoincrement())
+    id          Int       @id @default(autoincrement())
     name        String
     description String
-    createdAt   DateTime               @default(now())
-    updatedAt   DateTime               @updatedAt
-    profiles     Profile[]       @relation("ProfileSportType")
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    profiles    Profile[] @relation("ProfileSportType")
 
     @@schema("public")
 }
 
+model Training {
+    id          Int    @id @default(autoincrement())
+    name        String
+    description String
 
+    user_id        String          @db.Uuid
+    user_auth_info users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    excerciseGroup ExerciseGroup[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@schema("public")
+}
+
+model ExerciseGroup {
+    id          Int     @id @default(autoincrement())
+    name        String
+    description String
+    repeats     Int
+    active      Boolean
+    //exercise    Exercise[]
+
+    training   Training   @relation(fields: [trainingId], references: [id])
+    trainingId Int
+    exercise   Exercise[] @relation("ExerciseGroupExercise")
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+
+    @@schema("public")
+}
+
+model Exercise {
+    id             Int             @id @default(autoincrement())
+    name           String
+    description    String
+    duration       Int
+    active         Boolean
+    imageUrl       String
+    weight         Int?
+    exerciseGroup  ExerciseGroup[] @relation("ExerciseGroupExercise")
+    user_id        String          @db.Uuid
+    user_auth_info users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    createdAt      DateTime        @default(now())
+    updatedAt      DateTime        @updatedAt
+    muscleId       Int
+    muscle         Muscle          @relation(fields: [muscleId], references: [id])
+    public         Boolean
+
+    @@schema("public")
+}
+
+model Muscle {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    exercise  Exercise[]
+
+    @@schema("public")
+}
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -88,6 +149,8 @@ model users {
     mfa_factors                 mfa_factors[]
     sessions                    sessions[]
     Profile                     Profile?
+    Training                    Training[]
+    exercise                    Exercise[]
 
     @@index([instance_id])
     @@schema("auth")

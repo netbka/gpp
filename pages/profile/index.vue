@@ -1,7 +1,18 @@
 <template>
-  <div class="fit row wrap justify-center items-start content-start">
-    <div class="q-mt-md shadow-2">
-      <q-card class="profile-card" flat bordered>
+  <div
+    class="row justify-center items-start content-start q-mt-md shadow-2 q-pa-md q-mx-md"
+  >
+    <div class="col-12 col-sm">
+      <div class="text-h6">Давайте познакомимся</div>
+      <span class="text-caption">
+        Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
+      </span>
+    </div>
+    <div class="col-12 col-sm">
+      <ProfileForm></ProfileForm>
+    </div>
+
+    <!-- <q-card class="profile-card" flat bordered>
         <q-item>
           <q-item-section avatar>
             <ProfileAvatar></ProfileAvatar>
@@ -27,20 +38,14 @@
 
         <q-card-section horizontal>
           <q-card-section class="col-8">
-            <ProfileForm></ProfileForm>
+           
           </q-card-section>
 
           <q-separator vertical />
 
-          <q-card-section class="col-4">
-            <div class="text-h6">Давайте познакомимся</div>
-            <div class="text-caption">
-              Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
-            </div>
-          </q-card-section>
+          <q-card-section class="col-4"> </q-card-section>
         </q-card-section>
-      </q-card>
-    </div>
+      </q-card> -->
   </div>
 </template>
 

@@ -22,7 +22,7 @@ const redirect = async () => {
   await navigateTo({ path: "/" });
 };
 const redirectEx = async () => {
-  await navigateTo({ path: "/exercise" });
+  await navigateTo({ path: "/workout" });
 };
 </script>
 <style scoped>

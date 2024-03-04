@@ -33,10 +33,15 @@ export const useProfileStore = defineStore("ProfileStore", {
       if (data.value !== null) this.currentProfile = Object.assign({}, data.value);
     },
     async updateCurrentUser() {
-      const { data, pending, error, refresh } = await $fetch("/api/profile/current", {
-        method: "post",
-        body: { ...this.currentProfile },
-      });
+      try {
+        const response = await $fetch("/api/profile/current", {
+          method: "post",
+          body: { ...this.currentProfile },
+        });
+        console.log(response);
+      } catch (error) {
+        //console.log(error);
+      }
     },
   },
 });

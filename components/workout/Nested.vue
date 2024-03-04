@@ -8,17 +8,14 @@
     >
       <div v-for="el in data" :key="el.name" class="bgcolor q-my-xs q-pb-xs">
         <div class="bg-blue-3 q-pa-sm q-mb-sm shadow-2 row cursor-pointer">
-          <div class="col-8 text-weight-bold text-uppercase self-center">
+          <div class="col-6 text-weight-bold text-uppercase self-center">
             <span v-show="el.active">
-              <q-spinner-grid color="primary" size="1em" class="q-mr-sm" />
+              <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
             </span>
             {{ el.name }}
           </div>
-          <div class="col-3 text-right">
-            <baseDurationInput
-              v-model="el.repeats"
-              :label="'повторы'"
-            ></baseDurationInput>
+          <div class="col-5 text-right">
+            <baseRepeatInput v-model="el.repeats" :label="'повторы'"></baseRepeatInput>
             <!-- <q-input
               bg-color="white"
               dense
@@ -49,13 +46,13 @@
             v-for="el in el.exercise"
             :key="el.name"
           >
-            <div class="col-9 col-sm-7">
+            <div class="col-6 col-sm-7">
               <span v-show="el.active">
-                <q-spinner-rings color="primary" size="1em" class="q-mr-sm" />
+                <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
               </span>
               <span class="text-weight-thin font12">{{ el.name }} </span>
             </div>
-            <div class="col-2 col-sm-4 text-right">
+            <div class="col-5 col-sm-4 text-right">
               <baseDurationInput
                 v-model="el.duration"
                 :label="'сек.'"
