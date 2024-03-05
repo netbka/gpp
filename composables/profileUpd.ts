@@ -37,6 +37,26 @@ export const updateUserAvatar = async (fileToUpload: File, filename: string) => 
   return filename;
 };
 
+export const getExerciseImage = async (fileName: string) => {
+  const supabase = useSupabaseClient();
+  console.log(fileName);
+  const { data, error } = await supabase.storage.from("exercises").getPublicUrl(fileName);
+  //if (error) return "https://eu.ui-avatars.com/api/?name=" + firstName + "+" + lastName + "&size=48";
+  //console.log(data);
+  if (error) throw nodataError;
+  return data.publicUrl;
+};
+
+export const updateExcerciseImage = async (fileToUpload: File, filename: string) => {
+  const supabase = useSupabaseClient();
+  let { error: uploadError } = await supabase.storage.from("exercises").upload(filename, fileToUpload, {
+    upsert: true,
+  });
+  if (uploadError) throw uploadError;
+
+  return filename;
+};
+
 export const genericAvatar = async (name: string, filename: string) => {
   const response = await fetch("https://eu.ui-avatars.com/api/?name=" + name + "&size=48");
   const blob = await response.blob();

@@ -4,7 +4,9 @@
       <ExerciseForm></ExerciseForm>
     </div>
     <div class="col-6">
-      <ExerciseList></ExerciseList>
+      <ClientOnly>
+        <ExerciseList></ExerciseList>
+      </ClientOnly>
     </div>
   </div>
 </template>
@@ -12,9 +14,6 @@
 <script lang="ts" setup>
 import { useExerciseStore } from "~/stores/exercise";
 const store = useExerciseStore();
-onMounted(async () => {
-  await store.fetchAll();
-});
 </script>
 
 <style></style>

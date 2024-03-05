@@ -48,6 +48,12 @@
           <BaseSelectMuscle v-model="store.currentItem.muscle"></BaseSelectMuscle>
         </div>
       </div>
+      <div class="row q-my-md">
+        <div class="col-12">
+          <BaseUpload @updateImge="imageUpdate" ref="uploader"></BaseUpload>
+        </div>
+      </div>
+
       <q-separator />
       <div class="row q-pt-md">
         <div class="col-12 text-right">
@@ -66,6 +72,18 @@
               Сохраняю...
             </template>
           </q-btn>
+          <q-btn
+            v-show="store.currentItem.id && store.currentItem.id > 0"
+            label="Новое"
+            size="sm"
+            color="accent"
+            outline
+            :loading="loading"
+            class="width-150 q-ml-md"
+            :disable="loading"
+            @click="newItem"
+          >
+          </q-btn>
         </div>
       </div>
     </q-form>
@@ -78,18 +96,34 @@ const $q = useQuasar();
 
 import { useExerciseStore } from "~/stores/exercise";
 const store = useExerciseStore();
-
+const uploader = ref(null);
 const loading = ref(false);
 onMounted(async () => {});
+const imageToUpload = ref(null);
+const imageUpdate = (img) => {
+  imageToUpload.value = img;
+};
 
 const onSubmit = async () => {
   loading.value = true;
-  // store.currentProfile.newItems = storeSportType.currentItem;
+  //todo fix so can upload also with new exercise
+  //todo fix so only premium users can upload
+  //todo fix to apply real image extension and not only "gif"
+  if (imageToUpload.value != null) {
+    store.currentItem.imageUrl = store.currentItem.id + ".gif";
+  }
   await store.updateCurrentItem();
+  console.log(imageToUpload.value);
+  if (imageToUpload.value != null)
+    updateExcerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
+
   // store.currentProfile.profilesSportType = storeSportType.currentItem;
   loading.value = false;
 };
-
+const newItem = () => {
+  store.resetCurrentItem();
+  uploader.value.reset();
+};
 const onReset = () => {
   console.log("Reset");
 };

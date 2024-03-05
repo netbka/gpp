@@ -22,7 +22,7 @@
 <script setup>
 import background from "/sportivnyye-logotipy.png";
 const redirect = async () => {
-  await navigateTo({ path: "/exercise" });
+  await navigateTo({ path: "/workout" });
 };
 </script>
 

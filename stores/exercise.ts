@@ -19,6 +19,9 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
     getItemArray: (state) => {
       return state.itemArray;
     },
+    getIimgUrl: (state) => {
+      return state.currentItem.imageUrl;
+    },
   },
   actions: {
     resetCurrentItem() {
@@ -40,7 +43,15 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
 
       updateArray(response, this.itemArray);
 
-      console.log(response);
+      //console.log(response);
+    },
+    getGroupedArray() {
+      return this.itemArray.reduce((groups, item) => {
+        const group = groups[item.muscle.name] || [];
+        group.push(item);
+        groups[item.muscle.name] = group;
+        return groups;
+      }, {});
     },
   },
 });
