@@ -12,5 +12,6 @@ export default defineEventHandler(async (event) => {
     //   profilesMedicalSubSpecialities: true,
     // },
   });
+  prisma.$disconnect();
   return result;
 });

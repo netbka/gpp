@@ -37,7 +37,7 @@
                   dense
                   round
                   icon="delete"
-                  @click="remove(exercise.id)"
+                  @click="confirmDelete(exercise.id)"
                 />
               </div>
             </q-item-section>
@@ -45,21 +45,27 @@
         </div>
       </div>
     </q-list>
+    <BaseYesNoDialog ref="dialog" @ok="remove"></BaseYesNoDialog>
   </div>
 </template>
 
 <script lang="ts" setup>
+const dialog = ref(null);
 import { useExerciseStore } from "~/stores/exercise";
 const store = useExerciseStore();
 let groupedData = computed(() => store.getGroupedArray());
-onBeforeMount(async () => {
-  await store.fetchAll();
-});
 
+await store.fetchAll();
+const confirmDelete = (id) => {
+  dialog.value.show(id);
+};
 const edit = (val) => {
   store.currentItem = val;
 };
-const remove = (id) => {};
+
+const remove = (id) => {
+  store.deleteItem(id);
+};
 </script>
 
 <style></style>

@@ -4,9 +4,7 @@
       <ExerciseForm></ExerciseForm>
     </div>
     <div class="col-6">
-      <ClientOnly>
-        <ExerciseList></ExerciseList>
-      </ClientOnly>
+      <ExerciseList></ExerciseList>
     </div>
   </div>
 </template>

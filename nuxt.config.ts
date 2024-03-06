@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   //   ],
   // },
   plugins: [
-    "~/plugins/prisma-client.ts",
+    //"~/plugins/prisma-client.ts",
     "~/plugins/fetch.ts",
 
     // ... other plugins
@@ -117,8 +117,8 @@ export default defineNuxtConfig({
     redirect: true,
     redirectOptions: {
       login: "/login",
-      callback: "/exercise",
-      exclude: ["/", "/public/*", "/exercise", "/exercise/*, /workout/*, /workout/"],
+      callback: "/workout",
+      exclude: ["/", "/public/*", "/workout/*", "/workout"],
     },
   },
 });

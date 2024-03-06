@@ -25,6 +25,14 @@ export default defineNuxtPlugin((nuxtApp) => {
           timeout: 500,
         });
       }
+      if (options.method === "DELETE") {
+        $q.notify({
+          type: "positive",
+          caption: "Все ок",
+          message: "Удалил",
+          timeout: 500,
+        });
+      }
     },
   });
 });

@@ -108,7 +108,7 @@ const loginGoogle = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: baseUrl + "/workout",
+      //redirectTo: baseUrl + "/profile",
 
       queryParams: {
         access_type: "offline",

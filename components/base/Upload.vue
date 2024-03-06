@@ -4,7 +4,7 @@
       clearable
       filled
       v-model="image"
-      label="Label"
+      label="Пример упражнения. Картинка."
       accept=".jpg, .jpeg, .gif, .png"
       max-total-size="1000000"
       @update:model-value="previewMultiImage"
@@ -17,7 +17,6 @@
     <div v-if="preview">
       <img :src="preview" class="img-fluid" />
     </div>
-    {{ imageUrl }}
   </div>
 </template>
 
@@ -55,12 +54,17 @@ defineExpose({
   //setExistingPreview,
 });
 
-const imageUrl = computed(() => store.currentItem.imageUrl);
+//const imageUrl = computed(() => store.currentItem.imageUrl);
 
 watch(
-  () => store.getIimgUrl,
-  (newVal) => {
-    if (newVal.length > 4) setExistingPreview(newVal);
+  () => store.getCurrentItemId,
+  (newVal, oldVal) => {
+    if (newVal.length > 4) {
+      //todo fix to get the suffix
+      setExistingPreview(newVal + ".gif");
+    } else {
+      reset();
+    }
   }
 );
 

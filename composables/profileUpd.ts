@@ -20,11 +20,15 @@ export const urlToFile = async (url: string | URL, filename: string) => {
 
 export const getProfile = async (fileName: string) => {
   const supabase = useSupabaseClient();
-  const { data, error } = await supabase.storage.from("avatars").getPublicUrl(fileName);
+  try {
+    const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
+    return data.publicUrl;
+  } catch (error) {
+    return null;
+  }
   //if (error) return "https://eu.ui-avatars.com/api/?name=" + firstName + "+" + lastName + "&size=48";
   //console.log(data);
-  if (error) throw nodataError;
-  return data.publicUrl;
+  //if (error) throw nodataError;
 };
 
 export const updateUserAvatar = async (fileToUpload: File, filename: string) => {
@@ -37,14 +41,23 @@ export const updateUserAvatar = async (fileToUpload: File, filename: string) => 
   return filename;
 };
 
-export const getExerciseImage = async (fileName: string) => {
+export const getExerciseImage = (fileName: string) => {
   const supabase = useSupabaseClient();
   console.log(fileName);
-  const { data, error } = await supabase.storage.from("exercises").getPublicUrl(fileName);
-  //if (error) return "https://eu.ui-avatars.com/api/?name=" + firstName + "+" + lastName + "&size=48";
-  //console.log(data);
-  if (error) throw nodataError;
-  return data.publicUrl;
+  try {
+    const { data } = supabase.storage.from("exercises").getPublicUrl(fileName);
+    return data.publicUrl;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+
+  // //if (error) return "https://eu.ui-avatars.com/api/?name=" + firstName + "+" + lastName + "&size=48";
+  // //console.log(data);
+  // if (error) {
+  //   console.log(error);
+  // }
+  // return data.publicUrl;
 };
 
 export const updateExcerciseImage = async (fileToUpload: File, filename: string) => {

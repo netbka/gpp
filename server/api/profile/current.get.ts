@@ -30,6 +30,6 @@ export default defineEventHandler(async (event) => {
       data: model,
     });
   }
-
+prisma.$disconnect();
   return result;
 });

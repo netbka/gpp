@@ -32,7 +32,7 @@
           <q-input
             dense
             outlined
-            v-model="store.currentItem.duration"
+            v-model.number="store.currentItem.duration"
             label="Прододжительность (сек.)"
             :disable="loading"
             :input-style="{ fontSize: '12px' }"
@@ -43,9 +43,14 @@
           />
         </div>
       </div>
-      <div class="row q-my-md">
+      <div class="row q-mt-md">
         <div class="col-12">
           <BaseSelectMuscle v-model="store.currentItem.muscle"></BaseSelectMuscle>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
         </div>
       </div>
       <div class="row q-my-md">
@@ -91,8 +96,7 @@
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
-const $q = useQuasar();
+// todo restric public for admin only
 
 import { useExerciseStore } from "~/stores/exercise";
 const store = useExerciseStore();
@@ -109,17 +113,23 @@ const onSubmit = async () => {
   //todo fix so can upload also with new exercise
   //todo fix so only premium users can upload
   //todo fix to apply real image extension and not only "gif"
+
   if (imageToUpload.value != null) {
-    store.currentItem.imageUrl = store.currentItem.id + ".gif";
+    //todo fix to get actual suffix (also fix in Upload component!)
+    store.currentItem.imageUrl = ".gif";
   }
   await store.updateCurrentItem();
-  console.log(imageToUpload.value);
-  if (imageToUpload.value != null)
+
+  //  console.log(imageToUpload.value);
+  if (imageToUpload.value != null) {
+    //  console.log(store.currentItem.id);
     updateExcerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
+  }
 
   // store.currentProfile.profilesSportType = storeSportType.currentItem;
   loading.value = false;
 };
+
 const newItem = () => {
   store.resetCurrentItem();
   uploader.value.reset();

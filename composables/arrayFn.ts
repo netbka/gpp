@@ -26,10 +26,9 @@ export const updateArray = (val: Object, arr: Array) => {
     arr.push(val);
   }
 };
-// removeItemFromArr(val) {
-//   var index = this.defaultArr.findIndex((el) => el.Id === val);
-//   if (index > -1) {
-//     this.defaultArr.splice(index, 1);
-//   }
-//   this.resetDefaultItem();
-// },
+export const removeItemFromArr = (val: number, arr: Array) => {
+  var index = arr.findIndex((el) => el.id === val);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+};
