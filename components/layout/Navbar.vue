@@ -8,9 +8,10 @@
         <span class="text-weight-thin logo-text">Просто ОФП</span>
       </q-toolbar-title>
 
-      <q-separator dark vertical />
-      <q-btn stretch flat label="Тренировки" @click="redirectEx" />
-      <q-separator dark vertical />
+      <q-separator dark vertical class="gt-xs" />
+      <q-btn stretch flat label="Мои планы" @click="redirectPlan" class="gt-xs" />
+      <q-btn stretch flat label="Тренировки" @click="redirectEx" class="gt-xs" />
+      <q-separator dark vertical class="gt-xs" />
       <LayoutNavLogin></LayoutNavLogin>
     </q-toolbar>
   </q-header>
@@ -23,6 +24,10 @@ const redirect = async () => {
 };
 const redirectEx = async () => {
   await navigateTo({ path: "/workout" });
+};
+
+const redirectPlan = async () => {
+  await navigateTo({ path: "/plan" });
 };
 </script>
 <style scoped>

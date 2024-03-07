@@ -1,5 +1,5 @@
 <template>
-  <q-btn-dropdown v-if="user" stretch flat label="Профиль">
+  <q-btn-dropdown v-if="user" stretch flat icon="account_circle">
     <div class="row no-wrap q-pa-md">
       <div class="column">
         <div class="text-h6 q-mb-md">Профиль</div>

@@ -17,6 +17,7 @@
 </template>
 <script setup>
 const customstyle = (offset, additionalStyles = {}) => {
+  return {};
   const baseStyles = {
     minHeight: offset ? `calc(100vh - ${offset}px)` : "100vh",
   };

@@ -43,7 +43,7 @@ export const updateUserAvatar = async (fileToUpload: File, filename: string) => 
 
 export const getExerciseImage = (fileName: string) => {
   const supabase = useSupabaseClient();
-  console.log(fileName);
+  //console.log(fileName);
   try {
     const { data } = supabase.storage.from("exercises").getPublicUrl(fileName);
     return data.publicUrl;

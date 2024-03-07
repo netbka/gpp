@@ -24,7 +24,7 @@ const props = defineProps({
 </script>
 <style>
 .sizing {
-  min-width: 600px;
+  min-width: 400px;
   min-height: 600px;
 }
 </style>

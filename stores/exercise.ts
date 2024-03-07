@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { Value } from "sass";
 import { type Exercise, type ExerciseGroup } from "~/types/types";
 interface ExcerciseStoreState {
   defaultItem: Exercise;
@@ -15,6 +14,7 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
     defaultItem: { id: 0, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
     currentItem: { id: 0, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
     itemArray: [],
+    loading: false,
   }),
   getters: {
     getItemArray: (state) => {

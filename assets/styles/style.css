@@ -67,3 +67,6 @@
   border-bottom: 1px dotted grey !important;
   cursor: text !important;
 }
+.q-dialog__inner--minimized {
+  padding: 2px !important;
+}
