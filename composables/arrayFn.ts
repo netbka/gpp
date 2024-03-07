@@ -32,3 +32,11 @@ export const removeItemFromArr = (val: number, arr: Array) => {
     arr.splice(index, 1);
   }
 };
+export const getById = (val: number, arr: Array) => {
+  var index = arr.findIndex((el) => el.id === val);
+  if (index > -1) {
+    return arr[index];
+  } else {
+    return null;
+  }
+};

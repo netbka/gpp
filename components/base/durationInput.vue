@@ -32,7 +32,7 @@
           text-color="white"
           @click="visibleEdit = !visibleEdit"
         />
-        {{ props.label }} {{ modelValue }}
+        {{ modelValue }} {{ props.label }}
       </q-chip>
     </span>
   </div>

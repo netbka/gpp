@@ -9,7 +9,7 @@
       </q-toolbar-title>
 
       <q-separator dark vertical />
-      <q-btn stretch flat label="Занятия" @click="redirectEx" />
+      <q-btn stretch flat label="Тренировки" @click="redirectEx" />
       <q-separator dark vertical />
       <LayoutNavLogin></LayoutNavLogin>
     </q-toolbar>

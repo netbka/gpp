@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { Value } from "sass";
 import { type Exercise, type ExerciseGroup } from "~/types/types";
 interface ExcerciseStoreState {
   defaultItem: Exercise;
@@ -51,6 +52,21 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
         console.log(error);
       }
     },
+
+    async updateItemField(field: String, val, id: number) {
+      try {
+        const item = getById(id, this.itemArray);
+        if (item === null) return;
+        item[field] = val;
+        const response = await $fetch("/api/exercise/field", {
+          method: "post",
+          body: { ...item, field },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async deleteItem(id) {
       const response = await $fetch("/api/exercise/delete", {
         method: "delete",

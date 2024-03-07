@@ -59,7 +59,7 @@ defineExpose({
 watch(
   () => store.getCurrentItemId,
   (newVal, oldVal) => {
-    if (newVal.length > 4) {
+    if (newVal && newVal > 0) {
       //todo fix to get the suffix
       setExistingPreview(newVal + ".gif");
     } else {
