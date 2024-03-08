@@ -9,7 +9,7 @@
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
-      <q-btn stretch flat label="Мои планы" @click="redirectPlan" class="gt-xs" />
+      <q-btn stretch flat label="Мои планы" @click="redirectTraining" class="gt-xs" />
       <q-btn stretch flat label="Тренировки" @click="redirectEx" class="gt-xs" />
       <q-separator dark vertical class="gt-xs" />
       <LayoutNavLogin></LayoutNavLogin>
@@ -26,8 +26,8 @@ const redirectEx = async () => {
   await navigateTo({ path: "/workout" });
 };
 
-const redirectPlan = async () => {
-  await navigateTo({ path: "/plan" });
+const redirectTraining = async () => {
+  await navigateTo({ path: "/training" });
 };
 </script>
 <style scoped>

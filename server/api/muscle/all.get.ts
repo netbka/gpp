@@ -5,6 +5,7 @@ export default defineEventHandler(async (event) => {
   // const {
   //   user: { email: userEmail },
   // } = event.context;
-prisma.$disconnect();
-  return await prisma.muscle.findMany({});
+  const result = await prisma.muscle.findMany({});
+  prisma.$disconnect();
+  return result;
 });

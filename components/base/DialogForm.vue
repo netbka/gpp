@@ -4,10 +4,10 @@
     :full-height="propFullHeight"
     v-on:keyup.esc="hide()"
     ref="dialog"
-    class="no-padding form-size row"
+    class="no-padding row"
     :position="position"
   >
-    <div class="row full-width">
+    <div class="row">
       <q-form
         @reset="onReset"
         @keyup.ctrl.enter="onSubmit"
@@ -27,6 +27,13 @@
           </q-card-section>
           <q-separator />
           <q-card-actions align="right" class="bg-white text-teal q-pr-sm">
+            <BaseBtnSubmitNew
+              :propSaveDisabled="props.propSaveDisabled"
+              :propLoading="props.propLoading"
+              :propDisabled="props.propDisabled"
+              :propNewVisible="props.propNewVisible"
+              @newItem="$emit('newItem')"
+            ></BaseBtnSubmitNew>
             <!-- <btn-save-and-reset
               :propLoading="propLoading"
               :propResetVisible="propResetVisible"
@@ -50,11 +57,13 @@ import { useQuasar } from "quasar";
 
 const $q = useQuasar();
 
-const position = $q.screen.gt.sm ? "standard" : "top";
+const position = computed(() => {
+  return $q.screen.gt.xs ? "standard" : "top";
+});
 
 const props = defineProps({
   propSaveDisabled: { type: Boolean, default: false },
-  propHeading: { type: String, default: "aaa" },
+  propHeading: { type: String, default: "" },
   propSubHeading: { type: String, default: "" },
   propFullWidth: { type: Boolean, default: false },
   propMinWidth: { type: Boolean, default: true },
@@ -87,9 +96,24 @@ defineExpose({
 .nooverflow {
   overflow: hidden;
 }
-
 .form-size {
-  min-width: 398px !important;
+  min-width: 300px !important;
   max-width: calc(100vw - 2px) !important;
+  width: 100vw;
+}
+@media (min-width: 600px) {
+  .form-size {
+    min-width: 300px !important;
+    max-width: calc(100vw - 2px) !important;
+    width: calc(100vw 4 / 5);
+  }
+}
+
+@media (min-width: 1000px) {
+  .form-size {
+    min-width: 300px !important;
+    max-width: calc(100vw - 2px) !important;
+    width: calc(100vw / 2);
+  }
 }
 </style>

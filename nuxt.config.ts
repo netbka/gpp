@@ -79,7 +79,7 @@ export default defineNuxtConfig({
     head: {
       title: "Я.ОФП - просто тренировки",
       charset: "utf-16",
-      viewport: "width=500, initial-scale=1",
+      viewport: "width=device-width, initial-scale=1",
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         // { rel: "preconnect", href: "https://fonts.googleapis.com" },

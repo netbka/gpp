@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 import { type Training } from "~/types/types";
-interface PlanStoreState {
+interface TrainingStoreState {
   defaultItem: Training;
   //items: Exercise[];
   currentItem: Training;
@@ -10,21 +10,22 @@ interface PlanStoreState {
   //activeExercise: Exercise | null;
 }
 
-export const usePlanStore = defineStore("PlanStore", {
-  state: (): PlanStoreState => ({
-    defaultItem: { id: 0, name: "", description: "" },
-    currentItem: { id: 0, name: "", description: "" },
+export const useTrainingStore = defineStore("TrainingStore", {
+  state: (): TrainingStoreState => ({
+    defaultItem: { id: 0, name: "", description: "", excerciseGroup: [] },
+    currentItem: { id: 0, name: "", description: "", excerciseGroup: [] },
     itemArray: [],
   }),
   getters: {
     getItemArray: (state) => {
       return state.itemArray;
     },
-    // getIimgUrl: (state) => {
-    //   return state.currentItem.imageUrl;
-    // },
+
     getCurrentItemId: (state) => {
       return state.currentItem.id;
+    },
+    getCurrentItem: (state) => {
+      return state.currentItem;
     },
   },
   actions: {
@@ -32,16 +33,30 @@ export const usePlanStore = defineStore("PlanStore", {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
     async fetchAll() {
-      const { data } = await useFetch("/api/plan/all", {
+      const { data } = await useFetch("/api/training/all", {
         method: "get",
       });
       //console.log(data.value);
       if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
       //console.log(this.itemArray);
     },
+    async getById(id: number) {
+      try {
+        const response = await $fetch("/api/training/" + id, {
+          method: "get",
+        });
+        if (response) {
+          updateArray(response, this.itemArray);
+          this.currentItem = response;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async updateCurrentItem() {
       try {
-        const response = await $fetch("/api/plan/update", {
+        const response = await $fetch("/api/training/update", {
           method: "post",
           body: { ...this.currentItem },
         });
@@ -58,7 +73,7 @@ export const usePlanStore = defineStore("PlanStore", {
         const item = getById(id, this.itemArray);
         if (item === null) return;
         item[field] = val;
-        const response = await $fetch("/api/plan/field", {
+        const response = await $fetch("/api/training/field", {
           method: "post",
           body: { ...item, field },
         });
@@ -68,13 +83,32 @@ export const usePlanStore = defineStore("PlanStore", {
     },
 
     async deleteItem(id) {
-      const response = await $fetch("/api/plan/delete", {
+      const response = await $fetch("/api/training/delete", {
         method: "delete",
         body: { id },
       });
       console.log(this.currentItem.id === id);
       if (this.currentItem.id === id) this.resetCurrentItem();
       removeItemFromArr(id, this.itemArray);
+    },
+    async addGroup() {
+      try {
+        this.currentItem.excerciseGroup.push({
+          id: 1,
+          name: "aaa",
+          trainingId: this.currentItem.id,
+        });
+        console.log(this.currentItem.excerciseGroup);
+        // const response = await $fetch("/api/training/update", {
+        //   method: "post",
+        //   body: { ...this.currentItem },
+        // });
+
+        // updateArray(response, this.itemArray);
+        // this.currentItem = response;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });

@@ -10,7 +10,7 @@
       narrow-indicator
     >
       <q-tab name="workout" label="Занятие" />
-      <q-tab name="plan" label="Планы" />
+      <q-tab name="training" label="Планы" />
       <q-tab name="start" label="Старт" />
     </q-tabs>
     <q-separator />
@@ -19,7 +19,7 @@
         <WorkoutSetting ref="workout"></WorkoutSetting>
       </q-tab-panel>
 
-      <q-tab-panel name="plan">
+      <q-tab-panel name="training">
         <div class="text-h6">Alarms</div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </q-tab-panel>
