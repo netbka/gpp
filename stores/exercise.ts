@@ -28,6 +28,11 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
     },
   },
   actions: {
+    newExercise() {
+      this.currentItem = Object.assign({}, this.defaultItem);
+      this.currentItem.name = "Новое упражннеие";
+      return this.currentItem;
+    },
     resetCurrentItem() {
       this.currentItem = Object.assign({}, this.defaultItem);
     },

@@ -11,13 +11,18 @@
 <script lang="ts" setup>
 const store = trainingStore();
 const item = computed(() => store.getCurrentItem);
-
-const onDelete = (id: Number) => {
-  console.log(id);
+const storeExerciseGroup = exerciseGroupStore();
+const storeExercise = exerciseStore();
+const onDelete = async (id: Number) => {
+  await storeExerciseGroup.deleteItem(id);
+  removeItemFromArr(id, store.currentItem.excerciseGroup);
 };
 
 const onAdd = (item: ExerciseGroup) => {
-  console.log(item);
+  if (store.currentItem.excerciseGroup.length > 0) {
+    var item = storeExercise.newExercise();
+    updateArray(item, store.currentItem.excerciseGroup[0].exercise);
+  }
 };
 </script>
 

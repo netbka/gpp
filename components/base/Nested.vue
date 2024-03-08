@@ -7,34 +7,18 @@
       :group="{ name: 'parent', pull: 'clone', put: false }"
     >
       <div v-for="el in data" :key="el.name" class="bgcolor q-my-xs q-pb-xs">
-        <div class="bg-blue-3 q-px-xs q-mb-sm shadow-2 row cursor-pointer">
+        <div class="bg-blue-3 q-pa-sm q-mb-sm shadow-2 row cursor-pointer">
           <div class="col-grow text-weight-bold text-uppercase self-center">
             <span v-show="el.active">
               <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
             </span>
             {{ el.name }}
           </div>
-          <div class="col-auto">
-            <q-btn
-              class=""
-              size="0.7em"
-              flat
-              dense
-              round
-              icon="post_add"
-              color="indigo-10"
-              @click="$emit('onAdd', el)"
-            />
-            <q-btn
-              class=""
-              size="0.7em"
-              flat
-              dense
-              round
-              icon="delete"
-              color="red-9"
-              @click="$emit('onDelete', el.id)"
-            />
+          <div class="col-auto self-center">
+            <BaseBtnNewDelete
+              @onAdd="$emit('onAdd', el)"
+              @onDelete="$emit('onDelete', el.id)"
+            ></BaseBtnNewDelete>
           </div>
           <div class="col-auto text-right">
             <baseRepeatInput v-model="el.repeats" :label="'повторы'"></baseRepeatInput>
@@ -51,7 +35,7 @@
           :group="{ name: 'exercise' }"
         >
           <div
-            class="row q-pa-sm shadow-1 q-mx-md q-my-sm bg-blue-grey-1"
+            class="row q-pa-xs shadow-1 q-mx-md q-my-sm bg-blue-grey-1"
             v-for="el in el.exercise"
             :key="el.name"
           >
@@ -61,13 +45,13 @@
               </span>
               <span class="text-weight-thin font12">{{ el.name }} </span>
             </div>
-            <div class="col text-right">
+            <div class="col-auto text-right">
               <baseDurationInput
                 v-model="el.duration"
                 :label="'сек.'"
               ></baseDurationInput>
             </div>
-            <div class="col self-center">
+            <div class="col-auto self-center">
               <q-icon flat round dense name="drag_handle" class="float-right" />
             </div>
           </div>

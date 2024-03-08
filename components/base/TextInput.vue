@@ -2,11 +2,10 @@
   <span>
     <span v-show="visibleEdit">
       <q-input
-        debounce="2000"
         bg-color="white"
         dense
         :model-value="modelValue"
-        style="width: 365px; padding: 0 !important"
+        style="width: 315px; padding: 0 !important"
         input-style="text-align: left; font-size:12px; "
         class="float-left"
         @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"

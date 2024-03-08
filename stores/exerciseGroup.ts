@@ -36,7 +36,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
       this.currentItem.id = null;
     },
     async fetchAll() {
-      const { data } = await useFetch("/api/ExerciseGroup/all", {
+      const { data } = await useFetch("/api/exerciseGroup/all", {
         method: "get",
       });
       //console.log(data.value);
@@ -45,7 +45,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
     },
     async getById(id: number) {
       try {
-        const response = await $fetch("/api/ExerciseGroup/" + id, {
+        const response = await $fetch("/api/exerciseGroup/" + id, {
           method: "get",
         });
         if (response) {
@@ -73,7 +73,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
 
     async updateCurrentItem() {
       try {
-        const response = await $fetch("/api/ExerciseGroup/update", {
+        const response = await $fetch("/api/exerciseGroup/update", {
           method: "post",
           body: { ...this.currentItem },
         });
@@ -90,7 +90,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
         const item = getById(id, this.itemArray);
         if (item === null) return;
         item[field] = val;
-        const response = await $fetch("/api/ExerciseGroup/field", {
+        const response = await $fetch("/api/exerciseGroup/field", {
           method: "post",
           body: { ...item, field },
         });
@@ -100,7 +100,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
     },
 
     async deleteItem(id) {
-      const response = await $fetch("/api/ExerciseGroup/delete", {
+      const response = await $fetch("/api/exerciseGroup/delete", {
         method: "delete",
         body: { id },
       });

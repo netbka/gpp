@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { type Training } from "~/types/types";
+import { type Training, type ExerciseGroup } from "~/types/types";
 interface TrainingStoreState {
   defaultItem: Training;
   //items: Exercise[];

@@ -20,10 +20,15 @@ export default defineEventHandler(async (event) => {
         user_id: user_id,
       },
       include: {
-        excerciseGroup: true,
+        excerciseGroup: {
+          include: {
+            // Include nested exercises
+            exercise: true, // Select all fields of Exercise or specify desired fields
+          },
+        },
       },
     });
-
+    console.log(result);
     return result;
   } catch (error) {
     console.log(error);
