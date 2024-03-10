@@ -15,12 +15,7 @@
         @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
       >
         <template v-slot:after>
-          <q-icon
-            size="sm"
-            name="done"
-            @click="visibleEdit = !visibleEdit"
-            class="cursor-pointer"
-          />
+          <q-icon size="sm" name="done" @click="save()" class="cursor-pointer" />
         </template>
       </q-input>
     </span>
@@ -52,9 +47,11 @@ const props = defineProps({
   },
 });
 const visibleEdit = ref(false);
-//const props = defineProps(["modelValue"]);
-const emits = defineEmits(["update:modelValue"]);
-//const textProp = toRef(props, "modelValue");
+const emits = defineEmits(["update:modelValue", "updatedb"]);
+const save = () => {
+  visibleEdit.value = !visibleEdit.value;
+  emits("updatedb");
+};
 </script>
 
 <style></style>

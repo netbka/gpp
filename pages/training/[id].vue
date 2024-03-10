@@ -1,16 +1,18 @@
 <template>
-  <ClientOnly>
-    <div class="row shadow-1 q-pa-md">
-      <div class="col-12">
-        {{ item.name }} - {{ item.id }}
-        <q-btn label="+ Группа" outline @click="addGroup()"></q-btn>
-        <q-btn label="Сохранить" outline @click="Save()"></q-btn>
+  <q-scroll-area :style="{ height: 'calc(100vh - 80px)' }" :bar-style="barStyle()">
+    <ClientOnly>
+      <div class="row shadow-1 q-pa-md">
+        <div class="col-12">
+          {{ item.name }} - {{ item.id }}
+          <q-btn label="+ Группа" outline @click="addGroup()"></q-btn>
+          <q-btn label="Сохранить" outline @click="Save()"></q-btn>
+        </div>
       </div>
-    </div>
-    <div class="row shadow-1 q-pa-md">
-      <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
-    </div>
-  </ClientOnly>
+      <div class="row shadow-1 q-pa-md">
+        <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
+      </div>
+    </ClientOnly>
+  </q-scroll-area>
 </template>
 
 <script lang="ts" setup>

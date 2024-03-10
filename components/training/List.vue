@@ -1,13 +1,13 @@
 <template>
   <div>
-    <q-scroll-area :style="{ height: 'calc(100vh - 150px)' }" :bar-style="barStyle">
+    <q-scroll-area :style="{ height: 'calc(100vh - 150px)' }" :bar-style="barStyle()">
       <q-list bordered class="rounded-borders full-height max-height">
         <div v-for="item in listItems" :key="item.id">
           <q-item>
             <q-item-section top>
               <q-item-label
                 lines="1"
-                class="text-subtitle1 text-weight-bold text-black q-pa-md"
+                class="text-subtitle1 text-weight-bold text-black q-pa-xs"
               >
                 <BaseTextInput
                   v-model="item.name"
@@ -58,7 +58,7 @@
 <script lang="ts" setup>
 const emits = defineEmits(["edit"]);
 const dialog = ref(null);
-import { useTrainingStore } from "~/stores/training";
+
 const store = useTrainingStore();
 
 await store.fetchAll();
@@ -85,14 +85,6 @@ const remove = (id) => {
 
 const updateItem = async (field, val, id) => {
   await store.updateItemField(field, val, id);
-};
-
-const barStyle = {
-  right: "2px",
-  borderRadius: "9px",
-  backgroundColor: "rgb(233 131 216 / 87%)",
-  width: "9px",
-  opacity: 0.2,
 };
 </script>
 

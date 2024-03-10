@@ -99,7 +99,9 @@ const save = () => {
   emits("onUpdateExercise", props.data.id, model);
 };
 const remove = (val) => {
-  emits("onDeleteExercise", model);
+  //emits("onDeleteExercise", model);
+  if (!model.name) return;
+  visibleEdit.value = !visibleEdit.value;
 };
 </script>
 

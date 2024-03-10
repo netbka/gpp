@@ -8,7 +8,7 @@
     </div>
   </footer> -->
 
-  <q-footer elevated class="bg-grey-1 text-primary">
+  <q-footer elevated class="bg-grey-1 text-primary gt-xs">
     <q-toolbar class="m-l">
       <q-toolbar-title>
         <div class="text-right text-body2">

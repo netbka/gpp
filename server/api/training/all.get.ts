@@ -14,6 +14,9 @@ export default defineEventHandler(async (event) => {
     include: {
       exerciseGroup: true,
     },
+    orderBy: {
+      id: "asc",
+    },
   });
   prisma.$disconnect();
   return result;

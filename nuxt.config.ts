@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   //   isCustomElement: (tag) => tag === "Textareatool",
   // },
   css: ["@quasar/extras/material-icons/material-icons.css", "~/assets/styles/style.css"],
-  // devtools: { enabled: true },
+  //devtools: { enabled: true },
   // vite: {
   //   plugins: [vsharp()],
   // },

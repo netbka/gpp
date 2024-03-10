@@ -5,20 +5,26 @@
         bg-color="white"
         dense
         :model-value="modelValue"
-        style="width: 315px; padding: 0 !important"
+        style="width: 315px; padding: 0 !important; z-index: 9999"
         input-style="text-align: left; font-size:12px; "
         class="float-left"
         @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
       >
         <template v-slot:after>
-          <q-icon size="sm" name="done" @click="commit()" class="cursor-pointer" />
+          <q-icon size="sm" name="done" @click="save()" class="cursor-pointer" />
+          <q-icon
+            size="sm"
+            name="clear"
+            @click="changeVisibility()"
+            class="cursor-pointer"
+          />
         </template>
       </q-input>
     </span>
     <span
       v-show="!visibleEdit"
       class="border-edit text-weight-light"
-      @click="visibleEdit = !visibleEdit"
+      @click="changeVisibility"
     >
       {{ modelValue }}
     </span>
@@ -37,7 +43,12 @@ const visibleEdit = ref(false);
 
 const emits = defineEmits(["update:modelValue", "updatedb"]);
 
-const commit = () => {
+const changeVisibility = () => {
+  if (props.modelValue.length === 0) return;
+  visibleEdit.value = !visibleEdit.value;
+};
+
+const save = () => {
   visibleEdit.value = !visibleEdit.value;
   emits("updatedb");
 };

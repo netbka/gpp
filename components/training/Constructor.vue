@@ -5,6 +5,7 @@
       @onAddExercise="onAddExercise"
       @onDeleteGroup="onDeleteGroup"
       @onUpdateExercise="onUpdateExercise"
+      @onUpdateGroup="onUpdateGroup"
     ></BaseNested>
   </div>
 </template>
@@ -37,6 +38,16 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
   updateNestedItem(exercise, store.currentItem.exerciseGroup);
   console.log(exercise);
   //updateNestedItem(val, store.currentItem.exerciseGroup);
+};
+
+const onUpdateGroup = async (field, value, id) => {
+  console.log("repeats");
+  await storeExerciseGroup.updateItemField(
+    field,
+    value,
+    id,
+    store.currentItem.exerciseGroup
+  );
 };
 </script>
 

@@ -5,14 +5,18 @@
       tag="div"
       :list="data"
       :group="{ name: 'parent', pull: 'clone', put: false }"
+      @onChoose="onChoose"
     >
-      <div v-for="el in data" :key="el.name" class="bgcolor q-my-xs q-pb-xs">
+      <div v-for="el in data" :key="el.id" class="bgcolor q-my-xs q-pb-xs">
         <div class="bg-blue-3 q-pa-sm q-mb-sm shadow-2 row cursor-pointer">
           <div class="col-grow text-weight-bold text-uppercase self-center">
             <span v-show="el.active">
               <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
             </span>
-            {{ el.name }}
+            <BaseTextInput
+              v-model="el.name"
+              @updatedb="$emit('onUpdateGroup', 'name', el.name, el.id)"
+            ></BaseTextInput>
           </div>
           <div class="col-auto self-center">
             <BaseBtnNewDelete
@@ -21,7 +25,11 @@
             ></BaseBtnNewDelete>
           </div>
           <div class="col-auto text-right">
-            <baseRepeatInput v-model="el.repeats" :label="'повторы'"></baseRepeatInput>
+            <BaseRepeatInput
+              v-model="el.repeats"
+              :label="'повторы'"
+              @updatedb="$emit('onUpdateGroup', 'repeats', el.repeats, el.id)"
+            ></BaseRepeatInput>
           </div>
           <div class="col-auto self-center">
             <q-icon flat round dense name="drag_handle" class="float-right" />
@@ -44,6 +52,7 @@
                 <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
               </span>
               <!-- <span class="text-weight-thin font12">{{ el.name }} </span> -->
+
               <BaseSelectExerciseTemplate
                 :data="el"
                 :editable="el.name === '' || el.name.length === 0"
@@ -52,10 +61,11 @@
               ></BaseSelectExerciseTemplate>
             </div>
             <div class="col-auto text-right">
-              <baseDurationInput
+              <BaseDurationInput
                 v-model="el.duration"
                 :label="'сек.'"
-              ></baseDurationInput>
+                @updatedb="$emit('onUpdateExerciseField', 'repeats', el.duration, el.id)"
+              ></BaseDurationInput>
             </div>
             <div class="col-auto self-center">
               <q-icon flat round dense name="drag_handle" class="float-right" />
@@ -88,7 +98,11 @@ export default {
     const onDeleteExercise = (val) => {
       context.emit("onDeleteExercise", val);
     };
+    const onChoose = (val) => {
+      console.log(val);
+    };
     return {
+      onChoose,
       onUpdateExercise,
       onDeleteExercise,
     };
@@ -110,7 +124,7 @@ ul {
 .super-small.q-field--dense {
   .q-field__control-container,
   .q-field__native {
-    padding-top: 2px !important;
+    padding-top: 0 !important;
   }
 
   .q-field__control {

@@ -5,7 +5,7 @@
         <q-avatar @click="redirect">
           <img :src="logo" class="cursor-pointer" />
         </q-avatar>
-        <span class="text-weight-thin logo-text">Просто ОФП</span>
+        <span class="text-weight-thin logo-text gt-xs">Просто ОФП</span>
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
