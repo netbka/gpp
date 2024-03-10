@@ -1,22 +1,43 @@
 <template>
   <div>
-    <span v-show="visibleEdit">
+    <span v-show="visibleEdit" class="float-left">
       <q-select
         bg-color="white"
         dense
-        :model-value="Number(modelValue)"
+        v-model="model"
+        use-input
+        hide-selected
+        fill-input
         style="width: 300px; padding: 0 !important"
-        input-style="text-align: center; font-size:12px; margin-top: 2px !important; "
+        input-style=""
         class="super-small float-right"
-        @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
+        option-value="id"
+        option-label="name"
+        :options="options"
+        @filter="filterFn"
+        @update:model-value="setModel"
       >
         <template v-slot:after>
-          <q-icon
-            size="sm"
-            name="done"
-            @click="visibleEdit = !visibleEdit"
-            class="cursor-pointer"
-          />
+          <q-icon size="sm" name="done" @click="save()" class="cursor-pointer" />
+          <q-icon size="sm" name="clear" @click="remove(this)" class="cursor-pointer" />
+        </template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps">
+            <q-item-section>
+              <q-item-label> {{ scope.opt.name }} </q-item-label>
+              <q-item-label caption>
+                <b v-if="!(scope.opt.muscle === undefined)"
+                  >{{ scope.opt.muscle.name }}
+                </b>
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
+
+        <template v-slot:no-option>
+          <q-item>
+            <q-item-section class="text-grey"> Не нашел </q-item-section>
+          </q-item>
         </template>
       </q-select>
     </span>
@@ -25,16 +46,16 @@
       class="border-edit text-weight-light"
       @click="visibleEdit = !visibleEdit"
     >
-      {{ modelValue }}
+      {{ model.name }}
     </span>
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
-  modelValue: {
-    type: [Number, String],
-    default: 0,
+  data: {
+    type: [Object],
+    //default: 0,
     required: true,
   },
   editable: {
@@ -42,12 +63,44 @@ const props = defineProps({
     default: false,
   },
 });
+let model = ref({ name: "" });
+model = Object.assign({}, props.data);
 
 const visibleEdit = ref(false);
-visibleEdit = props.editable;
+visibleEdit.value = props.editable;
 //const props = defineProps(["modelValue"]);
-const emits = defineEmits(["update:modelValue"]);
-//const textProp = toRef(props, "modelValue");
+const emits = defineEmits(["update", "onUpdateExercise"]);
+
+// @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
+const options = ref([]);
+const store = exerciseStore();
+//options.value = await store.fetchMyAndPublic();
+options.value = Object.assign([], store.itemArray);
+
+const filterFn = (val, update, abort) => {
+  update(() => {
+    //options.value = Object.assign([], store.itemArray);
+    if (val.length === 0) {
+      options.value = [...store.itemArray];
+
+      return;
+    }
+    const needle = val.toLocaleLowerCase();
+    options.value = searchExercise(options.value, needle);
+  });
+};
+const setModel = (val) => {
+  model = val;
+  model.uuid = props.data.uuid;
+};
+const save = () => {
+  if (!model.id) return;
+  visibleEdit.value = !visibleEdit.value;
+  emits("onUpdateExercise", model);
+};
+const remove = (val) => {
+  console.log(val);
+};
 </script>
 
 <style></style>

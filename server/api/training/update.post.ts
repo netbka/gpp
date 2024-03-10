@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
     if (body.id === 0) {
       //todo add automatic 3 sections
-      body = omit(body, ["id"]);
+      body = omit(body, ["id", "excerciseGroup"]);
       result = await prisma.training.create({
         data: { ...body },
       });

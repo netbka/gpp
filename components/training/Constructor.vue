@@ -4,6 +4,7 @@
       :data="item.excerciseGroup"
       @onAdd="onAdd"
       @onDelete="onDelete"
+      @onUpdateExercise="onUpdateExercise"
     ></BaseNested>
   </div>
 </template>
@@ -20,9 +21,18 @@ const onDelete = async (id: Number) => {
 
 const onAdd = (item: ExerciseGroup) => {
   if (store.currentItem.excerciseGroup.length > 0) {
-    var item = storeExercise.newExercise();
-    updateArray(item, store.currentItem.excerciseGroup[0].exercise);
+    var exercise = storeExercise.newExercise();
+    // console.log(item);
+    // if (store.currentItem.excerciseGroup.length > 0) {
+    // }
+    item.exercise.push(exercise);
+
+    // updateArray(_item, store.currentItem.excerciseGroup[0].exercise);
   }
+};
+const onUpdateExercise = (val) => {
+  console.log(store.currentItem.excerciseGroup);
+  updateNestedItem(val, store.currentItem.excerciseGroup);
 };
 </script>
 

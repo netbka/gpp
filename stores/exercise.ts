@@ -31,6 +31,11 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
     newExercise() {
       this.currentItem = Object.assign({}, this.defaultItem);
       this.currentItem.name = "Новое упражннеие";
+      this.currentItem.id = null;
+      this.currentItem.uuid = crypto.randomUUID();
+
+      this.currentItem.muscle = { name: "" };
+
       return this.currentItem;
     },
     resetCurrentItem() {
@@ -44,6 +49,20 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
       if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
       //console.log(this.itemArray);
     },
+
+    async fetchMyAndPublic() {
+      const { data } = await useFetch("/api/exercise/myandpublic", {
+        method: "get",
+      });
+      //console.log(data.value);
+      if (data.value !== null && data.value.length > 0) {
+        this.itemArray = data.value;
+        return data.value;
+      }
+      return null;
+      //console.log(this.itemArray);
+    },
+
     async updateCurrentItem() {
       try {
         const response = await $fetch("/api/exercise/update", {

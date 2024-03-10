@@ -11,8 +11,9 @@
     options-selected-class="text-deep-orange"
     outlined
     option-value="id"
-    :loading="store.loading"
     option-label="name"
+    :loading="store.loading"
+    
     :input-style="{ fontSize: '12px' }"
     :rules="[(val) => validate(val)]"
     @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"

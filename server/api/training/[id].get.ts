@@ -1,3 +1,4 @@
+import { exerciseGroupStore } from "./../../../composables/stores";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -28,7 +29,12 @@ export default defineEventHandler(async (event) => {
         },
       },
     });
-    console.log(result);
+    result.excerciseGroup.forEach((parent) => {
+      parent.exercise.forEach((element, index) => {
+        result.excerciseGroup[result.excerciseGroup.indexOf(parent)].exercise[index].uuid = crypto.randomUUID();
+      });
+    });
+
     return result;
   } catch (error) {
     console.log(error);

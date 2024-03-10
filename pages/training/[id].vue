@@ -24,17 +24,27 @@ await store.getById(parseSlugId(id));
 const item = computed(() => store.getCurrentItem);
 
 const addGroup = async () => {
-  console.log(store.currentItem.excerciseGroup.length);
-
   storeExerciseGroup.resetCurrentItem(
     store.currentItem.id,
     store.currentItem.excerciseGroup.length
   );
   const group = await storeExerciseGroup.create();
+
   updateArray(group, store.currentItem.excerciseGroup);
 };
 
-const Save = () => {};
+const storeExercise = exerciseStore();
+await storeExercise.fetchMyAndPublic();
+
+const Save = () => {
+  store.currentItem.excerciseGroup = removeUUID(store.currentItem.excerciseGroup, "uuid");
+  store.currentItem.excerciseGroup = removeUUID(
+    store.currentItem.excerciseGroup,
+    "muscle"
+  );
+
+  store.updateTrainingPlan();
+};
 </script>
 
 <style></style>

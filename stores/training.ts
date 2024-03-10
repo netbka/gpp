@@ -67,6 +67,19 @@ export const useTrainingStore = defineStore("TrainingStore", {
         console.log(error);
       }
     },
+    async updateTrainingPlan() {
+      try {
+        console.log(this.currentItem);
+        const response = await $fetch("/api/training/updatenew", {
+          method: "post",
+          body: { ...this.currentItem },
+        });
+
+        // this.currentItem = response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     async updateItemField(field: String, val, id: number) {
       try {

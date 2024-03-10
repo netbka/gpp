@@ -43,7 +43,12 @@
               <span v-show="el.active">
                 <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
               </span>
-              <span class="text-weight-thin font12">{{ el.name }} </span>
+              <!-- <span class="text-weight-thin font12">{{ el.name }} </span> -->
+              <BaseSelectExercise
+                :data="el"
+                :editable="el.id === 0 || el.id === null"
+                @onUpdateExercise="onUpdateExercise"
+              ></BaseSelectExercise>
             </div>
             <div class="col-auto text-right">
               <baseDurationInput
@@ -74,6 +79,15 @@ export default {
     draggable: VueDraggableNext,
   },
   name: "nested-draggable",
+
+  setup(props, context) {
+    const onUpdateExercise = (val) => {
+      context.emit("onUpdateExercise", val);
+    };
+    return {
+      onUpdateExercise,
+    };
+  },
 };
 </script>
 <style lang="scss">

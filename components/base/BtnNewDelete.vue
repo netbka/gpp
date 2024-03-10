@@ -35,7 +35,7 @@ const confirmDelete = (id) => {
 const remove = (id) => {
   emits("onDelete");
 };
-const emits = defineEmits(["onDelete"]);
+const emits = defineEmits(["onDelete", "onAdd"]);
 </script>
 
 <style></style>
