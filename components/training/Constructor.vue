@@ -1,9 +1,9 @@
 <template>
   <div>
     <BaseNested
-      :data="item.excerciseGroup"
-      @onAdd="onAdd"
-      @onDelete="onDelete"
+      :data="item.exerciseGroup"
+      @onAddExercise="onAddExercise"
+      @onDeleteGroup="onDeleteGroup"
       @onUpdateExercise="onUpdateExercise"
     ></BaseNested>
   </div>
@@ -14,25 +14,29 @@ const store = trainingStore();
 const item = computed(() => store.getCurrentItem);
 const storeExerciseGroup = exerciseGroupStore();
 const storeExercise = exerciseStore();
-const onDelete = async (id: Number) => {
+const onDeleteGroup = async (id: Number) => {
   await storeExerciseGroup.deleteItem(id);
-  removeItemFromArr(id, store.currentItem.excerciseGroup);
+  removeItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
-const onAdd = (item: ExerciseGroup) => {
-  if (store.currentItem.excerciseGroup.length > 0) {
-    var exercise = storeExercise.newExercise();
+const onAddExercise = async (item: ExerciseGroup) => {
+  if (store.currentItem.exerciseGroup.length > 0) {
+    var exercise = await storeExercise.newExercise(item.id);
     // console.log(item);
-    // if (store.currentItem.excerciseGroup.length > 0) {
+    // if (store.currentItem.exerciseGroup.length > 0) {
     // }
     item.exercise.push(exercise);
 
-    // updateArray(_item, store.currentItem.excerciseGroup[0].exercise);
+    // updateArray(_item, store.currentItem.exerciseGroup[0].exercise);
   }
 };
-const onUpdateExercise = (val) => {
-  console.log(store.currentItem.excerciseGroup);
-  updateNestedItem(val, store.currentItem.excerciseGroup);
+const onUpdateExercise = async (id, exerciseTemplate) => {
+  //console.log("id", id, exerciseTemplate);
+  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
+  exercise = await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
+  updateNestedItem(exercise, store.currentItem.exerciseGroup);
+  console.log(exercise);
+  //updateNestedItem(val, store.currentItem.exerciseGroup);
 };
 </script>
 

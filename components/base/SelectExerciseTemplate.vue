@@ -69,11 +69,11 @@ model = Object.assign({}, props.data);
 const visibleEdit = ref(false);
 visibleEdit.value = props.editable;
 //const props = defineProps(["modelValue"]);
-const emits = defineEmits(["update", "onUpdateExercise"]);
+const emits = defineEmits(["onUpdateExercise", "onDeleteExercise"]);
 
 // @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
 const options = ref([]);
-const store = exerciseStore();
+const store = exerciseTemplateStore();
 //options.value = await store.fetchMyAndPublic();
 options.value = Object.assign([], store.itemArray);
 
@@ -91,15 +91,15 @@ const filterFn = (val, update, abort) => {
 };
 const setModel = (val) => {
   model = val;
-  model.uuid = props.data.uuid;
 };
 const save = () => {
   if (!model.id) return;
   visibleEdit.value = !visibleEdit.value;
-  emits("onUpdateExercise", model);
+
+  emits("onUpdateExercise", props.data.id, model);
 };
 const remove = (val) => {
-  console.log(val);
+  emits("onDeleteExercise", model);
 };
 </script>
 

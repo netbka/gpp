@@ -60,7 +60,7 @@ export const getExerciseImage = (fileName: string) => {
   // return data.publicUrl;
 };
 
-export const updateExcerciseImage = async (fileToUpload: File, filename: string) => {
+export const updateExerciseImage = async (fileToUpload: File, filename: string) => {
   const supabase = useSupabaseClient();
   let { error: uploadError } = await supabase.storage.from("exercises").upload(filename, fileToUpload, {
     upsert: true,

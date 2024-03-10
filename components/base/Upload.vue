@@ -21,8 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useExerciseStore } from "~/stores/exercise";
-const store = useExerciseStore();
+const store = useExerciseTemplateStore();
 let image = ref(null);
 let preview = ref(null);
 const picker = ref(null);

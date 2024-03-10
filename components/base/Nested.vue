@@ -16,8 +16,8 @@
           </div>
           <div class="col-auto self-center">
             <BaseBtnNewDelete
-              @onAdd="$emit('onAdd', el)"
-              @onDelete="$emit('onDelete', el.id)"
+              @onAdd="$emit('onAddExercise', el)"
+              @onDelete="$emit('onDeleteGroup', el.id)"
             ></BaseBtnNewDelete>
           </div>
           <div class="col-auto text-right">
@@ -44,11 +44,12 @@
                 <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
               </span>
               <!-- <span class="text-weight-thin font12">{{ el.name }} </span> -->
-              <BaseSelectExercise
+              <BaseSelectExerciseTemplate
                 :data="el"
-                :editable="el.id === 0 || el.id === null"
+                :editable="el.name === '' || el.name.length === 0"
                 @onUpdateExercise="onUpdateExercise"
-              ></BaseSelectExercise>
+                @onDeleteExercise="onDeleteExercise"
+              ></BaseSelectExerciseTemplate>
             </div>
             <div class="col-auto text-right">
               <baseDurationInput
@@ -81,11 +82,15 @@ export default {
   name: "nested-draggable",
 
   setup(props, context) {
-    const onUpdateExercise = (val) => {
-      context.emit("onUpdateExercise", val);
+    const onUpdateExercise = (id, model) => {
+      context.emit("onUpdateExercise", id, model);
+    };
+    const onDeleteExercise = (val) => {
+      context.emit("onDeleteExercise", val);
     };
     return {
       onUpdateExercise,
+      onDeleteExercise,
     };
   },
 };

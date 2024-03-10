@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { type Exercise, type ExerciseGroup } from "~/types/types";
-interface ExcerciseStoreState {
+interface ExerciseStoreState {
   defaultItem: Exercise;
   //items: Exercise[];
   currentItem: Exercise;
@@ -9,10 +9,10 @@ interface ExcerciseStoreState {
   //activeExercise: Exercise | null;
 }
 
-export const useExerciseStore = defineStore("ExcerciseStore", {
-  state: (): ExcerciseStoreState => ({
-    defaultItem: { id: 0, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
-    currentItem: { id: 0, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
+export const useExerciseStore = defineStore("ExerciseStore", {
+  state: (): ExerciseStoreState => ({
+    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, muscleId: null, muscle: null },
+    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, muscleId: null, muscle: null },
     itemArray: [],
     loading: false,
   }),
@@ -28,15 +28,22 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
     },
   },
   actions: {
-    newExercise() {
+    async newExercise(groupId: number) {
       this.currentItem = Object.assign({}, this.defaultItem);
-      this.currentItem.name = "Новое упражннеие";
-      this.currentItem.id = null;
-      this.currentItem.uuid = crypto.randomUUID();
+      this.currentItem.name = "";
+      this.currentItem.groupId = groupId;
+      try {
+        const response = await $fetch("/api/exercise/update", {
+          method: "post",
+          body: { ...this.currentItem },
+        });
 
-      this.currentItem.muscle = { name: "" };
-
-      return this.currentItem;
+        updateArray(response, this.itemArray);
+        this.currentItem = response;
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
     },
     resetCurrentItem() {
       this.currentItem = Object.assign({}, this.defaultItem);
@@ -49,20 +56,29 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
       if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
       //console.log(this.itemArray);
     },
+    async cloneTemplateItem(template, item) {
+      try {
+        this.currentItem = Object.assign({}, item);
+        console.log(this.currentItem);
+        this.currentItem.name = template.name;
+        this.currentItem.description = template.description;
+        this.currentItem.duration = template.duration;
+        this.currentItem.imageUrl = template.imageUrl;
+        this.currentItem.muscleId = template.muscleId;
+        this.currentItem.muscle = template.muscle;
+        this.currentItem.templateId = template.id;
+        const response = await $fetch("/api/exercise/update", {
+          method: "post",
+          body: { ...this.currentItem },
+        });
 
-    async fetchMyAndPublic() {
-      const { data } = await useFetch("/api/exercise/myandpublic", {
-        method: "get",
-      });
-      //console.log(data.value);
-      if (data.value !== null && data.value.length > 0) {
-        this.itemArray = data.value;
-        return data.value;
+        // updateArray(response, this.itemArray);
+        this.currentItem = response;
+        return response;
+      } catch (error) {
+        console.log(error);
       }
-      return null;
-      //console.log(this.itemArray);
     },
-
     async updateCurrentItem() {
       try {
         const response = await $fetch("/api/exercise/update", {
@@ -99,37 +115,6 @@ export const useExerciseStore = defineStore("ExcerciseStore", {
       console.log(this.currentItem.id === id);
       if (this.currentItem.id === id) this.resetCurrentItem();
       removeItemFromArr(id, this.itemArray);
-    },
-    // getGroupedArray() {
-    //   return this.itemArray.reduce((groups, item) => {
-    //     const group = groups[item.muscle.name] || [];
-    //     group.push(item);
-    //     groups[item.muscle.name] = group;
-    //     return groups;
-    //   }, {});
-    // },
-    getGroupedArray() {
-      const groups = this.itemArray.reduce((groups, item) => {
-        const group = groups[item.muscle.name] || [];
-        group.push(item);
-        groups[item.muscle.name] = group;
-        return groups;
-      }, {});
-
-      // Convert the groups object to an array of entries
-      const groupEntries = Object.entries(groups);
-
-      // Sort the group entries by item.muscle.id
-      groupEntries.sort((a, b) => {
-        const firstMuscleId = a[1][0].muscle.id;
-        const secondMuscleId = b[1][0].muscle.id;
-        return firstMuscleId - secondMuscleId;
-      });
-
-      // Convert the sorted array of entries back to an object
-      const sortedGroups = Object.fromEntries(groupEntries);
-
-      return sortedGroups;
     },
   },
 });

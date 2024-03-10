@@ -36,7 +36,7 @@ const props = defineProps({
 
 let counterDuration: number = ref(0);
 
-const initDuration = computed(() => store.getActiveExcerciseDuration());
+const initDuration = computed(() => store.getActiveExerciseDuration());
 const grpIndex: number = ref(0);
 const exrIndex: number = ref(0);
 let timer = ref(100);
@@ -66,7 +66,7 @@ defineExpose({
 });
 
 const showExerciseName = () => {
-  const index = store.getActiveExcerciseIndex();
+  const index = store.getActiveExerciseIndex();
   try {
     return index > 0
       ? store.activeGroup.exercise[index].name
@@ -103,7 +103,7 @@ const startTimer = () => {
     }
     store.setActiveGroup(true);
     store.setActiveExercise(exrIndex.value, true);
-    counterDuration.value = store.getActiveExcerciseDuration();
+    counterDuration.value = store.getActiveExerciseDuration();
   } //counter duration ===0
 
   intervalId = setInterval(() => {
@@ -131,7 +131,7 @@ const stopTimer = function () {
 //let exerciseIntervalId: number;
 
 watch(
-  () => store.getActiveExcerciseDuration(),
+  () => store.getActiveExerciseDuration(),
   (newVal) => {
     //console.log(newVal);
     counterDuration.value = newVal;

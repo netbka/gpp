@@ -6,15 +6,13 @@ export default defineEventHandler(async (event) => {
   const {
     user: { id: user_id },
   } = event.context;
-  var result = await prisma.exercise.findMany({
-    where: {
-      user_id: user_id,
-    },
+  var result = await prisma.exerciseTemplate.findMany({
     include: {
       muscle: true,
       //  profilesMedicalSubSpecialities: true,
     },
   });
+  console.log(user_id);
   prisma.$disconnect();
   return result;
 });

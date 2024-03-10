@@ -9,13 +9,13 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
-    body.user_id = user_id;
-    body.muscleId = body.muscle.id;
+    //body.user_id = user_id;
+    // body.muscleId = body.muscle.id;
     let muscleObj = body.muscle;
     body = omit(body, ["muscle"]);
     let result;
-
-    if (body.id === 0) {
+    console.log(body);
+    if (body.id === null || body.id === 0) {
       body = omit(body, ["id"]);
       result = await prisma.exercise.create({
         data: { ...body },

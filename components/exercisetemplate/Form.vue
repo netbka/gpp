@@ -98,8 +98,7 @@
 <script setup>
 // todo restric public for admin only
 
-import { useExerciseStore } from "~/stores/exercise";
-const store = useExerciseStore();
+const store = useExerciseTemplateStore();
 const uploader = ref(null);
 const loading = ref(false);
 onMounted(async () => {});
@@ -123,7 +122,7 @@ const onSubmit = async () => {
   //  console.log(imageToUpload.value);
   if (imageToUpload.value != null) {
     //  console.log(store.currentItem.id);
-    updateExcerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
+    updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
   }
 
   // store.currentProfile.profilesSportType = storeSportType.currentItem;

@@ -47,7 +47,7 @@ export const updateNestedItem = (val: Object, arr: Array) => {
     if (found) return;
     parent.exercise.forEach((element, index) => {
       if (found) return;
-      if (element.uuid === val.uuid) {
+      if (element.id === val.id) {
         arr[arr.indexOf(parent)].exercise[index] = val;
         found = true;
       }
@@ -55,33 +55,47 @@ export const updateNestedItem = (val: Object, arr: Array) => {
   });
 };
 
-export const addUUIDNestedItem = (arr: Array) => {
+// export const addUUIDNestedItem = (arr: Array) => {
+//   arr.forEach((parent) => {
+//     parent.exercise.forEach((element, index) => {
+//       arr[arr.indexOf(parent)].exercise[index].uuid = crypto.randomUUID();
+//     });
+//   });
+// };
+
+// import omit from "lodash/omit";
+// export const removeUUID = (data: Array, fieldToOmit) => {
+//   if (!Array.isArray(data)) {
+//     throw new TypeError("Input data must be an array.");
+//   }
+
+//   function omitField(item) {
+//     if (typeof item === "object" && item !== null) {
+//       return omit({ ...item }, fieldToOmit); // Omit field from a copy
+//     }
+//     return item; // Return other data types unchanged
+//   }
+
+//   return data.map((item) => {
+//     const updatedItem = omitField(item);
+//     if (Array.isArray(updatedItem.exercise)) {
+//       // Replace "exercise" with your actual field name
+//       updatedItem.exercise = updatedItem.exercise.map(omitField);
+//     }
+//     return updatedItem;
+//   });
+// };
+
+export const findExerciseById = (arr: Array, id: number) => {
+  let item = null;
   arr.forEach((parent) => {
+    if (item !== null) return;
     parent.exercise.forEach((element, index) => {
-      arr[arr.indexOf(parent)].exercise[index].uuid = crypto.randomUUID();
+      if (item !== null) return;
+      if (element.id === id) {
+        item = arr[arr.indexOf(parent)].exercise[index];
+      }
     });
   });
-};
-
-import omit from "lodash/omit";
-export const removeUUID = (data: Array, fieldToOmit) => {
-  if (!Array.isArray(data)) {
-    throw new TypeError("Input data must be an array.");
-  }
-
-  function omitField(item) {
-    if (typeof item === "object" && item !== null) {
-      return omit({ ...item }, fieldToOmit); // Omit field from a copy
-    }
-    return item; // Return other data types unchanged
-  }
-
-  return data.map((item) => {
-    const updatedItem = omitField(item);
-    if (Array.isArray(updatedItem.exercise)) {
-      // Replace "exercise" with your actual field name
-      updatedItem.exercise = updatedItem.exercise.map(omitField);
-    }
-    return updatedItem;
-  });
+  return item;
 };

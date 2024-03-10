@@ -12,8 +12,8 @@ interface TrainingStoreState {
 
 export const useTrainingStore = defineStore("TrainingStore", {
   state: (): TrainingStoreState => ({
-    defaultItem: { id: 0, name: "", description: "", excerciseGroup: [] },
-    currentItem: { id: 0, name: "", description: "", excerciseGroup: [] },
+    defaultItem: { id: 0, name: "", description: "", exerciseGroup: [] },
+    currentItem: { id: 0, name: "", description: "", exerciseGroup: [] },
     itemArray: [],
   }),
   getters: {
@@ -106,12 +106,12 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
     async addGroup() {
       try {
-        this.currentItem.excerciseGroup.push({
+        this.currentItem.exerciseGroup.push({
           id: 1,
           name: "aaa",
           trainingId: this.currentItem.id,
         });
-        console.log(this.currentItem.excerciseGroup);
+        console.log(this.currentItem.exerciseGroup);
         // const response = await $fetch("/api/training/update", {
         //   method: "post",
         //   body: { ...this.currentItem },

@@ -26,23 +26,17 @@ const item = computed(() => store.getCurrentItem);
 const addGroup = async () => {
   storeExerciseGroup.resetCurrentItem(
     store.currentItem.id,
-    store.currentItem.excerciseGroup.length
+    store.currentItem.exerciseGroup.length
   );
   const group = await storeExerciseGroup.create();
 
-  updateArray(group, store.currentItem.excerciseGroup);
+  updateArray(group, store.currentItem.exerciseGroup);
 };
 
-const storeExercise = exerciseStore();
-await storeExercise.fetchMyAndPublic();
+const storeExerciseTemplate = exerciseTemplateStore();
+await storeExerciseTemplate.fetchMyAndPublic();
 
 const Save = () => {
-  store.currentItem.excerciseGroup = removeUUID(store.currentItem.excerciseGroup, "uuid");
-  store.currentItem.excerciseGroup = removeUUID(
-    store.currentItem.excerciseGroup,
-    "muscle"
-  );
-
   store.updateTrainingPlan();
 };
 </script>

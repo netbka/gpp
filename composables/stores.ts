@@ -10,6 +10,12 @@ export const exerciseStore = () => {
   return useExerciseStore();
 };
 
+import { useExerciseTemplateStore } from "~/stores/exerciseTemplate";
+
+export const exerciseTemplateStore = () => {
+  return useExerciseTemplateStore();
+};
+
 import { useExerciseGroupStore } from "~/stores/exerciseGroup";
 
 export const exerciseGroupStore = () => {

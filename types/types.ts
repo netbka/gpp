@@ -1,9 +1,10 @@
-import type { PrismaClient, Muscle as PrismaMuscle, Profile as PrismaProfile, SportType as PrismaSportType, Training as PrismaTraining, ExerciseGroup as PrismaExerciseGroup, Exercise as PrismaExercise } from "@prisma/client";
+import type { PrismaClient, Muscle as PrismaMuscle, Profile as PrismaProfile, SportType as PrismaSportType, Training as PrismaTraining, ExerciseGroup as PrismaExerciseGroup, ExerciseTemplate as PrismaExerciseTemplate, Exercise as PrismaExercise } from "@prisma/client";
 
 export type Profile = PrismaProfile;
 export type SportType = PrismaSportType;
 export type Training = PrismaTraining;
 export type ExerciseGroup = PrismaExerciseGroup;
+export type ExerciseTemplate = PrismaExerciseTemplate;
 export type Exercise = PrismaExercise;
 export type Muscle = PrismaMuscle;
 // export type MedicalSpeciality = MedicalSpecialityProfile;

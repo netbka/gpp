@@ -65,8 +65,8 @@
 
 <script lang="ts" setup>
 const dialog = ref(null);
-import { useExerciseStore } from "~/stores/exercise";
-const store = useExerciseStore();
+
+const store = useExerciseTemplateStore();
 let groupedData = computed(() => store.getGroupedArray());
 //console.log(groupedData);
 await store.fetchAll();

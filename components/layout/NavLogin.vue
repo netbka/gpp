@@ -4,7 +4,7 @@
       <div class="column">
         <div class="text-h6 q-mb-md">Профиль</div>
         <NuxtLink to="/profile" class="btn btn-rounded">Редактировать</NuxtLink>
-        <NuxtLink to="/exercise" class="btn btn-rounded">Мои занятия</NuxtLink>
+        <NuxtLink to="/exercisetemplate" class="btn btn-rounded">Мои занятия</NuxtLink>
       </div>
 
       <q-separator vertical inset class="q-mx-lg" />

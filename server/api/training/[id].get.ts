@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
         user_id: user_id,
       },
       include: {
-        excerciseGroup: {
+        exerciseGroup: {
           include: {
             // Include nested exercises
             exercise: true, // Select all fields of Exercise or specify desired fields
@@ -29,11 +29,11 @@ export default defineEventHandler(async (event) => {
         },
       },
     });
-    result.excerciseGroup.forEach((parent) => {
-      parent.exercise.forEach((element, index) => {
-        result.excerciseGroup[result.excerciseGroup.indexOf(parent)].exercise[index].uuid = crypto.randomUUID();
-      });
-    });
+    // result.exerciseGroup.forEach((parent) => {
+    //   parent.exercise.forEach((element, index) => {
+    //     result.exerciseGroup[result.exerciseGroup.indexOf(parent)].exercise[index].uuid = crypto.randomUUID();
+    //   });
+    // });
 
     return result;
   } catch (error) {

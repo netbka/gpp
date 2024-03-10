@@ -12,8 +12,8 @@ interface ExerciseGroupStoreState {
 
 export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
   state: (): ExerciseGroupStoreState => ({
-    defaultItem: { id: 0, name: "Группа №", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
-    currentItem: { name: "", description: "", repeats: 0, active: false, trainingId: 0, exercise: [] },
+    defaultItem: { id: null, name: "Группа №", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
+    currentItem: { id: null, name: "", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
     itemArray: [],
   }),
   getters: {

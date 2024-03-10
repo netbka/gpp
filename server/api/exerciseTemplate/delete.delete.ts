@@ -1,20 +1,20 @@
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const {
     user: { id: user_id },
   } = event.context;
-  var result = await prisma.exercise.findMany({
+  const body = await readBody(event);
+  const id = body.id;
+
+  var result = await prisma.exerciseTemplate.delete({
     where: {
-      OR: [{ user_id: user_id }, { public: true }],
-    },
-    include: {
-      muscle: true,
-      //  profilesMedicalSubSpecialities: true,
+      id: id,
+      user_id: user_id,
     },
   });
   prisma.$disconnect();
+  //  console.log(result);
   return result;
 });

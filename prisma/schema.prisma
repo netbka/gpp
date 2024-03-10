@@ -16,14 +16,11 @@ datasource db {
 model Profile {
     id Int @id @default(autoincrement())
 
-    firstName String?
-    lastName  String?
-    nickname  String?
-    birthDay  DateTime?
-
+    firstName         String?
+    lastName          String?
+    nickname          String?
+    birthDay          DateTime?
     avatarPath        String?
-    // specialityId                   Int?
-    // speciality                     MedicalSpeciality?     @relation(fields: [specialityId], references: [id])
     createdAt         DateTime    @default(now())
     updatedAt         DateTime    @updatedAt
     user_id           String      @unique @db.Uuid
@@ -51,7 +48,7 @@ model Training {
 
     user_id        String          @db.Uuid
     user_auth_info users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    excerciseGroup ExerciseGroup[]  //todo fix name
+    exerciseGroup  ExerciseGroup[] //todo fix name
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -65,11 +62,10 @@ model ExerciseGroup {
     description String
     repeats     Int
     active      Boolean
-    //exercise    Exercise[]
 
     training   Training   @relation(fields: [trainingId], references: [id])
     trainingId Int
-    exercise   Exercise[] @relation("ExerciseGroupExercise")
+    exercise   Exercise[]
     createdAt  DateTime   @default(now())
     updatedAt  DateTime   @updatedAt
 
@@ -77,21 +73,41 @@ model ExerciseGroup {
 }
 
 model Exercise {
-    id             Int             @id @default(autoincrement())
+    id          Int               @id @default(autoincrement())
+    name        String
+    description String
+    duration    Int
+    active      Boolean
+    imageUrl    String
+    weight      Int?
+    muscleId    Int?
+    muscle      Muscle?           @relation(fields: [muscleId], references: [id])
+    createdAt   DateTime          @default(now())
+    updatedAt   DateTime          @updatedAt
+    group       ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    groupId     Int
+    template    ExerciseTemplate? @relation(fields: [templateId], references: [id])
+    templateId  Int?
+
+    @@schema("public")
+}
+
+model ExerciseTemplate {
+    id             Int        @id @default(autoincrement())
     name           String
     description    String
     duration       Int
     active         Boolean
     imageUrl       String
     weight         Int?
-    exerciseGroup  ExerciseGroup[] @relation("ExerciseGroupExercise")
-    user_id        String          @db.Uuid
-    user_auth_info users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    createdAt      DateTime        @default(now())
-    updatedAt      DateTime        @updatedAt
+    user_id        String     @db.Uuid
+    user_auth_info users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    createdAt      DateTime   @default(now())
+    updatedAt      DateTime   @updatedAt
     muscleId       Int
-    muscle         Muscle          @relation(fields: [muscleId], references: [id])
+    muscle         Muscle     @relation(fields: [muscleId], references: [id])
     public         Boolean
+    exercise       Exercise[]
 
     @@schema("public")
 }
@@ -100,9 +116,10 @@ model Muscle {
     id   Int    @id @default(autoincrement())
     name String
 
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-    exercise  Exercise[]
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @updatedAt
+    exerciseTemplate ExerciseTemplate[]
+    exercise         Exercise[]
 
     @@schema("public")
 }
@@ -111,46 +128,46 @@ model Muscle {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model users {
-    instance_id                 String?       @db.Uuid
-    id                          String        @id @db.Uuid
-    aud                         String?       @db.VarChar(255)
-    role                        String?       @db.VarChar(255)
-    email                       String?       @db.VarChar(255)
-    encrypted_password          String?       @db.VarChar(255)
-    email_confirmed_at          DateTime?     @db.Timestamptz(6)
-    invited_at                  DateTime?     @db.Timestamptz(6)
-    confirmation_token          String?       @db.VarChar(255)
-    confirmation_sent_at        DateTime?     @db.Timestamptz(6)
-    recovery_token              String?       @db.VarChar(255)
-    recovery_sent_at            DateTime?     @db.Timestamptz(6)
-    email_change_token_new      String?       @db.VarChar(255)
-    email_change                String?       @db.VarChar(255)
-    email_change_sent_at        DateTime?     @db.Timestamptz(6)
-    last_sign_in_at             DateTime?     @db.Timestamptz(6)
+    instance_id                 String?            @db.Uuid
+    id                          String             @id @db.Uuid
+    aud                         String?            @db.VarChar(255)
+    role                        String?            @db.VarChar(255)
+    email                       String?            @db.VarChar(255)
+    encrypted_password          String?            @db.VarChar(255)
+    email_confirmed_at          DateTime?          @db.Timestamptz(6)
+    invited_at                  DateTime?          @db.Timestamptz(6)
+    confirmation_token          String?            @db.VarChar(255)
+    confirmation_sent_at        DateTime?          @db.Timestamptz(6)
+    recovery_token              String?            @db.VarChar(255)
+    recovery_sent_at            DateTime?          @db.Timestamptz(6)
+    email_change_token_new      String?            @db.VarChar(255)
+    email_change                String?            @db.VarChar(255)
+    email_change_sent_at        DateTime?          @db.Timestamptz(6)
+    last_sign_in_at             DateTime?          @db.Timestamptz(6)
     raw_app_meta_data           Json?
     raw_user_meta_data          Json?
     is_super_admin              Boolean?
-    created_at                  DateTime?     @db.Timestamptz(6)
-    updated_at                  DateTime?     @db.Timestamptz(6)
-    phone                       String?       @unique
-    phone_confirmed_at          DateTime?     @db.Timestamptz(6)
-    phone_change                String?       @default("")
-    phone_change_token          String?       @default("") @db.VarChar(255)
-    phone_change_sent_at        DateTime?     @db.Timestamptz(6)
-    confirmed_at                DateTime?     @default(dbgenerated("LEAST(email_confirmed_at, phone_confirmed_at)")) @db.Timestamptz(6)
-    email_change_token_current  String?       @default("") @db.VarChar(255)
-    email_change_confirm_status Int?          @default(0) @db.SmallInt
-    banned_until                DateTime?     @db.Timestamptz(6)
-    reauthentication_token      String?       @default("") @db.VarChar(255)
-    reauthentication_sent_at    DateTime?     @db.Timestamptz(6)
-    is_sso_user                 Boolean       @default(false)
-    deleted_at                  DateTime?     @db.Timestamptz(6)
+    created_at                  DateTime?          @db.Timestamptz(6)
+    updated_at                  DateTime?          @db.Timestamptz(6)
+    phone                       String?            @unique
+    phone_confirmed_at          DateTime?          @db.Timestamptz(6)
+    phone_change                String?            @default("")
+    phone_change_token          String?            @default("") @db.VarChar(255)
+    phone_change_sent_at        DateTime?          @db.Timestamptz(6)
+    confirmed_at                DateTime?          @default(dbgenerated("LEAST(email_confirmed_at, phone_confirmed_at)")) @db.Timestamptz(6)
+    email_change_token_current  String?            @default("") @db.VarChar(255)
+    email_change_confirm_status Int?               @default(0) @db.SmallInt
+    banned_until                DateTime?          @db.Timestamptz(6)
+    reauthentication_token      String?            @default("") @db.VarChar(255)
+    reauthentication_sent_at    DateTime?          @db.Timestamptz(6)
+    is_sso_user                 Boolean            @default(false)
+    deleted_at                  DateTime?          @db.Timestamptz(6)
     identities                  identities[]
     mfa_factors                 mfa_factors[]
     sessions                    sessions[]
-    Profile                     Profile?
-    Training                    Training[]
-    exercise                    Exercise[]
+    profile                     Profile?
+    training                    Training[]
+    exercise                    ExerciseTemplate[]
 
     @@index([instance_id])
     @@schema("auth")

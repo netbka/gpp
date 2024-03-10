@@ -10,25 +10,25 @@ export default defineEventHandler(async (event) => {
 
     let body = await readBody(event);
     body.user_id = user_id;
-
-    //body = omit(body, ["muscle"]);
+    body.muscleId = body.muscle.id;
+    let muscleObj = body.muscle;
+    body = omit(body, ["muscle"]);
     let result;
 
     if (body.id === 0) {
-      //todo add automatic 3 sections
-      body = omit(body, ["id", "exerciseGroup"]);
-      result = await prisma.training.create({
+      body = omit(body, ["id"]);
+      result = await prisma.exerciseTemplate.create({
         data: { ...body },
       });
     } else {
-      result = await prisma.training.update({
+      result = await prisma.exerciseTemplate.update({
         where: {
           id: body.id,
         },
         data: { ...body },
       });
     }
-
+    result.muscle = muscleObj;
     return result;
   } catch (error) {
     console.log("error on submit", error);

@@ -88,7 +88,7 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
     ],
   }),
   getters: {
-    // getActiveExcerciseDuration: (state) => {
+    // getActiveExerciseDuration: (state) => {
     //   if (state.activeGroup.exercise && state.activeGroup.exercise.length > 0) return state.activeGroup.exercise[0].duration;
     //   else return 0;
     // },
@@ -98,7 +98,7 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
     async fetchAll() {
-      const { data } = await useFetch("/api/Excercise/all", {
+      const { data } = await useFetch("/api/Exercise/all", {
         method: "get",
       });
 
@@ -119,8 +119,8 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
       });
       return totalduration;
     },
-    getActiveExcerciseDuration() {
-      var index = this.getActiveExcerciseIndex();
+    getActiveExerciseDuration() {
+      var index = this.getActiveExerciseIndex();
       if (index > -1) return this.activeGroup.exercise[index].duration;
       return 0;
     },
@@ -147,7 +147,7 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
     getActiveGroupIndex() {
       return this.activeGroup.findIndex((item) => item["active"] === true);
     },
-    getActiveExcerciseIndex() {
+    getActiveExerciseIndex() {
       if (!this.activeGroup.exercise) return -1;
       return this.activeGroup.exercise.findIndex((item) => item["active"] === true);
     },
