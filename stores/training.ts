@@ -12,8 +12,8 @@ interface TrainingStoreState {
 
 export const useTrainingStore = defineStore("TrainingStore", {
   state: (): TrainingStoreState => ({
-    defaultItem: { id: 0, name: "", description: "", exerciseGroup: [] },
-    currentItem: { id: 0, name: "", description: "", exerciseGroup: [] },
+    defaultItem: { id: null, name: "", description: "", exerciseGroup: [] },
+    currentItem: { id: null, name: "", description: "", exerciseGroup: [] },
     itemArray: [],
   }),
   getters: {
@@ -69,7 +69,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
     async updateTrainingPlan() {
       try {
-        console.log(this.currentItem);
+        //  console.log(this.currentItem);
         const response = await $fetch("/api/training/updatenew", {
           method: "post",
           body: { ...this.currentItem },
@@ -82,6 +82,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
 
     async updateItemField(field: String, val, id: number) {
+      console.log(field, val, id);
       try {
         const item = getById(id, this.itemArray);
         if (item === null) return;

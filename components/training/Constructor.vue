@@ -4,6 +4,7 @@
       :data="item.exerciseGroup"
       @onAddExercise="onAddExercise"
       @onDeleteGroup="onDeleteGroup"
+      @onDeleteExercise="onDeleteExercise"
       @onUpdateExercise="onUpdateExercise"
       @onUpdateGroup="onUpdateGroup"
     ></BaseNested>
@@ -18,6 +19,10 @@ const storeExercise = exerciseStore();
 const onDeleteGroup = async (id: Number) => {
   await storeExerciseGroup.deleteItem(id);
   removeItemFromArr(id, store.currentItem.exerciseGroup);
+};
+const onDeleteExercise = async (id: Number) => {
+  await storeExercise.deleteItem(id);
+  removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
 const onAddExercise = async (item: ExerciseGroup) => {
@@ -41,7 +46,6 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
 };
 
 const onUpdateGroup = async (field, value, id) => {
-  console.log("repeats");
   await storeExerciseGroup.updateItemField(
     field,
     value,

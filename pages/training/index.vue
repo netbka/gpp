@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 const form = ref(null);
-import { useTrainingStore } from "~/stores/training";
+
 const store = useTrainingStore();
 const newItem = () => {
   store.resetCurrentItem();

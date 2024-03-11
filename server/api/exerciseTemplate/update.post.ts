@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     body = omit(body, ["muscle"]);
     let result;
 
-    if (body.id === 0) {
+    if (body.id === null || body.id === 0) {
       body = omit(body, ["id"]);
       result = await prisma.exerciseTemplate.create({
         data: { ...body },

@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
   var result = await prisma.exercise.delete({
     where: {
       id: id,
-      user_id: user_id,
     },
   });
   prisma.$disconnect();

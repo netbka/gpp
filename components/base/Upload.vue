@@ -39,7 +39,14 @@ const previewMultiImage = (file) => {
   }
 };
 
+onMounted(() => {
+  if (store.currentItem.imageUrl !== "") {
+    setExistingPreview(store.currentItem.id + ".gif");
+  }
+});
+
 const setExistingPreview = (filename) => {
+  //todo fix to get the suffix
   preview.value = getExerciseImage(filename);
 };
 
@@ -55,17 +62,18 @@ defineExpose({
 
 //const imageUrl = computed(() => store.currentItem.imageUrl);
 
-watch(
-  () => store.getCurrentItemId,
-  (newVal, oldVal) => {
-    if (newVal && newVal > 0) {
-      //todo fix to get the suffix
-      setExistingPreview(newVal + ".gif");
-    } else {
-      reset();
-    }
-  }
-);
+// watch(
+//   () => store.getCurrentItemId,
+//   (newVal, oldVal) => {
+//     console.log(newVal);
+//     if (newVal && newVal > 0) {
+//       //todo fix to get the suffix
+//       setExistingPreview(newVal + ".gif");
+//     } else {
+//       reset();
+//     }
+//   }
+// );
 
 // const onRejected = (rejectedEntries) => {
 //   return { onRejected };

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <BaseDialogForm
-      ref="form"
-      class="no-padding"
-      @onSubmit="onSubmit()"
-      :propHeading="store.currentItem.name"
-    >
+    <q-form @submit="onSubmit" @reset="onReset" class="">
       <div class="row">
         <div class="col-12">
           <q-input
@@ -63,7 +58,40 @@
           <BaseUpload @updateImge="imageUpdate" ref="uploader"></BaseUpload>
         </div>
       </div>
-    </BaseDialogForm>
+
+      <q-separator />
+      <div class="row q-pt-md">
+        <div class="col-12 text-right">
+          <q-btn
+            label="Сохранить"
+            size="sm"
+            type="submit"
+            color="secondary"
+            outline
+            :loading="loading"
+            class="width-150"
+            :disable="loading"
+          >
+            <template v-slot:loading>
+              <q-spinner-hourglass class="on-left" />
+              Сохраняю...
+            </template>
+          </q-btn>
+          <q-btn
+            v-show="store.currentItem.id && store.currentItem.id > 0"
+            label="Новое"
+            size="sm"
+            color="accent"
+            outline
+            :loading="loading"
+            class="width-150 q-ml-md"
+            :disable="loading"
+            @click="newItem"
+          >
+          </q-btn>
+        </div>
+      </div>
+    </q-form>
   </div>
 </template>
 
@@ -108,15 +136,6 @@ const newItem = () => {
 const onReset = () => {
   console.log("Reset");
 };
-const form = ref(null);
-
-const show = () => {
-  form.value.show();
-};
-
-defineExpose({
-  show,
-});
 </script>
 
 <style scoped>

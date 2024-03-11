@@ -7,9 +7,9 @@
       :group="{ name: 'parent', pull: 'clone', put: false }"
       @onChoose="onChoose"
     >
-      <div v-for="el in data" :key="el.id" class="bgcolor q-my-xs q-pb-xs">
-        <div class="bg-blue-3 q-pa-sm q-mb-sm shadow-2 row cursor-pointer">
-          <div class="col-grow text-weight-bold text-uppercase self-center">
+      <div v-for="el in data" :key="el.id" class="bgcolor q-pb-xs">
+        <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
+          <div class="col-grow text-weight-bold text-uppercase self-center width-65">
             <span v-show="el.active">
               <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
             </span>
@@ -18,18 +18,23 @@
               @updatedb="$emit('onUpdateGroup', 'name', el.name, el.id)"
             ></BaseTextInput>
           </div>
-          <div class="col-auto self-center">
+          <div class="col-auto self-center q-ms-xs">
             <BaseBtnNewDelete
               @onAdd="$emit('onAddExercise', el)"
               @onDelete="$emit('onDeleteGroup', el.id)"
+              :propNewVisible="true"
             ></BaseBtnNewDelete>
           </div>
-          <div class="col-auto text-right">
-            <BaseRepeatInput
+          <div class="col-auto text-right self-center q-mr-xs">
+            <BaseNumberInput
+              v-model="el.repeats"
+              @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
+            ></BaseNumberInput>
+            <!-- <BaseRepeatInput
               v-model="el.repeats"
               :label="'повторы'"
-              @updatedb="$emit('onUpdateGroup', 'repeats', el.repeats, el.id)"
-            ></BaseRepeatInput>
+              @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
+            ></BaseRepeatInput> -->
           </div>
           <div class="col-auto self-center">
             <q-icon flat round dense name="drag_handle" class="float-right" />
@@ -43,7 +48,7 @@
           :group="{ name: 'exercise' }"
         >
           <div
-            class="row q-pa-xs shadow-1 q-mx-md q-my-sm bg-blue-grey-1"
+            class="row q-pa-xs shadow-1 q-mx-md q-my-sm bg-blue-grey-1 no-wrap ellipsis"
             v-for="el in el.exercise"
             :key="el.name"
           >
@@ -61,11 +66,21 @@
               ></BaseSelectExerciseTemplate>
             </div>
             <div class="col-auto text-right">
-              <BaseDurationInput
+              <BaseBtnNewDelete
+                @onDelete="$emit('onDeleteExercise', el.id)"
+              ></BaseBtnNewDelete>
+            </div>
+            <div class="col-auto text-right self-center q-mr-xs">
+              <!-- <BaseDurationInput
                 v-model="el.duration"
                 :label="'сек.'"
                 @updatedb="$emit('onUpdateExerciseField', 'repeats', el.duration, el.id)"
-              ></BaseDurationInput>
+              ></BaseDurationInput> -->
+              <BaseNumberInput
+                v-model="el.duration"
+                :typeDuration="true"
+                @updatedb="$emit('onUpdateExerciseField', 'duration', el.duration, el.id)"
+              ></BaseNumberInput>
             </div>
             <div class="col-auto self-center">
               <q-icon flat round dense name="drag_handle" class="float-right" />

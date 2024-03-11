@@ -70,3 +70,16 @@
 .q-dialog__inner--minimized {
   padding: 2px !important;
 }
+.width-65 {
+  min-width: 65px;
+}
+
+.scroll-height {
+  height: calc(100vh - 54px);
+}
+
+@media (min-width: 768px) {
+  .scroll-height {
+    height: calc(100vh - 105px);
+  }
+}

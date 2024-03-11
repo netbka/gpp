@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-scroll-area :style="{ height: 'calc(100vh - 150px)' }" :bar-style="barStyle()">
+    <q-scroll-area class="scroll-height" :bar-style="barStyle()">
       <q-list bordered class="rounded-borders full-height max-height">
         <div v-for="item in listItems" :key="item.id">
           <q-item>
@@ -18,7 +18,7 @@
             <q-item-section top side class="self-center">
               <div class="text-grey-8 q-gutter-xs">
                 <q-btn
-                  class="gt-xs"
+                  class=""
                   size="12px"
                   color="secondary"
                   flat
@@ -28,7 +28,7 @@
                   @click="editTraining(item)"
                 />
                 <q-btn
-                  class="gt-xs"
+                  class=""
                   size="12px"
                   flat
                   dense
@@ -37,7 +37,7 @@
                   @click="edit(item)"
                 />
                 <q-btn
-                  class="gt-xs"
+                  class=""
                   size="12px"
                   flat
                   dense
@@ -86,6 +86,9 @@ const remove = (id) => {
 const updateItem = async (field, val, id) => {
   await store.updateItemField(field, val, id);
 };
+
+const height = computed(() => heightForScroll());
+console.log(height);
 </script>
 
 <style scoped>

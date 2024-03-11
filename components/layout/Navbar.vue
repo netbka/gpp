@@ -1,5 +1,5 @@
 <template>
-  <q-header reveal elevated class="bg-white text-primary">
+  <q-header reveal elevated class="bg-white text-primary" style="z-index: 1">
     <q-toolbar class="m-l">
       <q-toolbar-title>
         <q-avatar @click="redirect">

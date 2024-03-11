@@ -32,6 +32,20 @@ export const removeItemFromArr = (val: number, arr: Array) => {
     arr.splice(index, 1);
   }
 };
+
+export const removeNestedItemFromArr = (val: number, arr: Array) => {
+  var found = false;
+  for (let group of arr) {
+    if (found) return;
+    var index = group.exercise.findIndex((el) => el.id === val);
+    if (found) return;
+    if (index > -1) {
+      group.exercise.splice(index, 1);
+      found = true;
+    }
+  }
+};
+
 export const getById = (val: number, arr: Array) => {
   var index = arr.findIndex((el) => el.id === val);
   if (index > -1) {
@@ -53,6 +67,20 @@ export const updateNestedItem = (val: Object, arr: Array) => {
       }
     });
   });
+};
+
+export const findExerciseById = (arr: Array, id: number) => {
+  let item = null;
+  arr.forEach((parent) => {
+    if (item !== null) return;
+    parent.exercise.forEach((element, index) => {
+      if (item !== null) return;
+      if (element.id === id) {
+        item = arr[arr.indexOf(parent)].exercise[index];
+      }
+    });
+  });
+  return item;
 };
 
 // export const addUUIDNestedItem = (arr: Array) => {
@@ -85,17 +113,3 @@ export const updateNestedItem = (val: Object, arr: Array) => {
 //     return updatedItem;
 //   });
 // };
-
-export const findExerciseById = (arr: Array, id: number) => {
-  let item = null;
-  arr.forEach((parent) => {
-    if (item !== null) return;
-    parent.exercise.forEach((element, index) => {
-      if (item !== null) return;
-      if (element.id === id) {
-        item = arr[arr.indexOf(parent)].exercise[index];
-      }
-    });
-  });
-  return item;
-};

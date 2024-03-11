@@ -9,6 +9,7 @@
       icon="post_add"
       color="indigo-10"
       @click="$emit('onAdd')"
+      v-show="props.propNewVisible"
     />
     <q-btn
       class=""
