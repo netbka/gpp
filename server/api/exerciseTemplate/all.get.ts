@@ -8,11 +8,10 @@ export default defineEventHandler(async (event) => {
   } = event.context;
   var result = await prisma.exerciseTemplate.findMany({
     where: {
-      OR: [{ user_id: user_id }, { public: true }],
+      user_id: user_id,
     },
     include: {
       muscle: true,
-      //  profilesMedicalSubSpecialities: true,
     },
   });
   prisma.$disconnect();

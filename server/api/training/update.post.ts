@@ -12,22 +12,22 @@ export default defineEventHandler(async (event) => {
     body.user_id = user_id;
 
     //body = omit(body, ["muscle"]);
-    let result;
 
-    if (body.id === 0) {
-      //todo add automatic 3 sections
-      body = omit(body, ["id", "exerciseGroup"]);
-      result = await prisma.training.create({
-        data: { ...body },
-      });
-    } else {
-      result = await prisma.training.update({
-        where: {
-          id: body.id,
-        },
-        data: { ...body },
-      });
-    }
+    // if (body.id === 0) {
+    //   //todo add automatic 3 sections
+    //   body = omit(body, ["id", "exerciseGroup"]);
+    //   result = await prisma.training.create({
+    //     data: { ...body },
+    //   });
+    // } else {
+    body = omit(body, ["exerciseGroup"]);
+    let result = await prisma.training.update({
+      where: {
+        id: body.id,
+      },
+      data: { ...body },
+    });
+    //}
 
     return result;
   } catch (error) {

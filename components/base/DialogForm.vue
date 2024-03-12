@@ -74,7 +74,7 @@ const props = defineProps({
   propNewVisible: { type: Boolean, default: false },
 });
 const dialog = ref(null);
-const emits = defineEmits(["onSubmit", "onReset"]);
+const emits = defineEmits(["onSubmit", "onReset", "newItem"]);
 const show = () => {
   dialog.value.show();
 };

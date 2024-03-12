@@ -12,16 +12,17 @@
       <q-tab name="workout" label="Занятие" />
       <q-tab name="training" label="Планы" />
       <q-tab name="start" label="Старт" />
+      <!-- <q-route-tab to="training" exact replace label="Go" /> -->
     </q-tabs>
     <q-separator />
     <q-tab-panels v-model="tab" animated class="q-pa-none">
       <q-tab-panel name="workout">
-        <WorkoutSetting ref="workout"></WorkoutSetting>
+        <WorkoutTraining ref="workout"></WorkoutTraining>
       </q-tab-panel>
 
       <q-tab-panel name="training">
-        <div class="text-h6">Alarms</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <div class="text-h6">Мои планы</div>
+        <TrainingConstructor></TrainingConstructor>
       </q-tab-panel>
       <q-tab-panel name="start">
         <ClientOnly>

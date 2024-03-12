@@ -83,33 +83,16 @@ export const findExerciseById = (arr: Array, id: number) => {
   return item;
 };
 
-// export const addUUIDNestedItem = (arr: Array) => {
-//   arr.forEach((parent) => {
-//     parent.exercise.forEach((element, index) => {
-//       arr[arr.indexOf(parent)].exercise[index].uuid = crypto.randomUUID();
-//     });
-//   });
-// };
+export const calculateDuration = (arr: Array) => {
+  var totalduration = 0;
+  arr.forEach((parent) => {
+    var phaseduration = 0;
+    parent.exercise.forEach((child) => {
+      phaseduration += parseInt(child.duration);
+    });
 
-// import omit from "lodash/omit";
-// export const removeUUID = (data: Array, fieldToOmit) => {
-//   if (!Array.isArray(data)) {
-//     throw new TypeError("Input data must be an array.");
-//   }
-
-//   function omitField(item) {
-//     if (typeof item === "object" && item !== null) {
-//       return omit({ ...item }, fieldToOmit); // Omit field from a copy
-//     }
-//     return item; // Return other data types unchanged
-//   }
-
-//   return data.map((item) => {
-//     const updatedItem = omitField(item);
-//     if (Array.isArray(updatedItem.exercise)) {
-//       // Replace "exercise" with your actual field name
-//       updatedItem.exercise = updatedItem.exercise.map(omitField);
-//     }
-//     return updatedItem;
-//   });
-// };
+    phaseduration = phaseduration * parseInt(parent.repeats);
+    totalduration += phaseduration;
+  });
+  return totalduration;
+};

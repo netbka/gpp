@@ -15,21 +15,23 @@ export default defineEventHandler(async (event) => {
       profilesSportType: true,
     },
   });
-
+  var model = { firstName: user_id.split("-")[0], lastName: user_id.split("-")[1], user_id: user_id };
   if (result === null) {
-    var fullName = event.context.user.user_metadata.name.split(" ");
+    try {
+      var fullName = event.context.user.user_metadata.name.split(" ");
 
-    var model = { firstName: "", lastName: "", user_id: user_id };
-    if (fullName.length > 0) {
-      model.firstName = fullName[0];
-      if (fullName.length > 1) {
-        model.lastName = fullName[1];
+      if (fullName.length > 0) {
+        model.firstName = fullName[0];
+        if (fullName.length > 1) {
+          model.lastName = fullName[1];
+        }
       }
-    }
+    } catch (error) {}
+
     result = await prisma.profile.create({
       data: model,
     });
   }
-prisma.$disconnect();
+  prisma.$disconnect();
   return result;
 });

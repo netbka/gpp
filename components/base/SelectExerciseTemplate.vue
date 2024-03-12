@@ -8,7 +8,7 @@
         use-input
         hide-selected
         fill-input
-        style="width: 300px; padding: 0 !important"
+        style="width: 250px; padding: 0 !important"
         input-style=""
         class="super-small float-right"
         option-value="id"
@@ -74,7 +74,7 @@ const emits = defineEmits(["onUpdateExercise", "onDeleteExercise"]);
 // @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
 const options = ref([]);
 const store = exerciseTemplateStore();
-//options.value = await store.fetchMyAndPublic();
+
 options.value = Object.assign([], store.itemArray);
 
 const filterFn = (val, update, abort) => {

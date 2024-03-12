@@ -59,7 +59,7 @@ export const useExerciseStore = defineStore("ExerciseStore", {
     async cloneTemplateItem(template, item) {
       try {
         this.currentItem = Object.assign({}, item);
-        console.log(this.currentItem);
+
         this.currentItem.name = template.name;
         this.currentItem.description = template.description;
         this.currentItem.duration = template.duration;

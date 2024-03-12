@@ -6,15 +6,29 @@ interface TrainingStoreState {
   //items: Exercise[];
   currentItem: Training;
   itemArray: [];
+  loading: Boolean;
   //itemArray: reacive<Exercise[]>;
   //activeExercise: Exercise | null;
 }
 
+const withErrorHandling = (store) => (actionFn) => async (payload) => {
+  try {
+    store.loading = true;
+    await actionFn(payload, store);
+  } catch (error) {
+    console.error("Error in action:", error);
+    // optionally, you can handle the error or display an error message to the user
+  } finally {
+    store.loading = false;
+  }
+};
+
 export const useTrainingStore = defineStore("TrainingStore", {
   state: (): TrainingStoreState => ({
-    defaultItem: { id: null, name: "", description: "", exerciseGroup: [] },
-    currentItem: { id: null, name: "", description: "", exerciseGroup: [] },
+    defaultItem: { id: null, name: "", description: "", public: true, exerciseGroup: [] },
+    currentItem: { id: null, name: "", description: "", public: true, exerciseGroup: [] },
     itemArray: [],
+    loading: false,
   }),
   getters: {
     getItemArray: (state) => {
@@ -56,6 +70,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
 
     async updateCurrentItem() {
       try {
+        this.loading = true;
         const response = await $fetch("/api/training/update", {
           method: "post",
           body: { ...this.currentItem },
@@ -65,10 +80,41 @@ export const useTrainingStore = defineStore("TrainingStore", {
         this.currentItem = response;
       } catch (error) {
         console.log(error);
+      } finally {
+        this.loading = false;
       }
     },
+
+    createCurrentItem() {
+      withErrorHandling(this)(async (payload, store) => {
+        const response = await $fetch("/api/training/create", {
+          method: "post",
+          body: { ...store.currentItem },
+        });
+
+        updateArray(response, store.itemArray);
+        store.currentItem = response;
+      })();
+    },
+    // async createCurrentItem() {
+    //   try {
+    //     this.loading = true;
+    //     const response = await $fetch("/api/training/create", {
+    //       method: "post",
+    //       body: { ...this.currentItem },
+    //     });
+
+    //     updateArray(response, this.itemArray);
+    //     this.currentItem = response;
+    //   } catch (error) {
+    //     console.log(error);
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // },
     async updateTrainingPlan() {
       try {
+        this.loading = true;
         //  console.log(this.currentItem);
         const response = await $fetch("/api/training/updatenew", {
           method: "post",
@@ -78,6 +124,8 @@ export const useTrainingStore = defineStore("TrainingStore", {
         // this.currentItem = response;
       } catch (error) {
         console.log(error);
+      } finally {
+        this.loading = false;
       }
     },
 
@@ -97,32 +145,47 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
 
     async deleteItem(id) {
-      const response = await $fetch("/api/training/delete", {
-        method: "delete",
-        body: { id },
-      });
-      console.log(this.currentItem.id === id);
-      if (this.currentItem.id === id) this.resetCurrentItem();
-      removeItemFromArr(id, this.itemArray);
-    },
-    async addGroup() {
       try {
-        this.currentItem.exerciseGroup.push({
-          id: 1,
-          name: "aaa",
-          trainingId: this.currentItem.id,
+        this.loading = false;
+        const response = await $fetch("/api/training/delete", {
+          method: "delete",
+          body: { id },
         });
-        console.log(this.currentItem.exerciseGroup);
-        // const response = await $fetch("/api/training/update", {
-        //   method: "post",
-        //   body: { ...this.currentItem },
-        // });
 
-        // updateArray(response, this.itemArray);
-        // this.currentItem = response;
+        if (this.currentItem.id === id) this.resetCurrentItem();
+        removeItemFromArr(id, this.itemArray);
       } catch (error) {
         console.log(error);
+      } finally {
+        this.loading = false;
       }
     },
+    setDuration(val: number) {
+      this.currentItem.exerciseGroup.forEach((parent) => {
+        //parent.duration = val;
+        parent.exercise.forEach((child) => {
+          child.duration = val;
+        });
+      });
+    },
+    // async addGroup() {
+    //   try {
+    //     this.currentItem.exerciseGroup.push({
+    //       id: 1,
+    //       name: "aaa",
+    //       trainingId: this.currentItem.id,
+    //     });
+    //     console.log(this.currentItem.exerciseGroup);
+    //     // const response = await $fetch("/api/training/update", {
+    //     //   method: "post",
+    //     //   body: { ...this.currentItem },
+    //     // });
+
+    //     // updateArray(response, this.itemArray);
+    //     // this.currentItem = response;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
 });

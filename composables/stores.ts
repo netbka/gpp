@@ -1,5 +1,10 @@
-import { useTrainingStore } from "~/stores/training";
+import { useWorkoutStore } from "~/stores/workout";
 
+export const workoutStore = () => {
+  return useWorkoutStore();
+};
+
+import { useTrainingStore } from "~/stores/training";
 export const trainingStore = () => {
   return useTrainingStore();
 };
@@ -20,4 +25,10 @@ import { useExerciseGroupStore } from "~/stores/exerciseGroup";
 
 export const exerciseGroupStore = () => {
   return useExerciseGroupStore();
+};
+
+
+import { useProfileStore } from "~/stores/profile";
+export const profileStore = () => {
+  return useProfileStore();
 };

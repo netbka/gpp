@@ -4,7 +4,10 @@
       ref="form"
       class="no-padding"
       @onSubmit="onSubmit()"
+      @newItem="newItem()"
       :propHeading="store.currentItem.name"
+      :propNewVisible="store.currentItem.id !== null"
+      :propLoading="store.loading"
     >
       <div class="row">
         <div class="col-12">

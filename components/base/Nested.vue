@@ -7,6 +7,7 @@
       :group="{ name: 'parent', pull: 'clone', put: false }"
       @onChoose="onChoose"
     >
+      <div class="text-center" v-show="data.length === 0">Тут будет план тренировки.</div>
       <div v-for="el in data" :key="el.id" class="bgcolor q-pb-xs">
         <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
           <div class="col-grow text-weight-bold text-uppercase self-center width-65">
@@ -30,11 +31,6 @@
               v-model="el.repeats"
               @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
             ></BaseNumberInput>
-            <!-- <BaseRepeatInput
-              v-model="el.repeats"
-              :label="'повторы'"
-              @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
-            ></BaseRepeatInput> -->
           </div>
           <div class="col-auto self-center">
             <q-icon flat round dense name="drag_handle" class="float-right" />
@@ -56,7 +52,6 @@
               <span v-show="el.active">
                 <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
               </span>
-              <!-- <span class="text-weight-thin font12">{{ el.name }} </span> -->
 
               <BaseSelectExerciseTemplate
                 :data="el"
@@ -71,11 +66,6 @@
               ></BaseBtnNewDelete>
             </div>
             <div class="col-auto text-right self-center q-mr-xs">
-              <!-- <BaseDurationInput
-                v-model="el.duration"
-                :label="'сек.'"
-                @updatedb="$emit('onUpdateExerciseField', 'repeats', el.duration, el.id)"
-              ></BaseDurationInput> -->
               <BaseNumberInput
                 v-model="el.duration"
                 :typeDuration="true"

@@ -21,8 +21,8 @@
                   >
                 </q-item-label>
 
-                <q-item-label lines="1" class="q-mt-xs text-caption">
-                  <span class="">
+                <q-item-label lines="1" class="q-mt-xs text-caption self-center">
+                  <span class="self-center">
                     <q-icon :name="publicPrivateIcon(exercise.public)" size="xs"></q-icon>
                     {{
                       exercise.public
@@ -86,29 +86,9 @@ const updateItem = async (field, val, id) => {
   await store.updateItemField(field, val, id);
 };
 
-const publicPrivateIcon = (val) => {
-  return val ? "public" : "lock";
-};
-
-// const barStyle = {
-//   right: "2px",
-//   borderRadius: "9px",
-//   backgroundColor: "rgb(233 131 216 / 87%)",
-//   width: "9px",
-//   opacity: 0.2,
+// const publicPrivateIcon = (val) => {
+//   return val ? "public" : "lock";
 // };
-// const $q = useQuasar();
-
-// const height = $q.screen.gt.xs
-//   ? { height: " calc(100vh)-140px" }
-//   : { height: " calc(100vh - 54px)" };
 </script>
 
-<style scoped>
-/* .max-height {
-  max-height: 100px;
-} */
-/* @update:modelValue="
-                      (newValue) => updateItem('name', newValue, exercise.id)
-                    " */
-</style>
+<style scoped></style>

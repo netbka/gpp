@@ -10,7 +10,9 @@
 
       <q-separator dark vertical class="gt-xs" />
       <q-btn stretch flat label="Мои планы" @click="redirectTraining" class="gt-xs" />
-      <q-btn stretch flat label="Тренировки" @click="redirectEx" class="gt-xs" />
+      <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
+        <span class="gt-xs">К ОФП</span>
+      </q-btn>
       <q-separator dark vertical class="gt-xs" />
       <ClientOnly>
         <LayoutNavLogin></LayoutNavLogin>

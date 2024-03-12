@@ -41,7 +41,7 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
   exercise = await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
   updateNestedItem(exercise, store.currentItem.exerciseGroup);
-  console.log(exercise);
+  // console.log(exercise);
   //updateNestedItem(val, store.currentItem.exerciseGroup);
 };
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="row shadow-1 q-pa-md">
+  <div class="row shadow-1 q-py-sm q-px-xs">
     <q-page-sticky position="top" :offset="[0, -32]" style="z-index: 9999">
       <q-fab icon="add" color="accent" @click="newItem()"> </q-fab>
     </q-page-sticky>

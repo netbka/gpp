@@ -1,30 +1,24 @@
 <template>
   <q-scroll-area class="scroll-height" :bar-style="barStyle()">
-    <!-- <q-scroll-area :style="{ height: 'calc(100vh - 100px)' }" :bar-style="barStyle()"> -->
+    <TrainingBtnControls
+      @setDuration="setDuration"
+      @addGroup="addGroup"
+      @start="start"
+    ></TrainingBtnControls>
     <ClientOnly>
-      <div class="row shadow-1 q-pa-sm no-wrap ellipsis">
+      <div class="row shadow-1 q-py-sm no-wrap ellipsis">
         <div class="col-grow self-center">
-          <BaseTextInput
-            v-model="item.name"
-            @updatedb="updateItem('name', item.name, item.id)"
-          ></BaseTextInput>
-        </div>
-        <div class="col-auto">
-          <q-btn
-            icon="add_chart"
-            outline
-            @click="addGroup()"
-            class="q-mr-xs"
-            color="green-7"
-            size="sm"
-          ></q-btn>
-          <q-btn
-            icon="save"
-            outline
-            @click="Save()"
-            color="light-blue-9"
-            size="sm"
-          ></q-btn>
+          <div class="text-subtitle1 text-bold">
+            План тренировки
+            <BaseTextInput
+              v-model="store.currentItem.name"
+              @updatedb="updateItem('name', store.currentItem.name, store.currentItem.id)"
+            ></BaseTextInput>
+          </div>
+          <q-item-label caption
+            >Продолжительность: {{ numToMin(duration) }} мин.
+            {{ numToSec(duration) }} сек.</q-item-label
+          >
         </div>
       </div>
       <div class="row shadow-1 q-xs-md">
@@ -59,15 +53,15 @@ const addGroup = async () => {
 };
 
 const storeExerciseTemplate = exerciseTemplateStore();
-await storeExerciseTemplate.fetchMyAndPublic();
-
-const Save = () => {
+await storeExerciseTemplate.fetchAll();
+const save = () => {
   store.updateTrainingPlan();
 };
-// const $q = useQuasar();
-// let height = $q.screen.gt.xs
-//   ? { height: "calc(100vh)-40px" }
-//   : { height: "calc(100vh - 100px)" };
+const duration = computed(() => calculateDuration(store.currentItem.exerciseGroup));
+const setDuration = (val) => {
+  store.setDuration(val);
+};
+const start = (val) => {};
 </script>
 
 <style></style>

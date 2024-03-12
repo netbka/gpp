@@ -7,3 +7,8 @@ export const barStyle = () => {
     opacity: 0.2,
   };
 };
+
+
+export const publicPrivateIcon = (val) => {
+  return val ? "public" : "lock";
+};

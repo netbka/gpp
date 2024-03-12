@@ -4,7 +4,10 @@
       ref="form"
       class="no-padding"
       @onSubmit="onSubmit()"
+      @newItem="newItem()"
       :propHeading="store.currentItem.name"
+      :propNewVisible="store.currentItem.id !== null"
+      :propLoading="store.loading"
     >
       <div class="row">
         <div class="col-12">
@@ -33,12 +36,16 @@
           />
         </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
+        </div>
+      </div>
     </BaseDialogForm>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useTrainingStore } from "~/stores/training";
 const store = useTrainingStore();
 const form = ref(null);
 
@@ -48,9 +55,15 @@ const show = () => {
 defineExpose({
   show,
 });
-
+const newItem = () => {
+  store.resetCurrentItem();
+};
 const onSubmit = async () => {
-  store.updateCurrentItem();
+  if (store.currentItem.id === null) {
+    await store.createCurrentItem();
+  } else {
+    await store.updateCurrentItem();
+  }
 };
 </script>
 

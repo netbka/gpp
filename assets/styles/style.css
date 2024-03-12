@@ -75,11 +75,16 @@
 }
 
 .scroll-height {
-  height: calc(100vh - 54px);
+  height: calc(100vh - 70px);
 }
 
 @media (min-width: 768px) {
   .scroll-height {
-    height: calc(100vh - 105px);
+    height: calc(100vh - 125px);
   }
+}
+
+.padding-2 {
+  padding-left: 6px !important;
+  padding-right: 2px !important;
 }
