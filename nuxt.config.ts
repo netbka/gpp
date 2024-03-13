@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   //   dir: "assets/images",
   // },
   quasar: {
-    plugins: ["Notify"],
+    plugins: ["Notify", "Loading"],
     extras: {
       font: "roboto-font",
       fontIcons: ["fontawesome-v6"],

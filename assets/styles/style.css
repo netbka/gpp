@@ -88,3 +88,10 @@
   padding-left: 6px !important;
   padding-right: 2px !important;
 }
+
+.q-dialog__backdrop {
+  z-index: -1;
+  pointer-events: all;
+  outline: 0;
+  background: rgba(0, 0, 0, 0.7);
+}

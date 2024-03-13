@@ -1,7 +1,7 @@
 <template>
   <div class="back_main">
     <div class="row window-height-100 wrap justify-center items-center content-center">
-      <div class="col-6 q-pa-md">
+      <div class="col-auto q-pa-md">
         <div class="text-black text-bold text-h3">Онлайн тренажер ОФП</div>
         <p class="text-h4">Подбор упражнений на все группы мышц</p>
         <p class="text-body1">
@@ -10,7 +10,7 @@
 
         <q-btn outline color="primary" @click="redirect">К тренировкам </q-btn>
       </div>
-      <div class="col-6">
+      <div class="col-auto gt-xs">
         <div class="q-mt-lg">
           <img :src="background" alt="" class="hero-sizing pic" />
         </div>

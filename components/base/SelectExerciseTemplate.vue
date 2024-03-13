@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: inline">
     <span v-show="visibleEdit" class="float-left">
       <q-select
         bg-color="white"

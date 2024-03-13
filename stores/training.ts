@@ -1,9 +1,11 @@
+import { exerciseGroupStore } from "./../composables/stores";
 import { defineStore } from "pinia";
 
 import { type Training, type ExerciseGroup } from "~/types/types";
 interface TrainingStoreState {
+  activeGroup: ExerciseGroup;
+
   defaultItem: Training;
-  //items: Exercise[];
   currentItem: Training;
   itemArray: [];
   loading: Boolean;
@@ -29,6 +31,8 @@ export const useTrainingStore = defineStore("TrainingStore", {
     currentItem: { id: null, name: "", description: "", public: true, exerciseGroup: [] },
     itemArray: [],
     loading: false,
+    isStarted: false,
+    activeGroup: {},
   }),
   getters: {
     getItemArray: (state) => {
@@ -162,30 +166,56 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
     setDuration(val: number) {
       this.currentItem.exerciseGroup.forEach((parent) => {
-        //parent.duration = val;
         parent.exercise.forEach((child) => {
           child.duration = val;
         });
       });
     },
-    // async addGroup() {
-    //   try {
-    //     this.currentItem.exerciseGroup.push({
-    //       id: 1,
-    //       name: "aaa",
-    //       trainingId: this.currentItem.id,
-    //     });
-    //     console.log(this.currentItem.exerciseGroup);
-    //     // const response = await $fetch("/api/training/update", {
-    //     //   method: "post",
-    //     //   body: { ...this.currentItem },
-    //     // });
+    getActiveExerciseDuration() {
+      var index = this.getActiveExerciseIndex();
+      if (index > -1) return this.activeGroup.exercise[index].duration;
+      return 0;
+    },
+    getInitialActiveGroup() {
+      let initialActiveGroup = {};
 
-    //     // updateArray(response, this.itemArray);
-    //     // this.currentItem = response;
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
+      initialActiveGroup = Object.assign({}, this.currentItem.exerciseGroup.filter((item) => item.exercise.length > 0)[0]);
+
+      this.activeGroup = initialActiveGroup;
+
+      return this.currentItem.exerciseGroup.findIndex((item) => item["id"] === this.activeGroup.id);
+    },
+    setActiveGroup(val: boolean) {
+      const foundItem = this.currentItem.exerciseGroup.find((item) => item.id === this.activeGroup.id);
+      foundItem.active = val;
+    },
+    setActiveExercise(index: number, val: boolean) {
+      this.activeGroup.exercise[index].active = val;
+    },
+    getActiveGroupIndex() {
+      return this.activeGroup.findIndex((item) => item["active"] === true);
+    },
+    getActiveExerciseIndex() {
+      if (!this.activeGroup.exercise) return -1;
+      return this.activeGroup.exercise.findIndex((item) => item["active"] === true);
+    },
+
+    getGroupByIndex(_index: number): number {
+      if (_index + 1 > this.defaultItem.length) return -1;
+
+      const initialActiveGroup = Object.assign({}, this.currentItem.exerciseGroup.filter((item, index) => index === _index)[0]);
+      if (initialActiveGroup.exercise.length === 0) return this.getGroupByIndex(_index + 1); //no exercise in group
+      this.activeGroup = initialActiveGroup;
+      return _index;
+    },
+
+    resetActive() {
+      this.currentItem.exerciseGroup.forEach((parent) => {
+        parent.active = false;
+        parent.exercise.forEach((child) => {
+          child.active = false;
+        });
+      });
+    },
   },
 });

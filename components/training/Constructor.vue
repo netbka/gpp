@@ -1,5 +1,10 @@
 <template>
   <div>
+    <TrainingBtnControls
+      @setDuration="setDuration"
+      @addGroup="addGroup"
+      @start="start"
+    ></TrainingBtnControls>
     <BaseNested
       :data="item.exerciseGroup"
       @onAddExercise="onAddExercise"
@@ -8,6 +13,8 @@
       @onUpdateExercise="onUpdateExercise"
       @onUpdateGroup="onUpdateGroup"
     ></BaseNested>
+    <BaseInitCounter ref="initCounter"></BaseInitCounter>
+    <TrainingCounter ref="trainingCounter"></TrainingCounter>
   </div>
 </template>
 
@@ -16,10 +23,7 @@ const store = trainingStore();
 const item = computed(() => store.getCurrentItem);
 const storeExerciseGroup = exerciseGroupStore();
 const storeExercise = exerciseStore();
-const onDeleteGroup = async (id: Number) => {
-  await storeExerciseGroup.deleteItem(id);
-  removeItemFromArr(id, store.currentItem.exerciseGroup);
-};
+
 const onDeleteExercise = async (id: Number) => {
   await storeExercise.deleteItem(id);
   removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
@@ -28,21 +32,24 @@ const onDeleteExercise = async (id: Number) => {
 const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
     var exercise = await storeExercise.newExercise(item.id);
-    // console.log(item);
-    // if (store.currentItem.exerciseGroup.length > 0) {
-    // }
     item.exercise.push(exercise);
-
-    // updateArray(_item, store.currentItem.exerciseGroup[0].exercise);
   }
 };
+
 const onUpdateExercise = async (id, exerciseTemplate) => {
-  //console.log("id", id, exerciseTemplate);
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
   exercise = await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
   updateNestedItem(exercise, store.currentItem.exerciseGroup);
-  // console.log(exercise);
-  //updateNestedItem(val, store.currentItem.exerciseGroup);
+};
+
+const addGroup = async () => {
+  storeExerciseGroup.resetCurrentItem(
+    store.currentItem.id,
+    store.currentItem.exerciseGroup.length
+  );
+  const group = await storeExerciseGroup.create();
+
+  updateArray(group, store.currentItem.exerciseGroup);
 };
 
 const onUpdateGroup = async (field, value, id) => {
@@ -52,6 +59,27 @@ const onUpdateGroup = async (field, value, id) => {
     id,
     store.currentItem.exerciseGroup
   );
+};
+const onDeleteGroup = async (id: Number) => {
+  await storeExerciseGroup.deleteItem(id);
+  removeItemFromArr(id, store.currentItem.exerciseGroup);
+};
+const setDuration = (val) => {
+  store.setDuration(val);
+};
+const initCounter = ref(null);
+const start = async (val) => {
+  await initCounter.value.start();
+  store.isStarted = true;
+};
+
+const trainingcounter = ref(null);
+const restart = () => {
+  trainingcounter.value.resetTraining();
+};
+//todo add buttons to counter
+const stopTimer = () => {
+  workout.value.resetTraining();
 };
 </script>
 

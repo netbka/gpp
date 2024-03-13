@@ -40,12 +40,10 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
         var phaseduration = 0;
         parent.exercise.forEach((child) => {
           phaseduration += parseInt(child.duration);
-          //console.log(parseInt(phaseduration));
         });
-        //phaseduration += parseInt(parent.rest);
+
         phaseduration = phaseduration * parseInt(parent.repeats);
         totalduration += phaseduration;
-        // console.log("phase:" + parent.name + "duration" + phaseduration);
       });
       return totalduration;
     },

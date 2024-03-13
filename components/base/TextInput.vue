@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="inline">
     <span v-show="visibleEdit">
       <q-input
         bg-color="white"
@@ -23,7 +23,7 @@
     </span>
     <span
       v-show="!visibleEdit"
-      class="border-edit text-weight-light"
+      class="border-edit text-weight-light inline"
       @click="changeVisibility"
     >
       {{ modelValue }}
@@ -54,4 +54,8 @@ const save = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.inline {
+  display: inline;
+}
+</style>

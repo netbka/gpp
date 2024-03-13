@@ -14,15 +14,15 @@
         outline
         color="primary"
         class="q-mr-xs"
-        label="30"
+        icon="30fps_select"
         @click="$emit('setDuration', 30)"
         size="sm"
       />
       <q-btn
+        icon="60fps_select"
         outline
         color="primary"
         class="q-mr-xs"
-        label="60"
         @click="$emit('setDuration', 60)"
         size="sm"
       />
@@ -43,7 +43,7 @@
         class="q-mr-xs"
         color="secondary"
         size="sm"
-        >start</q-btn
+        >Go</q-btn
       >
       <q-btn
         icon="add_chart"
