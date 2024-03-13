@@ -15,7 +15,7 @@
         color="primary"
         class="q-mr-xs"
         icon="30fps_select"
-        @click="$emit('setDuration', 30)"
+        @click="$emit('setDuration', 15)"
         size="sm"
       />
       <q-btn
@@ -56,7 +56,7 @@
       <q-btn
         icon="save"
         outline
-        @click="$emit('save')"
+        @click="$emit('onSaveTraining')"
         color="light-blue-9"
         size="sm"
       ></q-btn>

@@ -44,9 +44,7 @@ const updateItem = async (field, value, id) => {
 
 const storeExerciseTemplate = exerciseTemplateStore();
 await storeExerciseTemplate.fetchAll();
-const save = () => {
-  store.updateTrainingPlan();
-};
+
 const duration = computed(() => calculateDuration(store.currentItem.exerciseGroup));
 </script>
 

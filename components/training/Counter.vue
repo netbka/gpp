@@ -9,18 +9,18 @@
     <div class="text-center q-ml-sm">
       <q-knob
         show-value
-        font-size="48px"
+        font-size="40px"
         class="q-ma-md"
         v-model="timer"
-        size="300px"
+        size="250px"
         :thickness="0.05"
         color="primary"
         track-color="grey-2"
         readonly
       >
         <span class="text-light-blue-2">
-          {{ numToMin(counterDuration) }}мин. {{ numToSec(counterDuration) }}сек.</span
-        >
+          {{ numToMin(counterDuration) }}:{{ numToSec(counterDuration) }}
+        </span>
       </q-knob>
 
       <div class="text-light-blue-7 text-h3 text-uppercase">
@@ -70,7 +70,13 @@ let resetCounter = () => {
 const hide = () => {
   resetTraining();
 };
-
+// const showTimeLeft = () => {
+//   let result = "";
+//   if (numToMin(counterDuration.value) > 0)
+//     result = numToMin(counterDuration.value) + " мин";
+//   result = result + " " + numToSec(counterDuration.value) + " сек";
+//   return result;
+// };
 const exerciseImage = computed(() => {
   try {
     return store.activeGroup.exercise[exrIndex.value].imageUrl.length > 0 &&
@@ -190,4 +196,8 @@ watch(isStarted, () => {
 });
 </script>
 
-<style></style>
+<style>
+.img-fluid {
+  height: calc(100vh / 3);
+}
+</style>

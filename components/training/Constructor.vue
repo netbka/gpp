@@ -4,6 +4,7 @@
       @setDuration="setDuration"
       @addGroup="addGroup"
       @start="start"
+      @onSaveTraining="onSaveTraining"
     ></TrainingBtnControls>
     <BaseNested
       :data="item.exerciseGroup"
@@ -41,7 +42,9 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
   exercise = await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
   updateNestedItem(exercise, store.currentItem.exerciseGroup);
 };
-
+const onSaveTraining = () => {
+  store.updateTrainingPlan();
+};
 const addGroup = async () => {
   storeExerciseGroup.resetCurrentItem(
     store.currentItem.id,
