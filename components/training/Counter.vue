@@ -101,6 +101,8 @@ const showExerciseName = () => {
       : store.activeGroup.exercise[0].name;
   } catch (error) {}
 };
+
+const audio = new Audio("/sound/10sec.mp3");
 const startTimer = () => {
   if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
   if (grpIndex.value + 1 > store.defaultItem.length && this.activeGroup.repeats === 0) {
@@ -136,17 +138,18 @@ const startTimer = () => {
   } //counter duration ===0
 
   intervalId = setInterval(() => {
-    //reached to end of exercise
+    if (counterDuration.value === 10) {
+      audio.play();
+    }
     if (counterDuration.value === 0) {
+      audio.play();
       clearInterval(intervalId);
       store.setActiveExercise(exrIndex.value, false);
       exrIndex.value++;
       startTimer();
-      //if (exrIndex.value+1>)
     } else {
       counterDuration.value--;
       timer.value = (counterDuration.value / initDuration.value) * 100;
-      //console.log(timer.value);
     }
   }, 1000);
 };
