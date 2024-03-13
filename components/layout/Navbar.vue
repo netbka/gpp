@@ -9,9 +9,11 @@
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
-      <q-btn stretch flat label="Мои планы" @click="redirectTraining" class="gt-xs" />
+      <q-btn stretch flat @click="redirectTraining" icon="rocket_launch">
+        <span class="gt-xs">Мои планы</span>
+      </q-btn>
       <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
-        <span class="gt-xs">К ОФП</span>
+        <span class="gt-xs">Планы пользователей </span>
       </q-btn>
       <q-separator dark vertical class="gt-xs" />
       <ClientOnly>
