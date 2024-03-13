@@ -19,7 +19,7 @@
         readonly
       >
         <span class="text-light-blue-2">
-          {{ numToMin(counterDuration) }}:{{ numToSec(counterDuration) }}
+          {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
         </span>
       </q-knob>
 
