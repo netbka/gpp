@@ -144,7 +144,7 @@ const startTimer = () => {
   } //counter duration ===0
 
   intervalId = setInterval(() => {
-    if (counterDuration.value === 10) {
+    if (counterDuration.value < 11 && counterDuration.value > 9) {
       audio.play();
     }
     if (counterDuration.value === 0) {
