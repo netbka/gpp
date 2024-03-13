@@ -8,7 +8,7 @@
       @onChoose="onChoose"
     >
       <div class="text-center" v-show="data.length === 0">Тут будет план тренировки.</div>
-      <div v-for="el in data" :key="el.id" class="bgcolor q-pb-xs">
+      <div v-for="el in data" :key="el.id" class="bgcolor">
         <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
           <div class="col-grow text-weight-bold text-uppercase self-center width-65">
             <span v-show="el.active" class="" style="display: inline">

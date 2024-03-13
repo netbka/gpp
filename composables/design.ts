@@ -8,7 +8,6 @@ export const barStyle = () => {
   };
 };
 
-
 export const publicPrivateIcon = (val) => {
   return val ? "public" : "lock";
 };
