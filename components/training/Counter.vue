@@ -1,36 +1,89 @@
 <template>
   <q-dialog
     persistent
-    :full-height="propFullHeight"
+    full-height
     v-on:keyup.esc="hide()"
     ref="dialog"
-    class="no-padding row"
+    class="no-padding"
+    position="top"
   >
-    <div class="text-center q-ml-sm">
-      <q-knob
-        show-value
-        font-size="40px"
-        class="q-ma-md"
-        v-model="timer"
-        size="250px"
-        :thickness="0.05"
-        color="primary"
-        track-color="grey-2"
-        readonly
-      >
-        <span class="text-light-blue-2">
-          {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
-        </span>
-      </q-knob>
+    <q-card class="bg-transparent text-white">
+      <q-toolbar>
+        <q-toolbar-title>
+          <TrainingButtonStartRestart @hide="hide"></TrainingButtonStartRestart>
+        </q-toolbar-title>
+        <q-btn dense flat icon="close" @click="hide" color="white" class="" />
+      </q-toolbar>
 
-      <div class="text-light-blue-7 text-h3 text-uppercase">
-        {{ store.activeGroup.name }}
+      <q-card-section>
+        <div class="text-center">
+          <q-knob
+            show-value
+            font-size="40px"
+            class="q-ma-md"
+            v-model="timer"
+            size="250px"
+            :thickness="0.05"
+            color="primary"
+            track-color="grey-2"
+            readonly
+          >
+            <span class="text-light-blue-2">
+              {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
+            </span>
+          </q-knob>
+        </div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        <div class="text-light-blue-7 text-h4 text-uppercase text-center">
+          {{ store.activeGroup.name }}
+        </div>
+        <div class="text-light-blue-2 text-h5 text-center">
+          {{ showExerciseName() }}
+        </div>
+        <div v-if="exerciseImage" class="text-center">
+          <img :src="exerciseImage" class="img-fluid" />
+        </div>
+      </q-card-section>
+    </q-card>
+
+    <!-- <div class=" ">
+      <TrainingButtonStartRestart @hide="hide"></TrainingButtonStartRestart>
+
+      <div class="fit row justify-center items-center content-center">
+        <div class="col text-center">
+          <q-knob
+            show-value
+            font-size="40px"
+            class="q-ma-md"
+            v-model="timer"
+            size="250px"
+            :thickness="0.05"
+            color="primary"
+            track-color="grey-2"
+            readonly
+          >
+            <span class="text-light-blue-2">
+              {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
+            </span>
+          </q-knob>
+        </div>
       </div>
-      <div class="text-light-blue-2 text-h5">{{ showExerciseName() }}</div>
-      <div v-if="exerciseImage">
-        <img :src="exerciseImage" class="img-fluid" />
+      <div class="row justify-center items-center content-center">
+        <div class="col-12">
+          <div class="text-light-blue-7 text-h3 text-uppercase text-center">
+            {{ store.activeGroup.name }}
+          </div>
+          <div class="text-light-blue-2 text-h5 text-center">
+            {{ showExerciseName() }}
+          </div>
+          <div v-if="exerciseImage">
+            <img :src="exerciseImage" class="img-fluid" />
+          </div>
+        </div>
       </div>
-    </div>
+    </div> -->
   </q-dialog>
 </template>
 
@@ -199,5 +252,9 @@ watch(isStarted, () => {
 <style>
 .img-fluid {
   height: calc(100vh / 3);
+}
+.padding {
+  padding-left: calc((100vw - 1536px) / 2);
+  padding-right: calc((100vw - 1536px) / 2);
 }
 </style>

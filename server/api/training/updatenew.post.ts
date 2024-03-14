@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         for (const el of parent.exercise) {
           await prisma.exercise.update({
             where: { id: el.id },
-            data: { groupId: parent.id },
+            data: { groupId: parent.id, name: el.name, duration: el.duration },
           });
         }
       }
@@ -57,6 +57,10 @@ export default defineEventHandler(async (event) => {
     return result;
   } catch (error) {
     console.log("error on submit", error);
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Не авторизован",
+    });
   } finally {
     await prisma.$disconnect();
   }

@@ -6,7 +6,7 @@
 import { QSpinnerBall } from "quasar";
 import { useQuasar } from "quasar";
 const $q = useQuasar();
-const messages = [" 1", " 2", " 3", " 4", " 5"];
+const messages = [" 5", " 4", " 3", " 2", " 1"];
 const currentMessageIndex = ref(0);
 
 const start = async () => {

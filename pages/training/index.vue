@@ -1,8 +1,9 @@
 <template>
   <div class="row shadow-1 q-py-sm q-px-xs">
-    <q-page-sticky position="top" :offset="[0, -32]" style="z-index: 9999">
+    <!-- <q-page-sticky position="bottom" :offset="[0, 0]" style="z-index: 9999">
       <q-fab icon="add" color="accent" @click="newItem()"> </q-fab>
-    </q-page-sticky>
+    </q-page-sticky> -->
+    <BaseFab @newItem="newItem"></BaseFab>
     <TrainingForm ref="form"></TrainingForm>
     <div class="col-12">
       <TrainingList @edit="show()"></TrainingList>
