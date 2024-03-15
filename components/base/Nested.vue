@@ -6,6 +6,7 @@
       :list="data"
       :group="{ name: 'parent', pull: 'clone', put: false }"
       @onChoose="onChoose"
+      handle=".handle"
     >
       <div class="text-center" v-show="data.length === 0">Тут будет план тренировки.</div>
       <div v-for="el in data" :key="el.id" class="bgcolor">
@@ -33,7 +34,7 @@
             ></BaseNumberInput>
           </div>
           <div class="col-auto self-center">
-            <q-icon flat round dense name="drag_handle" class="float-right" />
+            <q-icon flat round dense name="drag_handle" class="float-right handle" />
           </div>
         </div>
 
@@ -42,6 +43,7 @@
           tag="ul"
           :list="el.exercise"
           :group="{ name: 'exercise' }"
+          handle=".handle"
         >
           <div
             class="row q-pa-xs shadow-1 q-mx-md q-my-sm bg-blue-grey-1 no-wrap ellipsis"
@@ -73,7 +75,7 @@
               ></BaseNumberInput>
             </div>
             <div class="col-auto self-center">
-              <q-icon flat round dense name="drag_handle" class="float-right" />
+              <q-icon flat round dense name="drag_handle" class="float-right handle" />
             </div>
           </div>
         </draggable>
