@@ -6,7 +6,7 @@
       flat
       dense
       round
-      icon="post_add"
+      icon="add_box"
       color="indigo-10"
       @click="$emit('onAdd')"
       v-show="props.propNewVisible"
@@ -17,8 +17,8 @@
       flat
       dense
       round
-      icon="delete"
-      color="red-9"
+      icon="delete_forever"
+      color="deep-orange-5"
       @click="confirmDelete()"
     />
     <BaseYesNoDialog ref="dialog" @ok="remove"></BaseYesNoDialog>

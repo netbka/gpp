@@ -34,7 +34,14 @@
             ></BaseNumberInput>
           </div>
           <div class="col-auto self-center">
-            <q-icon flat round dense name="drag_handle" class="float-right handle" />
+            <q-icon
+              flat
+              round
+              dense
+              name="drag_handle"
+              class="float-right handle"
+              size="md"
+            />
           </div>
         </div>
 
@@ -75,7 +82,14 @@
               ></BaseNumberInput>
             </div>
             <div class="col-auto self-center">
-              <q-icon flat round dense name="drag_handle" class="float-right handle" />
+              <q-icon
+                flat
+                round
+                dense
+                name="drag_handle"
+                class="float-right handle"
+                size="md"
+              />
             </div>
           </div>
         </draggable>

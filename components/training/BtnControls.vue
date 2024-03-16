@@ -46,7 +46,7 @@
         >Go</q-btn
       >
       <q-btn
-        icon="add_chart"
+        icon="library_add"
         outline
         @click="$emit('addGroup')"
         class="q-mr-xs"

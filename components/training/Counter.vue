@@ -5,7 +5,6 @@
     v-on:keyup.esc="hide()"
     ref="dialog"
     class="no-padding"
-    position="top"
   >
     <q-card class="bg-transparent text-white">
       <q-toolbar>
