@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
 
     async function updateExerciseGroups() {
       for (const parent of body.exerciseGroup) {
+        // console.log(body.exerciseGroup);
         for (const el of parent.exercise) {
           await prisma.exercise.update({
             where: { id: el.id },

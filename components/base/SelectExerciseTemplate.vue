@@ -93,14 +93,21 @@ const setModel = (val) => {
   model = val;
 };
 const save = () => {
-  if (!model.id) return;
+  if (model.name.length < 1) {
+    notifyMsgNegative("Нужно выбрать значение");
+    return;
+  }
+  console.log(model.name);
   visibleEdit.value = !visibleEdit.value;
 
   emits("onUpdateExercise", props.data.id, model);
 };
 const remove = (val) => {
   //emits("onDeleteExercise", model);
-  if (!model.name) return;
+  if (!model.name) {
+    notifyMsgNegative("Нужно выбрать значение");
+    return;
+  }
   visibleEdit.value = !visibleEdit.value;
 };
 </script>

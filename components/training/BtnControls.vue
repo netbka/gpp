@@ -45,14 +45,14 @@
         size="sm"
         >Go</q-btn
       >
-      <q-btn
+      <!-- <q-btn
         icon="library_add"
         outline
         @click="$emit('addGroup')"
         class="q-mr-xs"
         color="green-7"
         size="sm"
-      ></q-btn>
+      ></q-btn> -->
       <q-btn
         icon="save"
         outline

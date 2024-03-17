@@ -165,6 +165,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
       }
     },
     setDuration(val: number) {
+      //this.currentItem.exerciseGroup = this.currentItem.exerciseGroup.filter((obj) => obj !== undefined);
       this.currentItem.exerciseGroup.forEach((parent) => {
         parent.exercise.forEach((child) => {
           child.duration = val;

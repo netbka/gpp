@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
     },
     include: {
       exercise: true,
-      //  profilesMedicalSubSpecialities: true,
     },
   });
   prisma.$disconnect();

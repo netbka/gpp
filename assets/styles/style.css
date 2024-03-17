@@ -68,7 +68,11 @@
     height: calc(100vh / 3);
   }
 }
-
+@media (min-width: 1440px) {
+  .hero-sizing {
+    height: calc(100vh / 2);
+  }
+}
 .border-edit {
   border-bottom: 1px dotted grey !important;
   cursor: text !important;

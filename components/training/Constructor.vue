@@ -2,7 +2,6 @@
   <div>
     <TrainingBtnControls
       @setDuration="setDuration"
-      @addGroup="addGroup"
       @start="start"
       @onSaveTraining="onSaveTraining"
     ></TrainingBtnControls>
@@ -16,6 +15,7 @@
     ></BaseNested>
     <BaseInitCounter ref="initCounter"></BaseInitCounter>
     <TrainingCounter ref="trainingCounter"></TrainingCounter>
+    <BaseFab @newItem="addGroup"></BaseFab>
   </div>
 </template>
 

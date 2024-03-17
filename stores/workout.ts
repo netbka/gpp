@@ -15,7 +15,77 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
     //activeExercise: null,
     //items: [],
     currentItem: [],
-    defaultItem: [],
+    defaultItem: [
+      {
+        id: 1,
+        name: "Разминка",
+        exercise: [
+          {
+            id: 1,
+            name: "Бег на месте",
+            description: "Описание бега на месте",
+            duration: 1,
+            active: false,
+          },
+          {
+            id: 2,
+            name: "Прыжки на месте",
+            description: "Описание прыжки на стопе",
+            duration: 1,
+            active: false,
+          },
+        ],
+        //rest: 30,
+        repeats: 1,
+        active: false,
+      },
+      {
+        id: 2,
+        name: "Занятие",
+        exercise: [
+          {
+            id: 3,
+            name: "Отжимание",
+            description: "Описание отжимания",
+            duration: 1,
+            active: false,
+          },
+          {
+            id: 4,
+            name: "Приседания",
+            description: "Описание приседания",
+            duration: 1,
+            active: false,
+          },
+        ],
+        //rest: 30,
+        repeats: 1,
+        active: false,
+      },
+      {
+        id: 3,
+        name: "Заминка",
+        exercise: [
+          {
+            id: 5,
+            name: "Разножка",
+            description: "Описание бега на месте",
+            duration: 1,
+            active: false,
+          },
+          {
+            id: 6,
+            name: "Прыжки на месте",
+            description: "Описание прыжки на стопе",
+            duration: 1,
+            active: false,
+          },
+        ],
+        //rest: 30,
+        repeats: 1,
+        active: false,
+      },
+    ],
   }),
   getters: {
     // getActiveExerciseDuration: (state) => {

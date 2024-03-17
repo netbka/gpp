@@ -24,11 +24,12 @@
             >
           </div>
         </div>
-        <div class="row shadow-1">
+        <div class="row">
           <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
         </div>
       </ClientOnly>
     </q-scroll-area>
+   
   </div>
 </template>
 

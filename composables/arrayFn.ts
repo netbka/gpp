@@ -84,15 +84,21 @@ export const findExerciseById = (arr: Array, id: number) => {
 };
 
 export const calculateDuration = (arr: Array) => {
-  var totalduration = 0;
-  arr.forEach((parent) => {
-    var phaseduration = 0;
-    parent.exercise.forEach((child) => {
-      phaseduration += parseInt(child.duration);
-    });
+  try {
+    //  arr = arr.filter((obj) => obj !== undefined);
+    var totalduration = 0;
+    arr.forEach((parent) => {
+      if (!parent) return;
+      var phaseduration = 0;
+      parent.exercise.forEach((child) => {
+        phaseduration += parseInt(child.duration);
+      });
 
-    phaseduration = phaseduration * parseInt(parent.repeats);
-    totalduration += phaseduration;
-  });
-  return totalduration;
+      phaseduration = phaseduration * parseInt(parent.repeats);
+      totalduration += phaseduration;
+    });
+    return totalduration;
+  } catch (error) {
+    return 0;
+  }
 };

@@ -112,7 +112,7 @@ export const useExerciseStore = defineStore("ExerciseStore", {
         method: "delete",
         body: { id },
       });
-      console.log(this.currentItem.id === id);
+      // console.log(this.currentItem.id === id);
       if (this.currentItem.id === id) this.resetCurrentItem();
       removeItemFromArr(id, this.itemArray);
     },

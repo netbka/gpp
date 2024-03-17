@@ -5,8 +5,11 @@
       tag="div"
       :list="data"
       :group="{ name: 'parent', pull: 'clone', put: false }"
-      handle=".handle"
+      @onEnd="onChoose"
+      :key="data.length"
     >
+      <div class="text-center" v-show="data.length === 0">Тут будет план тренировки.</div>
+
       <div v-for="(el, index) in data" :key="el.id" class="shadow-sm bg-gray-50">
         <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
           <div class="col-grow text-weight-bold text-uppercase self-center width-65">
@@ -42,12 +45,55 @@
             />
           </div>
         </div>
-        <BaseNestedChild
-          :data="el.exercise"
-          @onDeleteExercise="onDeleteExercise"
-          @onUpdateExercise="onUpdateExercise"
-          @onUpdateExerciseField="onUpdateExerciseField"
-        ></BaseNestedChild>
+
+        <draggable
+          class="parentArea q-pb-xs cursor-pointer"
+          tag="div"
+          :list="el.exercise"
+          :group="{ name: 'exercise' }"
+          handle=".handle"
+        >
+          <div
+            class="row q-pa-xs shadow-1 q-my-sm bg-blue-grey-1 no-wrap ellipsis"
+            v-for="el in el.exercise"
+            :key="el.name"
+          >
+            <div class="col-grow">
+              <span v-show="el.active">
+                <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
+              </span>
+
+              <BaseSelectExerciseTemplate
+                :data="el"
+                :editable="el.name === '' || el.name.length === 0"
+                @onUpdateExercise="onUpdateExercise"
+                @onDeleteExercise="onDeleteExercise"
+              ></BaseSelectExerciseTemplate>
+            </div>
+            <div class="col-auto text-right">
+              <BaseBtnNewDelete
+                @onDelete="$emit('onDeleteExercise', el.id)"
+              ></BaseBtnNewDelete>
+            </div>
+            <div class="col-auto text-right self-center q-mr-xs">
+              <BaseNumberInput
+                v-model="el.duration"
+                :typeDuration="true"
+                @updatedb="$emit('onUpdateExerciseField', 'duration', el.duration, el.id)"
+              ></BaseNumberInput>
+            </div>
+            <div class="col-auto self-center">
+              <q-icon
+                flat
+                round
+                dense
+                name="drag_handle"
+                class="float-right handle"
+                size="md"
+              />
+            </div>
+          </div>
+        </draggable>
       </div>
     </draggable>
   </div>
@@ -68,25 +114,18 @@ export default {
   name: "nested-draggable",
 
   setup(props, context) {
-    onMounted(() => {
-      //console.log(props.data);
-    });
     const onUpdateExercise = (id, model) => {
       context.emit("onUpdateExercise", id, model);
     };
     const onDeleteExercise = (val) => {
       context.emit("onDeleteExercise", val);
     };
-    const onUpdateExerciseField = (field, val, id) => {
-      context.emit("onUpdateExerciseField", field, val, id);
+    const onChoose = (val) => {
+      console.log(val);
     };
-    // const onChoose = (val) => {
-    //   console.log(val);
-    // };
 
     return {
-      //onChoose,
-      onUpdateExerciseField,
+      onChoose,
       onUpdateExercise,
       onDeleteExercise,
     };

@@ -62,7 +62,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
           method: "post",
           body: { ...this.currentItem },
         });
-
+        response.exercise = [];
         updateArray(response, this.itemArray);
         this.currentItem = response;
         return this.currentItem;
