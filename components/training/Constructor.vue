@@ -12,6 +12,7 @@
       @onDeleteExercise="onDeleteExercise"
       @onUpdateExercise="onUpdateExercise"
       @onUpdateGroup="onUpdateGroup"
+      @onUpdateExerciseField="onUpdateExerciseField"
     ></BaseNested>
     <BaseInitCounter ref="initCounter"></BaseInitCounter>
     <TrainingCounter ref="trainingCounter"></TrainingCounter>
@@ -63,6 +64,12 @@ const onUpdateGroup = async (field, value, id) => {
     store.currentItem.exerciseGroup
   );
 };
+
+const onUpdateExerciseField = async (field, val, id) => {
+  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
+  await storeExercise.updateItemField(field, val, id, exercise);
+};
+
 const onDeleteGroup = async (id: Number) => {
   await storeExerciseGroup.deleteItem(id);
   removeItemFromArr(id, store.currentItem.exerciseGroup);

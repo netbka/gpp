@@ -93,15 +93,17 @@ export const useExerciseStore = defineStore("ExerciseStore", {
       }
     },
 
-    async updateItemField(field: String, val, id: number) {
+    async updateItemField(field: String, val, id: number, item: Exercise) {
       try {
-        const item = getById(id, this.itemArray);
-        if (item === null) return;
+        item = item ? item : getById(id, this.itemArray);
+
+        if (item === null || item === undefined) return;
         item[field] = val;
         const response = await $fetch("/api/exercise/field", {
           method: "post",
           body: { ...item, field },
         });
+        console.log(response);
       } catch (error) {
         console.log(error);
       }

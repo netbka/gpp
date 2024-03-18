@@ -202,7 +202,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
 
     getGroupByIndex(_index: number): number {
-      if (_index + 1 > this.defaultItem.length) return -1;
+      if (_index + 1 > this.currentItem.exerciseGroup.length) return -1;
 
       const initialActiveGroup = Object.assign({}, this.currentItem.exerciseGroup.filter((item, index) => index === _index)[0]);
       if (initialActiveGroup.exercise.length === 0) return this.getGroupByIndex(_index + 1); //no exercise in group

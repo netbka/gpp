@@ -141,7 +141,6 @@ const exerciseImage = computed(() => {
 const resetTraining = () => {
   store.resetActive();
   resetCounter();
-  emits("stopTimer");
   store.isStarted = false;
   store.getInitialActiveGroup();
   dialog.value.hide();
@@ -163,7 +162,10 @@ const showExerciseName = () => {
 const audio = new Audio("/sound/10sec.mp3");
 const startTimer = () => {
   if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
-  if (grpIndex.value + 1 > store.defaultItem.length && this.activeGroup.repeats === 0) {
+  if (
+    grpIndex.value + 1 > store.currentItem.exerciseGroup.length &&
+    this.activeGroup.repeats === 0
+  ) {
     resetTraining();
 
     return;
@@ -200,7 +202,7 @@ const startTimer = () => {
       audio.play();
     }
     if (counterDuration.value === 0) {
-      audio.play();
+      if (audio.currentTime > 0) audio.play(); //stop audio
       clearInterval(intervalId);
       store.setActiveExercise(exrIndex.value, false);
       exrIndex.value++;

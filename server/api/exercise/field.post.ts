@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import omit from "lodash/omit";
+//import omit from "lodash/omit";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -16,13 +16,14 @@ export default defineEventHandler(async (event) => {
     let result = await prisma.exercise.update({
       where: {
         id: body.id,
-        user_id: user_id,
+        //    user_id: user_id,
       },
       data: { ...data },
     });
 
     return result;
   } catch (error) {
+    console.log(error);
     return null;
   } finally {
     await prisma.$disconnect();

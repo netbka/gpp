@@ -12,7 +12,7 @@
         type="number"
         input-style="text-align: center; font-size:12px; margin-top: 2px !important; "
         class="super-small float-right"
-        @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
+        @update:modelValue="(newValue) => $emit('update:modelValue', Number(newValue))"
       >
         <template v-slot:after>
           <q-icon size="xs" name="done" @click="save()" class="cursor-pointer" />
