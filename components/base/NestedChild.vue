@@ -17,12 +17,12 @@
             <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
           </span>
 
-          <BaseSelectExerciseTemplate
+          <InputSelectExerciseTemplate
             :data="el"
             :editable="el.name === '' || el.name.length === 0"
             @onUpdateExercise="onUpdateExercise"
             @onDeleteExercise="onDeleteExercise"
-          ></BaseSelectExerciseTemplate>
+          ></InputSelectExerciseTemplate>
         </div>
         <div class="col-auto text-right">
           <BaseBtnNewDelete
@@ -30,11 +30,11 @@
           ></BaseBtnNewDelete>
         </div>
         <div class="col-auto text-right self-center q-mr-xs">
-          <BaseNumberInput
+          <InputNumber
             v-model="el.duration"
             :typeDuration="true"
             @updatedb="$emit('onUpdateExerciseField', 'duration', el.duration, el.id)"
-          ></BaseNumberInput>
+          ></InputNumber>
         </div>
         <div class="col-auto self-center">
           <q-icon

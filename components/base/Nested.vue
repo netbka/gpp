@@ -1,55 +1,57 @@
 <template>
   <div class="bg-white">
-    <draggable
-      class="dragArea"
-      tag="div"
-      :list="data"
-      :group="{ name: 'parent', pull: 'clone', put: false }"
-      handle=".handle"
-    >
-      <div v-for="(el, index) in data" :key="el.id" class="shadow-sm bg-gray-50">
-        <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
-          <div class="col-grow text-weight-bold text-uppercase self-center width-65">
-            <span v-show="el.active" class="" style="display: inline">
-              <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
-            </span>
-            <BaseTextInput
-              v-model="el.name"
-              @updatedb="$emit('onUpdateGroup', 'name', el.name, el.id)"
-            ></BaseTextInput>
+    <q-scroll-area class="scroll-height" :bar-style="barStyle()">
+      <draggable
+        class="dragArea"
+        tag="div"
+        :list="data"
+        :group="{ name: 'parent', pull: 'clone', put: false }"
+        handle=".handle"
+      >
+        <div v-for="(el, index) in data" :key="el.id" class="shadow-sm bg-gray-50">
+          <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
+            <div class="col-grow text-weight-bold text-uppercase self-center width-65">
+              <span v-show="el.active" class="" style="display: inline">
+                <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
+              </span>
+              <InputText
+                v-model="el.name"
+                @updatedb="$emit('onUpdateGroup', 'name', el.name, el.id)"
+              ></InputText>
+            </div>
+            <div class="col-auto self-center q-ms-xs">
+              <BaseBtnNewDelete
+                @onAdd="$emit('onAddExercise', el)"
+                @onDelete="$emit('onDeleteGroup', el.id)"
+                :propNewVisible="true"
+              ></BaseBtnNewDelete>
+            </div>
+            <div class="col-auto text-right self-center q-mr-xs">
+              <InputNumber
+                v-model="el.repeats"
+                @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
+              ></InputNumber>
+            </div>
+            <div class="col-auto self-center">
+              <q-icon
+                flat
+                round
+                dense
+                name="drag_handle"
+                class="float-right handle"
+                size="md"
+              />
+            </div>
           </div>
-          <div class="col-auto self-center q-ms-xs">
-            <BaseBtnNewDelete
-              @onAdd="$emit('onAddExercise', el)"
-              @onDelete="$emit('onDeleteGroup', el.id)"
-              :propNewVisible="true"
-            ></BaseBtnNewDelete>
-          </div>
-          <div class="col-auto text-right self-center q-mr-xs">
-            <BaseNumberInput
-              v-model="el.repeats"
-              @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
-            ></BaseNumberInput>
-          </div>
-          <div class="col-auto self-center">
-            <q-icon
-              flat
-              round
-              dense
-              name="drag_handle"
-              class="float-right handle"
-              size="md"
-            />
-          </div>
+          <BaseNestedChild
+            :data="el.exercise"
+            @onDeleteExercise="onDeleteExercise"
+            @onUpdateExercise="onUpdateExercise"
+            @onUpdateExerciseField="onUpdateExerciseField"
+          ></BaseNestedChild>
         </div>
-        <BaseNestedChild
-          :data="el.exercise"
-          @onDeleteExercise="onDeleteExercise"
-          @onUpdateExercise="onUpdateExercise"
-          @onUpdateExerciseField="onUpdateExerciseField"
-        ></BaseNestedChild>
-      </div>
-    </draggable>
+      </draggable>
+    </q-scroll-area>
   </div>
 </template>
 <script>

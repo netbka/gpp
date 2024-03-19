@@ -12,10 +12,10 @@
             <q-item>
               <q-item-section top>
                 <q-item-label lines="1" class="no-wrap ellipsis">
-                  <BaseTextInput
+                  <InputText
                     v-model="exercise.name"
                     @updatedb="updateItem('name', exercise.name, exercise.id)"
-                  ></BaseTextInput>
+                  ></InputText>
                   <span class="text-grey-8 q-ml-sm self-center">
                     {{ exercise.duration }} сек.</span
                   >

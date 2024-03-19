@@ -21,16 +21,16 @@ export const useProfileStore = defineStore("ProfileStore", {
       this.profiles = data;
     },
     async fetchItem(id) {
-      const { data } = await useFetch("/api/profile/" + id, {
+      const response = await $fetch("/api/profile/" + id, {
         method: "get",
       });
-      this.profile = data;
+      this.profile = response;
     },
     async fetchCurrentUser() {
-      const { data } = await useFetch("/api/profile/current", {
+      const response = await $fetch("/api/profile/current", {
         method: "get",
       });
-      if (data.value !== null) this.currentProfile = Object.assign({}, data.value);
+      if (response !== null) this.currentProfile = Object.assign({}, response);
     },
     async updateCurrentUser() {
       try {

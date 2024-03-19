@@ -5,15 +5,17 @@
       @start="start"
       @onSaveTraining="onSaveTraining"
     ></TrainingBtnControls>
-    <BaseNested
-      :data="item.exerciseGroup"
-      @onAddExercise="onAddExercise"
-      @onDeleteGroup="onDeleteGroup"
-      @onDeleteExercise="onDeleteExercise"
-      @onUpdateExercise="onUpdateExercise"
-      @onUpdateGroup="onUpdateGroup"
-      @onUpdateExerciseField="onUpdateExerciseField"
-    ></BaseNested>
+    
+      <BaseNested
+        :data="item.exerciseGroup"
+        @onAddExercise="onAddExercise"
+        @onDeleteGroup="onDeleteGroup"
+        @onDeleteExercise="onDeleteExercise"
+        @onUpdateExercise="onUpdateExercise"
+        @onUpdateGroup="onUpdateGroup"
+        @onUpdateExerciseField="onUpdateExerciseField"
+      ></BaseNested>
+    
     <BaseInitCounter ref="initCounter"></BaseInitCounter>
     <TrainingCounter ref="trainingCounter"></TrainingCounter>
     <BaseFab @newItem="addGroup"></BaseFab>

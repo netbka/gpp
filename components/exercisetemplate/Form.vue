@@ -53,7 +53,7 @@
       </div>
       <div class="row q-mt-md">
         <div class="col-12">
-          <BaseSelectMuscle v-model="store.currentItem.muscle"></BaseSelectMuscle>
+          <InputSelectMuscle v-model="store.currentItem.muscle"></InputSelectMuscle>
         </div>
       </div>
       <div class="row">

@@ -13,10 +13,10 @@
                   :name="publicPrivateIcon(item.public)"
                   class="q-mr-sm float-left"
                 ></q-icon>
-                <BaseTextInput
+                <InputText
                   v-model="item.name"
                   @updatedb="updateItem('name', item.name, item.id)"
-                ></BaseTextInput>
+                ></InputText>
               </q-item-label>
             </q-item-section>
             <q-item-section top side class="self-center">

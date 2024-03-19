@@ -13,7 +13,6 @@
     option-value="id"
     option-label="name"
     :loading="store.loading"
-    
     :input-style="{ fontSize: '12px' }"
     :rules="[(val) => validate(val)]"
     @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"

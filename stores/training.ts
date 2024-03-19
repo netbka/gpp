@@ -1,4 +1,3 @@
-import { exerciseGroupStore } from "./../composables/stores";
 import { defineStore } from "pinia";
 
 import { type Training, type ExerciseGroup } from "~/types/types";
@@ -9,6 +8,7 @@ interface TrainingStoreState {
   currentItem: Training;
   itemArray: [];
   loading: Boolean;
+
   //itemArray: reacive<Exercise[]>;
   //activeExercise: Exercise | null;
 }
@@ -33,6 +33,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     loading: false,
     isStarted: false,
     activeGroup: {},
+    rowsNumber: 0,
   }),
   getters: {
     getItemArray: (state) => {
@@ -88,6 +89,24 @@ export const useTrainingStore = defineStore("TrainingStore", {
         this.loading = false;
       }
     },
+    async search(props) {
+      if (props) {
+        withErrorHandling(this)(async (props, store) => {
+          //console.log(props.pagination.descending);
+          const response = await $fetch("/api/training/search", {
+            // query: {
+            //   page: props.pagination.page,
+            //   rowsPerPage: props.pagination.rowsPerPage,
+            //   sortBy: props.pagination.sortBy,
+            //   descending: props.pagination.descending,
+            // },
+            query: { filter: props.filter, ...props.pagination },
+          });
+          store.itemArray = response.result;
+          store.rowsNumber = response.totalCount;
+        })(props);
+      }
+    },
 
     createCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
@@ -97,8 +116,9 @@ export const useTrainingStore = defineStore("TrainingStore", {
         });
 
         updateArray(response, store.itemArray);
+
         store.currentItem = response;
-      })();
+      })(null);
     },
     // async createCurrentItem() {
     //   try {

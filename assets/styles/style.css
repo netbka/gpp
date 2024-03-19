@@ -57,9 +57,13 @@
 }
 
 .window-height-100 {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 50px);
 }
-
+@media (min-width: 768px) {
+  .window-height-100 {
+    height: calc(100vh - 100px);
+  }
+}
 .hero-sizing {
   height: calc(100vh / 2);
 }
@@ -85,12 +89,12 @@
 }
 
 .scroll-height {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 150px);
 }
 
 @media (min-width: 768px) {
   .scroll-height {
-    height: calc(100vh - 125px);
+    height: calc(100vh - 200px);
   }
 }
 

@@ -29,9 +29,9 @@
       </div>
       <div class="row q-my-md">
         <div class="col-12">
-          <BaseSelectSportType
+          <InputSelectSportType
             :selectedIds="store.currentProfile.profilesSportType"
-          ></BaseSelectSportType>
+          ></InputSelectSportType>
         </div>
       </div>
       <q-separator />
