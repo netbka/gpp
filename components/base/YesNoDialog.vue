@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-dialog ref="dialog" @hide="onDialogHide">
-      <q-card class="q-dialog-plugin">
+      <q-card class="q-dialog-plugin" style="width: 600px">
         <q-card-section class="row">
           <div class="text-h6">{{ propHeader }}</div>
           <q-space />
@@ -58,7 +58,6 @@ const onDialogHide = () => {
 };
 
 const onOKClick = () => {
-  
   emits("ok", id.value);
   dialog.value.hide();
 };

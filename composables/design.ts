@@ -11,3 +11,15 @@ export const barStyle = () => {
 export const publicPrivateIcon = (val) => {
   return val ? "public" : "lock";
 };
+
+export const editBtn = (visible: Boolean) => {
+  return { icon: "edit", tooltip: "Редактировать", visible: visible, color: "light-blue-14" };
+};
+
+export const deleteBtn = (visible: Boolean) => {
+  return { icon: "delete", tooltip: "Удалить", visible: visible, color: "deep-orange-5" };
+};
+
+export const customBtn = (visible: Boolean, tooltip: String, icon: String) => {
+  return { icon: icon, tooltip: tooltip, visible: visible, color: "grey" };
+};

@@ -1,5 +1,5 @@
 <template>
-  <q-td class="text-center">
+  <q-td class="text-center q-pa-xs">
     <q-btn
       :icon="propExecuteBtn.icon"
       v-if="propExecuteBtn.visible"
@@ -9,9 +9,9 @@
       :label="propExecuteBtn.label"
       @click="$emit('executeItem')"
     >
-      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+      <!-- <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
         {{ propExecuteBtn.tooltip }}
-      </q-tooltip>
+      </q-tooltip> -->
     </q-btn>
 
     <q-btn
@@ -32,7 +32,7 @@
       dense
       round
       flat
-      color="grey"
+      :color="propCustomBtn.color"
       @click="$emit('customAction')"
       :icon="propCustomBtn.icon"
       v-if="propCustomBtn.visible"
@@ -45,7 +45,7 @@
       dense
       round
       flat
-      color="grey"
+      :color="propDeleteBtn.color"
       @click="$emit('deleteItem')"
       :icon="propDeleteBtn.icon"
       v-if="propDeleteBtn.visible"
@@ -71,7 +71,7 @@ const props = defineProps({
   },
   propEditBtn: {
     Type: Object,
-    default: { icon: "icon", tooltip: "Edit", visible: false, color: "grey" },
+    default: { icon: "icon", tooltip: "Edit", visible: false, color: "green" },
   },
   propCustomBtn: {
     Type: Object,

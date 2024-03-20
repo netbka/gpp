@@ -3,30 +3,48 @@
     <TrainingBtnControls
       @setDuration="setDuration"
       @start="start"
-      @onSaveTraining="onSaveTraining"
+      @onSaveTraining="confirmAddTrainingDescription"
     ></TrainingBtnControls>
-    
-      <BaseNested
-        :data="item.exerciseGroup"
-        @onAddExercise="onAddExercise"
-        @onDeleteGroup="onDeleteGroup"
-        @onDeleteExercise="onDeleteExercise"
-        @onUpdateExercise="onUpdateExercise"
-        @onUpdateGroup="onUpdateGroup"
-        @onUpdateExerciseField="onUpdateExerciseField"
-      ></BaseNested>
-    
+
+    <BaseNested
+      :data="item.exerciseGroup"
+      @onAddExercise="onAddExercise"
+      @onDeleteGroup="onDeleteGroup"
+      @onDeleteExercise="onDeleteExercise"
+      @onUpdateExercise="onUpdateExercise"
+      @onUpdateGroup="onUpdateGroup"
+      @onUpdateExerciseField="onUpdateExerciseField"
+    ></BaseNested>
+
     <BaseInitCounter ref="initCounter"></BaseInitCounter>
     <TrainingCounter ref="trainingCounter"></TrainingCounter>
+
     <BaseFab @newItem="addGroup"></BaseFab>
+    <BaseYesNoDialog
+      ref="dialog"
+      @ok="addDescription"
+      @cancel="onSaveTraining"
+      propHeader="Добавить описание?"
+      propOkText="Да"
+      propOkColor="green"
+      propCancelText="Нет"
+      :propBody="description"
+    ></BaseYesNoDialog>
   </div>
 </template>
 
 <script lang="ts" setup>
+const dialog = ref(null);
 const store = trainingStore();
 const item = computed(() => store.getCurrentItem);
 const storeExerciseGroup = exerciseGroupStore();
 const storeExercise = exerciseStore();
+const description = ref("");
+
+const confirmAddTrainingDescription = () => {
+  description.value = exerciseToText(store.currentItem.exerciseGroup);
+  dialog.value.show();
+};
 
 const onDeleteExercise = async (id: Number) => {
   await storeExercise.deleteItem(id);
@@ -45,8 +63,14 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
   exercise = await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
   updateNestedItem(exercise, store.currentItem.exerciseGroup);
 };
-const onSaveTraining = () => {
-  store.updateTrainingPlan();
+
+const addDescription = async () => {
+  store.currentItem.description = description.value;
+  await onSaveTraining();
+};
+
+const onSaveTraining = async () => {
+  await store.updateTrainingPlan();
 };
 const addGroup = async () => {
   storeExerciseGroup.resetCurrentItem(

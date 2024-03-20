@@ -89,17 +89,21 @@ export const useTrainingStore = defineStore("TrainingStore", {
         this.loading = false;
       }
     },
+    async searchOwn(props) {
+      if (props) {
+        withErrorHandling(this)(async (props, store) => {
+          const response = await $fetch("/api/training/own", {
+            query: { filter: props.filter, ...props.pagination },
+          });
+          store.itemArray = response.result;
+          store.rowsNumber = response.totalCount;
+        })(props);
+      }
+    },
     async search(props) {
       if (props) {
         withErrorHandling(this)(async (props, store) => {
-          //console.log(props.pagination.descending);
           const response = await $fetch("/api/training/search", {
-            // query: {
-            //   page: props.pagination.page,
-            //   rowsPerPage: props.pagination.rowsPerPage,
-            //   sortBy: props.pagination.sortBy,
-            //   descending: props.pagination.descending,
-            // },
             query: { filter: props.filter, ...props.pagination },
           });
           store.itemArray = response.result;

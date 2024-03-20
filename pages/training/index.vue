@@ -1,13 +1,15 @@
 <template>
-  <div class="row shadow-1 q-py-sm q-px-xs">
-    <!-- <q-page-sticky position="bottom" :offset="[0, 0]" style="z-index: 9999">
-      <q-fab icon="add" color="accent" @click="newItem()"> </q-fab>
-    </q-page-sticky> -->
+  <!-- <div class="row shadow-1 q-py-sm q-px-xs">
     <BaseFab @newItem="newItem"></BaseFab>
     <TrainingForm ref="form"></TrainingForm>
     <div class="col-12">
       <TrainingList @edit="show()"></TrainingList>
     </div>
+  </div> -->
+  <div>
+    <BaseFab @newItem="newItem"></BaseFab>
+    <TrainingForm ref="form"></TrainingForm>
+    <TrainingTable @edit="show" ></TrainingTable>
   </div>
 </template>
 

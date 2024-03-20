@@ -102,3 +102,19 @@ export const calculateDuration = (arr: Array) => {
     return 0;
   }
 };
+
+export const exerciseToText = (arr: Array) => {
+  let text = "";
+  arr.forEach((item) => {
+    text += `${item.repeats}x`;
+    text += `<b>${item.name}:</b>`;
+    let i = 0;
+    item.exercise.forEach((exercise) => {
+      i++;
+      let prefix = i === 1 ? "  " : "  + ";
+      text += `${prefix}${exercise.name} (${exercise.duration} сек)`;
+    });
+    text += "</br>";
+  });
+  return text;
+};

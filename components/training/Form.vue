@@ -32,7 +32,8 @@
             v-model="store.currentItem.description"
             label="Описание"
             :disable="store.loading"
-            :input-style="{ fontSize: '12px' }"
+            :input-style="{ fontSize: '12px', maxHeight: '200px' }"
+            type="textarea"
           />
         </div>
       </div>
