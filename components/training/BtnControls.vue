@@ -15,7 +15,7 @@
         color="primary"
         class="q-mr-xs"
         icon="30fps_select"
-        @click="$emit('setDuration', 15)"
+        @click="$emit('setDuration', 30)"
         size="sm"
       />
       <q-btn

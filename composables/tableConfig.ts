@@ -83,9 +83,17 @@ export const trainingEditableTableColumns = () => {
       classes: "gt-xs truncate",
       headerClasses: "gt-xs",
     },
-
-    //   format: (val, row) => {
-    //     return row.Assignee !== null ? row.Assignee.FirstName + " " + row.Assignee.LastName : "-";
-    //   },
+    {
+      name: "totalDuration",
+      label: "Продолжительность",
+      field: "totalDuration",
+      required: true,
+      align: "center",
+      sortable: true,
+      editable: false,
+      format: (val, row) => {
+        return `${numToMin(val)} м. ${numToSec(val)} сек.`;
+      },
+    },
   ];
 };

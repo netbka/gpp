@@ -188,12 +188,16 @@ export const useTrainingStore = defineStore("TrainingStore", {
         this.loading = false;
       }
     },
-    setDuration(val: number) {
+    async setDuration(val: number) {
       //this.currentItem.exerciseGroup = this.currentItem.exerciseGroup.filter((obj) => obj !== undefined);
       this.currentItem.exerciseGroup.forEach((parent) => {
         parent.exercise.forEach((child) => {
           child.duration = val;
         });
+      });
+      const response = await $fetch("/api/training/updateGroupDuration", {
+        method: "post",
+        body: { id: this.currentItem.id, duration: val },
       });
     },
     getActiveExerciseDuration() {
