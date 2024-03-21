@@ -58,7 +58,7 @@
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             <span
               v-html="col.value"
-              class="ellipsis-3-lines max-width-150"
+              class=""
               v-if="!col.icon && col.editable === false"
             ></span>
             <slot
@@ -157,21 +157,27 @@ watch(
 );
 </script>
 <style scoped>
-.truncate {
-  max-width: 150px !important;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
-  -webkit-box-orient: vertical;
+td.truncate span {
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  word-break: break-all; /* allow the text to wrap at arbitrary points within words */
+  position: relative;
+  max-width: calc((100vw - 290px) * 2 / 3);
 }
-
-.truncate::after {
-  content: "...";
-  display: inline-block;
-  margin-left: 5px;
-}
-/* .max-width-150 {
-  max-width: 150px !important;
+/* td.truncate span {
+  white-space: break-spaces;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 } */
+
+@media (min-width: 1536px) {
+  td.truncate span {
+  }
+}
 </style>

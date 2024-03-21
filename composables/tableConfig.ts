@@ -23,8 +23,8 @@ export const trainingTableColumns = () => {
       sortable: true,
       editable: false,
       type: "text",
-      style: "width: 150px; padding-left: 4px",
-      headerStyle: "width: 150px",
+      style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      //  headerStyle: "width: 150px",
     },
     {
       name: "description",
@@ -34,6 +34,8 @@ export const trainingTableColumns = () => {
       align: "left",
       sortable: true,
       editable: false,
+      classes: "gt-xs truncate",
+      headerClasses: "gt-xs",
     },
 
     //   format: (val, row) => {
@@ -66,7 +68,7 @@ export const trainingEditableTableColumns = () => {
       sortable: true,
       editable: true,
       type: "text",
-      style: "width: 150px; padding-left: 4px",
+      style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
       headerStyle: "width: 150px",
     },
     {
@@ -77,9 +79,9 @@ export const trainingEditableTableColumns = () => {
       align: "left",
       sortable: true,
       editable: false,
-      classes: "",
-      style: "max-width: 150px; padding-left: 4px",
-      headerStyle: "max-width: 150px; padding-left: 4px",
+
+      classes: "gt-xs truncate",
+      headerClasses: "gt-xs",
     },
 
     //   format: (val, row) => {
