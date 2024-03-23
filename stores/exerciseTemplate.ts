@@ -8,7 +8,17 @@ interface ExerciseTemplateStoreState {
   //itemArray: reacive<ExerciseTemplate[]>;
   //activeExerciseTemplate: ExerciseTemplate | null;
 }
-
+const withErrorHandling = (store) => (actionFn) => async (payload) => {
+  try {
+    store.loading = true;
+    await actionFn(payload, store);
+  } catch (error) {
+    console.error("Error in action:", error);
+    // optionally, you can handle the error or display an error message to the user
+  } finally {
+    store.loading = false;
+  }
+};
 export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
   state: (): ExerciseTemplateStoreState => ({
     defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
@@ -62,7 +72,7 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     },
 
     async updateCurrentItem() {
-      try {
+      withErrorHandling(this)(async (payload, store) => {
         const response = await $fetch("/api/exerciseTemplate/update", {
           method: "post",
           body: { ...this.currentItem },
@@ -70,9 +80,18 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
 
         updateArray(response, this.itemArray);
         this.currentItem = response;
-      } catch (error) {
-        console.log(error);
-      }
+      })(null);
+    },
+    async createCurrentItem() {
+      withErrorHandling(this)(async (payload, store) => {
+        const response = await $fetch("/api/exerciseTemplate/create", {
+          method: "post",
+          body: { ...this.currentItem },
+        });
+
+        updateArray(response, this.itemArray);
+        this.currentItem = response;
+      })(null);
     },
 
     async updateItemField(field: String, val, id: number) {

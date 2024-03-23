@@ -9,6 +9,15 @@
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
+      <q-btn
+        stretch
+        flat
+        @click="redirectExerciseTemplate"
+        icon="fitness_center"
+        v-if="user"
+      >
+        <span class="gt-xs">Мои упражнения</span>
+      </q-btn>
       <q-btn stretch flat @click="redirectTraining" icon="rocket_launch" v-if="user">
         <span class="gt-xs">Мои планы</span>
       </q-btn>
@@ -26,6 +35,9 @@
 <script lang="ts" setup>
 const user = useSupabaseUser();
 import logo from "/logo110.png";
+const redirectExerciseTemplate = async () => {
+  await navigateTo({ path: "/exercisetemplate" });
+};
 const redirect = async () => {
   await navigateTo({ path: "/" });
 };

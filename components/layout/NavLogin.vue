@@ -53,9 +53,15 @@ const { auth } = useSupabaseClient();
 let profile = ref("");
 const store = profileStore();
 onMounted(async () => {
-  await store.fetchCurrentUser();
-  profile.value = await getProfile(store.currentProfile.user_id + ".jpeg");
+  await fetchCurrentUser();
 });
+
+const fetchCurrentUser = async () => {
+  if (user.value) {
+    await store.fetchCurrentUser();
+    profile.value = await getProfile(store.currentProfile.user_id + ".jpeg");
+  }
+};
 
 const logout = async () => {
   const { error } = await auth.signOut();

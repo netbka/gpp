@@ -11,12 +11,11 @@ export default defineEventHandler(async (event) => {
     let body = await readBody(event);
     body.user_id = user_id;
     body.muscleId = body.muscle.id;
-    // let muscleObj = body.muscle;
+    //let muscleObj = body.muscle;
     body = omit(body, ["muscle"]);
-    let result = await prisma.exerciseTemplate.update({
-      where: {
-        id: body.id,
-      },
+    body = omit(body, ["id"]);
+
+    let result = await prisma.exerciseTemplate.create({
       data: { ...body },
       include: {
         muscle: true,

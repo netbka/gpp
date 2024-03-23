@@ -61,7 +61,7 @@
 }
 @media (min-width: 768px) {
   .window-height-100 {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 108px);
   }
 }
 .hero-sizing {

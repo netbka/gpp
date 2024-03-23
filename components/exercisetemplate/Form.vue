@@ -63,7 +63,7 @@
       </div>
       <div class="row q-my-md">
         <div class="col-12">
-          <BaseUpload @updateImge="imageUpdate" ref="uploader"></BaseUpload>
+          <InputUpload @updateImge="imageUpdate" ref="uploader"></InputUpload>
         </div>
       </div>
     </BaseDialogForm>
@@ -83,8 +83,6 @@ const imageUpdate = (img) => {
 };
 
 const onSubmit = async () => {
-  loading.value = true;
-  //todo fix so can upload also with new exercise
   //todo fix so only premium users can upload
   //todo fix to apply real image extension and not only "gif"
 
@@ -92,16 +90,20 @@ const onSubmit = async () => {
     //todo fix to get actual suffix (also fix in Upload component!)
     store.currentItem.imageUrl = ".gif";
   }
-  await store.updateCurrentItem();
+  console.log(store.currentItem.id);
+  if (store.currentItem.id === null) {
+    await store.createCurrentItem();
+  } else {
+    await store.updateCurrentItem();
+  }
 
   //  console.log(imageToUpload.value);
   if (imageToUpload.value != null) {
     //  console.log(store.currentItem.id);
-    updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
+    await updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
   }
 
   // store.currentProfile.profilesSportType = storeSportType.currentItem;
-  loading.value = false;
 };
 
 const newItem = () => {

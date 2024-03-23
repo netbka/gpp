@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-scroll-area class="scroll-height" :bar-style="barStyle()">
+    <q-scroll-area class="window-height-100" :bar-style="barStyle()">
       <q-list bordered class="rounded-borders full-height max-height">
         <div v-for="(muscleGroup, muscleGroupName) in groupedData" :key="muscleGroupName">
           <q-item-label
