@@ -1,47 +1,40 @@
 <template>
-  <q-btn-dropdown v-if="user" stretch flat icon="account_circle">
-    <div class="row no-wrap q-pa-sm width-300">
-      <div class="col">
-        <div class="text-h6 q-mb-md">Профиль</div>
-        <div>
-          <NuxtLink to="/profile" class="">Редактировать</NuxtLink>
-        </div>
-
-        <div>
-          <NuxtLink to="/training" class="">Мои планы</NuxtLink>
-        </div>
-        <div>
-          <NuxtLink to="/exercisetemplate" class="">Мои упражнения</NuxtLink>
-        </div>
-        <div>
-          <NuxtLink to="/workout" class="">К ОФП</NuxtLink>
-        </div>
-      </div>
-
-      <q-separator vertical inset class="q-mx-lg" />
-
-      <div class="col-auto items-center">
-        <q-avatar size="72px">
-          <img :src="profile" />
-        </q-avatar>
-
-        <div class="text-subtitle1 q-mt-md q-mb-xs">
+  <q-btn-dropdown v-show="user" stretch flat icon="account_circle">
+    <div class="row q-pa-sm width-profile wrap justify-center items-center content-start">
+      <div class="col-grow self-center">
+        <!-- <div class="text-center">
+          <q-avatar size="72px">
+            <img :src="profile" />
+          </q-avatar>
+        </div> -->
+        <!-- <div class="text-subtitle2 q-mt-md q-mb-xs text-center ellipsis">
           {{ store.currentProfile.firstName }} {{ store.currentProfile.lastName }}
+        </div> -->
+        <div class="q-py-sm">
+          <q-btn
+            label="Мой профиль"
+            outline
+            size="sm"
+            v-close-popup
+            class="full-width"
+            to="/profile"
+          />
         </div>
-
         <q-btn
           color="primary"
           label="Выход"
           push
+          outline
           size="sm"
           v-close-popup
           @click="logout"
+          class="full-width"
         />
       </div>
     </div>
   </q-btn-dropdown>
 
-  <q-btn stretch flat label="Вход" v-else to="/login" />
+  <q-btn stretch flat label="Вход" v-show="!user" to="/login" />
 </template>
 
 <script lang="ts" setup>
@@ -50,18 +43,19 @@ const { auth } = useSupabaseClient();
 
 // const name = computed(() => user.value?.user_metadata.full_name);
 // const profile = computed(() => user.value?.user_metadata.avatar_url);
-let profile = ref("");
-const store = profileStore();
+// let profile = ref("");
+// const store = profileStore();
 onMounted(async () => {
-  await fetchCurrentUser();
+  //await fetchCurrentUser();
 });
 
-const fetchCurrentUser = async () => {
-  if (user.value) {
-    await store.fetchCurrentUser();
-    profile.value = await getProfile(store.currentProfile.user_id + ".jpeg");
-  }
-};
+// const fetchCurrentUser = async () => {
+
+//   if (user.value) {
+//     await store.fetchCurrentUser();
+//     profile.value = await getProfile(store.currentProfile.user_id + ".jpeg");
+//   }
+// };
 
 const logout = async () => {
   const { error } = await auth.signOut();
@@ -83,7 +77,9 @@ const logout = async () => {
   text-decoration: none !important;
 }
 
-.width-300 {
-  width: 340px;
+.width-profile {
+  min-width: 200px;
+  max-width: 250px;
+  padding: 8px;
 }
 </style>

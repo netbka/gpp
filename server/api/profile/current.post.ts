@@ -29,10 +29,12 @@ export default defineEventHandler(async (event) => {
           disconnect: removeItems.map((id) => ({ id })),
         },
       },
+      include: {
+        profilesSportType: true,
+      },
     });
     return result;
   } catch (error) {
-    
     // throw createError({
     //   statusCode: 500,
     //   statusMessage: "Something bad happened on the server",

@@ -9,23 +9,24 @@
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
-      <q-btn
-        stretch
-        flat
-        @click="redirectExerciseTemplate"
-        icon="fitness_center"
-        v-if="user"
-      >
-        <span class="gt-xs">Мои упражнения</span>
-      </q-btn>
-      <q-btn stretch flat @click="redirectTraining" icon="rocket_launch" v-if="user">
-        <span class="gt-xs">Мои планы</span>
-      </q-btn>
-      <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
-        <span class="gt-xs">Планы пользователей </span>
-      </q-btn>
-      <q-separator dark vertical class="gt-xs" />
       <ClientOnly>
+        <q-btn
+          stretch
+          flat
+          @click="redirectExerciseTemplate"
+          icon="fitness_center"
+          v-show="user"
+        >
+          <span class="gt-xs">Мои упражнения</span>
+        </q-btn>
+        <q-btn stretch flat @click="redirectTraining" icon="rocket_launch" v-show="user">
+          <span class="gt-xs">Мои планы</span>
+        </q-btn>
+        <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
+          <span class="gt-xs">Планы пользователей </span>
+        </q-btn>
+        <q-separator dark vertical class="gt-xs" />
+
         <LayoutNavLogin></LayoutNavLogin>
       </ClientOnly>
     </q-toolbar>

@@ -9,7 +9,9 @@
       </span>
     </div>
     <div class="col-12 col-sm">
-      <ProfileForm></ProfileForm>
+      <ClientOnly>
+        <ProfileForm></ProfileForm>
+      </ClientOnly>
     </div>
   </div>
 </template>
@@ -18,7 +20,11 @@
 definePageMeta({ auth: true });
 
 const store = profileStore();
-await store.fetchCurrentUser();
+const storeSportType = sportTypeStore();
+onBeforeMount(async () => {
+  await store.fetchCurrentUser();
+  await storeSportType.fetchAll();
+});
 
 // const user = useSupabaseUser();
 // const profile = computed(() => user.value?.user_metadata.avatar_url);

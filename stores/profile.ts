@@ -27,6 +27,11 @@ export const useProfileStore = defineStore("ProfileStore", {
       this.profile = response;
     },
     async fetchCurrentUser() {
+      const user = useSupabaseUser();
+      //console.log(this.currentProfile);
+      //console.log("from store:", user.value);
+      if (this.currentProfile.id !== 0) return;
+      //console.log(this.currentProfile);
       const response = await $fetch("/api/profile/current", {
         method: "get",
       });
@@ -38,7 +43,6 @@ export const useProfileStore = defineStore("ProfileStore", {
           method: "post",
           body: { ...this.currentProfile },
         });
-        console.log(response);
       } catch (error) {
         //console.log(error);
       }

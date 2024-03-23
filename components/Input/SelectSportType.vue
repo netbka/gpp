@@ -39,14 +39,18 @@ const props = defineProps({
 });
 const { selectedIds } = props;
 
-import { useSportTypeStore } from "~/stores/sportType";
-const store = useSportTypeStore();
-store.fetchAll();
-onMounted(async () => {
-  store.currentItem = selectedIds;
-});
+const store = sportTypeStore();
 
-//await store.fetchAll();
+onMounted(async () => {});
+
+onBeforeMount(async () => {});
+watch(
+  () => props.selectedIds,
+  (newVal) => {
+    store.currentItem = newVal;
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>

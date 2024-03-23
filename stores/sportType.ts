@@ -22,11 +22,11 @@ export const useSportTypeStore = defineStore("SportTypeStore", {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
     async fetchAll() {
-      const { data } = await useFetch("/api/sporttype/all", {
+      const response = await $fetch("/api/sporttype/all", {
         method: "get",
       });
 
-      if (data.value.length > 0) this.items = data.value;
+      if (response.value && response.value.length > 0) this.items = response.value;
     },
   },
 });

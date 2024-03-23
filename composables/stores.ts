@@ -27,8 +27,12 @@ export const exerciseGroupStore = () => {
   return useExerciseGroupStore();
 };
 
-
 import { useProfileStore } from "~/stores/profile";
 export const profileStore = () => {
   return useProfileStore();
+};
+
+import { useSportTypeStore } from "~/stores/sportType";
+export const sportTypeStore = () => {
+  return useSportTypeStore();
 };
