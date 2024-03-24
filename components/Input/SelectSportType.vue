@@ -12,6 +12,7 @@
     outlined
     option-value="id"
     :loading="store.loading"
+    :disable="props.loading"
     option-label="name"
     multiple
     :input-style="{ fontSize: '12px' }"
@@ -24,6 +25,7 @@
       </q-item>
     </template>
     <!-- <template v-slot:selected-item="scope">
+   
       <span>
         {{ scope.opt.name }}
       </span>
@@ -35,6 +37,9 @@
 const props = defineProps({
   selectedIds: {
     type: Array,
+  },
+  loading: {
+    type: Boolean,
   },
 });
 const { selectedIds } = props;

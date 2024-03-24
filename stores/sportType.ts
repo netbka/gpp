@@ -15,6 +15,7 @@ export const useSportTypeStore = defineStore("SportTypeStore", {
       name: "",
       description: "",
     },
+    loading: false,
   }),
 
   actions: {
@@ -22,11 +23,13 @@ export const useSportTypeStore = defineStore("SportTypeStore", {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
     async fetchAll() {
-      const response = await $fetch("/api/sporttype/all", {
-        method: "get",
-      });
+      withErrorHandling(this)(async (props, store) => {
+        const response = await $fetch("/api/sporttype/all", {
+          method: "get",
+        });
 
-      if (response.value && response.value.length > 0) this.items = response.value;
+        if (response && response.length > 0) this.items = response;
+      })(null);
     },
   },
 });

@@ -11,6 +11,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+definePageMeta({ auth: true });
 const form = ref(null);
 
 const store = useExerciseTemplateStore();

@@ -9,11 +9,12 @@
   <div>
     <BaseFab @newItem="newItem"></BaseFab>
     <TrainingForm ref="form"></TrainingForm>
-    <TrainingTable @edit="show" ></TrainingTable>
+    <TrainingTable @edit="show"></TrainingTable>
   </div>
 </template>
 
 <script lang="ts" setup>
+definePageMeta({ auth: true });
 const form = ref(null);
 
 const store = useTrainingStore();

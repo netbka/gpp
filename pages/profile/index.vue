@@ -1,17 +1,18 @@
 <template>
   <div
-    class="row justify-center items-start content-start q-mt-md shadow-2 q-pa-md q-mx-md"
+    class="row q-col-gutter-md justify-center items-start content-start q-mt-md shadow-2 q-pa-md q-mx-md"
   >
     <div class="col-12 col-sm">
       <div class="text-h6">Давайте познакомимся</div>
       <span class="text-caption">
         Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
       </span>
+      <div class="q-mt-md">
+        <ProfileAvatar></ProfileAvatar>
+      </div>
     </div>
     <div class="col-12 col-sm">
-      <ClientOnly>
-        <ProfileForm></ProfileForm>
-      </ClientOnly>
+      <ProfileForm></ProfileForm>
     </div>
   </div>
 </template>
@@ -35,15 +36,4 @@ onBeforeMount(async () => {
 // });
 </script>
 
-<style>
-.profile-card {
-  max-width: 800px;
-}
-.max-width-500 {
-  max-width: 480px !important;
-}
-
-.max-width-240 {
-  max-width: 240px !important;
-}
-</style>
+<style></style>

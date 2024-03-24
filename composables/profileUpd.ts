@@ -17,6 +17,18 @@ export const urlToFile = async (url: string | URL, filename: string) => {
     return genericAvatar("N", filename);
   }
 };
+export const urlToBlob = async (url: string) => {
+  try {
+    // const response = await fetch(url);
+    // if (!response.ok) return genericAvatar("N", filename);
+    const response = await getAvatar(url);
+    const blob = await response.blob();
+
+    return blob;
+  } catch (error) {
+    return genericAvatar("N", filename);
+  }
+};
 
 export const getProfile = async (fileName: string) => {
   const supabase = useSupabaseClient();

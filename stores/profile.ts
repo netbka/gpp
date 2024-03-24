@@ -11,41 +11,49 @@ export const useProfileStore = defineStore("ProfileStore", {
     profiles: [],
     currentProfile: { id: 0, lastName: "", firstName: "", user_id: "", birthDay: null, profilesSportType: [] },
     profile: { id: 0, lastName: "", firstName: "", user_id: "", birthDay: null, profilesSportType: [] },
+    loading: false,
   }),
 
   actions: {
     async fetchAll() {
-      const { data } = await useFetch("/api/profile/all", {
-        method: "get",
-      });
-      this.profiles = data;
+      withErrorHandling(this)(async (props, store) => {
+        const { data } = await useFetch("/api/profile/all", {
+          method: "get",
+        });
+        this.profiles = data;
+      })(null);
     },
     async fetchItem(id) {
-      const response = await $fetch("/api/profile/" + id, {
-        method: "get",
-      });
-      this.profile = response;
+      withErrorHandling(this)(async (props, store) => {
+        const response = await $fetch("/api/profile/" + id, {
+          method: "get",
+        });
+        this.profile = response;
+      })(null);
     },
     async fetchCurrentUser() {
-      const user = useSupabaseUser();
-      //console.log(this.currentProfile);
-      //console.log("from store:", user.value);
       if (this.currentProfile.id !== 0) return;
-      //console.log(this.currentProfile);
       const response = await $fetch("/api/profile/current", {
         method: "get",
       });
       if (response !== null) this.currentProfile = Object.assign({}, response);
+      // withErrorHandling(this)(async (props, store) => {
+      //   if (this.currentProfile.id !== 0) return;
+      //   const response = await $fetch("/api/profile/current", {
+      //     method: "get",
+      //   });
+      //   if (response !== null) this.currentProfile = Object.assign({}, response);
+      // })(null);
     },
     async updateCurrentUser() {
-      try {
+      withErrorHandling(this)(async (props, store) => {
         const response = await $fetch("/api/profile/current", {
           method: "post",
           body: { ...this.currentProfile },
         });
-      } catch (error) {
-        //console.log(error);
-      }
+      })(null);
+      try {
+      } catch (error) {}
     },
   },
 });
