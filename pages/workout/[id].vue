@@ -5,10 +5,7 @@
         <div class="col-grow self-center">
           <div class="text-subtitle1 text-bold">
             План тренировки
-            <InputText
-              v-model="store.currentItem.name"
-              @updatedb="updateItem('name', store.currentItem.name, store.currentItem.id)"
-            ></InputText>
+            <InputText v-model="store.currentItem.name" :readOnly="true"></InputText>
           </div>
           <q-item-label caption
             >Продолжительность: {{ numToMin(duration) }} мин.
@@ -17,14 +14,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
+        <div class="col-12">
+          <TrainingConstructor :readOnly="true"></TrainingConstructor>
+        </div>
       </div>
     </ClientOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
-definePageMeta({ auth: true });
 const route = useRoute();
 const { id } = route.params;
 
@@ -34,9 +32,9 @@ const store = trainingStore();
 await store.getById(parseSlugId(id));
 //const item = computed(() => store.getCurrentItem);
 
-const updateItem = async (field, value, id) => {
-  await store.updateItemField(field, value, id);
-};
+// const updateItem = async (field, value, id) => {
+//   await store.updateItemField(field, value, id);
+// };
 
 const storeExerciseTemplate = exerciseTemplateStore();
 await storeExerciseTemplate.fetchAll();

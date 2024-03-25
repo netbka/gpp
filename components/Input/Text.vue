@@ -23,7 +23,7 @@
     </span>
     <span
       v-show="!visibleEdit"
-      class="border-edit text-weight-light inline"
+      :class="['text-weight-light inline', { 'border-edit': !readOnly }]"
       @click="changeVisibility"
     >
       {{ modelValue }}
@@ -38,12 +38,17 @@ const props = defineProps({
     default: "",
     required: true,
   },
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
 });
 const visibleEdit = ref(false);
 
 const emits = defineEmits(["update:modelValue", "updatedb"]);
 
 const changeVisibility = () => {
+  if (props.readOnly) return;
   if (props.modelValue.length === 0) return;
   visibleEdit.value = !visibleEdit.value;
 };

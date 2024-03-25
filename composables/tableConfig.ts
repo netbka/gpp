@@ -34,10 +34,22 @@ export const trainingTableColumns = () => {
       align: "left",
       sortable: true,
       editable: false,
-      classes: "gt-xs truncate",
+      style: "text-wrap: balance",
+      classes: "gt-xs truncate wrap-col",
       headerClasses: "gt-xs",
     },
-
+    {
+      name: "totalDuration",
+      label: "Продолжительность",
+      field: "totalDuration",
+      required: true,
+      align: "center",
+      sortable: true,
+      editable: false,
+      format: (val, row) => {
+        return `${numToMin(val)} м. ${numToSec(val)} сек.`;
+      },
+    },
     //   format: (val, row) => {
     //     return row.Assignee !== null ? row.Assignee.FirstName + " " + row.Assignee.LastName : "-";
     //   },
@@ -79,8 +91,8 @@ export const trainingEditableTableColumns = () => {
       align: "left",
       sortable: true,
       editable: false,
-
-      classes: "gt-xs truncate",
+      style: "text-wrap: balance",
+      classes: "gt-xs truncate wrap-col",
       headerClasses: "gt-xs",
     },
     {

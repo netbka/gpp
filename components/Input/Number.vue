@@ -27,7 +27,7 @@
     </span>
     <span
       v-show="!visibleEdit"
-      class="border-edit text-weight-light"
+      :class="['text-weight-light inline', { 'border-edit': !readOnly }]"
       @click="changeVisibility"
     >
       {{ modelValue }} {{ label }}
@@ -46,6 +46,10 @@ const props = defineProps({
     type: [Boolean],
     default: false,
   },
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
 });
 const visibleEdit = ref(false);
 //if No duration type then it is repeats type
@@ -61,6 +65,7 @@ const save = () => {
 };
 
 const changeVisibility = () => {
+  if (props.readOnly) return;
   if (props.modelValue.length === 0) return;
   visibleEdit.value = !visibleEdit.value;
 };

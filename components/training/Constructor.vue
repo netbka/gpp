@@ -4,9 +4,11 @@
       @setDuration="setDuration"
       @start="start"
       @onSaveTraining="confirmAddTrainingDescription"
+      :readOnly="readOnly"
     ></TrainingBtnControls>
 
     <BaseNested
+      :readOnly="readOnly"
       :data="item.exerciseGroup"
       @onAddExercise="onAddExercise"
       @onDeleteGroup="onDeleteGroup"
@@ -19,7 +21,7 @@
     <BaseInitCounter ref="initCounter"></BaseInitCounter>
     <TrainingCounter ref="trainingCounter"></TrainingCounter>
 
-    <BaseFab @newItem="addGroup"></BaseFab>
+    <BaseFab @newItem="addGroup" v-if="!props.readOnly"></BaseFab>
     <BaseDialogYesNo
       ref="dialog"
       @ok="addDescription"
@@ -34,6 +36,12 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps({
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
+});
 const dialog = ref(null);
 const store = trainingStore();
 const item = computed(() => store.getCurrentItem);

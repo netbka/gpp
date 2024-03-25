@@ -9,7 +9,7 @@
       icon="add_box"
       color="indigo-10"
       @click="$emit('onAdd')"
-      v-show="props.propNewVisible"
+      v-show="props.propNewVisible && !props.readOnly"
     />
     <q-btn
       class=""
@@ -20,6 +20,7 @@
       icon="delete_forever"
       color="deep-orange-5"
       @click="confirmDelete()"
+      v-show="!props.readOnly"
     />
     <BaseDialogYesNo ref="dialog" @ok="remove"></BaseDialogYesNo>
   </div>
@@ -28,6 +29,10 @@
 <script lang="ts" setup>
 const props = defineProps({
   propNewVisible: { type: Boolean, default: false },
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
 });
 const dialog = ref(null);
 const confirmDelete = (id) => {

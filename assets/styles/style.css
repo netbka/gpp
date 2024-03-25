@@ -94,7 +94,7 @@
 
 @media (min-width: 768px) {
   .scroll-height {
-    height: calc(100vh - 200px);
+    height: calc(100vh - 216px);
   }
 }
 
@@ -108,4 +108,8 @@
   pointer-events: all;
   outline: 0;
   background: rgba(0, 0, 0, 0.7);
+}
+
+.wrap-col {
+  text-wrap: balance;
 }

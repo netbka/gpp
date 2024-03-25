@@ -15,12 +15,14 @@
                 <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
               </span>
               <InputText
+                :readOnly="readOnly"
                 v-model="el.name"
                 @updatedb="$emit('onUpdateGroup', 'name', el.name, el.id)"
               ></InputText>
             </div>
             <div class="col-auto self-center q-ms-xs">
               <BaseBtnNewDelete
+                :readOnly="readOnly"
                 @onAdd="$emit('onAddExercise', el)"
                 @onDelete="$emit('onDeleteGroup', el.id)"
                 :propNewVisible="true"
@@ -28,6 +30,7 @@
             </div>
             <div class="col-auto text-right self-center q-mr-xs">
               <InputNumber
+                :readOnly="readOnly"
                 v-model="el.repeats"
                 @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
               ></InputNumber>
@@ -44,6 +47,7 @@
             </div>
           </div>
           <BaseNestedChild
+            :readOnly="readOnly"
             :data="el.exercise"
             @onDeleteExercise="onDeleteExercise"
             @onUpdateExercise="onUpdateExercise"
@@ -61,6 +65,10 @@ export default {
     data: {
       required: true,
       type: Array,
+    },
+    readOnly: {
+      default: false,
+      type: Boolean,
     },
   },
 

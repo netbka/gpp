@@ -18,6 +18,7 @@
           </span>
 
           <InputSelectExerciseTemplate
+            :readOnly="readOnly"
             :data="el"
             :editable="el.name === '' || el.name.length === 0"
             @onUpdateExercise="onUpdateExercise"
@@ -26,11 +27,13 @@
         </div>
         <div class="col-auto text-right">
           <BaseBtnNewDelete
+            :readOnly="readOnly"
             @onDelete="$emit('onDeleteExercise', el.id)"
           ></BaseBtnNewDelete>
         </div>
         <div class="col-auto text-right self-center q-mr-xs">
           <InputNumber
+            :readOnly="readOnly"
             v-model="el.duration"
             :typeDuration="true"
             @updatedb="$emit('onUpdateExerciseField', 'duration', el.duration, el.id)"
@@ -57,6 +60,10 @@ export default {
     data: {
       required: false,
       type: Array,
+    },
+    readOnly: {
+      type: Boolean,
+      default: false,
     },
   },
 

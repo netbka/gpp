@@ -43,8 +43,8 @@
     </span>
     <span
       v-show="!visibleEdit"
-      class="border-edit text-weight-light"
-      @click="visibleEdit = !visibleEdit"
+      :class="['text-weight-light inline', { 'border-edit': !readOnly }]"
+      @click="changeVisibility"
     >
       {{ model.name }}
     </span>
@@ -62,24 +62,32 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
 });
 let model = ref({ name: "" });
 model = Object.assign({}, props.data);
 
 const visibleEdit = ref(false);
 visibleEdit.value = props.editable;
-//const props = defineProps(["modelValue"]);
+
 const emits = defineEmits(["onUpdateExercise", "onDeleteExercise"]);
 
-// @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
 const options = ref([]);
 const store = exerciseTemplateStore();
 
 options.value = Object.assign([], store.itemArray);
 
+const changeVisibility = () => {
+  if (props.readOnly) return;
+  //if (props.modelValue.length === 0) return;
+  visibleEdit.value = !visibleEdit.value;
+};
+
 const filterFn = (val, update, abort) => {
   update(() => {
-    //options.value = Object.assign([], store.itemArray);
     if (val.length === 0) {
       options.value = [...store.itemArray];
 
@@ -97,13 +105,12 @@ const save = () => {
     notifyMsgNegative("Нужно выбрать значение");
     return;
   }
-  console.log(model.name);
+
   visibleEdit.value = !visibleEdit.value;
 
   emits("onUpdateExercise", props.data.id, model);
 };
 const remove = (val) => {
-  //emits("onDeleteExercise", model);
   if (!model.name) {
     notifyMsgNegative("Нужно выбрать значение");
     return;

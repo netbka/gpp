@@ -5,10 +5,11 @@
       filled
       v-model="image"
       label="Пример упражнения. Картинка."
-      accept=".jpg, .jpeg, .gif, .png"
-      max-total-size="1000000"
+      accept="image/*"
+      :max-file-size="fileLimit()"
       @update:model-value="previewMultiImage"
       ref="picker"
+      @rejected="onRejectedSize"
     >
       <template v-slot:append>
         <q-icon name="attachment" @click="picker.pickFiles()" />
@@ -44,6 +45,9 @@ onMounted(() => {
     setExistingPreview(store.currentItem.id + ".gif");
   }
 });
+const onRejectedSize = (rejectedEntries) => {
+  notifyRejectedSize(rejectedEntries);
+};
 
 const setExistingPreview = (filename) => {
   //todo fix to get the suffix

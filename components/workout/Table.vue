@@ -27,7 +27,7 @@ const onRequest = async (props) => {
 const executeItem = async (prop) => {
   var slug = prop.row.id + "-" + prop.row.name;
   const url = useSlug(slug);
-  await navigateTo({ path: "/training/" + url });
+  await navigateTo({ path: "/workout/" + url });
 };
 </script>
 

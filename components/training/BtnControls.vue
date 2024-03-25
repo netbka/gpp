@@ -9,7 +9,7 @@
         @click="back()"
       ></q-btn>
     </div>
-    <div class="col-auto">
+    <div class="col-auto" v-if="!props.readOnly">
       <q-btn
         outline
         color="primary"
@@ -54,6 +54,7 @@
         size="sm"
       ></q-btn> -->
       <q-btn
+        v-if="!props.readOnly"
         icon="save"
         outline
         @click="$emit('onSaveTraining')"
@@ -65,8 +66,16 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps({
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
+});
+const router = useRouter();
 const back = async () => {
-  await navigateTo({ path: "/training" });
+  await navigateTo({ path: "/" + router.currentRoute.value.fullPath.split("/")[1] });
+  //console.log();
 };
 </script>
 
