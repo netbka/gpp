@@ -95,7 +95,6 @@ const setAvatar = (_file) => {
   const blob = URL.createObjectURL(_file);
   image.value.src = blob;
   image.value.type = _file.type;
-  //console.log(image.value.type);
 };
 
 const undoImage = () => {
@@ -104,9 +103,6 @@ const undoImage = () => {
 };
 
 const uploadAvatar = async () => {
-  //const fileToUpload =
-  //console.log(inputfile.value);
-  //console.log(croppedFile.value);
   if (croppedFile.value) {
     await updateUserAvatar(croppedFile.value, store.currentProfile.user_id);
     return;
@@ -162,41 +158,6 @@ const show = () => {
 defineExpose({
   show,
 });
-
-//const updateNewAvatar = async () => {
-// if (!store.currentProfile.avatarPath && profile.value.length > 6) {
-//   var url = profile.value;
-//   var fileName = store.currentProfile.user_id + ".jpeg";
-//   const fileToUpload = await urlToFile(url, fileName);
-//   updateUserAvatar(fileToUpload, fileName);
-//   store.currentProfile.avatarPath = fileName;
-//   store.updateCurrentUser();
-// }
-//};
-// const uploadImage = (event) => {
-//   /// Reference to the DOM input element
-//   const { files } = event.target;
-//   // Ensure that you have a file before attempting to read it
-//   if (files && files[0]) {
-//     // 1. Revoke the object URL, to allow the garbage collector to destroy the uploaded before file
-//     if (image.src) {
-//       URL.revokeObjectURL(image.src);
-//     }
-//     // 2. Create the blob link to the file to optimize performance:
-//     const blob = URL.createObjectURL(files[0]);
-
-//     // 3. Update the image. The type will be derived from the extension and it can lead to an incorrect result:
-//     image.value.src = blob;
-//     image.value.type = files[0].type;
-//   }
-// };
-//onMounted(async () => {});
-
-// const initAvatar = async (url) => {
-//   let result = await urlToFile(url, "avatar.jpg");
-//   setAvatar(result);
-
-// };
 </script>
 
 <style lang="scss">
