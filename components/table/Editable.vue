@@ -89,7 +89,7 @@
         </q-tr>
       </template>
     </q-table>
-    <BaseYesNoDialog ref="dialog" @ok="remove"></BaseYesNoDialog>
+    <BaseDialogYesNo ref="dialog" @ok="remove"></BaseDialogYesNo>
   </div>
 </template>
 <script lang="ts" setup>

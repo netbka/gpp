@@ -1,4 +1,3 @@
-import { exerciseGroupStore } from "./../../../composables/stores";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();

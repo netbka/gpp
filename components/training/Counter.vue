@@ -46,43 +46,6 @@
         </div>
       </q-card-section>
     </q-card>
-
-    <!-- <div class=" ">
-      <TrainingButtonStartRestart @hide="hide"></TrainingButtonStartRestart>
-
-      <div class="fit row justify-center items-center content-center">
-        <div class="col text-center">
-          <q-knob
-            show-value
-            font-size="40px"
-            class="q-ma-md"
-            v-model="timer"
-            size="250px"
-            :thickness="0.05"
-            color="primary"
-            track-color="grey-2"
-            readonly
-          >
-            <span class="text-light-blue-2">
-              {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
-            </span>
-          </q-knob>
-        </div>
-      </div>
-      <div class="row justify-center items-center content-center">
-        <div class="col-12">
-          <div class="text-light-blue-7 text-h3 text-uppercase text-center">
-            {{ store.activeGroup.name }}
-          </div>
-          <div class="text-light-blue-2 text-h5 text-center">
-            {{ showExerciseName() }}
-          </div>
-          <div v-if="exerciseImage">
-            <img :src="exerciseImage" class="img-fluid" />
-          </div>
-        </div>
-      </div>
-    </div> -->
   </q-dialog>
 </template>
 
@@ -107,28 +70,20 @@ let timer = ref(100);
 let intervalId: number;
 import { useQuasar } from "quasar";
 
-const $q = useQuasar();
+//const $q = useQuasar();
 
 onMounted(() => {
-  // store.resetCurrentItem();
   grpIndex.value = store.getInitialActiveGroup();
 });
 let resetCounter = () => {
   timer.value = 100;
   grpIndex.value = 0;
   exrIndex.value = 0;
-  //counterDuration.value = 0;
 };
 const hide = () => {
   resetTraining();
 };
-// const showTimeLeft = () => {
-//   let result = "";
-//   if (numToMin(counterDuration.value) > 0)
-//     result = numToMin(counterDuration.value) + " мин";
-//   result = result + " " + numToSec(counterDuration.value) + " сек";
-//   return result;
-// };
+
 const exerciseImage = computed(() => {
   try {
     return store.activeGroup.exercise[exrIndex.value].imageUrl.length > 0 &&

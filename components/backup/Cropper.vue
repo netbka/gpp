@@ -12,8 +12,10 @@
           ref="cropper"
           class="cropper-avatar"
           :src="image.src"
+          :stencil-component="CircleStencil"
           :stencil-props="{
             aspectRatio: 1 / 1,
+            previewClass: 'preview',
           }"
           check-orientation
           :max-height="limitations.maxHeight"
@@ -21,8 +23,6 @@
           :min-height="limitations.minHeight"
           :min-width="limitations.minWidth"
         />
-
-        <q-btn size="sm" icon="crop" @click="cropImage" class="crop" outline></q-btn>
         <q-btn
           outline
           size="sm"
@@ -30,24 +30,31 @@
           @click="handleFileSelection"
           class="attach"
         ></q-btn>
+        <q-btn size="sm" icon="crop" @click="cropImage" class="crop" outline></q-btn>
+
         <q-btn
           size="sm"
           icon="cloud_upload"
-          @click="cropImage"
+          @click="uploadAvatar"
           class="upload"
+          color="secondary"
           outline
         ></q-btn>
 
+        <q-btn size="sm" icon="undo" @click="undoImage" class="undo" outline></q-btn>
+
         <q-file
-          v-model="files"
+          v-model="inputfile"
           filled
           counter
           style="max-width: 35px"
-          accept=".jpg, image/*"
+          accept="image/*"
           clearable
           @input="handleFileChange"
           class="ellipsis fileUpload hidden"
           ref="file"
+          :max-file-size="fileLimit()"
+          @rejected="onRejectedSize"
         >
           <!-- <template v-slot:before>
             <q-icon name="attach_file" @click="handleFileSelection" size="sm" />
@@ -64,7 +71,7 @@
 
 <script lang="ts" setup>
 import { urlToFile, getProfile } from "~/composables/profileUpd";
-import { Cropper } from "vue-advanced-cropper";
+import { CircleStencil, Cropper } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 import "vue-advanced-cropper/dist/theme.compact.css";
 
@@ -75,13 +82,14 @@ const limitations = ref({
   //maxWidth: 256,
 });
 
-const user = useSupabaseUser();
-const profile = computed(() => user.value?.user_metadata.avatar_url);
+//const user = useSupabaseUser();
+//const profile = computed(() => user.value?.user_metadata.avatar_url);
 const store = profileStore();
 const cropper = ref(null);
 const file = ref(null);
-const files = ref(null);
-const src = ref("");
+const croppedFile = ref(null);
+const inputfile = ref(null);
+
 let image = ref({
   src: null,
   type: null,
@@ -94,44 +102,87 @@ let result = ref({
 const handleFileSelection = () => {
   file.value.pickFiles();
 };
-onMounted(async () => {
-  await initAvatar(profile.value);
-});
 
-const initAvatar = async (url) => {
-  let result = await urlToFile(url, "avatar.jpg");
-  const blob = URL.createObjectURL(result);
-  image.value.src = blob;
-  image.value.type = blob.type;
+const onRejectedSize = (rejectedEntries) => {
+  notifyRejectedSize(rejectedEntries);
 };
 
-const updateNewAvatar = async () => {
-  // if (!store.currentProfile.avatarPath && profile.value.length > 6) {
-  //   var url = profile.value;
-  //   var fileName = store.currentProfile.user_id + ".jpeg";
-  //   const fileToUpload = await urlToFile(url, fileName);
-  //   updateUserAvatar(fileToUpload, fileName);
-  //   store.currentProfile.avatarPath = fileName;
-  //   store.updateCurrentUser();
-  // }
+const setAvatar = (_file) => {
+  const blob = URL.createObjectURL(_file);
+  image.value.src = blob;
+  image.value.type = _file.type;
+  //console.log(image.value.type);
+};
+
+const undoImage = () => {
+  setAvatar(inputfile.value);
+  croppedFile = ref(null);
+};
+
+const uploadAvatar = async () => {
+  //const fileToUpload =
+  //console.log(inputfile.value);
+  //console.log(croppedFile.value);
+  if (croppedFile.value) {
+    await updateUserAvatar(croppedFile.value, store.currentProfile.user_id);
+    return;
+  }
+  if (inputfile.value) {
+    await updateUserAvatar(inputfile.value, store.currentProfile.user_id);
+    return;
+  }
 };
 
 const handleFileChange = (event) => {
   const { files } = event.target;
+
+  if (files[0].size > fileLimit()) {
+    event.preventDefault();
+    return;
+  }
+
   if (image.src) {
     URL.revokeObjectURL(image.src);
   }
-  const blob = URL.createObjectURL(files[0]);
-  image.value.src = blob;
-  image.value.type = files[0].type;
+  setAvatar(files[0]);
 };
 
 const cropImage = async () => {
   const { canvas } = cropper.value.getResult();
-  //await initAvatar(result.image.src);
-  image.value.src = canvas.toDataURL();
-  console.log(result);
+
+  canvas.toBlob(
+    (blob) => {
+      croppedFile.value = blobToFile(blob, store.currentProfile.user_id);
+      setAvatar(croppedFile.value);
+    },
+    image.value.type,
+    0.85
+  );
 };
+
+watch(
+  () => store.currentProfile.avatarPath,
+  async (val) => {
+    if (image.src) {
+      URL.revokeObjectURL(image.src);
+    }
+    image.value.src = await getProfile(val);
+  },
+  { deep: true }
+);
+defineExpose({
+  uploadAvatar,
+});
+//const updateNewAvatar = async () => {
+// if (!store.currentProfile.avatarPath && profile.value.length > 6) {
+//   var url = profile.value;
+//   var fileName = store.currentProfile.user_id + ".jpeg";
+//   const fileToUpload = await urlToFile(url, fileName);
+//   updateUserAvatar(fileToUpload, fileName);
+//   store.currentProfile.avatarPath = fileName;
+//   store.updateCurrentUser();
+// }
+//};
 // const uploadImage = (event) => {
 //   /// Reference to the DOM input element
 //   const { files } = event.target;
@@ -149,18 +200,13 @@ const cropImage = async () => {
 //     image.value.type = files[0].type;
 //   }
 // };
+//onMounted(async () => {});
 
-// watch(
-//   () => files,
-//   (val) => {
-//     //console.log(val);
-//     if (image.src) {
-//       URL.revokeObjectURL(image.src);
-//       const blob = URL.createObjectURL(files[0]);
-//     }
-//   },
-//   { deep: true }
-// );
+// const initAvatar = async (url) => {
+//   let result = await urlToFile(url, "avatar.jpg");
+//   setAvatar(result);
+
+// };
 </script>
 
 <style lang="scss">
@@ -206,11 +252,21 @@ const cropImage = async () => {
   left: 4px;
   top: 68px;
 }
+.undo {
+  position: absolute;
+  left: 4px;
+  top: 100px;
+}
 
 .vue-simple-line {
   border-color: #ffcb11c9;
   border-style: dashed;
 
   border-width: 0.1;
+}
+.preview-result {
+  .preview {
+    border: dashed 1px #0753872b;
+  }
 }
 </style>

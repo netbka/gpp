@@ -57,7 +57,7 @@
         </div>
       </q-list>
     </q-scroll-area>
-    <BaseYesNoDialog ref="dialog" @ok="remove"></BaseYesNoDialog>
+    <BaseDialogYesNo ref="dialog" @ok="remove"></BaseDialogYesNo>
   </div>
 </template>
 

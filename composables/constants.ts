@@ -23,3 +23,7 @@ export const deleteBtn = (visible: Boolean) => {
 export const customBtn = (visible: Boolean, tooltip: String, icon: String) => {
   return { icon: icon, tooltip: tooltip, visible: visible, color: "grey" };
 };
+
+export const fileLimit = () => {
+  return 1024 * 1024;
+};

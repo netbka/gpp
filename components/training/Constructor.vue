@@ -20,7 +20,7 @@
     <TrainingCounter ref="trainingCounter"></TrainingCounter>
 
     <BaseFab @newItem="addGroup"></BaseFab>
-    <BaseYesNoDialog
+    <BaseDialogYesNo
       ref="dialog"
       @ok="addDescription"
       @cancel="onSaveTraining"
@@ -29,7 +29,7 @@
       propOkColor="green"
       propCancelText="Нет"
       :propBody="description"
-    ></BaseYesNoDialog>
+    ></BaseDialogYesNo>
   </div>
 </template>
 

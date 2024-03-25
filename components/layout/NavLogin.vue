@@ -78,8 +78,8 @@ const logout = async () => {
 }
 
 .width-profile {
-  min-width: 200px;
-  max-width: 250px;
+  min-width: 150px;
+  max-width: 150px;
   padding: 8px;
 }
 </style>

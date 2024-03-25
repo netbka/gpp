@@ -5,6 +5,11 @@
 //   return newFile;
 // };
 
+export const blobToFile = (blob: Blob, fileName: string) => {
+  const file = new File([blob], fileName, { type: blob.type });
+  return file;
+};
+
 export const urlToFile = async (url: string | URL, filename: string) => {
   try {
     // const response = await fetch(url);
@@ -34,6 +39,7 @@ export const getProfile = async (fileName: string) => {
   const supabase = useSupabaseClient();
   try {
     const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
+
     return data.publicUrl;
   } catch (error) {
     return null;
@@ -45,11 +51,11 @@ export const getProfile = async (fileName: string) => {
 
 export const updateUserAvatar = async (fileToUpload: File, filename: string) => {
   const supabase = useSupabaseClient();
-  let { error: uploadError } = await supabase.storage.from("avatars").upload(filename, fileToUpload, {
+  let { error: uploadError, data } = await supabase.storage.from("avatars").upload(filename, fileToUpload, {
     upsert: true,
   });
   if (uploadError) throw uploadError;
-
+  notifyMsgPositive("аватар загружен");
   return filename;
 };
 

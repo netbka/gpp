@@ -34,14 +34,7 @@
               :propNewVisible="props.propNewVisible"
               @newItem="$emit('newItem')"
             ></BaseBtnSubmitNew>
-            <!-- <btn-save-and-reset
-              :propLoading="propLoading"
-              :propResetVisible="propResetVisible"
-              :propSaveDisabled="propSaveDisabled"
-              :propNewVisible="propNewVisible"
-              @resetDefaulItem="$emit('resetDefaulItem')"
-            >
-            </btn-save-and-reset> -->
+           
           </q-card-actions>
           <q-inner-loading :showing="propLoading">
             <q-spinner-gears size="50px" color="primary" />
