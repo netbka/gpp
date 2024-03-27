@@ -167,3 +167,15 @@
     /* padding-left: 4px; */
   }
 }
+
+.card-default {
+  width: 365px;
+  padding: 16px;
+}
+@media (min-width: 376px) {
+  .card-default {
+    width: calc(100vw - 10px) !important;
+    max-width: 450px !important;
+    padding: 32px;
+  }
+}

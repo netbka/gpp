@@ -6,7 +6,7 @@
         class="flex flex-center items-center justify-center back_main"
         :style-fn="customstyle"
       >
-        <q-card class="q-pa-xl" style="max-width: 600px">
+        <q-card class="card-default">
           <q-card-section>
             <div class="text-h2 text-center text-bold">Oooops.</div>
 

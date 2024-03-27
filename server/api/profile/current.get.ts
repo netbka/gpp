@@ -1,4 +1,3 @@
-import { getAvatar } from "./../../../composables/profileUpd";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -25,7 +24,7 @@ export default defineEventHandler(async (event) => {
     const {
       user: { id: user_id },
     } = event.context;
-
+    console.log(event.context.user);
     var result = await prisma.profile.findUnique({
       where: {
         user_id: user_id,
@@ -37,12 +36,14 @@ export default defineEventHandler(async (event) => {
     var model = { firstName: user_id.split("-")[0], lastName: user_id.split("-")[1], user_id: user_id };
 
     if (result === null) {
-      var fullName = event.context.user.user_metadata.name.split(" ");
+      if (event.context.user.user_metadata.name) {
+        var fullName = event.context.user.user_metadata.name.split(" ");
 
-      if (fullName.length > 0) {
-        model.firstName = fullName[0];
-        if (fullName.length > 1) {
-          model.lastName = fullName[1];
+        if (fullName.length > 0) {
+          model.firstName = fullName[0];
+          if (fullName.length > 1) {
+            model.lastName = fullName[1];
+          }
         }
       }
 
@@ -108,10 +109,3 @@ const urlFile = async (url: string, fileName: string) => {
   const blob = await response.blob();
   return new File([blob], fileName, { type: blob.type });
 };
-
-// const getFileExtension = (mimeType) => {
-//   //const mimeType = blob.type;
-//   const mimeTypeParts = mimeType.split("/");
-//   const fileExtension = mimeTypeParts[mimeTypeParts.length - 1];
-//   return fileExtension;
-// };

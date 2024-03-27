@@ -17,9 +17,10 @@ export const useMuscleStore = defineStore("MuscleStore", {
   }),
 
   actions: {
-    resetCurrentItem() {
+    resetState() {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
+
     async fetchAll() {
       const { data } = await useFetch("/api/muscle/all", {
         method: "get",

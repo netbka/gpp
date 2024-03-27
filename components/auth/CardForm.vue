@@ -1,28 +1,25 @@
 <template>
-  <q-card class="q-pa-md" style="max-width: 365px">
+  <q-card class="card-default">
     <q-card-section>
-      <div class="text-h5 text-center">Вход</div>
-      <div class="text-overline text-center">с помощью почты</div>
+      <div class="text-h5 text-center">{{ heading }}</div>
+      <div class="text-overline text-center">{{ subheading }}</div>
     </q-card-section>
     <q-separator />
     <q-card-section class="q-pb-sm">
-      <q-form @submit="onSubmit">
-        <q-input label="Почта" v-model="username" />
-        <q-input label="пароль" type="password" v-model="password" />
-        <q-btn type="submit" label="Войти" class="full-width q-mt-md" outline />
+      <q-form @submit="$emit('onSubmit')">
+        <slot></slot>
       </q-form>
     </q-card-section>
     <q-card-actions align="around">
-      <q-btn label="Зарегистрироваться" size="sm" to="/auth/register" />
-      <q-btn label="Забыл пароль" size="sm" />
+      <slot name="actions"></slot>
     </q-card-actions>
-    <q-card-section>
+    <q-card-section v-if="showSocial">
       <q-separator />
       <div class="row q-mt-sm">
         <div class="col">
           <q-btn
             align="between"
-            @click="loginGoogle"
+            @click="socialLogin('google')"
             label="Google"
             class="full-width btn_google"
           >
@@ -34,7 +31,7 @@
           <q-btn
             align="between"
             color="blue"
-            @click="loginFacebook"
+            @click="socialLogin('facebook')"
             label="Facebook"
             class="full-width btn_fb"
           >
@@ -47,60 +44,59 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-
   showSocial: {
     type: Boolean,
-    default: false,
+    default: true,
   },
+
   heading: {
     type: String,
-  }
+  },
   subheading: {
     type: String,
-  }
+  },
 });
-
-const supabase = useSupabaseClient();
-
-
-const loginGoogle = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      //redirectTo: baseUrl + "/profile",
-
-      queryParams: {
-        access_type: "offline",
-        prompt: "consent",
-      },
-      //redirectTo,
-    },
-  });
-  if (error) {
-    console.log(error);
-  }
+const store = authStore();
+const { login, loginWithSocialProvider } = useAuthUser();
+const socialLogin = async (provider: string) => {
+  loginWithSocialProvider(provider);
 };
-const loginFacebook = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "facebook",
-    options: {
-      //redirectTo: baseUrl + "/workout",
-    },
-  });
-  if (error) {
-    console.log(error);
-  }
-};
-const username = ref("");
-const password = ref("");
-const onSubmit = () => {};
+
+// const supabase = useSupabaseClient();
+
+// const loginGoogle = async () => {
+//   const { error } = await supabase.auth.signInWithOAuth({
+//     provider: "google",
+//     options: {
+//       // queryParams: {
+//       //   access_type: "offline",
+//       //   prompt: "consent",
+//       // },
+//       //redirectTo,
+//     },
+//   });
+//   if (error) {
+//     console.log(error);
+//   }
+// };
+// const loginFacebook = async () => {
+//   const { error } = await supabase.auth.signInWithOAuth({
+//     provider: "facebook",
+//     options: {
+//       //redirectTo: baseUrl + "/workout",
+//     },
+//   });
+//   if (error) {
+//     console.log(error);
+//   }
+// };
 </script>
 
-<style scoped lang="sass">
+<style scoped>
 .btn_fb {
   color: #fff;
   margin-bottom: 10px !important;
-  padding-left: 100px !important;
+  padding-left: 42% !important;
   border-color: #3b5998 !important;
   text-shadow: none !important;
   background-color: #3b5998 !important;
@@ -115,7 +111,7 @@ const onSubmit = () => {};
   background-repeat: no-repeat !important;
   background-size: 24px !important;
   margin-bottom: 20px !important;
-  padding-left: 110px !important;
+  padding-left: 42% !important;
   text-shadow: none !important;
 
   border-width: 1px;

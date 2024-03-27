@@ -1,5 +1,9 @@
-import { useWorkoutStore } from "~/stores/workout";
+import { useAuthStore } from "~/stores/auth";
+export const authStore = () => {
+  return useAuthStore();
+};
 
+import { useWorkoutStore } from "~/stores/workout";
 export const workoutStore = () => {
   return useWorkoutStore();
 };

@@ -27,7 +27,7 @@
           outline
           size="sm"
           v-close-popup
-          @click="logout"
+          @click="logoff"
           class="full-width"
         />
       </div>
@@ -39,31 +39,11 @@
 
 <script lang="ts" setup>
 const user = useSupabaseUser();
-const { auth } = useSupabaseClient();
 
-// const name = computed(() => user.value?.user_metadata.full_name);
-// const profile = computed(() => user.value?.user_metadata.avatar_url);
-// let profile = ref("");
-// const store = profileStore();
-onMounted(async () => {
-  //await fetchCurrentUser();
-});
+const { logout } = useAuthUser();
 
-// const fetchCurrentUser = async () => {
-
-//   if (user.value) {
-//     await store.fetchCurrentUser();
-//     profile.value = await getProfile(store.currentProfile.user_id + ".jpeg");
-//   }
-// };
-
-const logout = async () => {
-  const { error } = await auth.signOut();
-  if (error) {
-    console.error(error);
-    return;
-  }
-  await navigateTo("/");
+const logoff = async () => {
+  logout();
 };
 </script>
 
