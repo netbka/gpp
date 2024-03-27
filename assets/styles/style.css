@@ -113,3 +113,57 @@
 .wrap-col {
   text-wrap: balance;
 }
+
+.col-duration {
+  max-width: 40px;
+  white-space: break-spaces !important;
+  padding: 4px !important;
+  overflow: hidden;
+}
+
+.description-col {
+  padding: 4px !important;
+  white-space: break-spaces !important;
+  white-space: break-spaces !important;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: nowrap; /* Prevent wrapping of content */
+  overflow: hidden; /* Hide excess content if it overflows */
+  min-width: 0; /* Allow column to shrink to content size */
+
+  /* overflow: hidden; */
+}
+
+.name-col {
+  max-width: 100px;
+
+  padding: 4px !important;
+  white-space: break-spaces !important;
+  /* white-space: break-spaces !important;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; */
+  white-space: nowrap; /* Prevent wrapping of content */
+  overflow: hidden; /* Hide excess content if it overflows */
+  min-width: 0; /* Allow column to shrink to content size */
+
+  /* overflow: hidden; */
+}
+@media (min-width: 768px) {
+  .name-col {
+    white-space: nowrap; /* Prevent wrapping of content */
+    overflow: hidden; /* Hide excess content if it overflows */
+    min-width: 0; /* Allow column to shrink to content size */
+
+    max-width: 250px;
+    white-space: break-spaces !important;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    display: table-cell;
+    -webkit-box-orient: vertical;
+    /* padding-left: 4px; */
+  }
+}

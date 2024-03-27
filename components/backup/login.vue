@@ -54,7 +54,7 @@ definePageMeta({
 
 const supabase = useSupabaseClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 //const { query } = useRoute();
-const user = useSupabaseUser();
+//const user = useSupabaseUser();
 
 // watchEffect(async () => {
 //   if (user.value) {

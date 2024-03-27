@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>Register</div>
 </template>
 
 <script setup>
@@ -8,6 +8,7 @@ definePageMeta({
   description: "Register new account",
 
   layout: "auth",
+  auth: false,
 });
 </script>
 

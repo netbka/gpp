@@ -34,7 +34,7 @@
     </div>
   </q-btn-dropdown>
 
-  <q-btn stretch flat label="Вход" v-show="!user" to="/login" />
+  <q-btn stretch flat label="Вход" v-show="!user" to="/auth" />
 </template>
 
 <script lang="ts" setup>

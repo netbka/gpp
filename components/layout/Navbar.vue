@@ -5,7 +5,7 @@
         <q-avatar @click="redirect">
           <img :src="logo" class="cursor-pointer" />
         </q-avatar>
-        <span class="text-weight-thin logo-text gt-xs">Просто ОФП</span>
+        <span class="text-weight-thin text-uppercase gt-sm logo-text">Просто ОФП</span>
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
@@ -17,13 +17,13 @@
           icon="fitness_center"
           v-show="user"
         >
-          <span class="gt-xs">Мои упражнения</span>
+          <span class="gt-sm">Мои упражнения</span>
         </q-btn>
-        <q-btn stretch flat @click="redirectTraining" icon="rocket_launch" v-show="user">
-          <span class="gt-xs">Мои планы</span>
+        <q-btn stretch flat @click="redirectTraining" icon="bolt" v-show="user">
+          <span class="gt-sm">Мои планы</span>
         </q-btn>
         <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
-          <span class="gt-xs">Планы пользователей </span>
+          <span class="gt-sm">Планы пользователей </span>
         </q-btn>
         <q-separator dark vertical class="gt-xs" />
 
@@ -52,6 +52,6 @@ const redirectTraining = async () => {
 </script>
 <style scoped>
 .logo-text {
-  letter-spacing: -1px;
+  letter-spacing: -2px;
 }
 </style>

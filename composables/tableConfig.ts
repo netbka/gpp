@@ -23,7 +23,8 @@ export const trainingTableColumns = () => {
       sortable: true,
       editable: false,
       type: "text",
-      style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      //style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      classes: "name-col ",
       //  headerStyle: "width: 150px",
     },
     {
@@ -35,19 +36,20 @@ export const trainingTableColumns = () => {
       sortable: true,
       editable: false,
       style: "text-wrap: balance",
-      classes: "gt-xs truncate wrap-col",
+      classes: "gt-xs description-col wrap-col",
       headerClasses: "gt-xs",
     },
     {
       name: "totalDuration",
-      label: "Продолжительность",
+      label: "мин:сек",
       field: "totalDuration",
       required: true,
       align: "center",
       sortable: true,
       editable: false,
+      classes: "col-duration ",
       format: (val, row) => {
-        return `${numToMin(val)} м. ${numToSec(val)} сек.`;
+        return `${numToMinText(val)}:${numToSecText(val)}`;
       },
     },
     //   format: (val, row) => {
@@ -80,8 +82,9 @@ export const trainingEditableTableColumns = () => {
       sortable: true,
       editable: true,
       type: "text",
-      style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
-      headerStyle: "width: 150px",
+      classes: "name-col ",
+      //style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      //headerStyle: "max-width: 250px",
     },
     {
       name: "description",
@@ -92,19 +95,20 @@ export const trainingEditableTableColumns = () => {
       sortable: true,
       editable: false,
       style: "text-wrap: balance",
-      classes: "gt-xs truncate wrap-col",
+      classes: "gt-xs truncate wrap-col ",
       headerClasses: "gt-xs",
     },
     {
       name: "totalDuration",
-      label: "Продолжительность",
+      label: "мин:сек",
       field: "totalDuration",
       required: true,
       align: "center",
       sortable: true,
       editable: false,
+      classes: "col-duration ",
       format: (val, row) => {
-        return `${numToMin(val)} м. ${numToSec(val)} сек.`;
+        return `${numToMinText(val)}:${numToSecText(val)}`;
       },
     },
   ];

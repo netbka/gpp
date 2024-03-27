@@ -3,12 +3,6 @@
     <LayoutNavbar />
     <q-page-container class="">
       <q-page class="" :style-fn="customstyle">
-        <!-- <q-page
-        class="fit row wrap justify-center items-start content-start"
-        :style-fn="customstyle"
-      > -->
-        <!-- <div style="min-width: 1280px; max-width: 1280px"> -->
-
         <slot></slot>
       </q-page>
     </q-page-container>

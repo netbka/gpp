@@ -1,17 +1,48 @@
 <template>
-  <div
-    class="mt-7 bg-grey p-6 max-w-sm mx-auto text-center card border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700"
-  >
-    <p class="mt-7 text-7x1 font-bold">{{ error.statusCode }}</p>
-    <p class="mt-7 text-6x1">Oooops. Something went wrong</p>
-    <p class="mt-7 mb-7">{{ error.message }}</p>
-    <button class="btn" @click="handleClearError">Go Home..</button>
-  </div>
+  <q-layout view="hHh lpR fFf">
+    <LayoutNavbar />
+    <q-page-container class>
+      <q-page
+        class="flex flex-center items-center justify-center back_main"
+        :style-fn="customstyle"
+      >
+        <q-card class="q-pa-xl" style="max-width: 600px">
+          <q-card-section>
+            <div class="text-h2 text-center text-bold">Oooops.</div>
+
+            <div class="text-h3 text-center q-mb-lg">Ошибка: {{ error.statusCode }}</div>
+            <div class="text-h5 text-center">{{ error.message }}</div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section class="q-pb-sm"> </q-card-section>
+          <q-card-actions align="around">
+            <q-btn label="На главную" outline size="lg" @click="handleClearError" />
+          </q-card-actions>
+        </q-card>
+      </q-page>
+    </q-page-container>
+    <LayoutFooter />
+  </q-layout>
 </template>
 
 <script setup>
 defineProps(["error"]);
 const handleClearError = () => clearError({ redirect: "/" });
+
+const customstyle = (offset, additionalStyles = {}) => {
+  const baseStyles = {
+    minHeight: offset ? `calc(100vh - ${offset}px)` : "100vh",
+  };
+  const leftPadding = { paddingLeft: "calc((100vw - 1536px) / 2)" };
+  const rightPadding = { paddingRight: "calc((100vw - 1536px) / 2)" };
+  const combinedStyles = {
+    ...baseStyles,
+    ...additionalStyles,
+    ...leftPadding,
+    ...rightPadding,
+  };
+  return combinedStyles;
+};
 </script>
 
 <style></style>

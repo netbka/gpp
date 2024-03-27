@@ -116,9 +116,9 @@ export default defineNuxtConfig({
     // },
     redirect: true,
     redirectOptions: {
-      login: "/login",
+      login: "/auth",
       callback: "/workout",
-      exclude: ["/", "/public/*", "/workout/*", "/workout"],
+      exclude: ["/", "/public/*", "/workout/*", "/workout", "/auth/*"],
     },
   },
 });
