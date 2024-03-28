@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     const {
       user: { id: user_id },
     } = event.context;
-    console.log(event.context.user);
+
     var result = await prisma.profile.findUnique({
       where: {
         user_id: user_id,
@@ -33,8 +33,8 @@ export default defineEventHandler(async (event) => {
         profilesSportType: true,
       },
     });
-    var model = { firstName: user_id.split("-")[0], lastName: user_id.split("-")[1], user_id: user_id };
-
+    var model = { firstName: user_id.split("-")[0], lastName: "", user_id: user_id };
+    model.firstName = event.context.user.email.split("@")[0];
     if (result === null) {
       if (event.context.user.user_metadata.name) {
         var fullName = event.context.user.user_metadata.name.split(" ");
@@ -54,9 +54,9 @@ export default defineEventHandler(async (event) => {
         },
       });
     }
-
-    if (result.avatarPath === undefined || (result.avatarPath !== undefined && result.avatarPath?.length < 3)) {
-      var uploadResult = await initAvatar(event.context.user.user_metadata.avatar_url, result.user_id);
+    console.log(result.avatarPath);
+    if (result.avatarPath === undefined || result.avatarPath === null || (result.avatarPath !== undefined && result.avatarPath?.length < 3)) {
+      var uploadResult = await initAvatar(event.context.user.user_metadata.avatar_url, result.user_id, result.firstName);
 
       if (uploadResult) {
         result = await prisma.profile.update({
@@ -81,11 +81,11 @@ export default defineEventHandler(async (event) => {
   }
 });
 import { createClient } from "@supabase/supabase-js";
-const initAvatar = async (url: string, fileName: string) => {
+const initAvatar = async (url: string, fileName: string, name: string) => {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const fileToUpload = await urlFile(url, fileName);
+  const fileToUpload = await urlFile(url, fileName, name);
   //console.log(fileToUpload);
   //const fileExt = getFileExtension(fileToUpload.type);
   //fileName = fileName + "." + fileExt;
@@ -96,16 +96,17 @@ const initAvatar = async (url: string, fileName: string) => {
   return error === null ? fileName : null; //return false if ok
 };
 
-const getAvatarFromUrl = async (url) => {
+const getAvatarFromUrl = async (url, name: string) => {
   try {
     return await fetch(url);
   } catch (error) {
-    return await fetch("https://eu.ui-avatars.com/api/?name=X&size=100");
+    return await fetch("https://eu.ui-avatars.com/api/?name=" + name.charAt(0) + "&size=100");
   }
 };
 
-const urlFile = async (url: string, fileName: string) => {
-  const response = await getAvatarFromUrl(url);
+const urlFile = async (url: string, fileName: string, name: string) => {
+  const response = await getAvatarFromUrl(url, name);
+
   const blob = await response.blob();
   return new File([blob], fileName, { type: blob.type });
 };

@@ -146,7 +146,7 @@ watch(
     if (image.src) {
       URL.revokeObjectURL(image.src);
     }
-    image.value.src = await getProfile(val);
+    image.value.src = getProfile(val);
   },
   { deep: true }
 );

@@ -179,3 +179,7 @@
     padding: 32px;
   }
 }
+
+.font32 {
+  font-size: 32px !important;
+}

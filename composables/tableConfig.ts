@@ -2,17 +2,33 @@ import { date } from "quasar";
 export const trainingTableColumns = () => {
   return [
     {
-      name: "public",
+      name: "user_id",
       label: "",
-      field: "public",
+      field: "user_id",
       required: true,
       align: "center",
       sortable: false,
       editable: false,
-      icon: true,
+
       style: "width: 15px; padding-left: 8px !important; padding-right: 4px !important; text-align:center",
       headerStyle: "width: 15px",
+      format: (val, row) => {
+        return `<div><img src=${getProfile(val)} class="q-avatar font32"></img></div>`;
+      },
     },
+    //<i data-v-bef86d75="" class="q-icon notranslate material-icons q-mr-sm float-left" aria-hidden="true" role="presentation" style="font-size: 24px;">public</i>
+    // {
+    //   name: "public",
+    //   label: "",
+    //   field: "public",
+    //   required: true,
+    //   align: "center",
+    //   sortable: false,
+    //   editable: false,
+    //   icon: true,
+    //   style: "width: 15px; padding-left: 8px !important; padding-right: 4px !important; text-align:center",
+    //   headerStyle: "width: 15px",
+    // },
 
     {
       name: "name",

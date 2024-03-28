@@ -27,14 +27,8 @@ const route = useRoute();
 const { id } = route.params;
 
 const store = trainingStore();
-//const storeExerciseGroup = exerciseGroupStore();
 
 await store.getById(parseSlugId(id));
-//const item = computed(() => store.getCurrentItem);
-
-// const updateItem = async (field, value, id) => {
-//   await store.updateItemField(field, value, id);
-// };
 
 const storeExerciseTemplate = exerciseTemplateStore();
 await storeExerciseTemplate.fetchAll();

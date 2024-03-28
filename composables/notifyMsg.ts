@@ -5,7 +5,7 @@ export const notifyMsgNegative = (msg: string) => {
     type: "negative",
     caption: "Что-то пошло не так.",
     message: "Ошибка: " + msg,
-    timeout: 500,
+    timeout: 1000,
   });
 };
 

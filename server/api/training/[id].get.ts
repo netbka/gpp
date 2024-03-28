@@ -17,7 +17,12 @@ export default defineEventHandler(async (event) => {
       where: {
         // AND: [{ id: _id }, { user_id: user_id }],
         id: _id,
-        user_id: user_id,
+        OR: [
+          {
+            user_id: user_id,
+          },
+          { public: true },
+        ],
       },
       include: {
         exerciseGroup: {

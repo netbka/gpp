@@ -7,6 +7,7 @@
       :showSocial="false"
     >
       <q-input
+        lazy-rules
         label="Почта"
         v-model="store.email"
         :rules="[(val) => validateEmail(val) || 'ошибка формата email ']"
@@ -30,9 +31,9 @@ definePageMeta({
 });
 
 const store = authStore();
-const { register } = useAuthUser();
-const onSubmit = () => {
-  register(store.email, store.password);
+const { sendPasswordResetEmail } = useAuthUser();
+const onSubmit = async () => {
+  await sendPasswordResetEmail(store.email, store.password);
 };
 </script>
 

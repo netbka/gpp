@@ -35,11 +35,11 @@ export const urlToBlob = async (url: string) => {
   }
 };
 
-export const getProfile = async (fileName: string) => {
+export const getProfile = (fileName: string) => {
   const supabase = useSupabaseClient();
   try {
     const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
-
+    console.log(data);
     return data.publicUrl;
   } catch (error) {
     return null;
@@ -54,9 +54,11 @@ export const updateUserAvatar = async (fileToUpload: File, filename: string) => 
   let { error: uploadError, data } = await supabase.storage.from("avatars").upload(filename, fileToUpload, {
     upsert: true,
   });
-  if (uploadError) throw uploadError;
-  notifyMsgPositive("аватар загружен");
-  return filename;
+  if (uploadError) {
+    //throw createError;
+    notifyMsgPositive("аватар загружен. " + uploadError);
+  }
+  return filename; //not in use
 };
 
 export const getExerciseImage = (fileName: string) => {

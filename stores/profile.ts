@@ -55,5 +55,15 @@ export const useProfileStore = defineStore("ProfileStore", {
       try {
       } catch (error) {}
     },
+    async createProfile() {
+      withErrorHandling(this)(async (props, store) => {
+        const response = await $fetch("/api/profile/create", {
+          method: "post",
+          body: { ...this.currentProfile },
+        });
+      })(null);
+      try {
+      } catch (error) {}
+    },
   },
 });
