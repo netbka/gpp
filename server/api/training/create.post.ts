@@ -33,7 +33,14 @@ export default defineEventHandler(async (event) => {
           })),
         },
       },
-      include: { exerciseGroup: true },
+      //
+      include: {
+        exerciseGroup: {
+          include: {
+            exercise: true,
+          },
+        },
+      },
     });
 
     return result;

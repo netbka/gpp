@@ -27,8 +27,7 @@ export default defineEventHandler(async (event) => {
       include: {
         exerciseGroup: {
           include: {
-            // Include nested exercises
-            exercise: true, // Select all fields of Exercise or specify desired fields
+            exercise: true,
           },
         },
       },

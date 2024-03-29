@@ -90,7 +90,7 @@ const onSubmit = async () => {
     //todo fix to get actual suffix (also fix in Upload component!)
     store.currentItem.imageUrl = ".gif";
   }
-  console.log(store.currentItem.id);
+  //console.log(store.currentItem.id);
   if (store.currentItem.id === null) {
     await store.createCurrentItem();
   } else {

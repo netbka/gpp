@@ -32,6 +32,7 @@ const store = trainingStore();
 //const storeExerciseGroup = exerciseGroupStore();
 
 await store.getById(parseSlugId(id));
+
 //const item = computed(() => store.getCurrentItem);
 
 const updateItem = async (field, value, id) => {
