@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import omit from "lodash/omit";
 const prisma = new PrismaClient();
+import omit from "lodash/omit";
 
 export default defineEventHandler(async (event) => {
   try {

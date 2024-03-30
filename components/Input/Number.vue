@@ -13,6 +13,7 @@
         input-style="text-align: center; font-size:12px; margin-top: 2px !important; "
         class="super-small float-right"
         @update:modelValue="(newValue) => $emit('update:modelValue', Number(newValue))"
+        :rules="[(val) => validate(val)]"
       >
         <template v-slot:after>
           <q-icon size="xs" name="done" @click="save()" class="cursor-pointer" />
@@ -52,6 +53,7 @@ const props = defineProps({
   },
 });
 const visibleEdit = ref(false);
+//const btnDisabled = ref(false);
 //if No duration type then it is repeats type
 const max = props.typeDuration ? 300 : 100;
 const min = props.typeDuration ? 10 : 1;
@@ -60,15 +62,28 @@ const label = props.typeDuration ? "сек" : "раз";
 
 const emits = defineEmits(["update:modelValue", "updatedb"]);
 const save = () => {
+  if (props.modelValue < 1) return;
   visibleEdit.value = !visibleEdit.value;
   emits("updatedb");
 };
 
 const changeVisibility = () => {
-  if (props.readOnly) return;
+  if (props.modelValue < 1 || props.readOnly) return;
   if (props.modelValue.length === 0) return;
   visibleEdit.value = !visibleEdit.value;
 };
+const validate = (val) => {
+  if (val === null || !val || val < 1) return "";
+};
+
+// watch(
+//   () => props.modelValue,
+//   (val) => {
+//     btnDisabled.value = val < 1;
+//     console.log(btnDisabled.value);
+//   },
+//   { deep: true }
+// );
 </script>
 
 <style></style>

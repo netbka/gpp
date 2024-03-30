@@ -6,6 +6,8 @@ export const useAuthStore = defineStore("AuthStore", {
     password: "",
     name: "",
     token: "",
+    loading: false,
+    rowsNumber: 0,
   }),
   actions: {
     // resetCurrentItem() {

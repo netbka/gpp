@@ -5,7 +5,7 @@ interface ProfileStoreState {
   currentProfile: Profile;
   profile: Profile;
 }
-
+const baseUrl = "/api/profile/";
 export const useProfileStore = defineStore("ProfileStore", {
   state: (): ProfileStoreState => ({
     profiles: [],
@@ -17,7 +17,7 @@ export const useProfileStore = defineStore("ProfileStore", {
   actions: {
     async fetchAll() {
       withErrorHandling(this)(async (props, store) => {
-        const { data } = await useFetch("/api/profile/all", {
+        const { data } = await useFetch(baseUrl + "all", {
           method: "get",
         });
         this.profiles = data;
@@ -25,45 +25,36 @@ export const useProfileStore = defineStore("ProfileStore", {
     },
     async fetchItem(id) {
       withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/profile/" + id, {
+        const response = await $fetch(baseUrl + id, {
           method: "get",
         });
         this.profile = response;
       })(null);
     },
     async fetchCurrentUser() {
-      if (this.currentProfile.id !== 0) return;
-      const response = await $fetch("/api/profile/current", {
-        method: "get",
-      });
-      if (response !== null) this.currentProfile = Object.assign({}, response);
-      // withErrorHandling(this)(async (props, store) => {
-      //   if (this.currentProfile.id !== 0) return;
-      //   const response = await $fetch("/api/profile/current", {
-      //     method: "get",
-      //   });
-      //   if (response !== null) this.currentProfile = Object.assign({}, response);
-      // })(null);
+      withErrorHandling(this)(async (props, store) => {
+        if (this.currentProfile.id !== 0) return;
+        const response = await $fetch(baseUrl + "current", {
+          method: "get",
+        });
+        if (response !== null) this.currentProfile = Object.assign({}, response);
+      })(null);
     },
     async updateCurrentUser() {
       withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/profile/current", {
+        const response = await $fetch(baseUrl + "current", {
           method: "post",
           body: { ...this.currentProfile },
         });
       })(null);
-      try {
-      } catch (error) {}
     },
-    async createProfile() {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/profile/create", {
-          method: "post",
-          body: { ...this.currentProfile },
-        });
-      })(null);
-      try {
-      } catch (error) {}
-    },
+    // async createProfile() {
+    //   withErrorHandling(this)(async (props, store) => {
+    //     const response = await $fetch(baseUrl + "create", {
+    //       method: "post",
+    //       body: { ...this.currentProfile },
+    //     });
+    //   })(null);
+    // },
   },
 });

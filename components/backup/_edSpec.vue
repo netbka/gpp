@@ -5,7 +5,7 @@
         <q-select
           v-model="store.currentItem"
           label="Medical Speciality"
-          :options="store.items"
+          :options="store.itemArray"
           lazy-rules
           clearable
           use-input
@@ -107,7 +107,7 @@ onMounted(async () => {
   //      model.value = store.defaultArr.find((el) => el.Id == props.propSelectedId);
   //console.log(selectedSpecId);
   store.currentItem = selectedSpecId
-    ? store.items.find((el) => el.id == selectedSpecId)
+    ? store.itemArray.find((el) => el.id == selectedSpecId)
     : store.currentItem;
   //console.log(store.currentItem);
   //console.log(selectedSubSpecIds);

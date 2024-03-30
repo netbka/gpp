@@ -3,7 +3,7 @@
     dense
     v-model="store.currentItem"
     label="Я занимаюсь"
-    :options="store.items"
+    :options="store.itemArray"
     lazy-rules
     clearable
     fill-input

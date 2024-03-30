@@ -2,29 +2,19 @@ import { defineStore } from "pinia";
 import { type ExerciseTemplate } from "~/types/types";
 interface ExerciseTemplateStoreState {
   defaultItem: ExerciseTemplate;
-  //items: ExerciseTemplate[];
   currentItem: ExerciseTemplate;
   itemArray: [];
-  //itemArray: reacive<ExerciseTemplate[]>;
-  //activeExerciseTemplate: ExerciseTemplate | null;
+  loading: boolean;
+  rowsNumber: number;
 }
-const withErrorHandling = (store) => (actionFn) => async (payload) => {
-  try {
-    store.loading = true;
-    await actionFn(payload, store);
-  } catch (error) {
-    console.error("Error in action:", error);
-    // optionally, you can handle the error or display an error message to the user
-  } finally {
-    store.loading = false;
-  }
-};
+const baseUrl = "/api/exerciseTemplate/";
 export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
   state: (): ExerciseTemplateStoreState => ({
-    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
-    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, muscleId: 0, muscle: null },
+    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, exerciseTemplateMuscle: [] },
+    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, exerciseTemplateMuscle: [] },
     itemArray: [],
     loading: false,
+    rowsNumber: 0,
   }),
   getters: {
     getItemArray: (state) => {
@@ -41,8 +31,8 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     newExerciseTemplate() {
       this.currentItem = Object.assign({}, this.defaultItem);
       this.currentItem.name = "Новое упражннеие";
-
       this.currentItem.muscle = { name: "" };
+      this.currentItem.exerciseTemplateMuscle = [];
 
       return this.currentItem;
     },
@@ -50,30 +40,30 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
     async fetchAll() {
-      const { data } = await useFetch("/api/exerciseTemplate/all", {
-        method: "get",
-      });
-      //console.log(data.value);
-      if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
-      //console.log(this.itemArray);
+      withErrorHandling(this)(async (payload, store) => {
+        const { data } = await useFetch(baseUrl + "all", {
+          method: "get",
+        });
+
+        if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
+      })(null);
     },
 
     async fetchMyAndPublic() {
-      const { data } = await useFetch("/api/exerciseTemplate/myandpublic", {
-        method: "get",
-      });
-      //console.log(data.value);
-      if (data.value !== null && data.value.length > 0) {
-        this.itemArray = data.value;
-        return data.value;
-      }
-      return null;
-      //console.log(this.itemArray);
+      withErrorHandling(this)(async (payload, store) => {
+        const { data } = await useFetch(baseUrl + "myandpublic", {
+          method: "get",
+        });
+
+        if (data.value !== null && data.value.length > 0) {
+          this.itemArray = data.value;
+        }
+      })(null);
     },
 
     async updateCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
-        const response = await $fetch("/api/exerciseTemplate/update", {
+        const response = await $fetch(baseUrl + "update", {
           method: "post",
           body: { ...this.currentItem },
         });
@@ -84,7 +74,7 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     },
     async createCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
-        const response = await $fetch("/api/exerciseTemplate/create", {
+        const response = await $fetch(baseUrl + "create", {
           method: "post",
           body: { ...this.currentItem },
         });
@@ -95,27 +85,38 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     },
 
     async updateItemField(field: String, val, id: number) {
-      try {
+      withErrorHandling(this)(async (payload, store) => {
         const item = getById(id, this.itemArray);
         if (item === null) return;
         item[field] = val;
-        const response = await $fetch("/api/exerciseTemplate/field", {
+        const response = await $fetch(baseUrl + "field", {
           method: "post",
           body: { ...item, field },
         });
-      } catch (error) {
-        console.log(error);
-      }
+      })(null);
     },
 
     async deleteItem(id) {
-      const response = await $fetch("/api/exerciseTemplate/delete", {
-        method: "delete",
-        body: { id },
-      });
-      console.log(this.currentItem.id === id);
-      if (this.currentItem.id === id) this.resetCurrentItem();
-      removeItemFromArr(id, this.itemArray);
+      withErrorHandling(this)(async (payload, store) => {
+        const response = await $fetch(baseUrl + "delete", {
+          method: "delete",
+          body: { id },
+        });
+
+        if (this.currentItem.id === id) this.resetCurrentItem();
+        removeItemFromArr(id, this.itemArray);
+      })(null);
+    },
+    async search(props) {
+      if (props) {
+        withErrorHandling(this)(async (props, store) => {
+          const response = await $fetch(baseUrl + "search", {
+            query: { filter: props.filter, ...props.pagination },
+          });
+          store.itemArray = response.result;
+          store.rowsNumber = response.totalCount;
+        })(props);
+      }
     },
     // getGroupedArray() {
     //   return this.itemArray.reduce((groups, item) => {

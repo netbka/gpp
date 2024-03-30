@@ -9,10 +9,7 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
-    //body.user_id = user_id;
-    // body.muscleId = body.muscle.id;
-    let muscleObj = body.muscle;
-    body = omit(body, ["muscle"]);
+
     let result;
 
     if (body.id === null || body.id === 0) {
@@ -28,7 +25,7 @@ export default defineEventHandler(async (event) => {
         data: { ...body },
       });
     }
-    result.muscle = muscleObj;
+
     return result;
   } catch (error) {
     console.log("error on submit", error);

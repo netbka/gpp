@@ -19,6 +19,9 @@ export default defineEventHandler(async (event) => {
         user_id: user_id,
       },
       data: { ...data },
+      include: {
+        exerciseTemplateMuscle: true,
+      },
     });
 
     return result;

@@ -3,7 +3,7 @@
     dense
     :model-value="modelValue"
     label="Группа мышц"
-    :options="store.items"
+    :options="store.itemArray"
     lazy-rules
     clearable
     fill-input

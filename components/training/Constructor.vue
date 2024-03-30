@@ -73,21 +73,21 @@ const onDeleteExercise = async (id: Number) => {
 
 const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
-    var exercise = await storeExercise.newExercise(item.id);
-    item.exercise.push(exercise);
+    await storeExercise.newExercise(item.id);
+    item.exercise.push(storeExercise.currentItem);
   }
 };
 
 const onAddCustomExercise = async (id, val) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  exercise = await storeExercise.updateCustomExercise(exercise, val);
-  updateNestedItem(exercise, store.currentItem.exerciseGroup);
+  await storeExercise.updateCustomExercise(exercise, val);
+  updateNestedItem(storeExercise.currentItem, store.currentItem.exerciseGroup);
 };
 
 const onUpdateExercise = async (id, exerciseTemplate) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  exercise = await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
-  updateNestedItem(exercise, store.currentItem.exerciseGroup);
+  await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
+  updateNestedItem(storeExercise.currentItem, store.currentItem.exerciseGroup);
 };
 
 const addDescription = async () => {

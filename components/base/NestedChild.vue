@@ -99,7 +99,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .font12 {
   font-size: 12px !important;
 }
@@ -127,7 +127,7 @@ ul {
   }
 }
 .bg-color-nested {
-  background-color: #cbff0021;
+  background-color: #cccccc24;
   border: 1px #d0309d45 solid;
 }
 </style>

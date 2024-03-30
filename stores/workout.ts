@@ -102,7 +102,7 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
         method: "get",
       });
 
-      if (data.value.length > 0) this.items = data.value;
+      if (data.value.length > 0) this.itemArray = data.value;
     },
     calculateDuration() {
       var totalduration = 0;

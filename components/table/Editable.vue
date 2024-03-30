@@ -78,6 +78,7 @@
           <TableBtnColumnAction
             v-if="propRowActions"
             :propRowData="props"
+            :propExecuteBtn="executeBtn(showExecute)"
             :propEditBtn="editBtn(showEdit)"
             :propDeleteBtn="deleteBtn(showDelete)"
             :propCustomBtn="customBtn(showCustom)"
@@ -108,6 +109,7 @@ const props = defineProps({
   rows: { Type: Array, default: [] },
   columns: { Type: Array, default: [] },
   rowsNumber: { Type: Number, default: 0 },
+  showExecute: { Type: Boolean, default: true },
   showEdit: { Type: Boolean, default: false },
   showDelete: { Type: Boolean, default: false },
   showCustom: { Type: Boolean, default: false },
@@ -124,12 +126,7 @@ const pagination = ref({
   rowsNumber: 14,
 });
 
-// pagination.value.page = 1;
-// pagination.value.rowsPerPage = 5;
-
 const onRequest = (prop) => {
-  //console.log(prop.pagination.descending);
-
   pagination.value.descending = prop.pagination.descending;
   pagination.value.sortBy = prop.pagination.sortBy;
   pagination.value.page = prop.pagination.page;

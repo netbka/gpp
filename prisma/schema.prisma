@@ -53,6 +53,21 @@ model Training {
     totalDuration  Int             @default(0)
     createdAt      DateTime        @default(now())
     updatedAt      DateTime        @updatedAt
+    trainingTrack  TrainingTrack[]
+
+    @@schema("public")
+}
+
+model TrainingTrack {
+    id Int @id @default(autoincrement())
+
+    user_id        String   @db.Uuid
+    user_auth_info users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    trainingId     Int
+    training       Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     @@schema("public")
 }
@@ -81,8 +96,8 @@ model Exercise {
     active      Boolean
     imageUrl    String
     weight      Int?
-    muscleId    Int?
-    muscle      Muscle?           @relation(fields: [muscleId], references: [id])
+    //muscleId    Int?
+    //muscle      Muscle?           @relation(fields: [muscleId], references: [id])
     createdAt   DateTime          @default(now())
     updatedAt   DateTime          @updatedAt
     group       ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
@@ -94,21 +109,22 @@ model Exercise {
 }
 
 model ExerciseTemplate {
-    id             Int        @id @default(autoincrement())
-    name           String
-    description    String
-    duration       Int
-    active         Boolean
-    imageUrl       String
-    weight         Int?
-    user_id        String     @db.Uuid
-    user_auth_info users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    createdAt      DateTime   @default(now())
-    updatedAt      DateTime   @updatedAt
-    muscleId       Int
-    muscle         Muscle     @relation(fields: [muscleId], references: [id])
-    public         Boolean
-    exercise       Exercise[]
+    id                     Int        @id @default(autoincrement())
+    name                   String
+    description            String
+    duration               Int
+    active                 Boolean
+    imageUrl               String
+    weight                 Int?
+    user_id                String     @db.Uuid
+    user_auth_info         users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    createdAt              DateTime   @default(now())
+    updatedAt              DateTime   @updatedAt
+    //muscleId               Int
+    //muscle                 Muscle     @relation(fields: [muscleId], references: [id])
+    public                 Boolean
+    exercise               Exercise[]
+    exerciseTemplateMuscle Muscle[]   @relation("exerciseTemplateMuscle")
 
     @@schema("public")
 }
@@ -117,10 +133,11 @@ model Muscle {
     id   Int    @id @default(autoincrement())
     name String
 
-    createdAt        DateTime           @default(now())
-    updatedAt        DateTime           @updatedAt
-    exerciseTemplate ExerciseTemplate[]
-    exercise         Exercise[]
+    createdAt              DateTime           @default(now())
+    updatedAt              DateTime           @updatedAt
+    //exerciseTemplate       ExerciseTemplate[]
+    //exercise               Exercise[]
+    exerciseTemplateMuscle ExerciseTemplate[] @relation("exerciseTemplateMuscle")
 
     @@schema("public")
 }
@@ -169,6 +186,7 @@ model users {
     profile                     Profile?
     training                    Training[]
     exercise                    ExerciseTemplate[]
+    trainingTrack               TrainingTrack[]
 
     @@index([instance_id])
     @@schema("auth")

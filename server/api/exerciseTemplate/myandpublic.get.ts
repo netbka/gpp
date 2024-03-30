@@ -11,8 +11,7 @@ export default defineEventHandler(async (event) => {
       OR: [{ user_id: user_id }, { public: true }],
     },
     include: {
-      muscle: true,
-      //  profilesMedicalSubSpecialities: true,
+      exerciseTemplateMuscle: true,
     },
   });
   prisma.$disconnect();

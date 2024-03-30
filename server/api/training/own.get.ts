@@ -28,5 +28,6 @@ export default defineEventHandler(async (event) => {
     orderBy: orderByObject,
   });
   prisma.$disconnect();
+
   return { totalCount, result };
 });

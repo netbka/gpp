@@ -2,19 +2,19 @@ import { defineStore } from "pinia";
 import { type Exercise, type ExerciseGroup } from "~/types/types";
 interface ExerciseStoreState {
   defaultItem: Exercise;
-  //items: Exercise[];
+
   currentItem: Exercise;
   itemArray: [];
-  //itemArray: reacive<Exercise[]>;
-  //activeExercise: Exercise | null;
 }
 
 export const useExerciseStore = defineStore("ExerciseStore", {
   state: (): ExerciseStoreState => ({
-    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, muscleId: null, muscle: null },
-    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, muscleId: null, muscle: null },
+    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0 },
+    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0 },
     itemArray: [],
     loading: false,
+
+    rowsNumber: 0,
   }),
   getters: {
     getItemArray: (state) => {
@@ -32,7 +32,7 @@ export const useExerciseStore = defineStore("ExerciseStore", {
       this.currentItem = Object.assign({}, this.defaultItem);
       this.currentItem.name = "";
       this.currentItem.groupId = groupId;
-      try {
+      withErrorHandling(this)(async (props, store) => {
         const response = await $fetch("/api/exercise/update", {
           method: "post",
           body: { ...this.currentItem },
@@ -40,47 +40,41 @@ export const useExerciseStore = defineStore("ExerciseStore", {
 
         updateArray(response, this.itemArray);
         this.currentItem = response;
-        return response;
-      } catch (error) {
-        console.log(error);
-      }
+        //return response;
+      })(null);
     },
     resetCurrentItem() {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
     async fetchAll() {
+      withErrorHandling(this)(async (props, store) => {})(null);
       const { data } = await useFetch("/api/exercise/all", {
         method: "get",
       });
-      //console.log(data.value);
+
       if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
-      //console.log(this.itemArray);
     },
     async cloneTemplateItem(template, item) {
-      try {
+      withErrorHandling(this)(async (props, store) => {
         this.currentItem = Object.assign({}, item);
 
         this.currentItem.name = template.name;
         this.currentItem.description = template.description;
         this.currentItem.duration = template.duration;
         this.currentItem.imageUrl = template.imageUrl;
-        this.currentItem.muscleId = template.muscleId;
-        this.currentItem.muscle = template.muscle;
+
         this.currentItem.templateId = template.id;
         const response = await $fetch("/api/exercise/update", {
           method: "post",
           body: { ...this.currentItem },
         });
 
-        // updateArray(response, this.itemArray);
         this.currentItem = response;
-        return response;
-      } catch (error) {
-        console.log(error);
-      }
+        //return response;
+      })(null);
     },
     async updateCurrentItem() {
-      try {
+      withErrorHandling(this)(async (props, store) => {
         const response = await $fetch("/api/exercise/update", {
           method: "post",
           body: { ...this.currentItem },
@@ -88,22 +82,22 @@ export const useExerciseStore = defineStore("ExerciseStore", {
 
         updateArray(response, this.itemArray);
         this.currentItem = response;
-      } catch (error) {
-        console.log(error);
-      }
+      })(null);
     },
     async updateCustomExercise(exercise, val) {
-      this.currentItem = Object.assign({}, exercise);
-      this.currentItem.name = val;
-      const response = await $fetch("/api/exercise/update", {
-        method: "post",
-        body: { ...this.currentItem },
-      });
-      this.currentItem = response;
-      return response;
+      withErrorHandling(this)(async (props, store) => {
+        this.currentItem = Object.assign({}, exercise);
+        this.currentItem.name = val;
+        const response = await $fetch("/api/exercise/update", {
+          method: "post",
+          body: { ...this.currentItem },
+        });
+        this.currentItem = response;
+        // return response;
+      })(null);
     },
     async updateItemField(field: String, val, id: number, item: Exercise) {
-      try {
+      withErrorHandling(this)(async (props, store) => {
         item = item ? item : getById(id, this.itemArray);
 
         if (item === null || item === undefined) return;
@@ -112,20 +106,19 @@ export const useExerciseStore = defineStore("ExerciseStore", {
           method: "post",
           body: { ...item, field },
         });
-        //  console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
+      })(null);
     },
 
     async deleteItem(id) {
-      const response = await $fetch("/api/exercise/delete", {
-        method: "delete",
-        body: { id },
-      });
-      // console.log(this.currentItem.id === id);
-      if (this.currentItem.id === id) this.resetCurrentItem();
-      removeItemFromArr(id, this.itemArray);
+      withErrorHandling(this)(async (props, store) => {
+        const response = await $fetch("/api/exercise/delete", {
+          method: "delete",
+          body: { id },
+        });
+
+        if (this.currentItem.id === id) this.resetCurrentItem();
+        removeItemFromArr(id, this.itemArray);
+      })(null);
     },
   },
 });

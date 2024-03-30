@@ -3,11 +3,9 @@ import { defineStore } from "pinia";
 import { type ExerciseGroup } from "~/types/types";
 interface ExerciseGroupStoreState {
   defaultItem: ExerciseGroup;
-  //items: Exercise[];
+
   currentItem: ExerciseGroup;
   itemArray: ExerciseGroup[];
-  //itemArray: reacive<Exercise[]>;
-  //activeExercise: Exercise | null;
 }
 
 export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
@@ -15,6 +13,8 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
     defaultItem: { id: null, name: "Группа №", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
     currentItem: { id: null, name: "", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
     itemArray: [],
+    loading: false,
+    rowsNumber: 0,
   }),
   getters: {
     getItemArray: (state) => {

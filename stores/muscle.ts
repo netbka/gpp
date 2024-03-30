@@ -26,7 +26,7 @@ export const useMuscleStore = defineStore("MuscleStore", {
         method: "get",
       });
 
-      if (data.value.length > 0) this.items = data.value;
+      if (data.value.length > 0) this.itemArray = data.value;
     },
   },
 });

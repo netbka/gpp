@@ -27,3 +27,7 @@ export const customBtn = (visible: Boolean, tooltip: String, icon: String) => {
 export const fileLimit = () => {
   return 1024 * 1024;
 };
+
+export const executeBtn = (visible: Boolean) => {
+  return { icon: "play_circle_outline", tooltip: "Старт", visible: visible };
+};

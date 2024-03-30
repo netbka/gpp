@@ -1,30 +1,22 @@
-// withErrorHandling(this)(async (props, store) => {
-
-//        })(props);
-
 import { defineStore } from "pinia";
-
 import { type Training, type ExerciseGroup } from "~/types/types";
 interface TrainingStoreState {
   activeGroup: ExerciseGroup;
-
   defaultItem: Training;
   currentItem: Training;
   itemArray: [];
   loading: Boolean;
-
-  //itemArray: reacive<Exercise[]>;
-  //activeExercise: Exercise | null;
 }
-
+const baseUrl = "/api/training/";
 export const useTrainingStore = defineStore("TrainingStore", {
   state: (): TrainingStoreState => ({
     defaultItem: { id: null, name: "", description: "", public: true, exerciseGroup: [] },
     currentItem: { id: null, name: "", description: "", public: true, exerciseGroup: [] },
     itemArray: [],
-    loading: false,
+
     isStarted: false,
     activeGroup: {},
+    loading: false,
     rowsNumber: 0,
   }),
   getters: {
@@ -51,7 +43,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
     async fetchAll() {
       withErrorHandling(this)(async (props, store) => {
-        const { data } = await useFetch("/api/training/all", {
+        const { data } = await useFetch(baseUrl + "all", {
           method: "get",
         });
 
@@ -60,7 +52,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
     async getById(id: number) {
       withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/training/" + id, {
+        const response = await $fetch(baseUrl + id, {
           method: "get",
         });
         if (response) {
@@ -72,7 +64,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
 
     async updateCurrentItem() {
       withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/training/update", {
+        const response = await $fetch(baseUrl + "update", {
           method: "post",
           body: { ...this.currentItem },
         });
@@ -84,7 +76,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     async searchOwn(props) {
       if (props) {
         withErrorHandling(this)(async (props, store) => {
-          const response = await $fetch("/api/training/own", {
+          const response = await $fetch(baseUrl + "own", {
             query: { filter: props.filter, ...props.pagination },
           });
           store.itemArray = response.result;
@@ -95,7 +87,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
     async search(props) {
       if (props) {
         withErrorHandling(this)(async (props, store) => {
-          const response = await $fetch("/api/training/search", {
+          const response = await $fetch(baseUrl + "search", {
             query: { filter: props.filter, ...props.pagination },
           });
           store.itemArray = response.result;
@@ -106,7 +98,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
 
     createCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
-        const response = await $fetch("/api/training/create", {
+        const response = await $fetch(baseUrl + "create", {
           method: "post",
           body: { ...store.currentItem },
         });
@@ -119,7 +111,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
 
     async updateTrainingPlan() {
       withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/training/updatenew", {
+        const response = await $fetch(baseUrl + "updatenew", {
           method: "post",
           body: { ...this.currentItem },
         });
@@ -131,7 +123,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
         const item = getById(id, this.itemArray);
         if (item === null) return;
         item[field] = val;
-        const response = await $fetch("/api/training/field", {
+        const response = await $fetch(baseUrl + "field", {
           method: "post",
           body: { ...item, field },
         });
@@ -140,7 +132,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
 
     async deleteItem(id) {
       withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/training/delete", {
+        const response = await $fetch(baseUrl + "delete", {
           method: "delete",
           body: { id },
         });
@@ -156,7 +148,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
           child.duration = val;
         });
       });
-      const response = await $fetch("/api/training/updateGroupDuration", {
+      const response = await $fetch(baseUrl + "updateGroupDuration", {
         method: "post",
         body: { id: this.currentItem.id, duration: val },
       });

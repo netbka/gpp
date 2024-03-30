@@ -16,6 +16,7 @@ export const useSportTypeStore = defineStore("SportTypeStore", {
       description: "",
     },
     loading: false,
+    rowsNumber: 0,
   }),
 
   actions: {
@@ -28,7 +29,7 @@ export const useSportTypeStore = defineStore("SportTypeStore", {
           method: "get",
         });
 
-        if (response && response.length > 0) this.items = response;
+        if (response && response.length > 0) this.itemArray = response;
       })(null);
     },
   },

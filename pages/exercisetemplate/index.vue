@@ -1,13 +1,12 @@
 <template>
-  <div class="row shadow-1">
-    <!-- <q-page-sticky position="bottom" :offset="[0, -32]" style="z-index: 999">
-      <q-fab icon="add" color="accent" @click="newItem()"> </q-fab>
-    </q-page-sticky> -->
+  <div class="shadow-1">
     <BaseFab @newItem="newItem"></BaseFab>
     <ExercisetemplateForm ref="form"></ExercisetemplateForm>
-    <div class="col-12">
+    <ExercisetemplateTable @edit="show"></ExercisetemplateTable>
+
+    <!-- <div class="col-12">
       <ExercisetemplateList @edit="show()"></ExercisetemplateList>
-    </div>
+    </div> -->
   </div>
 </template>
 <script lang="ts" setup>
@@ -15,6 +14,10 @@ definePageMeta({ auth: true });
 const form = ref(null);
 
 const store = useExerciseTemplateStore();
+onBeforeMount(async () => {
+  //  await store.fetchAll();
+});
+
 const newItem = () => {
   store.resetCurrentItem();
   show();

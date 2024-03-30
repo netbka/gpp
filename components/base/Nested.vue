@@ -30,6 +30,7 @@
             </div>
             <div class="col-auto text-right self-center q-mr-xs">
               <InputNumber
+                :typeDuration="false"
                 :readOnly="readOnly"
                 v-model="el.repeats"
                 @updatedb="$emit('onUpdateGroup', 'repeats', Number(el.repeats), el.id)"
@@ -108,7 +109,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .font12 {
   font-size: 12px !important;
 }

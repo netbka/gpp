@@ -1,12 +1,5 @@
 <template>
-  <!-- <div class="row shadow-1 q-py-sm q-px-xs">
-    <BaseFab @newItem="newItem"></BaseFab>
-    <TrainingForm ref="form"></TrainingForm>
-    <div class="col-12">
-      <TrainingList @edit="show()"></TrainingList>
-    </div>
-  </div> -->
-  <div>
+  <div class="shadow-1">
     <BaseFab @newItem="newItem"></BaseFab>
     <TrainingForm ref="form"></TrainingForm>
     <TrainingTable @edit="show"></TrainingTable>

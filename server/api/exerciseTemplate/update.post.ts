@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import omit from "lodash/omit";
 const prisma = new PrismaClient();
+import omit from "lodash/omit";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,20 +10,31 @@ export default defineEventHandler(async (event) => {
 
     let body = await readBody(event);
     body.user_id = user_id;
-    body.muscleId = body.muscle.id;
-    // let muscleObj = body.muscle;
-    body = omit(body, ["muscle"]);
+
+    const newItems = body.newItems ? body.newItems.map(({ id }) => id) : [];
+    let removeItems = body.exerciseTemplateMuscle ? body.exerciseTemplateMuscle.map(({ id }) => id) : [];
+    const itemsToRemoveSet = new Set(newItems);
+    removeItems = removeItems.filter((item) => !itemsToRemoveSet.has(item));
+
+    body = omit(body, ["user_id", "exerciseTemplateMuscle", "newItems"]);
+
     let result = await prisma.exerciseTemplate.update({
       where: {
         id: body.id,
+        user_id: user_id,
       },
-      data: { ...body },
+      data: {
+        ...body,
+        exerciseTemplateMuscle: {
+          connect: newItems.map((id) => ({ id })),
+          disconnect: removeItems.map((id) => ({ id })),
+        },
+      },
       include: {
-        muscle: true,
+        exerciseTemplateMuscle: true,
       },
     });
 
-    //result.muscle = muscleObj;
     return result;
   } catch (error) {
     console.log("error on submit", error);

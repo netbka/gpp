@@ -3,10 +3,10 @@ export const authStore = () => {
   return useAuthStore();
 };
 
-// import { useWorkoutStore } from "~/stores/workout";
-// export const workoutStore = () => {
-//   return useWorkoutStore();
-// };
+import { useTrainingTrackStore } from "~/stores/trainingTrack";
+export const trainingTrackStore = () => {
+  return useTrainingTrackStore();
+};
 
 import { useTrainingStore } from "~/stores/training";
 export const trainingStore = () => {
