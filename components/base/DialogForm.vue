@@ -34,7 +34,6 @@
               :propNewVisible="props.propNewVisible"
               @newItem="$emit('newItem')"
             ></BaseBtnSubmitNew>
-           
           </q-card-actions>
           <q-inner-loading :showing="propLoading">
             <q-spinner-gears size="50px" color="primary" />
@@ -67,12 +66,13 @@ const props = defineProps({
   propNewVisible: { type: Boolean, default: false },
 });
 const dialog = ref(null);
-const emits = defineEmits(["onSubmit", "onReset", "newItem"]);
+const emits = defineEmits(["onSubmit", "onReset", "newItem", "onHide"]);
 const show = () => {
   dialog.value.show();
 };
 const hide = () => {
   dialog.value.hide();
+  emits("onHide");
 };
 
 const onSubmit = () => {

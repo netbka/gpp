@@ -5,6 +5,7 @@
       class="no-padding"
       @onSubmit="onSubmit()"
       @newItem="newItem()"
+      @onHide="onHide"
       :propHeading="store.currentItem.name"
       :propNewVisible="store.currentItem.id !== null"
       :propLoading="store.loading"
@@ -50,6 +51,9 @@
 const store = useTrainingStore();
 const form = ref(null);
 
+const onHide = () => {
+  store.resetCurrentItem();
+};
 const show = () => {
   form.value.show();
 };

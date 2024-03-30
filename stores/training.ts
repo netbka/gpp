@@ -28,6 +28,9 @@ export const useTrainingStore = defineStore("TrainingStore", {
     rowsNumber: 0,
   }),
   getters: {
+    getDuration: (state) => {
+      return calculateDuration(state.currentItem.exerciseGroup);
+    },
     getItemArray: (state) => {
       return state.itemArray;
     },
@@ -40,6 +43,9 @@ export const useTrainingStore = defineStore("TrainingStore", {
     },
   },
   actions: {
+    resetState() {
+      this.$reset();
+    },
     resetCurrentItem() {
       this.currentItem = Object.assign({}, this.defaultItem);
     },

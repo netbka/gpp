@@ -39,7 +39,7 @@ export const getProfile = (fileName: string) => {
   const supabase = useSupabaseClient();
   try {
     const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
-    console.log(data);
+
     return data.publicUrl;
   } catch (error) {
     return null;

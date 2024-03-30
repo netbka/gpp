@@ -43,7 +43,6 @@ let timer = ref(100);
 let intervalId: number;
 
 onMounted(() => {
-  store.resetCurrentItem();
   grpIndex.value = store.getInitialActiveGroup();
 });
 let resetCounter = () => {

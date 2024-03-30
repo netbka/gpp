@@ -183,3 +183,7 @@
 .font32 {
   font-size: 32px !important;
 }
+.img-fluid {
+  max-width: 350px;
+  object-fit: cover;
+}

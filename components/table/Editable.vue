@@ -68,7 +68,7 @@
             ></slot>
 
             <q-icon
-              size="sm"
+              size="12px"
               v-if="col.icon"
               :name="publicPrivateIcon(col.value)"
               class="q-mr-sm float-left"

@@ -37,6 +37,7 @@
     </div>
     <div class="col-auto">
       <q-btn
+        :disable="store.getDuration == 0"
         icon="outlined_flag"
         outline
         @click="$emit('start')"
@@ -77,6 +78,7 @@ const back = async () => {
   await navigateTo({ path: "/" + router.currentRoute.value.fullPath.split("/")[1] });
   //console.log();
 };
+const store = trainingStore();
 </script>
 
 <style></style>

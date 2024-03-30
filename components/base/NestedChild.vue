@@ -8,7 +8,7 @@
       handle=".handle"
     >
       <div
-        class="row q-pa-xs shadow-1 q-my-sm bg-blue-grey-1 no-wrap ellipsis"
+        class="row q-pa-xs shadow-1 q-my-sm bg-color-nested no-wrap ellipsis"
         v-for="el in data"
         :key="el.name"
       >
@@ -23,6 +23,7 @@
             :editable="el.name === '' || el.name.length === 0"
             @onUpdateExercise="onUpdateExercise"
             @onDeleteExercise="onDeleteExercise"
+            @onAddCustomExercise="onAddCustomExercise"
           ></InputSelectExerciseTemplate>
         </div>
         <div class="col-auto text-right">
@@ -82,19 +83,23 @@ export default {
     const onDeleteExercise = (val) => {
       context.emit("onDeleteExercise", val);
     };
+    const onAddCustomExercise = (id, val) => {
+      context.emit("onAddCustomExercise", id, val);
+    };
     // const onChoose = (val) => {
     //   console.log(val);
     // };
 
     return {
       //onChoose,
+      onAddCustomExercise,
       onUpdateExercise,
       onDeleteExercise,
     };
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .font12 {
   font-size: 12px !important;
 }
@@ -125,7 +130,8 @@ ul {
     top: 1px !important;
   }
 }
-.bgcolor {
-  background-color: #10a4de0f;
+.bg-color-nested {
+  background-color: #cbff0021;
+  border: 1px #d0309d45 solid;
 }
 </style>

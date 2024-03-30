@@ -6,8 +6,9 @@
       @onSaveTraining="confirmAddTrainingDescription"
       :readOnly="readOnly"
     ></TrainingBtnControls>
-
+    <q-skeleton height="150px" square v-show="showSkeleton" />
     <BaseNested
+      v-show="!showSkeleton"
       :readOnly="readOnly"
       :data="item.exerciseGroup"
       @onAddExercise="onAddExercise"
@@ -16,11 +17,13 @@
       @onUpdateExercise="onUpdateExercise"
       @onUpdateGroup="onUpdateGroup"
       @onUpdateExerciseField="onUpdateExerciseField"
+      @onAddCustomExercise="onAddCustomExercise"
     ></BaseNested>
 
     <BaseInitCounter ref="initCounter"></BaseInitCounter>
-    <TrainingCounter ref="trainingCounter"></TrainingCounter>
-
+    <ClientOnly>
+      <TrainingCounter ref="trainingCounter"></TrainingCounter>
+    </ClientOnly>
     <BaseFab @newItem="addGroup" v-if="!props.readOnly"></BaseFab>
     <BaseDialogYesNo
       ref="dialog"
@@ -45,6 +48,15 @@ const props = defineProps({
 const dialog = ref(null);
 const store = trainingStore();
 const item = computed(() => store.getCurrentItem);
+const showSkeleton = ref(true);
+watch(
+  () => item,
+  (val) => {
+    showSkeleton.value = false;
+  },
+  { deep: true }
+);
+
 const storeExerciseGroup = exerciseGroupStore();
 const storeExercise = exerciseStore();
 const description = ref("");
@@ -64,6 +76,12 @@ const onAddExercise = async (item: ExerciseGroup) => {
     var exercise = await storeExercise.newExercise(item.id);
     item.exercise.push(exercise);
   }
+};
+
+const onAddCustomExercise = async (id, val) => {
+  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
+  exercise = await storeExercise.updateCustomExercise(exercise, val);
+  updateNestedItem(exercise, store.currentItem.exerciseGroup);
 };
 
 const onUpdateExercise = async (id, exerciseTemplate) => {
@@ -125,6 +143,7 @@ const restart = () => {
 const stopTimer = () => {
   workout.value.resetTraining();
 };
+const duration = ref({ min: 0, sec: 0 });
 </script>
 
 <style></style>

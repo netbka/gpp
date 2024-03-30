@@ -18,6 +18,5 @@ export default defineEventHandler(async (event) => {
   if (error) {
     console.error(error);
   } else {
-    console.log(data);
   }
 });

@@ -9,7 +9,7 @@
         handle=".handle"
       >
         <div v-for="(el, index) in data" :key="el.id" class="shadow-sm bg-gray-50">
-          <div class="bg-blue-3 q-pa-xs shadow-2 row cursor-pointer">
+          <div class="bg-color q-pa-xs shadow-2 row cursor-pointer">
             <div class="col-grow text-weight-bold text-uppercase self-center width-65">
               <span v-show="el.active" class="" style="display: inline">
                 <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
@@ -52,6 +52,7 @@
             @onDeleteExercise="onDeleteExercise"
             @onUpdateExercise="onUpdateExercise"
             @onUpdateExerciseField="onUpdateExerciseField"
+            @onAddCustomExercise="onAddCustomExercise"
           ></BaseNestedChild>
         </div>
       </draggable>
@@ -90,12 +91,16 @@ export default {
     const onUpdateExerciseField = (field, val, id) => {
       context.emit("onUpdateExerciseField", field, val, id);
     };
+    const onAddCustomExercise = (id, val) => {
+      context.emit("onAddCustomExercise", id, val);
+    };
     // const onChoose = (val) => {
     //   console.log(val);
     // };
 
     return {
       //onChoose,
+      onAddCustomExercise,
       onUpdateExerciseField,
       onUpdateExercise,
       onDeleteExercise,
@@ -103,7 +108,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .font12 {
   font-size: 12px !important;
 }
@@ -134,7 +139,8 @@ ul {
     top: 1px !important;
   }
 }
-.bgcolor {
-  background-color: #10a4de0f;
+.bg-color {
+  background-color: #deeeff;
+  border: 1px #c1c0c0 solid;
 }
 </style>

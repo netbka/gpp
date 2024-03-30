@@ -92,7 +92,16 @@ export const useExerciseStore = defineStore("ExerciseStore", {
         console.log(error);
       }
     },
-
+    async updateCustomExercise(exercise, val) {
+      this.currentItem = Object.assign({}, exercise);
+      this.currentItem.name = val;
+      const response = await $fetch("/api/exercise/update", {
+        method: "post",
+        body: { ...this.currentItem },
+      });
+      this.currentItem = response;
+      return response;
+    },
     async updateItemField(field: String, val, id: number, item: Exercise) {
       try {
         item = item ? item : getById(id, this.itemArray);
@@ -103,7 +112,7 @@ export const useExerciseStore = defineStore("ExerciseStore", {
           method: "post",
           body: { ...item, field },
         });
-        console.log(response);
+        //  console.log(response);
       } catch (error) {
         console.log(error);
       }

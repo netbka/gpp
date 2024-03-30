@@ -6,7 +6,7 @@
       @click="startTimer"
       :icon="!store.isStarted ? startBtn.iconStart : startBtn.iconPause"
       outline
-      color="white"
+      color="black"
       :disabled="error"
       class="q-mr-md"
     >
@@ -14,7 +14,7 @@
         {{ !store.isStarted ? startBtn.textStart : startBtn.textPause }}</span
       >
     </q-btn>
-    <q-btn @click="$emit('restart')" :icon="startBtn.iconRestart" outline color="white">
+    <q-btn @click="$emit('restart')" :icon="startBtn.iconRestart" outline color="black">
       <span class="gt-xs"> {{ startBtn.textRestart }}</span>
     </q-btn>
     <!-- </div> -->
@@ -33,7 +33,7 @@ let startBtn = reactive({
   textStart: "Погнали",
   iconStart: "play_arrow",
 
-  textRestart: "Перезапустить",
+  textRestart: "В начало",
   iconRestart: "restart_alt",
 
   textPause: "Пауза",

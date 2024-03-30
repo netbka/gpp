@@ -6,12 +6,15 @@
     ref="dialog"
     class="no-padding"
   >
-    <q-card class="bg-transparent text-white">
+    <q-card class="bg-white text-white">
       <q-toolbar>
         <q-toolbar-title>
-          <TrainingButtonStartRestart @hide="hide"></TrainingButtonStartRestart>
+          <TrainingButtonStartRestart
+            @hide="hide"
+            @restart="restart"
+          ></TrainingButtonStartRestart>
         </q-toolbar-title>
-        <q-btn dense flat icon="close" @click="hide" color="white" class="" />
+        <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
       </q-toolbar>
 
       <q-card-section>
@@ -69,7 +72,7 @@ const exrIndex: number = ref(0);
 let timer = ref(100);
 let intervalId: number;
 import { useQuasar } from "quasar";
-
+const audio = new Audio("/sound/10sec.mp3");
 //const $q = useQuasar();
 
 onMounted(() => {
@@ -93,7 +96,22 @@ const exerciseImage = computed(() => {
   } catch (error) {}
 });
 
+const stopAudio = () => {
+  audio.pause();
+  audio.currentTime = 0;
+};
+
+const restart = () => {
+  if (audio.currentTime > 0) stopAudio();
+
+  store.resetActive();
+  resetCounter();
+  store.isStarted = false;
+  store.getInitialActiveGroup();
+};
+
 const resetTraining = () => {
+  if (audio.currentTime > 0) stopAudio();
   store.resetActive();
   resetCounter();
   store.isStarted = false;
@@ -114,7 +132,6 @@ const showExerciseName = () => {
   } catch (error) {}
 };
 
-const audio = new Audio("/sound/10sec.mp3");
 const startTimer = () => {
   if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
   if (
@@ -153,11 +170,11 @@ const startTimer = () => {
   } //counter duration ===0
 
   intervalId = setInterval(() => {
-    if (counterDuration.value < 11 && counterDuration.value > 9) {
+    if (counterDuration.value < 11) {
       audio.play();
     }
     if (counterDuration.value === 0) {
-      if (audio.currentTime > 0) audio.play(); //stop audio
+      if (audio.currentTime > 0) stopAudio(); //stop audio
       clearInterval(intervalId);
       store.setActiveExercise(exrIndex.value, false);
       exrIndex.value++;
@@ -188,9 +205,9 @@ watch(
 );
 
 watch(
-  () => store.currentItem,
+  () => store.getCurrentItem,
   (newVal) => {
-    if (!isStarted) grpIndex.value = store.getInitialActiveGroup();
+    if (!isStarted.value) grpIndex.value = store.getInitialActiveGroup();
   },
   { deep: true }
 );

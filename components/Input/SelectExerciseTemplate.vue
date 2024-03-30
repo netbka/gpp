@@ -16,6 +16,8 @@
         :options="options"
         @filter="filterFn"
         @update:model-value="setModel"
+        input-debounce="100"
+        ref="selectExerciseTemplate"
       >
         <template v-slot:after>
           <q-icon size="sm" name="done" @click="save()" class="cursor-pointer" />
@@ -36,7 +38,18 @@
 
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey"> Не нашел </q-item-section>
+            <q-item-section class="text-grey">
+              Не нашел в базе
+              <div>
+                <q-btn
+                  outline
+                  size="sm"
+                  icon="add"
+                  label="добавить?"
+                  @click="addCustomExercise"
+                ></q-btn>
+              </div>
+            </q-item-section>
           </q-item>
         </template>
       </q-select>
@@ -67,13 +80,18 @@ const props = defineProps({
     default: false,
   },
 });
+const selectExerciseTemplate = ref(null);
 let model = ref({ name: "" });
 model = Object.assign({}, props.data);
 
 const visibleEdit = ref(false);
 visibleEdit.value = props.editable;
 
-const emits = defineEmits(["onUpdateExercise", "onDeleteExercise"]);
+const emits = defineEmits([
+  "onUpdateExercise",
+  "onDeleteExercise",
+  "onAddCustomExercise",
+]);
 
 const options = ref([]);
 const store = exerciseTemplateStore();
@@ -86,6 +104,15 @@ const changeVisibility = () => {
   visibleEdit.value = !visibleEdit.value;
 };
 
+let searchVal = ref("");
+const addCustomExercise = () => {
+  emits("onAddCustomExercise", props.data.id, searchVal.value);
+};
+// const createValue = (val, done) => {
+//   if (val.length > 0) {
+//     //    done(val, 'add')
+//   }
+// };
 const filterFn = (val, update, abort) => {
   update(() => {
     if (val.length === 0) {
@@ -95,6 +122,7 @@ const filterFn = (val, update, abort) => {
     }
     const needle = val.toLocaleLowerCase();
     options.value = searchExercise(options.value, needle);
+    searchVal.value = val;
   });
 };
 const setModel = (val) => {

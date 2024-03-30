@@ -85,7 +85,6 @@ export const findExerciseById = (arr: Array, id: number) => {
 
 export const calculateDuration = (arr: Array) => {
   try {
-    //  arr = arr.filter((obj) => obj !== undefined);
     var totalduration = 0;
     arr.forEach((parent) => {
       if (!parent) return;
