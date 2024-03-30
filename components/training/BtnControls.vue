@@ -1,10 +1,10 @@
 <template>
-  <div class="fit row shadow-1 q-py-sm no-wrap ellipsis justify-between">
+  <div class="fit row shadow-1 q-py-sm no-wrap ellipsis justify-between q-mb-xs">
     <div class="col-auto self-center">
       <q-btn
         icon="arrow_back_ios"
         size="sm"
-        class="q-mr-xs padding-2"
+        class="q-mx-xs padding-2"
         outline
         @click="back()"
       ></q-btn>

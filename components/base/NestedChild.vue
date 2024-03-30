@@ -106,11 +106,7 @@ export default {
 ul {
   padding: 0 !important;
 }
-.dragArea {
-  min-height: 50px;
-  outline: 0.5px dashed;
-  outline-color: #46474b42;
-}
+
 .super-small.q-field--dense {
   .q-field__control-container,
   .q-field__native {
