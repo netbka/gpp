@@ -6,7 +6,7 @@ export const searchExercise = (array: Array, val: string) => {
     minMatchCharLength: 1,
     threshold: 0,
     ignoreLocation: true,
-    keys: ["name", "muscle.name"],
+    keys: ["name", "exerciseTemplateMuscle.name"],
   };
 
   let fuse = new Fuse(array, searchOptions);

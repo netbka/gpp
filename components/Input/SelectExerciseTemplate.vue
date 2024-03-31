@@ -28,9 +28,9 @@
             <q-item-section>
               <q-item-label> {{ scope.opt.name }} </q-item-label>
               <q-item-label caption>
-                <b v-if="!(scope.opt.muscle === undefined)"
-                  >{{ scope.opt.muscle.name }}
-                </b>
+                <span v-for="muscle in scope.opt.exerciseTemplateMuscle" :key="muscle.id">
+                  {{ muscle.name + " " }}
+                </span>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -108,11 +108,7 @@ let searchVal = ref("");
 const addCustomExercise = () => {
   emits("onAddCustomExercise", props.data.id, searchVal.value);
 };
-// const createValue = (val, done) => {
-//   if (val.length > 0) {
-//     //    done(val, 'add')
-//   }
-// };
+
 const filterFn = (val, update, abort) => {
   update(() => {
     if (val.length === 0) {

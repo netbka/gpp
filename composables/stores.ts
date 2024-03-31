@@ -40,3 +40,8 @@ import { useSportTypeStore } from "~/stores/sportType";
 export const sportTypeStore = () => {
   return useSportTypeStore();
 };
+
+import { useMuscleStore } from "~/stores/muscle";
+export const muscleStore = () => {
+  return useMuscleStore();
+};

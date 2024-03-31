@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
+    console.log(body);
     body.user_id = user_id;
 
     const newItems = body.newItems ? body.newItems.map(({ id }) => id) : [];

@@ -11,11 +11,11 @@
     options-selected-class="text-deep-orange"
     outlined
     option-value="id"
+    option-label="name"
     :loading="store.loading"
     :disable="props.loading"
-    option-label="name"
-    multiple
     :input-style="{ fontSize: '12px' }"
+    multiple
   >
     <template v-slot:option="scope">
       <q-item v-bind="scope.itemProps">
@@ -24,12 +24,6 @@
         </q-item-section>
       </q-item>
     </template>
-    <!-- <template v-slot:selected-item="scope">
-   
-      <span>
-        {{ scope.opt.name }}
-      </span>
-    </template> -->
   </q-select>
 </template>
 

@@ -172,16 +172,20 @@ export const exerciseTemplateEditableTableColumns = () => {
     },
     {
       name: "exerciseTemplateMuscle",
-      label: "-",
+      label: "Мышцы",
       field: "exerciseTemplateMuscle",
       required: true,
       align: "center",
       sortable: true,
       editable: false,
       classes: "",
-      // format: (val, row) => {
-      //   return `${numToMinText(val)}:${numToSecText(val)}`;
-      // },
+      format: (val, row) => {
+        return val
+          .map((item) => {
+            return ` ${item.name}`;
+          })
+          .join(" ");
+      },
     },
   ];
 };

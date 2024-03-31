@@ -4,6 +4,8 @@ interface SportTypeStoreState {
   defaultItem: SportType;
   items: SportType[];
   currentItem: SportType[];
+  loading: boolean;
+  rowNumber: number;
 }
 
 export const useSportTypeStore = defineStore("SportTypeStore", {

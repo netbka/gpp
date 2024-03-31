@@ -1,7 +1,7 @@
 <template>
   <q-select
     dense
-    v-model="store.currentItem"
+    :model-value="modelValue"
     label="Группа мышц"
     :options="store.itemArray"
     lazy-rules
@@ -13,9 +13,9 @@
     option-value="id"
     option-label="name"
     :loading="store.loading"
-    :disable="props.loading"
     :input-style="{ fontSize: '12px' }"
-    multiple
+    :rules="[(val) => validate(val)]"
+    @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
   >
     <template v-slot:option="scope">
       <q-item v-bind="scope.itemProps">
@@ -24,30 +24,39 @@
         </q-item-section>
       </q-item>
     </template>
+    <!-- v-model="store.currentItem" -->
+    <!-- <template v-slot:selected-item="scope">
+      <span>
+        {{ scope.opt.name }}
+      </span>
+    </template> -->
   </q-select>
 </template>
 
 <script lang="ts" setup>
+// const props = defineProps({
+//   selectedId: {
+//     type: Object,
+//   },
+// });
+//const { selectedId } = props;
+
 const props = defineProps({
-  selectedIds: {
-    type: Array,
-  },
-  loading: {
-    type: Boolean,
+  modelValue: {
+    type: Object,
   },
 });
-const { selectedIds } = props;
 
-const store = muscleStore();
+import { useMuscleStore } from "~/stores/muscle";
+const store = useMuscleStore();
 store.fetchAll();
-
-watch(
-  () => props.selectedIds,
-  (newVal) => {
-    store.currentItem = newVal;
-  },
-  { deep: true }
-);
+onMounted(async () => {
+  // if (selectedId.id) store.currentItem = selectedId;
+});
+const validate = (val) => {
+  if (val === null || !val.id || val.id < 1) return "Нужно выбрать значение";
+};
+//await store.fetchAll();
 </script>
 
 <style scoped>

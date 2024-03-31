@@ -53,7 +53,9 @@
       </div>
       <div class="row q-mt-md">
         <div class="col-12">
-          <InputSelectMuscle v-model="store.currentItem.muscle"></InputSelectMuscle>
+          <InputSelectMuscle
+            v-model="store.currentItem.exerciseTemplateMuscle"
+          ></InputSelectMuscle>
         </div>
       </div>
       <div class="row">
@@ -71,9 +73,8 @@
 </template>
 
 <script setup>
-// todo restric public for admin only
-
 const store = useExerciseTemplateStore();
+const storeMuscle = muscleStore();
 const uploader = ref(null);
 const loading = ref(false);
 onMounted(async () => {});
@@ -83,27 +84,19 @@ const imageUpdate = (img) => {
 };
 
 const onSubmit = async () => {
-  //todo fix so only premium users can upload
-  //todo fix to apply real image extension and not only "gif"
-
   if (imageToUpload.value != null) {
-    //todo fix to get actual suffix (also fix in Upload component!)
     store.currentItem.imageUrl = ".gif";
   }
-  //console.log(store.currentItem.id);
+  store.currentItem.newItems = storeMuscle.currentItem;
   if (store.currentItem.id === null) {
     await store.createCurrentItem();
   } else {
     await store.updateCurrentItem();
   }
 
-  //  console.log(imageToUpload.value);
   if (imageToUpload.value != null) {
-    //  console.log(store.currentItem.id);
     await updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
   }
-
-  // store.currentProfile.profilesSportType = storeSportType.currentItem;
 };
 
 const newItem = () => {
