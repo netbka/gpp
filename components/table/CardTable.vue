@@ -1,8 +1,12 @@
 <template>
   <div>
     <q-table
+      grid
+      hide-header
+      flat
+      bordered
       ref="tableRef"
-      class="my-sticky-header-table window-height-100"
+      class=""
       :rows="rows"
       :columns="columns"
       :row-key="(row) => row.id"
@@ -10,13 +14,13 @@
       :loading="loading"
       v-model:pagination="pagination"
       binary-state-sort
-      flat
-      bordered
       no-data-label="Нет данных"
       no-results-label="Ничего не найдено"
       @request="onRequest"
       :rows-per-page-options="[10, 20]"
-      rows-per-page-label="Записей на странице"
+      rows-per-page-label="показывать по"
+      :loading-label="'Загружаю'"
+      :pagination-label="(start, end, total) => `${start}-${end} из ${total}`"
     >
       <template v-slot:loading>
         <q-inner-loading showing color="primary" />
@@ -41,53 +45,16 @@
           </template>
         </q-input>
       </template>
-      <template v-slot:header="props">
-        <q-tr :props="props">
-          <q-th auto-width v-if="!propActions" />
-          <q-th v-for="col in props.cols" :key="col.name" :props="props">
-            {{ col.label }}
-          </q-th>
 
-          <q-th class="text-center" auto-width v-if="propActions">
-            <q-icon name="bolt" size="1.5em" />
-          </q-th>
-        </q-tr>
-      </template>
-      <template v-slot:body="props">
-        <q-tr :props="props">
-          <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <span
-              v-html="col.value"
-              class=""
-              v-if="!col.icon && col.editable === false"
-            ></span>
-            <slot
-              name="editcontrol"
-              :prop="{ col: col, row: props.row }"
-              v-if="col.editable === true"
-            ></slot>
-
-            <q-icon
-              size="12px"
-              v-if="col.icon"
-              :name="publicPrivateIcon(col.value)"
-              class="q-mr-sm float-left"
-            ></q-icon>
-          </q-td>
-
-          <TableBtnColumnAction
-            v-if="propRowActions"
-            :propRowData="props"
-            :propExecuteBtn="executeBtn(showExecute)"
-            :propEditBtn="editBtn(showEdit)"
-            :propDeleteBtn="deleteBtn(showDelete)"
-            :propCustomBtn="customBtn(showCustom)"
-            @executeItem="$emit('executeItem', props)"
-            @editItem="$emit('editItem', props)"
-            @customAction="$emit('customAction', props)"
-            @deleteItem="confirmDelete(props)"
-          ></TableBtnColumnAction>
-        </q-tr>
+      <template v-slot:item="props">
+        <div class="q-pa-xs col-xs-12 col-sm-12 col-lg-6">
+          <TableCard
+            :data="props.row"
+            :cols="props.cols"
+            :readOnly="readOnly"
+            @onUpdateField="onUpdateField"
+          ></TableCard>
+        </div>
       </template>
     </q-table>
     <BaseDialogYesNo ref="dialog" @ok="remove"></BaseDialogYesNo>
@@ -100,6 +67,7 @@ const emits = defineEmits([
   "editItem",
   "customAction",
   "deleteItem",
+  "onUpdateField",
 ]);
 const props = defineProps({
   propRowActions: { Type: Boolean, default: true },
@@ -113,35 +81,22 @@ const props = defineProps({
   showEdit: { Type: Boolean, default: false },
   showDelete: { Type: Boolean, default: false },
   showCustom: { Type: Boolean, default: false },
+  readOnly: { Type: Boolean, default: false },
 });
-//import { useScreen } from "quasar";
-//const $q = useQuasar();
-//const { width, height } = useScreen();
-//const screenHeight = computed(() => height);
 
 const dialog = ref(null);
 let filter = ref("");
 const tableRef = ref(null);
-
-//const screenHeight = computed(() => window.innerHeight - 250);
-
-onMounted(() => {
-  //updateScreenSize();
-  //window.addEventListener("resize", updateScreenSize);
-});
-
-//const updateScreenSize = () => {
-//screenHeight.value = window.innerHeight - 250;
-//console.log(screenHeight.value);
-//};
-
 const pagination = ref({
   sortBy: "name",
   descending: false,
   page: 1,
-  //rowsPerPage: screenHeight.value > 0 ? Math.floor(screenHeight.value / 50) : 10,
-  rowsPerPage: 14,
+
+  rowsPerPage: 10,
   rowsNumber: 14,
+});
+onMounted(async () => {
+  tableRef.value.requestServerInteraction();
 });
 
 const onRequest = (prop) => {
@@ -159,10 +114,9 @@ const confirmDelete = (prop) => {
 const remove = (id) => {
   emits("deleteItem", id);
 };
-onMounted(async () => {
-  tableRef.value.requestServerInteraction();
-});
-
+const onUpdateField = (field, val, id) => {
+  emits("onUpdateField", field, val, id);
+};
 watch(
   () => props.rowsNumber,
   (val) => {

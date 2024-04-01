@@ -167,7 +167,7 @@ export const exerciseTemplateEditableTableColumns = () => {
       sortable: true,
       editable: false,
       style: "text-wrap: balance",
-      classes: "gt-xs truncate wrap-col ",
+      classes: "gt-xs truncate desc-col ",
       headerClasses: "gt-xs",
     },
     {
@@ -178,7 +178,7 @@ export const exerciseTemplateEditableTableColumns = () => {
       align: "center",
       sortable: true,
       editable: false,
-      classes: "",
+      classes: "name-col",
       format: (val, row) => {
         return val
           .map((item) => {

@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <BaseFab @newItem="newItem"></BaseFab>
-    <ExercisetemplateForm ref="form"></ExercisetemplateForm>
-
-    <ExercisetemplateTable @edit="show"></ExercisetemplateTable>
+  <div class="shadow-1">
+    Edit
 
     <!-- <div class="col-12">
       <ExercisetemplateList @edit="show()"></ExercisetemplateList>
@@ -23,7 +20,7 @@ const newItem = () => {
   store.resetCurrentItem();
   show();
 };
-const $q = useQuasar();
+
 const show = () => {
   console.log($q.screen.gt.xs);
   form.value.show();

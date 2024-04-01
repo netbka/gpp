@@ -6,8 +6,8 @@
       flat
       dense
       round
-      icon="add_box"
-      color="indigo-10"
+      icon="add_circle"
+      color="indigo-7"
       @click="$emit('onAdd')"
       v-show="props.propNewVisible && !props.readOnly"
     />
@@ -17,7 +17,7 @@
       flat
       dense
       round
-      icon="delete_forever"
+      icon="close"
       color="deep-orange-5"
       @click="confirmDelete()"
       v-show="!props.readOnly"

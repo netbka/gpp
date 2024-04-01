@@ -1,13 +1,14 @@
 <template>
   <q-td class="text-center q-pa-xs">
     <q-btn
-      :icon="propExecuteBtn.icon"
-      v-if="propExecuteBtn.visible"
-      outline
-      color="blue"
       dense
+      outline
+      size="sm"
+      :icon="propExecuteBtn.icon"
+      :color="propExecuteBtn.color"
       :label="propExecuteBtn.label"
       @click="$emit('executeItem')"
+      v-if="propExecuteBtn.visible"
     >
       <!-- <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
         {{ propExecuteBtn.tooltip }}
@@ -16,8 +17,8 @@
 
     <q-btn
       dense
-      round
       flat
+      size="sm"
       :color="propEditBtn.color"
       @click="$emit('editItem')"
       :icon="propEditBtn.icon"
@@ -30,8 +31,8 @@
 
     <q-btn
       dense
-      round
       flat
+      size="sm"
       :color="propCustomBtn.color"
       @click="$emit('customAction')"
       :icon="propCustomBtn.icon"
@@ -43,8 +44,8 @@
     </q-btn>
     <q-btn
       dense
-      round
       flat
+      size="sm"
       :color="propDeleteBtn.color"
       @click="$emit('deleteItem')"
       :icon="propDeleteBtn.icon"

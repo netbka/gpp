@@ -5,12 +5,12 @@ interface TrainingTrackStoreState {
   itemArray: TrainingTrack[];
   currentItem: TrainingTrack;
 }
-const baseUrl = "/api/trainingtrack/";
+const baseUrl = "/api/trainingTrack/";
 export const useTrainingTrackStore = defineStore("TrainingTrackStore", {
   state: (): TrainingTrackStoreState => ({
     itemArray: [],
-    currentItem: { id: null, user_id: "", trainingId: 0 },
-    defaultItem: { id: null, user_id: "", trainingId: 0 },
+    currentItem: { id: null, user_id: "", trainingId: 0, duration: 0 },
+    defaultItem: { id: null, user_id: "", trainingId: 0, duration: 0 },
     loading: false,
   }),
   getters: {
@@ -28,17 +28,17 @@ export const useTrainingTrackStore = defineStore("TrainingTrackStore", {
     resetCurrentItem() {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
-    async getById(id: number) {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch(baseUrl + id, {
-          method: "get",
-        });
-        if (response) {
-          updateArray(response, this.itemArray);
-          this.currentItem = response;
-        }
-      })(null);
-    },
+    // async getById(id: number) {
+    //   withErrorHandling(this)(async (props, store) => {
+    //     const response = await $fetch(baseUrl + id, {
+    //       method: "get",
+    //     });
+    //     if (response) {
+    //       updateArray(response, this.itemArray);
+    //       this.currentItem = response;
+    //     }
+    //   })(null);
+    // },
     createCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
         const response = await $fetch(baseUrl + "create", {
@@ -48,7 +48,7 @@ export const useTrainingTrackStore = defineStore("TrainingTrackStore", {
 
         updateArray(response, store.itemArray);
 
-        store.currentItem = response;
+        if (response) store.currentItem = response;
       })(null);
     },
     async fetchAll() {

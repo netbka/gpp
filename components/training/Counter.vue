@@ -71,7 +71,7 @@ const grpIndex: number = ref(0);
 const exrIndex: number = ref(0);
 let timer = ref(100);
 let intervalId: number;
-import { useQuasar } from "quasar";
+//import { useQuasar } from "quasar";
 const audio = new Audio("/sound/10sec.mp3");
 //const $q = useQuasar();
 
@@ -119,10 +119,16 @@ const resetTraining = () => {
   dialog.value.hide();
 };
 
+const storeTrainingTrack = trainingTrackStore();
+const saveTrainingTrack = async () => {
+  storeTrainingTrack.currentItem.trainingId = store.currentItem.id;
+  storeTrainingTrack.currentItem.duration = store.getDuration;
+  await storeTrainingTrack.createCurrentItem();
+};
 defineExpose({
   resetTraining,
+  saveTrainingTrack,
 });
-
 const showExerciseName = () => {
   const index = store.getActiveExerciseIndex();
   try {
@@ -138,6 +144,7 @@ const startTimer = () => {
     grpIndex.value + 1 > store.currentItem.exerciseGroup.length &&
     this.activeGroup.repeats === 0
   ) {
+    saveTrainingTrack();
     resetTraining();
 
     return;
@@ -156,6 +163,7 @@ const startTimer = () => {
       if (store.activeGroup.repeats === 0) {
         grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
         if (grpIndex.value < 0) {
+          saveTrainingTrack();
           resetTraining();
           return;
         }

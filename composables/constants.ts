@@ -13,11 +13,11 @@ export const publicPrivateIcon = (val) => {
 };
 
 export const editBtn = (visible: Boolean) => {
-  return { icon: "edit", tooltip: "Редактировать", visible: visible, color: "light-blue-14" };
+  return { icon: "edit", tooltip: "Редактировать", visible: visible, color: "light-blue-7" };
 };
 
 export const deleteBtn = (visible: Boolean) => {
-  return { icon: "delete", tooltip: "Удалить", visible: visible, color: "deep-orange-5" };
+  return { icon: "close", tooltip: "Удалить", visible: visible, color: "deep-orange-5" };
 };
 
 export const customBtn = (visible: Boolean, tooltip: String, icon: String) => {
@@ -29,5 +29,5 @@ export const fileLimit = () => {
 };
 
 export const executeBtn = (visible: Boolean) => {
-  return { icon: "play_circle_outline", tooltip: "Старт", visible: visible };
+  return { icon: "play_arrow", tooltip: "Старт", visible: visible, color: "green-7" };
 };

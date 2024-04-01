@@ -135,7 +135,9 @@
 
   /* overflow: hidden; */
 }
-
+.desc-col {
+  width: auto;
+}
 .name-col {
   max-width: 100px;
 
@@ -186,4 +188,9 @@
 .img-fluid {
   max-width: 350px;
   object-fit: cover;
+}
+
+.no-style {
+  text-decoration: none;
+  color: inherit;
 }

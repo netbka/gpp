@@ -126,6 +126,7 @@ const onDeleteGroup = async (id: Number) => {
   await storeExerciseGroup.deleteItem(id);
   removeItemFromArr(id, store.currentItem.exerciseGroup);
 };
+
 const setDuration = async (val) => {
   await store.setDuration(val);
 };
@@ -134,11 +135,10 @@ const start = async (val) => {
   await initCounter.value.start();
   store.isStarted = true;
 };
-
-const trainingcounter = ref(null);
-const restart = () => {
-  trainingcounter.value.resetTraining();
-};
+//const trainingCounter = ref(null);
+// const restart = () => {
+//   trainingCounter.value.resetTraining();
+// };
 //todo add mute button to counter
 const stopTimer = () => {
   workout.value.resetTraining();

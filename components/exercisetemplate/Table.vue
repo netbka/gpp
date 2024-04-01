@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TableEditable
+    <!-- <TableEditable
       :columns="exerciseTemplateEditableTableColumns()"
       :headerTitle="'Упражнения'"
       @onRequest="onRequest"
@@ -20,7 +20,24 @@
           :propControlConfig="prop"
         ></TableInputWrapper>
       </template>
-    </TableEditable>
+    </TableEditable> -->
+    <TableCardTable
+      :columns="exerciseTemplateEditableTableColumns()"
+      :headerTitle="'Упражнения'"
+      @onRequest="onRequest"
+      ref="tableRef"
+      :rows="store.itemArray"
+      :loading="store.loading"
+      :rowsNumber="store.rowsNumber"
+      :showExecute="false"
+      :showEdit="true"
+      :showDelete="true"
+      :readOnly="false"
+      @editItem="editItem"
+      @deleteItem="deleteItem"
+      @onUpdateField="onUpdateField"
+    >
+    </TableCardTable>
   </div>
 </template>
 
@@ -43,6 +60,7 @@ const deleteItem = async (id) => {
   await store.deleteItem(id);
 };
 const onUpdateField = async (field, val, id) => {
+  console.log(field);
   await store.updateItemField(field, val, id);
 };
 </script>
