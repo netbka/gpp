@@ -1,6 +1,6 @@
 <template>
   <div class="shadow-1">
-    view Edit
+    Edit id
 
     <!-- <div class="col-12">
       <ExercisetemplateList @edit="show()"></ExercisetemplateList>

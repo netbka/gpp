@@ -1,19 +1,18 @@
 import { defineStore } from "pinia";
 import { type Muscle } from "~/types/types";
 interface MuscleStoreState {
-  defaultItem: Muscle;
+  defaultItem: Muscle[];
   itemArray: Muscle[];
-  currentItem: Muscle;
+  currentItem: Muscle[];
+  loading: boolean;
+  rowsNumber: 0;
 }
 
 export const useMuscleStore = defineStore("MuscleStore", {
   state: (): MuscleStoreState => ({
     itemArray: [],
-    currentItem: { id: 0, name: "" },
-    defaultItem: {
-      id: 0,
-      name: "",
-    },
+    currentItem: [],
+    defaultItem: [],
     loading: false,
     rowsNumber: 0,
   }),

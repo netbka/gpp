@@ -53,6 +53,7 @@
             :cols="props.cols"
             :readOnly="readOnly"
             @onUpdateField="onUpdateField"
+            @editItem="editItem"
           ></TableCard>
         </div>
       </template>
@@ -98,6 +99,9 @@ const pagination = ref({
 onMounted(async () => {
   tableRef.value.requestServerInteraction();
 });
+const editItem = (id) => {
+  emits("editItem", id);
+};
 
 const onRequest = (prop) => {
   pagination.value.descending = prop.pagination.descending;

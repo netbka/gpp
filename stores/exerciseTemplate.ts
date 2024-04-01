@@ -10,8 +10,8 @@ interface ExerciseTemplateStoreState {
 const baseUrl = "/api/exerciseTemplate/";
 export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
   state: (): ExerciseTemplateStoreState => ({
-    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, exerciseTemplateMuscle: [] },
-    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, public: false, exerciseTemplateMuscle: [] },
+    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
+    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
     itemArray: [],
     loading: false,
     rowsNumber: 0,

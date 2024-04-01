@@ -52,15 +52,14 @@ const onRequest = async (props) => {
   await store.search(props);
 };
 
-const editItem = (prop) => {
-  store.currentItem = getById(prop.row.id, store.itemArray);
+const editItem = (id) => {
+  store.currentItem = getById(id, store.itemArray);
   emits("edit");
 };
 const deleteItem = async (id) => {
   await store.deleteItem(id);
 };
 const onUpdateField = async (field, val, id) => {
-  console.log(field);
   await store.updateItemField(field, val, id);
 };
 </script>

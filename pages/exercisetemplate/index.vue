@@ -16,16 +16,15 @@ const form = ref(null);
 
 const store = useExerciseTemplateStore();
 onBeforeMount(async () => {
-  //  await store.fetchAll();
+  //await store.fetchAll();
 });
 
 const newItem = () => {
   store.resetCurrentItem();
   show();
 };
-const $q = useQuasar();
+
 const show = () => {
-  console.log($q.screen.gt.xs);
   form.value.show();
 };
 </script>

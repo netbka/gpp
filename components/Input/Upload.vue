@@ -1,22 +1,26 @@
 <template>
-  <div>
-    <q-file
-      clearable
-      filled
-      v-model="image"
-      label="Пример упражнения. Картинка."
-      accept="image/*"
-      :max-file-size="fileLimit()"
-      @update:model-value="previewMultiImage"
-      ref="picker"
-      @rejected="onRejectedSize"
-    >
-      <template v-slot:append>
-        <q-icon name="attachment" @click="picker.pickFiles()" />
-      </template>
-    </q-file>
-    <div v-if="preview">
-      <img :src="preview" class="img-fluid" />
+  <div class="wrapper">
+    <div class="row justify-center">
+      <div class="col-12 self-center">
+        <div v-if="preview">
+          <img :src="preview" class="img-fluid" />
+        </div>
+        <q-file
+          clearable
+          filled
+          v-model="image"
+          label="Пример упражнения. Картинка."
+          accept="image/*"
+          :max-file-size="fileLimit()"
+          @update:model-value="previewMultiImage"
+          ref="picker"
+          @rejected="onRejectedSize"
+        >
+          <template v-slot:append>
+            <q-icon name="attachment" @click="picker.pickFiles()" />
+          </template>
+        </q-file>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +47,8 @@ const previewMultiImage = (file) => {
 onMounted(() => {
   if (store.currentItem.imageUrl !== "") {
     setExistingPreview(store.currentItem.id + ".gif");
+  } else {
+    setNoImage();
   }
 });
 const onRejectedSize = (rejectedEntries) => {
@@ -50,8 +56,10 @@ const onRejectedSize = (rejectedEntries) => {
 };
 
 const setExistingPreview = (filename) => {
-  //todo fix to get the suffix
   preview.value = getExerciseImage(filename);
+};
+const setNoImage = () => {
+  preview.value = "/exerciseSmall.png";
 };
 
 const reset = () => {
@@ -91,7 +99,17 @@ defineExpose({
 
 <style scoped>
 .img-fluid {
-  max-width: 100%;
+  max-height: 300px;
+  height: 300px;
   height: auto;
+}
+.wrapper {
+  position: relative;
+  user-select: none;
+  border: solid 1px #eee;
+}
+.preview-result {
+  display: flex;
+  flex: 1 1 auto;
 }
 </style>

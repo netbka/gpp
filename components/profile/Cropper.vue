@@ -160,7 +160,7 @@ defineExpose({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cropper-avatar {
   width: 100%;
   height: 180px;

@@ -14,10 +14,14 @@
             v-model="data.name"
             @updatedb="$emit('onUpdateField', 'name', data.name, data.id)"
           ></InputText>
-          <span class="text-caption text-thin text-grey">
-            ({{ data.duration }} сек.)</span
-          ></q-item-label
-        >
+          <span class="q-ml-sm text-caption text-thin text-grey">
+            <InputNumber
+              :typeDuration="true"
+              :readOnly="props.readOnly"
+              v-model="data.duration"
+              @updatedb="$emit('onUpdateField', 'duration', data.duration, data.id)"
+            ></InputNumber> </span
+        ></q-item-label>
         <q-item-label caption
           ><span v-for="muscle in data.exerciseTemplateMuscle" :key="muscle.id">
             {{ muscle.name + " " }}
@@ -37,7 +41,16 @@
     <q-separator />
 
     <q-card-actions class="items-center" align="right">
-      <q-btn rounded flat color="secondary" size="sm" icon="edit"> </q-btn>
+      <q-btn
+        rounded
+        flat
+        color="secondary"
+        size="sm"
+        icon="edit"
+        @click="$emit('editItem', data.id)"
+      >
+      </q-btn>
+
       <q-btn outline color="primary" size="sm">
         <NuxtLink class="no-style" :to="'/exercisetemplate/' + data.id"
           >подробнее</NuxtLink
@@ -53,7 +66,7 @@ const props = defineProps({
   cols: { Type: Object, default: {} },
   readOnly: { Type: Boolean, default: false },
 });
-const emits = defineEmits(["onUpdateField"]);
+const emits = defineEmits(["onUpdateField", "editItem"]);
 </script>
 
 <style scoped>

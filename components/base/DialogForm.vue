@@ -4,22 +4,23 @@
     :full-height="propFullHeight"
     v-on:keyup.esc="hide()"
     ref="dialog"
-    class="no-padding row"
+    class="no-padding"
     :position="position"
+    backdrop-filter="blur(2px)"
   >
-    <div class="row">
+    <div class="form-size">
       <q-form
         @reset="onReset"
         @keyup.ctrl.enter="onSubmit"
         @submit="onSubmit"
         ref="myForm"
-        class="nooverflow form-size"
+        :class="[{ 'full-height': propFullHeight }]"
       >
-        <q-card class="">
+        <q-card :class="['form-size', { 'full-height': propFullHeight }]">
           <q-card-section class="row q-pr-sm">
             <div class="text-h6">{{ propHeading }}</div>
             <q-space />
-            <q-btn dense flat icon="close" v-on:click="hide()" />
+            <q-btn dense flat icon="close" @click="hide()" style="z-index: 9999" />
           </q-card-section>
           <q-separator />
           <q-card-section class="col q-pt-sm">
@@ -92,21 +93,13 @@ defineExpose({
 .form-size {
   min-width: 300px !important;
   max-width: calc(100vw - 2px) !important;
-  width: 100vw;
+  width: 100vw !important;
 }
-@media (min-width: 600px) {
+@media (min-width: 1500px) {
   .form-size {
-    min-width: 300px !important;
-    max-width: calc(100vw - 2px) !important;
-    width: calc(100vw 4 / 5);
-  }
-}
-
-@media (min-width: 1000px) {
-  .form-size {
-    min-width: 300px !important;
-    max-width: calc(100vw - 2px) !important;
-    width: calc(100vw / 2);
+    min-width: 1500px !important;
+    max-width: 1500px !important;
+    width: 1500px !important;
   }
 }
 </style>

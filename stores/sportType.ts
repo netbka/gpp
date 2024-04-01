@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import { type SportType } from "~/types/types";
 interface SportTypeStoreState {
-  defaultItem: SportType;
-  items: SportType[];
+  defaultItem: SportType[];
+  itemArray: SportType[];
   currentItem: SportType[];
   loading: boolean;
   rowNumber: number;
@@ -10,13 +10,9 @@ interface SportTypeStoreState {
 
 export const useSportTypeStore = defineStore("SportTypeStore", {
   state: (): SportTypeStoreState => ({
-    items: [],
+    itemArray: [],
     currentItem: [],
-    defaultItem: {
-      id: null,
-      name: "",
-      description: "",
-    },
+    defaultItem: [],
     loading: false,
     rowsNumber: 0,
   }),
