@@ -1,30 +1,15 @@
 <template>
-  <div class="shadow-1">
-    view Edit
-
-    <!-- <div class="col-12">
-      <ExercisetemplateList @edit="show()"></ExercisetemplateList>
-    </div> -->
-  </div>
+  <ContentCard :data="store.currentItem"></ContentCard>
 </template>
 <script lang="ts" setup>
-definePageMeta({ auth: true });
-const form = ref(null);
+definePageMeta({ auth: false });
+const route = useRoute();
+const { id } = route.params;
 
 const store = useExerciseTemplateStore();
 onBeforeMount(async () => {
-  //  await store.fetchAll();
+  await store.getById(parseSlugId(id));
 });
-
-const newItem = () => {
-  store.resetCurrentItem();
-  show();
-};
-
-const show = () => {
-  console.log($q.screen.gt.xs);
-  form.value.show();
-};
 </script>
 
 <style scoped>

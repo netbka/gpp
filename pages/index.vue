@@ -2,11 +2,8 @@
   <div class="back_main">
     <div class="row window-height-100 no-wrap justify-between items-center">
       <div class="col q-pa-md">
-        <div class="text-black text-bold text-h3">Онлайн тренажер ОФП</div>
-        <p class="text-h4">Подбор упражнений на все группы мышц</p>
-        <p class="text-body1">
-          Регистрируйтесь, чтобы сохранять свои программы и отслеживать прогресс
-        </p>
+        <h1 class="text-black">Просто ОФП</h1>
+        <h2 class="">Создайте для себя идеальный план тренировок</h2>
 
         <q-btn outline color="primary" @click="redirect">К тренировкам </q-btn>
       </div>

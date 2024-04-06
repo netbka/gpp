@@ -53,7 +53,7 @@ const onRequest = async (props) => {
 };
 
 const editItem = (id) => {
-  store.currentItem = getById(id, store.itemArray);
+  store.currentItem = Object.assign({}, getById(id, store.itemArray));
   emits("edit");
 };
 const deleteItem = async (id) => {

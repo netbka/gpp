@@ -81,18 +81,18 @@ export const editorToolbar = ($q) => {
     ["fullscreen"],
     [
       {
-        label: $q.lang.editor.formatting,
+        label: "форматирование",
         icon: $q.iconSet.editor.formatting,
         list: "no-icons",
-        options: ["p", "h1", "h2", "h3", "h4", "h5", "h6", "code"],
+        options: ["p", "h4", "h5", "h6", "code"],
       },
       {
-        label: $q.lang.editor.fontSize,
+        label: "шрифт",
         icon: $q.iconSet.editor.fontSize,
         fixedLabel: true,
         fixedIcon: true,
         list: "no-icons",
-        options: ["size-1", "size-2", "size-3", "size-4", "size-5", "size-6", "size-7"],
+        options: ["size-1", "size-2", "size-3", "size-4", "size-5"],
       },
 
       "removeFormat",

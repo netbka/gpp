@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
         },
       });
     }
-    console.log(result.avatarPath);
+    //console.log(result.avatarPath);
     if (result.avatarPath === undefined || result.avatarPath === null || (result.avatarPath !== undefined && result.avatarPath?.length < 3)) {
       var uploadResult = await initAvatar(event.context.user.user_metadata.avatar_url, result.user_id, result.firstName);
 

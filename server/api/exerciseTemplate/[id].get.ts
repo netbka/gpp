@@ -4,17 +4,13 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const user_id = event.context.user === null ? "12345678123456781234567812345678" : event.context.user.id;
-  // const {
-  //   user: { id: user_id },
-  // } = event.context;
 
   try {
     const { id } = event.context.params;
     const _id = Number(id);
 
-    const result = await prisma.training.findUnique({
+    const result = await prisma.exerciseTemplate.findUnique({
       where: {
-        // AND: [{ id: _id }, { user_id: user_id }],
         id: _id,
         OR: [
           {
@@ -24,13 +20,16 @@ export default defineEventHandler(async (event) => {
         ],
       },
       include: {
-        exerciseGroup: {
-          include: {
-            exercise: true,
-          },
-        },
+        exerciseTemplateMuscle: true,
       },
     });
+
+    if (result === null) {
+      throw createError({
+        statusCode: 403,
+        statusMessage: "Нет доступа к этому занятию",
+      });
+    }
 
     return result;
   } catch (error) {

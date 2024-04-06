@@ -41,9 +41,11 @@ const { selectedIds } = props;
 const store = muscleStore();
 store.fetchAll();
 
+store.currentItem = props.selectedIds;
 watch(
   () => props.selectedIds,
   (newVal) => {
+    console.log(newVal);
     store.currentItem = newVal;
   },
   { deep: true }

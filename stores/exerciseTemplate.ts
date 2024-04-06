@@ -39,6 +39,18 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     resetCurrentItem() {
       this.currentItem = Object.assign({}, this.defaultItem);
     },
+    async getById(id: number) {
+      withErrorHandling(this)(async (props, store) => {
+        const response = await $fetch(baseUrl + id, {
+          method: "get",
+        });
+
+        if (response) {
+          updateArray(response, this.itemArray);
+          this.currentItem = response;
+        }
+      })(null);
+    },
     async fetchAll() {
       withErrorHandling(this)(async (payload, store) => {
         const { data } = await useFetch(baseUrl + "all", {
@@ -126,28 +138,28 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     //     return groups;
     //   }, {});
     // },
-    getGroupedArray() {
-      const groups = this.itemArray.reduce((groups, item) => {
-        const group = groups[item.muscle.name] || [];
-        group.push(item);
-        groups[item.muscle.name] = group;
-        return groups;
-      }, {});
+    // getGroupedArray() {
+    //   const groups = this.itemArray.reduce((groups, item) => {
+    //     const group = groups[item.muscle.name] || [];
+    //     group.push(item);
+    //     groups[item.muscle.name] = group;
+    //     return groups;
+    //   }, {});
 
-      // Convert the groups object to an array of entries
-      const groupEntries = Object.entries(groups);
+    //   // Convert the groups object to an array of entries
+    //   const groupEntries = Object.entries(groups);
 
-      // Sort the group entries by item.muscle.id
-      groupEntries.sort((a, b) => {
-        const firstMuscleId = a[1][0].muscle.id;
-        const secondMuscleId = b[1][0].muscle.id;
-        return firstMuscleId - secondMuscleId;
-      });
+    //   // Sort the group entries by item.muscle.id
+    //   groupEntries.sort((a, b) => {
+    //     const firstMuscleId = a[1][0].muscle.id;
+    //     const secondMuscleId = b[1][0].muscle.id;
+    //     return firstMuscleId - secondMuscleId;
+    //   });
 
-      // Convert the sorted array of entries back to an object
-      const sortedGroups = Object.fromEntries(groupEntries);
+    //   // Convert the sorted array of entries back to an object
+    //   const sortedGroups = Object.fromEntries(groupEntries);
 
-      return sortedGroups;
-    },
+    //   return sortedGroups;
+    // },
   },
 });

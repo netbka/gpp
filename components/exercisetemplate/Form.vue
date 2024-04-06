@@ -86,6 +86,7 @@
             <div class="col-12">
               <InputSelectMuscle
                 v-model="store.currentItem.exerciseTemplateMuscle"
+                :selectedIds="store.currentItem.exerciseTemplateMuscle"
               ></InputSelectMuscle>
             </div>
           </div>

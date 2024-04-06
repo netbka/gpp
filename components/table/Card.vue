@@ -35,7 +35,7 @@
     <q-card-section horizontal class="card-body-height">
       <img class="img-exercise" :src="getExerciseImage(data.id + data.imageUrl)" />
 
-      <q-card-section> {{ data.description }} </q-card-section>
+      <q-card-section v-html="data.description" class="q-pa-sm"> </q-card-section>
     </q-card-section>
 
     <q-separator />
@@ -52,9 +52,7 @@
       </q-btn>
 
       <q-btn outline color="primary" size="sm">
-        <NuxtLink class="no-style" :to="'/exercisetemplate/' + data.id"
-          >подробнее</NuxtLink
-        ></q-btn
+        <NuxtLink class="no-style" :to="link(data)">подробнее</NuxtLink></q-btn
       >
     </q-card-actions>
   </q-card>
@@ -67,20 +65,31 @@ const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
 const emits = defineEmits(["onUpdateField", "editItem"]);
+const link = (data) => {
+  var slug = data.id + "-" + data.name;
+  const url = useSlug(slug);
+  return "/exercisetemplate/" + url;
+};
 </script>
 
 <style scoped>
 .exercise-card {
-  height: 196px;
-  max-height: 196px;
+  height: 200px;
+  max-height: 200px;
   width: 100%;
 }
 .img-exercise {
   object-fit: cover;
-  max-height: 94px;
-  height: 94px;
+  max-height: 98px;
+  height: 98px;
 }
 .card-body-height {
-  max-height: 102px;
+  max-width: 730px;
+  max-height: 98px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-line-clamp: 4;
+  word-break: break-word;
 }
 </style>

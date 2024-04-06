@@ -29,7 +29,7 @@ const route = useRoute();
 const { id } = route.params;
 
 const store = trainingStore();
-//const storeExerciseGroup = exerciseGroupStore();
+
 onBeforeMount(async () => {
   await store.getById(parseSlugId(id));
 });
