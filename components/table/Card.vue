@@ -50,6 +50,15 @@
         @click="$emit('editItem', data.id)"
       >
       </q-btn>
+      <q-btn
+        rounded
+        flat
+        color="accent"
+        size="sm"
+        icon="remove"
+        @click="$emit('removeItem', data.id)"
+      >
+      </q-btn>
 
       <q-btn outline color="primary" size="sm">
         <NuxtLink class="no-style" :to="link(data)">подробнее</NuxtLink></q-btn
@@ -64,7 +73,7 @@ const props = defineProps({
   cols: { Type: Object, default: {} },
   readOnly: { Type: Boolean, default: false },
 });
-const emits = defineEmits(["onUpdateField", "editItem"]);
+const emits = defineEmits(["onUpdateField", "editItem", "removeItem"]);
 const link = (data) => {
   var slug = data.id + "-" + data.name;
   const url = useSlug(slug);

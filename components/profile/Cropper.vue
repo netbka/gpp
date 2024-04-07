@@ -148,10 +148,12 @@ watch(
     }
     image.value.src = getProfile(val);
   },
-  { deep: true }
+  { deep: true },
+  { immediate: true }
 );
 
 const show = () => {
+  image.value.src = getProfile(store.currentProfile.avatarPath);
   dialog.value.show();
 };
 
