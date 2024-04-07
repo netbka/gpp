@@ -8,7 +8,9 @@
         Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
       </span>
       <div class="q-mt-md">
-        <ProfileCropper ref="cropperDialog" @onHide="onHide"></ProfileCropper>
+        <ClientOnly>
+          <ProfileCropper ref="cropperDialog" @onHide="onHide"></ProfileCropper>
+        </ClientOnly>
       </div>
     </div>
     <div class="col-12 col-sm">
@@ -28,7 +30,9 @@
           </q-avatar>
         </div>
       </div>
-      <ProfileForm></ProfileForm>
+      <ClientOnly>
+        <ProfileForm></ProfileForm>
+      </ClientOnly>
     </div>
   </div>
 </template>
@@ -39,10 +43,11 @@ const cropperDialog = ref(null);
 const store = profileStore();
 const storeSportType = sportTypeStore();
 let avatar = ref("");
-
 onBeforeMount(async () => {
   await store.fetchCurrentUser();
   await storeSportType.fetchAll();
+});
+onMounted(async () => {
   await updateProfile();
 });
 const openCropper = () => {
@@ -52,6 +57,14 @@ const onHide = async () => {
   //avatar.value = "";
   await updateProfile();
 };
+
+watch(
+  () => store.currentProfile.user_id,
+  async (val) => {
+    avatar.value = (await getProfile(val)) + "?" + new Date().getTime();
+  },
+  { immediate: true }
+);
 
 const updateProfile = async () => {
   avatar.value =

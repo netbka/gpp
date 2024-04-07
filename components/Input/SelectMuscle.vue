@@ -42,6 +42,7 @@ const store = muscleStore();
 store.fetchAll();
 
 store.currentItem = props.selectedIds;
+
 watch(
   () => props.selectedIds,
   (newVal) => {

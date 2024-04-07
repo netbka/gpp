@@ -53,23 +53,6 @@ definePageMeta({
 });
 
 const supabase = useSupabaseClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-//const { query } = useRoute();
-//const user = useSupabaseUser();
-
-// watchEffect(async () => {
-//   if (user.value) {
-//     console.log(user.value);
-//     await navigateTo(query.redirectTo as string, {
-//       replace: true,
-//     });
-//   }
-// });
-//  let baseUrl = "https://myofp.netlify.app";
-//   if (process.env.NODE_ENV === "development") {
-//     baseUrl = "http://localhost:3000";
-//   } else {
-//     baseUrl = "https://myofp.netlify.app";
-//   }
 
 const loginGithub = async () => {
   let baseUrl;

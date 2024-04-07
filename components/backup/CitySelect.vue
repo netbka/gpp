@@ -78,51 +78,6 @@ const { data: cities, pending } = await useAsyncData(
     watch: [query],
   }
 );
-
-// const { data: cities, pending, error } = await useLazyFetch(uri, {
-//   // key: query.value,
-//   //lazy: true,
-//   method: "get",
-//   server: false,
-//   watch: [query],
-//   transform: (_cities) => _cities.result.records,
-//   query: {
-//     resource_id: "8f714b6f-c35c-4b40-a0e7-547b675eee0e",
-//     limit: 5,
-//     q: query.value,
-//   },
-// });
-
-// watch(
-//   () => query.value,
-//   async (newValue) => {
-//     //  options = newValue;
-
-//     //await refresh();
-//     console.log(cities);
-//     {
-//       deep: true;
-//     }
-//   }
-// );
-
-// const valueChange = async (val) => {
-//   query.value = val;
-
-//   if (val.length > 0) {
-//     console.log(query.value);
-//     //await refresh();
-//   }
-//   return;
-// };
-// const uri =
-//   "https://data.gov.il/api/3/action/datastore_search?resource_id=8f714b6f-c35c-4b40-a0e7-547b675eee0e&limit=50&q=" +
-//   query.value;
-// const { data: cities, pending, error, refresh } = await useLazyFetch(uri, {
-//   method: "get",
-//   server: false,
-//   transform: (_cities) => _cities.result.records,
-// });
 </script>
 
 <style></style>

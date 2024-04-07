@@ -70,6 +70,7 @@ import { useSportTypeStore } from "~/stores/sportType";
 const storeSportType = useSportTypeStore();
 
 const loading = ref(false);
+onBeforeMount(async () => {});
 onMounted(async () => {});
 
 const onSubmit = async () => {

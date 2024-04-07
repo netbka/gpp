@@ -55,8 +55,7 @@ const props = defineProps({
   },
 });
 const visibleEdit = ref(false);
-//const btnDisabled = ref(false);
-//if No duration type then it is repeats type
+
 const max = props.typeDuration ? 300 : 100;
 const min = props.typeDuration ? 10 : 1;
 const step = props.typeDuration ? 5 : 1;
@@ -77,15 +76,6 @@ const changeVisibility = () => {
 const validate = (val) => {
   if (val === null || !val || val < 1) return "";
 };
-
-// watch(
-//   () => props.modelValue,
-//   (val) => {
-//     btnDisabled.value = val < 1;
-//     console.log(btnDisabled.value);
-//   },
-//   { deep: true }
-// );
 </script>
 
 <style></style>

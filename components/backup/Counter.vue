@@ -155,63 +155,6 @@ watch(isStarted, () => {
     stopTimer();
   }
 });
-
-// let shouldExit = false;
-// const getActiveItem = () => {
-//   store.defaultItem.forEach((parent) => {
-//     if (shouldExit) {
-//       return; // Skip execution if flag is already true
-//     }
-//     activeGroup.value = parent;
-//     if (parent.exercise.length > 0) {
-//       activeExercise = parent.exercise[0];
-//       shouldExit = true; // Set flag after processing the first exercise
-//       return;
-//     }
-//   });
-// };
-
-// watch(
-//   store.activeGroup,
-//   (val, oldval) => {
-//     console.log(val);
-//     console.log(oldval);
-//   },
-//   { deep: true }
-// );
-// const startExcersice = () => {
-//   firstActiveItem();
-//   activeGroup.active = true;
-//   // store.defaultItem.forEach((parent) => {
-//   //   var x = 0;
-//   //   parent.active = true;
-//   //   while (x < parent.repeats) {
-//   //     parent.exercise.forEach((child) => {
-//   //       counterDuration.value = parseInt(child.duration);
-//   //       initDuration.value = parseInt(child.duration);
-//   //       child.active = true;
-//   //       startTimer();
-//   //       exerciseIntervalId = setTimeout(() => {
-//   //         if (counterDuration.value === 0) clearInterval(exerciseIntervalId);
-//   //       }, 1000);
-//   //       child.active = false;
-//   //     });
-//   //     x++;
-//   //   }
-//   //   parent.active = false;
-//   // });
-// };
-
-// const counterDuration = computed(() => {
-//   return props.duration;
-// });
-// const numToMin = (val) => {
-//   return Math.floor(val / 60);
-// };
-
-// const numToSec = (val) => {
-//   return Math.floor(val % 60);
-// };
 </script>
 
 <style></style>

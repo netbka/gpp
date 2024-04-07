@@ -4,7 +4,11 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
     await actionFn(payload, store);
   } catch (error) {
     console.error("Error in action:", error);
-    // optionally, you can handle the error or display an error message to the user
+    // throw createError({
+    //   statusCode: 403,
+    //   statusMessage: "Нет доступа к этому занятию",
+    //   fatal: true,
+    // });
   } finally {
     store.loading = false;
   }

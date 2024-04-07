@@ -7,10 +7,6 @@ export default defineEventHandler(async (event) => {
     where: {
       user_id: user_id,
     },
-    // include: {
-    //   speciality: true,
-    //   profilesMedicalSubSpecialities: true,
-    // },
   });
   prisma.$disconnect();
   return result;

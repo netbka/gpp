@@ -85,6 +85,9 @@ const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
 
+//example of making props reactive
+//const val = toRef(()=> props.rows)
+
 const dialog = ref(null);
 let filter = ref("");
 const tableRef = ref(null);

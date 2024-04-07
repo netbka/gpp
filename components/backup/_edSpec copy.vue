@@ -85,13 +85,6 @@ const props = defineProps({
 });
 const { selectedSpecId, selectedSubSpecIds } = props;
 
-// watch(
-//   () => selectedSpecId,
-//   (newVal) => {
-//     console.log(newVal);
-//   }
-// );
-
 import { useMedSpecStore } from "~/stores/medspec";
 const store = useMedSpecStore();
 await store.fetchAll();
