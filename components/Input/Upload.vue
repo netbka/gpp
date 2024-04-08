@@ -15,11 +15,19 @@
           @update:model-value="previewMultiImage"
           ref="picker"
           @rejected="onRejectedSize"
+          class="hidden"
         >
           <template v-slot:append>
             <q-icon name="attachment" @click="picker.pickFiles()" />
           </template>
         </q-file>
+        <q-btn
+          size="sm"
+          icon="cloud_upload"
+          @click="handleFileSelection"
+          class="upload"
+          outline
+        ></q-btn>
       </div>
     </div>
   </div>
@@ -71,30 +79,9 @@ defineExpose({
   reset,
   //setExistingPreview,
 });
-
-//const imageUrl = computed(() => store.currentItem.imageUrl);
-
-// watch(
-//   () => store.getCurrentItemId,
-//   (newVal, oldVal) => {
-//     console.log(newVal);
-//     if (newVal && newVal > 0) {
-//       //todo fix to get the suffix
-//       setExistingPreview(newVal + ".gif");
-//     } else {
-//       reset();
-//     }
-//   }
-// );
-
-// const onRejected = (rejectedEntries) => {
-//   return { onRejected };
-// };
-
-// const factoryFn = () => {
-//   onRejected();
-//   if (!(store.currentItem.id && store.currentItem.id > 0)) return;
-// };
+const handleFileSelection = () => {
+  picker.value.pickFiles();
+};
 </script>
 
 <style scoped>
@@ -111,5 +98,10 @@ defineExpose({
 .preview-result {
   display: flex;
   flex: 1 1 auto;
+}
+.upload {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
 }
 </style>

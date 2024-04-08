@@ -50,6 +50,12 @@ const onRequest = async (props) => {
   const { page, rowsPerPage, sortBy, descending } = props.pagination;
   const filter = props.filter;
   await store.search(props);
+  const baseUrl = "/api/exerciseTemplate/";
+  const response = await $fetch(baseUrl + "search", {
+    query: { filter: props.filter, ...props.pagination },
+  });
+  //store.itemArray = response.result;
+  //store.rowsNumber = response.totalCount;
 };
 
 const editItem = (id) => {

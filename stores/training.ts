@@ -10,8 +10,8 @@ interface TrainingStoreState {
 const baseUrl = "/api/training/";
 export const useTrainingStore = defineStore("TrainingStore", {
   state: (): TrainingStoreState => ({
-    defaultItem: { id: null, name: "", description: "", level: 0, public: true, exerciseGroup: [] },
-    currentItem: { id: null, name: "", description: "", level: 0, public: true, exerciseGroup: [] },
+    defaultItem: { id: null, name: "", description: "", descriptionShort: "", level: 0, public: true, exerciseGroup: [] },
+    currentItem: { id: null, name: "", description: "", descriptionShort: "", level: 0, public: true, exerciseGroup: [] },
     itemArray: [],
 
     isStarted: false,

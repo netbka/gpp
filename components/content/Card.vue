@@ -18,8 +18,8 @@
       <q-item-section>
         <q-rating
           v-model="data.level"
-          size="2em"
-          :max="3"
+          size="1em"
+          max="3"
           color="secondary"
           readonly
           class="absolute-right q-mr-md"

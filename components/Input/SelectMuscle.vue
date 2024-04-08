@@ -46,7 +46,6 @@ store.currentItem = props.selectedIds;
 watch(
   () => props.selectedIds,
   (newVal) => {
-    console.log(newVal);
     store.currentItem = newVal;
   },
   { deep: true }

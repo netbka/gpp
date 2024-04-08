@@ -28,6 +28,17 @@
           </span></q-item-label
         >
       </q-item-section>
+      <q-item-section>
+        <q-rating
+          v-model="data.level"
+          size="1em"
+          max="3"
+          color="secondary"
+          readonly
+          class="absolute-right q-mr-md"
+          icon="fitness_center"
+        />
+      </q-item-section>
     </q-item>
 
     <q-separator />
@@ -35,7 +46,7 @@
     <q-card-section horizontal class="card-body-height">
       <img class="img-exercise" :src="getExerciseImage(data.id + data.imageUrl)" />
 
-      <q-card-section v-html="data.description" class="q-pa-sm"> </q-card-section>
+      <q-card-section v-html="data.descriptionShort" class="q-pa-sm"> </q-card-section>
     </q-card-section>
 
     <q-separator />

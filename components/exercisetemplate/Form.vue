@@ -11,14 +11,14 @@
       :propFullHeight="true"
     >
       <div class="row q-col-gutter-md">
-        <div class="col-3">
+        <div class="col-12 col-lg-3">
           <div class="row">
             <div class="col-12">
               <InputUpload @updateImge="imageUpdate" ref="uploader"></InputUpload>
             </div>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-12 col-lg-9">
           <div class="row">
             <div class="col-12">
               <q-input
@@ -61,7 +61,7 @@
                 :input-style="{ fontSize: '12px' }"
                 max="300"
                 min="10"
-                step="5"
+                step="1"
                 type="number"
                 :rules="[(val) => validate(val)]"
               />
@@ -74,10 +74,11 @@
                 label="Сложность"
                 :disable="loading"
                 :input-style="{ fontSize: '12px' }"
-                :max="3"
-                :min="1"
-                :step="1"
+                max="3"
+                min="1"
+                step="1"
                 type="number"
+                lazy-rules
                 :rules="[(val) => validate(val)]"
               />
             </div>
@@ -102,6 +103,7 @@
 </template>
 
 <script setup>
+import DOMPurify from "dompurify";
 const $q = useQuasar();
 const store = useExerciseTemplateStore();
 const storeMuscle = muscleStore();
@@ -112,12 +114,32 @@ const imageToUpload = ref(null);
 const imageUpdate = (img) => {
   imageToUpload.value = img;
 };
-
+const config = {
+  sanitizer: function (dirtyHTML) {
+    const cleanHTML = DOMPurify.sanitize(dirtyHTML);
+    // Remove elements with external links
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(cleanHTML, "text/html");
+    const links = doc.querySelectorAll("a");
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      if (link.href && !link.href.startsWith(window.location.origin)) {
+        link.remove();
+      }
+    }
+    return doc.body.innerHTML;
+  },
+};
 const onSubmit = async () => {
   if (imageToUpload.value != null) {
     store.currentItem.imageUrl = ".gif";
   }
   store.currentItem.newItems = storeMuscle.currentItem;
+  store.currentItem.description = DOMPurify.sanitize(store.currentItem.description, {
+    FORBID_ATTR: ["style", "a", "href", "class", "path"],
+    FORBID_TAGS: ["style", "class", "path"],
+  });
+
   if (store.currentItem.id === null) {
     await store.createCurrentItem();
   } else {
@@ -142,7 +164,7 @@ const show = () => {
   form.value.show();
 };
 const validate = (val) => {
-  if (val === null || !val || val < 1) return "";
+  if (val === null || !val || val < 1) return "нужно указать значение";
 };
 
 defineExpose({

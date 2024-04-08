@@ -2,7 +2,6 @@
 generator client {
     provider        = "prisma-client-js"
     output          = "../node_modules/.prisma/client"
-    //output   = "node_modules/@prisma/client/.prisma/client/"
     previewFeatures = ["multiSchema"]
     binaryTargets   = ["native", "rhel-openssl-1.0.x"]
 }
@@ -15,16 +14,15 @@ datasource db {
 }
 
 model Profile {
-    id Int @id @default(autoincrement())
-
+    id                Int         @id @default(autoincrement())
     firstName         String?
     lastName          String?
-    nickname          String?
     birthDay          DateTime?
     avatarPath        String?
     createdAt         DateTime    @default(now())
     updatedAt         DateTime    @updatedAt
     user_id           String      @unique @db.Uuid
+    nickname          String?
     user_auth_info    users       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
     profilesSportType SportType[] @relation("ProfileSportType")
 
@@ -43,48 +41,47 @@ model SportType {
 }
 
 model Training {
-    id             Int             @id @default(autoincrement())
-    name           String
-    description    String
-    public         Boolean         @default(true)
-    user_id        String          @db.Uuid
-    user_auth_info users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    exerciseGroup  ExerciseGroup[]
-    totalDuration  Int             @default(0)
-    createdAt      DateTime        @default(now())
-    updatedAt      DateTime        @updatedAt
-    trainingTrack  TrainingTrack[]
-    level          Int             @default(0)
+    id               Int             @id @default(autoincrement())
+    name             String
+    description      String
+    user_id          String          @db.Uuid
+    createdAt        DateTime        @default(now())
+    updatedAt        DateTime        @updatedAt
+    public           Boolean         @default(true)
+    totalDuration    Int             @default(0)
+    level            Int             @default(0)
+    descriptionShort String          @default("")
+    exerciseGroup    ExerciseGroup[]
+    user_auth_info   users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    trainingTrack    TrainingTrack[]
 
     @@schema("public")
 }
 
 model TrainingTrack {
-    id Int @id @default(autoincrement())
-
+    id             Int      @id @default(autoincrement())
     user_id        String   @db.Uuid
-    user_auth_info users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
     trainingId     Int
-    training       Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
-    duration       Int      @default(0)
     createdAt      DateTime @default(now())
     updatedAt      DateTime @updatedAt
+    duration       Int      @default(0)
+    training       Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+    user_auth_info users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
     @@schema("public")
 }
 
 model ExerciseGroup {
-    id          Int     @id @default(autoincrement())
+    id          Int        @id @default(autoincrement())
     name        String
     description String
     repeats     Int
     active      Boolean
-
-    training   Training   @relation(fields: [trainingId], references: [id], onDelete: Cascade)
-    trainingId Int
-    exercise   Exercise[]
-    createdAt  DateTime   @default(now())
-    updatedAt  DateTime   @updatedAt
+    trainingId  Int
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    exercise    Exercise[]
+    training    Training   @relation(fields: [trainingId], references: [id], onDelete: Cascade)
 
     @@schema("public")
 }
@@ -97,14 +94,12 @@ model Exercise {
     active      Boolean
     imageUrl    String
     weight      Int?
-    //muscleId    Int?
-    //muscle      Muscle?           @relation(fields: [muscleId], references: [id])
     createdAt   DateTime          @default(now())
     updatedAt   DateTime          @updatedAt
-    group       ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
     groupId     Int
-    template    ExerciseTemplate? @relation(fields: [templateId], references: [id])
     templateId  Int?
+    group       ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    template    ExerciseTemplate? @relation(fields: [templateId], references: [id])
 
     @@schema("public")
 }
@@ -118,27 +113,23 @@ model ExerciseTemplate {
     imageUrl               String
     weight                 Int?
     user_id                String     @db.Uuid
-    user_auth_info         users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
     createdAt              DateTime   @default(now())
     updatedAt              DateTime   @updatedAt
-    level                  Int        @default(0)
-    //muscleId               Int
-    //muscle                 Muscle     @relation(fields: [muscleId], references: [id])
     public                 Boolean
+    level                  Int        @default(0)
+    descriptionShort       String     @default("")
     exercise               Exercise[]
+    user_auth_info         users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
     exerciseTemplateMuscle Muscle[]   @relation("exerciseTemplateMuscle")
 
     @@schema("public")
 }
 
 model Muscle {
-    id   Int    @id @default(autoincrement())
-    name String
-
+    id                     Int                @id @default(autoincrement())
+    name                   String
     createdAt              DateTime           @default(now())
     updatedAt              DateTime           @updatedAt
-    //exerciseTemplate       ExerciseTemplate[]
-    //exercise               Exercise[]
     exerciseTemplateMuscle ExerciseTemplate[] @relation("exerciseTemplateMuscle")
 
     @@schema("public")
@@ -182,15 +173,17 @@ model users {
     reauthentication_sent_at    DateTime?          @db.Timestamptz(6)
     is_sso_user                 Boolean            @default(false)
     deleted_at                  DateTime?          @db.Timestamptz(6)
+    is_anonymous                Boolean            @default(false)
     identities                  identities[]
     mfa_factors                 mfa_factors[]
     sessions                    sessions[]
+    exercise                    ExerciseTemplate[]
     profile                     Profile?
     training                    Training[]
-    exercise                    ExerciseTemplate[]
     trainingTrack               TrainingTrack[]
 
     @@index([instance_id])
+    @@index([is_anonymous])
     @@schema("auth")
 }
 
@@ -219,6 +212,7 @@ model flow_state {
     created_at             DateTime?             @db.Timestamptz(6)
     updated_at             DateTime?             @db.Timestamptz(6)
     authentication_method  String
+    auth_code_issued_at    DateTime?             @db.Timestamptz(6)
     saml_relay_states      saml_relay_states[]
 
     @@index([created_at(sort: Desc)])
@@ -333,6 +327,7 @@ model saml_providers {
     attribute_mapping Json?
     created_at        DateTime?     @db.Timestamptz(6)
     updated_at        DateTime?     @db.Timestamptz(6)
+    name_id_format    String?
     sso_providers     sso_providers @relation(fields: [sso_provider_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
     @@index([sso_provider_id])
@@ -347,7 +342,6 @@ model saml_relay_states {
     request_id      String
     for_email       String?
     redirect_to     String?
-    from_ip_address String?       @db.Inet
     created_at      DateTime?     @db.Timestamptz(6)
     updated_at      DateTime?     @db.Timestamptz(6)
     flow_state_id   String?       @db.Uuid

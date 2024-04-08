@@ -10,8 +10,8 @@ interface ExerciseTemplateStoreState {
 const baseUrl = "/api/exerciseTemplate/";
 export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
   state: (): ExerciseTemplateStoreState => ({
-    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
-    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
+    defaultItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
+    currentItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
     itemArray: [],
     loading: false,
     rowsNumber: 0,
@@ -75,6 +75,8 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
 
     async updateCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
+        this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
+        console.log(this.currentItem.descriptionShort);
         const response = await $fetch(baseUrl + "update", {
           method: "post",
           body: { ...this.currentItem },
@@ -86,6 +88,7 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     },
     async createCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
+        this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
         const response = await $fetch(baseUrl + "create", {
           method: "post",
           body: { ...this.currentItem },
