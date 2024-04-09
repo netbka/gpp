@@ -1,18 +1,38 @@
 <template>
   <div>
+    <!-- <TableEditable
+      :columns="exerciseTemplateEditableTableColumns()"
+      :headerTitle="'Упражнения'"
+      @onRequest="onRequest"
+      ref="tableRef"
+      :rows="store.itemArray"
+      :loading="store.loading"
+      :rowsNumber="store.rowsNumber"
+      :showExecute="false"
+      :showEdit="true"
+      :showDelete="true"
+      @editItem="editItem"
+      @deleteItem="deleteItem"
+    >
+      <template v-slot:editcontrol="prop">
+        <TableInputWrapper
+          @onUpdateField="onUpdateField"
+          :propControlConfig="prop"
+        ></TableInputWrapper>
+      </template>
+    </TableEditable> -->
     <TableCardTable
       :columns="exerciseTemplateEditableTableColumns()"
       :headerTitle="'Упражнения'"
       @onRequest="onRequest"
       ref="tableRef"
-      :rows="tableData"
-      :rowsNumber="rowsNumber"
+      :rows="store.itemArray"
       :loading="store.loading"
+      :rowsNumber="store.rowsNumber"
       :showExecute="false"
       :showEdit="true"
       :showDelete="true"
       :readOnly="false"
-      :page="pagination"
       @editItem="editItem"
       @deleteItem="deleteItem"
       @onUpdateField="onUpdateField"
@@ -25,47 +45,17 @@
 const store = useExerciseTemplateStore();
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
-const tableData = ref([]);
-const rowsNumber = ref(20);
-
-const pagination = ref({
-  sortBy: "name",
-  descending: false,
-  page: 1,
-  rowsPerPage: 10,
-  rowsNumber: 43,
-});
-
-const fetchData = async () => {
-  const { data, pending, error, refresh } = await useFetch(
-    "/api/exerciseTemplate/search",
-    { query: { ...pagination.value } }
-  );
-  tableData.value = data.value.result;
-  pagination.value.rowsNumber = data.value.totalCount;
-};
-await fetchData();
 
 const onRequest = async (props) => {
-  store.loading = true;
   const { page, rowsPerPage, sortBy, descending } = props.pagination;
   const filter = props.filter;
+  await store.search(props);
   const baseUrl = "/api/exerciseTemplate/";
   const response = await $fetch(baseUrl + "search", {
     query: { filter: props.filter, ...props.pagination },
   });
-  store.loading = false;
-  tableData.value = response.result;
-  props.pagination.rowsPerPage = response.totalCount;
-  // updatePagination(props, response.totalCount);
-};
-
-const updatePagination = (prop) => {
-  pagination.value.descending = prop.pagination.descending;
-  pagination.value.sortBy = prop.pagination.sortBy;
-  pagination.value.page = prop.pagination.page;
-  pagination.value.rowsPerPage = prop.pagination.rowsPerPage;
-  pagination.value.rowsNumber = prop.pagination.rowsNumber;
+  //store.itemArray = response.result;
+  //store.rowsNumber = response.totalCount;
 };
 
 const editItem = (id) => {

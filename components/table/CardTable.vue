@@ -83,6 +83,7 @@ const props = defineProps({
   showDelete: { Type: Boolean, default: false },
   showCustom: { Type: Boolean, default: false },
   readOnly: { Type: Boolean, default: false },
+  page: { Type: Object, default: {} },
 });
 
 //example of making props reactive
@@ -97,13 +98,25 @@ const pagination = ref({
   page: 1,
 
   rowsPerPage: 10,
-  rowsNumber: 14,
+  rowsNumber: 12,
 });
+
+//const pagination = toRef(() => props.page);
+
 onMounted(async () => {
-  tableRef.value.requestServerInteraction();
+  updatePagination(props.page);
+  //tableRef.value.requestServerInteraction();
 });
 const editItem = (id) => {
   emits("editItem", id);
+};
+
+const updatePagination = (prop) => {
+  pagination.value.descending = prop.descending;
+  pagination.value.sortBy = prop.sortBy;
+  pagination.value.page = prop.page;
+  pagination.value.rowsPerPage = prop.rowsPerPage;
+  pagination.value.rowsNumber = prop.rowsNumber;
 };
 
 const onRequest = (prop) => {
@@ -111,6 +124,7 @@ const onRequest = (prop) => {
   pagination.value.sortBy = prop.pagination.sortBy;
   pagination.value.page = prop.pagination.page;
   pagination.value.rowsPerPage = prop.pagination.rowsPerPage;
+
   emits("onRequest", prop);
 };
 
@@ -125,9 +139,10 @@ const onUpdateField = (field, val, id) => {
   emits("onUpdateField", field, val, id);
 };
 watch(
-  () => props.rowsNumber,
+  () => props.page,
   (val) => {
-    pagination.value.rowsNumber = val;
+    console.log(val);
+    //pagination.value.rowsNumber = val;
   },
   { deep: true }
 );

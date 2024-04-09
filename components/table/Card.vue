@@ -53,21 +53,21 @@
 
     <q-card-actions class="items-center" align="right">
       <q-btn
-        rounded
         flat
-        color="secondary"
+        color="light-green-9"
         size="sm"
         icon="edit"
         @click="$emit('editItem', data.id)"
+        class="q-px-xs q-mx-xs"
       >
       </q-btn>
       <q-btn
-        rounded
         flat
-        color="accent"
+        color="red-7"
         size="sm"
-        icon="remove"
+        icon="close"
         @click="$emit('removeItem', data.id)"
+        class="q-px-xs q-mx-xs"
       >
       </q-btn>
 

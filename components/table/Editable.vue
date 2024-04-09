@@ -108,41 +108,26 @@ const props = defineProps({
   headerTitle: { Type: String, default: "" },
   rows: { Type: Array, default: [] },
   columns: { Type: Array, default: [] },
-  rowsNumber: { Type: Number, default: 0 },
+  //rowsNumber: { Type: Number, default: 0 },
   showExecute: { Type: Boolean, default: true },
   showEdit: { Type: Boolean, default: false },
   showDelete: { Type: Boolean, default: false },
   showCustom: { Type: Boolean, default: false },
+  page: { Type: Object, default: {} },
 });
-//import { useScreen } from "quasar";
-//const $q = useQuasar();
-//const { width, height } = useScreen();
-//const screenHeight = computed(() => height);
 
 const dialog = ref(null);
 let filter = ref("");
 const tableRef = ref(null);
 
-//const screenHeight = computed(() => window.innerHeight - 250);
-
-onMounted(() => {
-  //updateScreenSize();
-  //window.addEventListener("resize", updateScreenSize);
-});
-
-//const updateScreenSize = () => {
-//screenHeight.value = window.innerHeight - 250;
-//console.log(screenHeight.value);
-//};
-
-const pagination = ref({
-  sortBy: "name",
-  descending: false,
-  page: 1,
-  //rowsPerPage: screenHeight.value > 0 ? Math.floor(screenHeight.value / 50) : 10,
-  rowsPerPage: 14,
-  rowsNumber: 14,
-});
+const pagination = toRef(() => props.page);
+// const pagination = ref({
+//   sortBy: "name",
+//   descending: false,
+//   page: 1,
+//   rowsPerPage: 14,
+//   rowsNumber: 14,
+// });
 
 const onRequest = (prop) => {
   pagination.value.descending = prop.pagination.descending;
@@ -160,16 +145,17 @@ const remove = (id) => {
   emits("deleteItem", id);
 };
 onMounted(async () => {
-  tableRef.value.requestServerInteraction();
+  //tableRef.value.requestServerInteraction();
 });
 
-watch(
-  () => props.rowsNumber,
-  (val) => {
-    pagination.value.rowsNumber = val;
-  },
-  { deep: true }
-);
+// watch(
+//   () => props.rowsNumber,
+//   (val) => {
+//     console.log(val);
+//     pagination.value.rowsNumber = val;
+//   },
+//   { deep: true }
+// );
 </script>
 <style scoped>
 td.truncate span {

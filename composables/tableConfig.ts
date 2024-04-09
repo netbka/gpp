@@ -179,13 +179,13 @@ export const exerciseTemplateEditableTableColumns = () => {
       sortable: true,
       editable: false,
       classes: "name-col",
-      format: (val, row) => {
-        return val
-          .map((item) => {
-            return ` ${item.name}`;
-          })
-          .join(" ");
-      },
+      // format: (val, row) => {
+      //   return val
+      //     .map((item) => {
+      //       return ` ${item.name}`;
+      //     })
+      //     .join(" ");
+      // },
     },
   ];
 };
