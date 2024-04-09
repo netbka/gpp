@@ -2,21 +2,28 @@
   <div>
     <TableCardTable
       :columns="exerciseTemplateEditableTableColumns()"
-      :headerTitle="'Упражнения'"
+      :headerTitle="'Коллекция упражнений'"
       @onRequest="onRequest"
       ref="tableRef"
-      :rows="tableData"
-      :rowsNumber="rowsNumber"
+      :rows="store.itemArray"
       :loading="store.loading"
       :showExecute="false"
       :showEdit="true"
       :showDelete="true"
-      :readOnly="false"
-      :page="pagination"
-      @editItem="editItem"
-      @deleteItem="deleteItem"
+      :readOnly="true"
+      :pagination="store.pagination"
+      @onEditItem="onEditItem"
+      @onDeleteItem="onDeleteItem"
       @onUpdateField="onUpdateField"
     >
+      <!-- <template v-slot:cardComponent="prop">
+        <ExercisetemplateCard
+          :data="prop.prop.row"
+          @editItem="onEditItem"
+          @deleteItem="onDeleteItem"
+          @onUpdateField="onUpdateField"
+        ></ExercisetemplateCard>
+      </template> -->
     </TableCardTable>
   </div>
 </template>
@@ -26,53 +33,19 @@ const store = useExerciseTemplateStore();
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
 const tableData = ref([]);
-const rowsNumber = ref(20);
 
-const pagination = ref({
-  sortBy: "name",
-  descending: false,
-  page: 1,
-  rowsPerPage: 10,
-  rowsNumber: 43,
-});
-
-const fetchData = async () => {
-  const { data, pending, error, refresh } = await useFetch(
-    "/api/exerciseTemplate/search",
-    { query: { ...pagination.value } }
-  );
-  tableData.value = data.value.result;
-  pagination.value.rowsNumber = data.value.totalCount;
-};
-await fetchData();
+await store.ssrSearch();
 
 const onRequest = async (props) => {
-  store.loading = true;
-  const { page, rowsPerPage, sortBy, descending } = props.pagination;
-  const filter = props.filter;
-  const baseUrl = "/api/exerciseTemplate/";
-  const response = await $fetch(baseUrl + "search", {
-    query: { filter: props.filter, ...props.pagination },
-  });
-  store.loading = false;
-  tableData.value = response.result;
-  props.pagination.rowsPerPage = response.totalCount;
-  // updatePagination(props, response.totalCount);
+  store.setPagination(props.pagination);
+  await store.search(props.filter);
 };
 
-const updatePagination = (prop) => {
-  pagination.value.descending = prop.pagination.descending;
-  pagination.value.sortBy = prop.pagination.sortBy;
-  pagination.value.page = prop.pagination.page;
-  pagination.value.rowsPerPage = prop.pagination.rowsPerPage;
-  pagination.value.rowsNumber = prop.pagination.rowsNumber;
-};
-
-const editItem = (id) => {
+const onEditItem = (id) => {
   store.currentItem = Object.assign({}, getById(id, store.itemArray));
   emits("edit");
 };
-const deleteItem = async (id) => {
+const onDeleteItem = async (id) => {
   await store.deleteItem(id);
 };
 const onUpdateField = async (field, val, id) => {

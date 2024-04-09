@@ -5,12 +5,24 @@ export default defineEventHandler(async (event) => {
     const {
       user: { id: user_id },
     } = event.context;
-    const { sortBy, descending, page, rowsPerPage, rowsNumber, filter } = getQuery(event);
+    const { sortBy, descending, page, rowsPerPage, filter } = getQuery(event);
 
     const totalCount = await prisma.exerciseTemplate.count({
       where: {
         user_id: user_id,
-        name: { contains: filter, mode: "insensitive" },
+
+        ...(filter && {
+          OR: [
+            { name: { contains: filter, mode: "insensitive" } },
+            {
+              exerciseTemplateMuscle: {
+                some: {
+                  name: { contains: filter, mode: "insensitive" },
+                },
+              },
+            },
+          ],
+        }),
       },
     });
 
@@ -20,15 +32,38 @@ export default defineEventHandler(async (event) => {
     const result = await prisma.exerciseTemplate.findMany({
       where: {
         user_id: user_id,
-        name: { contains: filter, mode: "insensitive" },
+
+        OR: [
+          { name: { contains: filter, mode: "insensitive" } },
+          {
+            exerciseTemplateMuscle: {
+              some: {
+                name: { contains: filter, mode: "insensitive" },
+              },
+            },
+          },
+        ],
       },
       skip: Number((page - 1) * rowsPerPage),
       take: Number(rowsPerPage),
-
-      orderBy: orderByObject,
-      include: {
-        exerciseTemplateMuscle: true,
+      select: {
+        // Limit output fields
+        id: true,
+        name: true,
+        level: true,
+        user_id: true,
+        duration: true,
+        imageUrl: true,
+        exerciseTemplateMuscle: {
+          select: {
+            name: true,
+          },
+        },
       },
+      orderBy: orderByObject,
+      // include: {
+      //   exerciseTemplateMuscle: true,
+      // },
     });
 
     return { totalCount, result };

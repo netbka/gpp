@@ -3,7 +3,7 @@
     <div class="row window-height-100 no-wrap justify-between items-center">
       <div class="col q-pa-md">
         <h1 class="text-black">Просто ОФП</h1>
-        <h2 class="">Создайте для себя идеальный план тренировок</h2>
+        <h2 class="">Создайте свой идеальный план тренировок</h2>
 
         <q-btn outline color="primary" @click="redirect">К тренировкам </q-btn>
       </div>

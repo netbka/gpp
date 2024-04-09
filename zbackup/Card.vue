@@ -1,28 +1,6 @@
 <template>
   <q-card class="exercise-card q-mb-md" flat bordered>
-    <q-card-section class="relative-position q-pa-none">
-      <div class="row items-center justify-center">
-        <q-img
-          fit="scale-down"
-          :src="getExerciseImage(data.id + data.imageUrl)"
-          :error-src="errorImg"
-          style="max-width: 100%; height: 150px"
-        >
-          <div class="absolute-bottom full-width">
-            <div class="text-h6 text-weight-bold">{{ data.name }}</div>
-            <div class="text-subtitle2 text-weight-thin">
-              <span v-for="muscle in data.exerciseTemplateMuscle" :key="muscle.id">
-                {{ muscle.name + " " }}
-              </span>
-            </div>
-          </div>
-        </q-img>
-      </div>
-
-      <!--  -->
-    </q-card-section>
-  </q-card>
-  <!-- <q-item>
+    <q-item>
       <q-item-section avatar>
         <q-avatar>
           <img :src="getProfile(data.user_id)" />
@@ -96,15 +74,14 @@
       <q-btn outline color="primary" size="sm">
         <NuxtLink class="no-style" :to="link(data)">подробнее</NuxtLink></q-btn
       >
-    </q-card-actions> 
-  </q-card> -->
+    </q-card-actions>
+  </q-card>
 </template>
 
 <script lang="ts" setup>
-import errorImg from "/exerciseSmall.png";
 const props = defineProps({
   data: { Type: Object, default: {} },
-  //cols: { Type: Object, default: {} },
+  cols: { Type: Object, default: {} },
   readOnly: { Type: Boolean, default: false },
 });
 const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem"]);
@@ -120,36 +97,19 @@ const link = (data) => {
   height: 200px;
   max-height: 200px;
   width: 100%;
-  padding: 0 !important;
-}
-.q-img__image--loaded {
-  filter: opacity(0.7);
-}
-.no-filter {
-  filter: none !important;
 }
 .img-exercise {
-  object-fit: contain;
-  max-height: 150px;
-  height: 150px;
+  object-fit: cover;
+  max-height: 98px;
+  height: 98px;
 }
 .card-body-height {
-  max-width: 490px;
+  max-width: 730px;
   max-height: 98px;
   overflow: hidden;
   text-overflow: ellipsis;
 
   -webkit-line-clamp: 4;
   word-break: break-word;
-}
-.wrapper {
-  position: relative;
-}
-.q-img__content > div {
-  pointer-events: all;
-  position: absolute;
-  padding: 8px;
-  color: #fff;
-  background: rgb(73 139 182 / 88%);
 }
 </style>

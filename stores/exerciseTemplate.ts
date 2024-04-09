@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
-import { type ExerciseTemplate } from "~/types/types";
+import { type ExerciseTemplate, TablePagination, type ITablePagination } from "~/types/types";
 interface ExerciseTemplateStoreState {
   defaultItem: ExerciseTemplate;
   currentItem: ExerciseTemplate;
   itemArray: [];
   loading: boolean;
   rowsNumber: number;
+  pagination: ITablePagination;
 }
 const baseUrl = "/api/exerciseTemplate/";
 export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
@@ -15,6 +16,7 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     itemArray: [],
     loading: false,
     rowsNumber: 0,
+    pagination: new TablePagination().getAll(),
   }),
   getters: {
     getItemArray: (state) => {
@@ -49,6 +51,28 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
           updateArray(response, this.itemArray);
           this.currentItem = response;
         }
+      })(null);
+    },
+    setPagination(pagination: ITablePagination) {
+      this.pagination = pagination;
+    },
+    async ssrSearch() {
+      withErrorHandling(this)(async (payload, store) => {
+        const { data, pending, error } = await useFetch(baseUrl + "search", { query: this.pagination });
+
+        if (data.value !== null) {
+          this.itemArray = data.value.result;
+          this.pagination.rowsNumber = data.value.totalCount;
+        }
+      })(null);
+    },
+    async search(filter: string) {
+      withErrorHandling(this)(async (payload, store) => {
+        const response = await $fetch(baseUrl + "search", {
+          query: { filter: filter, ...this.pagination },
+        });
+        store.itemArray = response.result;
+        this.pagination.rowsNumber = response.totalCount;
       })(null);
     },
     async fetchAll() {
@@ -122,17 +146,7 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
         removeItemFromArr(id, this.itemArray);
       })(null);
     },
-    async search(props) {
-      if (props) {
-        withErrorHandling(this)(async (props, store) => {
-          const response = await $fetch(baseUrl + "search", {
-            query: { filter: props.filter, ...props.pagination },
-          });
-          store.itemArray = response.result;
-          store.rowsNumber = response.totalCount;
-        })(props);
-      }
-    },
+
     // getGroupedArray() {
     //   return this.itemArray.reduce((groups, item) => {
     //     const group = groups[item.muscle.name] || [];

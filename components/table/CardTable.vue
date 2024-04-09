@@ -17,7 +17,7 @@
       no-data-label="Нет данных"
       no-results-label="Ничего не найдено"
       @request="onRequest"
-      :rows-per-page-options="[10, 20]"
+      :rows-per-page-options="[12, 24]"
       rows-per-page-label="показывать по"
       :loading-label="'Загружаю'"
       :pagination-label="(start, end, total) => `${start}-${end} из ${total}`"
@@ -26,7 +26,9 @@
         <q-inner-loading showing color="primary" />
       </template>
       <template v-slot:top>
-        <div class="q-table__title">{{ headerTitle }}</div>
+        <div>
+          <h1 class="text-h4">{{ headerTitle }}</h1>
+        </div>
         <q-space />
         <slot name="topinputs"> <div></div></slot>
         <q-space />
@@ -47,47 +49,47 @@
       </template>
 
       <template v-slot:item="props">
-        <div class="q-pa-xs col-xs-12 col-sm-12 col-lg-6">
+        <div class="q-pa-xs col-xs-12 col-sm-12 col-lg-4">
+          <!-- <slot name="cardComponent" :prop="{ row: props.row, col: props.col }"></slot> -->
+
           <TableCard
             :data="props.row"
             :cols="props.cols"
             :readOnly="readOnly"
             @onUpdateField="onUpdateField"
-            @editItem="editItem"
+            @onEditItem="onEditItem"
+            @onDeleteItem="confirmDelete"
           ></TableCard>
         </div>
       </template>
     </q-table>
-    <BaseDialogYesNo ref="dialog" @ok="remove"></BaseDialogYesNo>
+    <BaseDialogYesNo ref="dialog" @ok="onDeleteItem"></BaseDialogYesNo>
   </div>
 </template>
 <script lang="ts" setup>
 const emits = defineEmits([
   "onRequest",
-  "executeItem",
-  "editItem",
-  "customAction",
-  "deleteItem",
+  //"onExecuteItem",
+  "onEditItem",
+  "onCustomAction",
+  "onDeleteItem",
   "onUpdateField",
 ]);
 const props = defineProps({
-  propRowActions: { Type: Boolean, default: true },
-  propActions: { Type: Boolean, default: true },
+  //propRowActions: { Type: Boolean, default: true },
+  //propActions: { Type: Boolean, default: true },
   loading: { Type: Boolean, default: false },
   headerTitle: { Type: String, default: "" },
   rows: { Type: Array, default: [] },
   columns: { Type: Array, default: [] },
-  rowsNumber: { Type: Number, default: 0 },
-  showExecute: { Type: Boolean, default: true },
-  showEdit: { Type: Boolean, default: false },
-  showDelete: { Type: Boolean, default: false },
-  showCustom: { Type: Boolean, default: false },
+  //rowsNumber: { Type: Number, default: 0 },
+  //showExecute: { Type: Boolean, default: true },
+  //showEdit: { Type: Boolean, default: false },
+  //showDelete: { Type: Boolean, default: false },
+  //showCustom: { Type: Boolean, default: false },
   readOnly: { Type: Boolean, default: false },
-  page: { Type: Object, default: {} },
+  pagination: { Type: Object, default: {} },
 });
-
-//example of making props reactive
-//const val = toRef(()=> props.rows)
 
 const dialog = ref(null);
 let filter = ref("");
@@ -96,20 +98,13 @@ const pagination = ref({
   sortBy: "name",
   descending: false,
   page: 1,
-
-  rowsPerPage: 10,
-  rowsNumber: 12,
+  rowsPerPage: 12,
+  rowsNumber: 1,
 });
-
-//const pagination = toRef(() => props.page);
 
 onMounted(async () => {
-  updatePagination(props.page);
-  //tableRef.value.requestServerInteraction();
+  updatePagination(props.pagination);
 });
-const editItem = (id) => {
-  emits("editItem", id);
-};
 
 const updatePagination = (prop) => {
   pagination.value.descending = prop.descending;
@@ -120,47 +115,28 @@ const updatePagination = (prop) => {
 };
 
 const onRequest = (prop) => {
-  pagination.value.descending = prop.pagination.descending;
-  pagination.value.sortBy = prop.pagination.sortBy;
-  pagination.value.page = prop.pagination.page;
-  pagination.value.rowsPerPage = prop.pagination.rowsPerPage;
-
   emits("onRequest", prop);
 };
-
 const customSortFunction = (rows, sortBy, descending) => {};
-const confirmDelete = (prop) => {
-  dialog.value.show(prop.row.id);
+
+const confirmDelete = (id) => {
+  dialog.value.show(id);
 };
-const remove = (id) => {
-  emits("deleteItem", id);
+const onEditItem = (id) => {
+  emits("onEditItem", id);
+};
+const onDeleteItem = (id) => {
+  emits("onDeleteItem", id);
 };
 const onUpdateField = (field, val, id) => {
   emits("onUpdateField", field, val, id);
 };
 watch(
-  () => props.page,
+  () => props.pagination,
   (val) => {
-    console.log(val);
-    //pagination.value.rowsNumber = val;
+    updatePagination(val);
   },
   { deep: true }
 );
 </script>
-<style scoped>
-td.truncate span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-break: break-all;
-  position: relative;
-  max-width: calc((100vw - 290px) * 2 / 3);
-}
-
-@media (min-width: 1536px) {
-  td.truncate span {
-  }
-}
-</style>
+<style></style>
