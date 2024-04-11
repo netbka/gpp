@@ -32,15 +32,15 @@ h6 {
   }
 }
 
-@media (min-width: 1536px) {
+@media (min-width: 1439px) {
   .container {
-    max-width: 1536px;
+    max-width: 1439px;
   }
 }
-@media (min-width: 1536px) {
+@media (min-width: 1439px) {
   .m-l {
-    padding-left: calc((100vw - 1536px) / 2);
-    padding-right: calc((100vw - 1536px) / 2);
+    padding-left: calc((100vw - 1439px) / 2);
+    padding-right: calc((100vw - 1439px) / 2);
   }
 }
 

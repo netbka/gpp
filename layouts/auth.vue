@@ -14,8 +14,8 @@ const customstyle = (offset, additionalStyles = {}) => {
   const baseStyles = {
     minHeight: offset ? `calc(100vh - ${offset}px)` : "100vh",
   };
-  const leftPadding = { paddingLeft: "calc((100vw - 1536px) / 2)" };
-  const rightPadding = { paddingRight: "calc((100vw - 1536px) / 2)" };
+  const leftPadding = { paddingLeft: "calc((100vw - 1439px) / 2)" };
+  const rightPadding = { paddingRight: "calc((100vw - 1439px) / 2)" };
   const combinedStyles = {
     ...baseStyles,
     ...additionalStyles,

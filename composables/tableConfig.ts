@@ -39,7 +39,7 @@ export const trainingTableColumns = () => {
       sortable: true,
       editable: false,
       type: "text",
-      //style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      //style: "width: calc((100vw-(100vw - 1439px))/3); padding-left: 4px",
       classes: "name-col ",
       //  headerStyle: "width: 150px",
     },
@@ -99,7 +99,7 @@ export const trainingEditableTableColumns = () => {
       editable: true,
       type: "text",
       classes: "name-col ",
-      //style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      //style: "width: calc((100vw-(100vw - 1439px))/3); padding-left: 4px",
       //headerStyle: "max-width: 250px",
     },
     {
@@ -155,7 +155,7 @@ export const exerciseTemplateEditableTableColumns = () => {
       editable: true,
       type: "text",
       classes: "name-col ",
-      //style: "width: calc((100vw-(100vw - 1536px))/3); padding-left: 4px",
+      //style: "width: calc((100vw-(100vw - 1439px))/3); padding-left: 4px",
       //headerStyle: "max-width: 250px",
     },
     {

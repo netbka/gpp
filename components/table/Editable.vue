@@ -169,7 +169,7 @@ td.truncate span {
   max-width: calc((100vw - 290px) * 2 / 3);
 }
 
-@media (min-width: 1536px) {
+@media (min-width: 1439px) {
   td.truncate span {
   }
 }

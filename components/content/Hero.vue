@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-wrapper q-ma-xs">
+  <div class="hero-wrapper">
     <div class="hero-text z-top-100 text-center">
       <h1>{{ header }}</h1>
       <h4 class="text-weight-thin">{{ subHeader }}</h4>

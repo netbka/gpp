@@ -235,7 +235,7 @@ watch(isStarted, () => {
   height: calc(100vh / 3);
 }
 .padding {
-  padding-left: calc((100vw - 1536px) / 2);
-  padding-right: calc((100vw - 1536px) / 2);
+  padding-left: calc((100vw - 1439px) / 2);
+  padding-right: calc((100vw - 1439px) / 2);
 }
 </style>

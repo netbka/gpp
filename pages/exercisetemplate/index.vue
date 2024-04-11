@@ -4,9 +4,11 @@
       :header="'Подборка упражнений'"
       :subHeader="'Популярные упражнения от Просто ОФП'"
     ></ContentHero>
+
+    <ExercisetemplateTable @edit="show" :readOnly="false"></ExercisetemplateTable>
+
     <ExercisetemplateForm ref="form"></ExercisetemplateForm>
     <BaseFab @newItem="newItem" :readOnly="true"></BaseFab>
-    <ExercisetemplateTable @edit="show" :readOnly="false"></ExercisetemplateTable>
   </div>
 </template>
 <script lang="ts" setup>

@@ -10,23 +10,26 @@ export default defineEventHandler(async (event) => {
     const totalCount = await prisma.exerciseTemplate.count({
       where: {
         OR: [{ user_id: user_id }, { public: true }],
-
         ...(filter && {
           AND: [
-            { name: { contains: filter, mode: "insensitive" } },
             {
-              exerciseTemplateMuscle: {
-                some: {
-                  name: { contains: filter, mode: "insensitive" },
+              OR: [
+                { name: { contains: filter, mode: "insensitive" } },
+                {
+                  exerciseTemplateMuscle: {
+                    some: {
+                      name: { contains: filter, mode: "insensitive" },
+                    },
+                  },
                 },
-              },
+              ],
             },
-          ],
+          ], //
         }),
       },
     });
-
     const orderByObject = {};
+
     orderByObject[sortBy] = descending === "true" ? "desc" : "asc";
 
     const result = await prisma.exerciseTemplate.findMany({
@@ -34,15 +37,19 @@ export default defineEventHandler(async (event) => {
         OR: [{ user_id: user_id }, { public: true }],
         ...(filter && {
           AND: [
-            { name: { contains: filter, mode: "insensitive" } },
             {
-              exerciseTemplateMuscle: {
-                some: {
-                  name: { contains: filter, mode: "insensitive" },
+              OR: [
+                { name: { contains: filter, mode: "insensitive" } },
+                {
+                  exerciseTemplateMuscle: {
+                    some: {
+                      name: { contains: filter, mode: "insensitive" },
+                    },
+                  },
                 },
-              },
+              ],
             },
-          ],
+          ], //
         }),
       },
       skip: Number((page - 1) * rowsPerPage),
