@@ -72,7 +72,7 @@ let listItems = computed(() => store.getItemArray);
 
 const editTraining = async (val) => {
   var slug = val.id + "-" + val.name;
-  const url = useSlug(slug);
+  const url = generateSlug(slug);
   await navigateTo({ path: "/training/" + url });
 };
 

@@ -87,7 +87,7 @@ const props = defineProps({
 const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem"]);
 const link = (data) => {
   var slug = data.id + "-" + data.name;
-  const url = useSlug(slug);
+  const url = generateSlug(slug);
   return "/exercisetemplate/" + url;
 };
 </script>

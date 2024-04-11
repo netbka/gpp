@@ -48,14 +48,14 @@
         </q-input>
       </template>
 
-      <template v-slot:item="props">
+      <template v-slot:item="prop">
         <div class="q-pa-xs col-xs-12 col-sm-12 col-lg-4">
           <!-- <slot name="cardComponent" :prop="{ row: props.row, col: props.col }"></slot> -->
 
           <TableCard
-            :data="props.row"
-            :cols="props.cols"
-            :readOnly="readOnly"
+            :data="prop.row"
+            :cols="prop.cols"
+            :readOnly="props.readOnly"
             @onUpdateField="onUpdateField"
             @onEditItem="onEditItem"
             @onDeleteItem="confirmDelete"
@@ -87,7 +87,7 @@ const props = defineProps({
   //showEdit: { Type: Boolean, default: false },
   //showDelete: { Type: Boolean, default: false },
   //showCustom: { Type: Boolean, default: false },
-  readOnly: { Type: Boolean, default: false },
+  readOnly: { Type: Boolean, default: true },
   pagination: { Type: Object, default: {} },
 });
 

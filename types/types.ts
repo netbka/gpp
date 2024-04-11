@@ -1,3 +1,4 @@
+import { slug } from "./../utils/navigation";
 import type { PrismaClient, TrainingTrack as PrismaTrainingTrack, Muscle as PrismaMuscle, Profile as PrismaProfile, SportType as PrismaSportType, Training as PrismaTraining, ExerciseGroup as PrismaExerciseGroup, ExerciseTemplate as PrismaExerciseTemplate, Exercise as PrismaExercise } from "@prisma/client";
 
 export type Profile = PrismaProfile;
@@ -48,5 +49,27 @@ export class TablePagination implements ITablePagination {
       rowsPerPage: this.rowsPerPage,
       rowsNumber: this.rowsNumber,
     };
+  }
+}
+
+export interface ISlug {
+  id: number;
+  name: string;
+  action: string;
+}
+
+export class Slug implements ISlug {
+  public id: number;
+  public name: string;
+  public action: string;
+  public slug: string;
+  constructor(slugObj: ISlug, action: string) {
+    this.id = slugObj.id;
+    this.name = slugObj.name;
+    this.action = action;
+    this.slug = generateSlug(this.id + "-" + this.name);
+  }
+  public getSlug() {
+    return "/" + this.action + "/" + this.slug;
   }
 }
