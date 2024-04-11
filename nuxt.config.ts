@@ -71,6 +71,9 @@ export default defineNuxtConfig({
   // },
   runtimeConfig: {
     dbPassword: process.env.DB_PASSWORD,
+    public: {
+      baseURL: process.env.BASE_URL || "/",
+    },
   },
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },

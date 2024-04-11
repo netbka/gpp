@@ -9,10 +9,10 @@ export default defineEventHandler(async (event) => {
 
     const totalCount = await prisma.exerciseTemplate.count({
       where: {
-        user_id: user_id,
+        OR: [{ user_id: user_id }, { public: true }],
 
         ...(filter && {
-          OR: [
+          AND: [
             { name: { contains: filter, mode: "insensitive" } },
             {
               exerciseTemplateMuscle: {
@@ -32,17 +32,18 @@ export default defineEventHandler(async (event) => {
     const result = await prisma.exerciseTemplate.findMany({
       where: {
         OR: [{ user_id: user_id }, { public: true }],
-
-        OR: [
-          { name: { contains: filter, mode: "insensitive" } },
-          {
-            exerciseTemplateMuscle: {
-              some: {
-                name: { contains: filter, mode: "insensitive" },
+        ...(filter && {
+          AND: [
+            { name: { contains: filter, mode: "insensitive" } },
+            {
+              exerciseTemplateMuscle: {
+                some: {
+                  name: { contains: filter, mode: "insensitive" },
+                },
               },
             },
-          },
-        ],
+          ],
+        }),
       },
       skip: Number((page - 1) * rowsPerPage),
       take: Number(rowsPerPage),
@@ -54,6 +55,8 @@ export default defineEventHandler(async (event) => {
         user_id: true,
         duration: true,
         imageUrl: true,
+        public: true,
+
         exerciseTemplateMuscle: {
           select: {
             name: true,

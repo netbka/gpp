@@ -5,6 +5,7 @@
       class="no-padding"
       @onSubmit="onSubmit()"
       @newItem="newItem()"
+      @onHide="onHide"
       :propHeading="store.currentItem.name"
       :propNewVisible="store.currentItem.id !== null"
       :propLoading="store.loading"
@@ -147,8 +148,8 @@ const newItem = () => {
   store.resetCurrentItem();
   uploader.value.reset();
 };
-const onReset = () => {
-  console.log("Reset");
+const onHide = () => {
+  store.resetCurrentItem();
 };
 const form = ref(null);
 
