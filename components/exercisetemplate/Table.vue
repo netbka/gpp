@@ -10,7 +10,7 @@
       :showExecute="false"
       :showEdit="true"
       :showDelete="true"
-      :readOnly="true"
+      :readOnly="props.readOnly"
       :pagination="store.pagination"
       @onEditItem="onEditItem"
       @onDeleteItem="onDeleteItem"
@@ -29,6 +29,9 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps({
+  readOnly: { Type: Boolean, default: false },
+});
 const store = useExerciseTemplateStore();
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
@@ -41,8 +44,9 @@ const onRequest = async (props) => {
   await store.search(props.filter);
 };
 
-const onEditItem = (id) => {
-  store.currentItem = Object.assign({}, getById(id, store.itemArray));
+const onEditItem = async (id) => {
+  //store.currentItem = Object.assign({}, getById(id, store.itemArray));
+  await store.getById(id);
   emits("edit");
 };
 const onDeleteItem = async (id) => {

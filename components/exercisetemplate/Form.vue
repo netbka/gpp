@@ -40,14 +40,6 @@
                 :toolbar="editorToolbar($q)"
               >
               </q-editor>
-              <!-- <q-input
-                dense
-                outlined
-                v-model="store.currentItem.description"
-                label="Описание"
-                :disable="loading"
-                :input-style="{ fontSize: '12px' }"
-              /> -->
             </div>
           </div>
           <div class="row q-col-gutter-x-md q-mt-md">

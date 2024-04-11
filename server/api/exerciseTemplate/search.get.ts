@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
 
     const result = await prisma.exerciseTemplate.findMany({
       where: {
-        user_id: user_id,
+        OR: [{ user_id: user_id }, { public: true }],
 
         OR: [
           { name: { contains: filter, mode: "insensitive" } },

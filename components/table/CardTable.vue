@@ -25,7 +25,7 @@
       <template v-slot:loading>
         <q-inner-loading showing color="primary" />
       </template>
-      <template v-slot:top>
+      <!-- <template v-slot:top>
         <div>
           <h1 class="text-h4">{{ headerTitle }}</h1>
         </div>
@@ -46,7 +46,7 @@
             <q-icon name="search" />
           </template>
         </q-input>
-      </template>
+      </template> -->
 
       <template v-slot:item="prop">
         <div class="q-pa-xs col-xs-12 col-sm-12 col-lg-4">

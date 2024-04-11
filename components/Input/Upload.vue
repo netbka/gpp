@@ -82,6 +82,16 @@ defineExpose({
 const handleFileSelection = () => {
   picker.value.pickFiles();
 };
+
+watch(
+  () => store.currentItem,
+  (newVal) => {
+    if (newVal.imageUrl !== "") {
+      setExistingPreview(store.currentItem.id + ".gif");
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>
