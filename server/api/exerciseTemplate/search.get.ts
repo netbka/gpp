@@ -2,9 +2,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
-    const {
-      user: { id: user_id },
-    } = event.context;
+    const user_id = event.context.user === null ? "12345678123456781234567812345678" : event.context.user.id;
+
+    // const {
+    //   user: { id: user_id },
+    // } = event.context;
+
     const { sortBy, descending, page, rowsPerPage, filter } = getQuery(event);
 
     const totalCount = await prisma.exerciseTemplate.count({
@@ -78,6 +81,7 @@ export default defineEventHandler(async (event) => {
 
     return { totalCount, result };
   } catch (error) {
+    console.log(error);
     throw createError({
       statusCode: 500,
       message: "Что-то пошло не так",

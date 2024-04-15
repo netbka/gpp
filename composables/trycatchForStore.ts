@@ -34,9 +34,15 @@ export const getItemById = async (store, id: number) => {
 
 export const searchItems = async (store, filter: string) => {
   withErrorHandling(store)(async (payload, store) => {
-    const { data, pending, error } = await useFetch(`/api/${store.$id}/search`, {
-      query: { filter: filter, ...store.pagination },
-    });
+    // const { data, pending, error } = await useFetch(`/api/${store.$id}/search`, {
+    //   query: { filter: filter, ...store.pagination },
+    // });
+    const { data, pending, error } = await useAsyncData("search", () =>
+      $fetch(`/api/${store.$id}/search`, {
+        query: { filter: filter, ...store.pagination },
+      })
+    );
+    console.log(data.value);
     if (data.value) {
       store.itemArray = data.value.result;
       store.pagination.rowsNumber = data.value.totalCount;

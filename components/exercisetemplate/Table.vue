@@ -16,7 +16,8 @@
       @onDeleteItem="onDeleteItem"
       @onUpdateField="onUpdateField"
     >
-      <!-- <template v-slot:cardComponent="prop">
+      <!--
+       <template v-slot:cardComponent="prop">
         <ExercisetemplateCard
           :data="prop.prop.row"
           @editItem="onEditItem"
@@ -29,16 +30,26 @@
 </template>
 
 <script lang="ts" setup>
+import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
+let pagination = new TablePagination().getAll()
+
+const { data, pending, error } = await useAsyncData("search", () =>
+  $fetch(`/api/exerciseTemplate/search`, {
+    query: { filter: "", ...pagination },
+  })
+);
+const store = useExerciseTemplateStore();
+store.itemArray =data.value.result
+//store.$patch({ itemArray: data.result });
+
+
 const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
-const store = useExerciseTemplateStore();
 
+//await store.ssrSearch();
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
-const tableData = ref([]);
-
-await store.ssrSearch();
 
 const onRequest = async (props) => {
   store.setPagination(props.pagination);
