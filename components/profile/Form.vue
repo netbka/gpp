@@ -81,7 +81,7 @@ const onSubmit = async () => {
 };
 
 const onReset = () => {
-  console.log("Reset");
+  //console.log("Reset");
 };
 </script>
 

@@ -40,9 +40,10 @@ export const searchItems = async (store, filter: string) => {
     const { data, pending, error } = await useAsyncData("search", () =>
       $fetch(`/api/${store.$id}/search`, {
         query: { filter: filter, ...store.pagination },
+        headers: useRequestHeaders(["cookie"]),
       })
     );
-    console.log(data.value);
+
     if (data.value) {
       store.itemArray = data.value.result;
       store.pagination.rowsNumber = data.value.totalCount;

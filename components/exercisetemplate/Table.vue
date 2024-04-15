@@ -33,25 +33,28 @@
 import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
 let pagination = new TablePagination().getAll()
 
-const { data, pending, error } = await useAsyncData("search", () =>
-  $fetch(`/api/exerciseTemplate/search`, {
-    query: { filter: "", ...pagination },
-  })
-);
+// const { data, pending, error } = await useAsyncData("search", () =>
+//   $fetch(`/api/exerciseTemplate/search`, {
+//     query: { filter: "", ...pagination },
+//     headers: useRequestHeaders(['cookie'])
+//   },)
+// );
 const store = useExerciseTemplateStore();
-store.itemArray =data.value.result
-//store.$patch({ itemArray: data.result });
+// store.itemArray =data.value.result;
+// store.pagination.rowsNumber = data.value.totalCount;
+
 
 
 const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
 
-//await store.ssrSearch();
+await store.search("");
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
 
 const onRequest = async (props) => {
+
   store.setPagination(props.pagination);
   await store.search(props.filter);
 };

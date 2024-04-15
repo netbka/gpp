@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const user_id = event.context.user === null ? "12345678123456781234567812345678" : event.context.user.id;
-
+    console.log(user_id);
     // const {
     //   user: { id: user_id },
     // } = event.context;
@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
         }),
       },
     });
+
     const orderByObject = {};
 
     orderByObject[sortBy] = descending === "true" ? "desc" : "asc";
@@ -81,7 +82,7 @@ export default defineEventHandler(async (event) => {
 
     return { totalCount, result };
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
     throw createError({
       statusCode: 500,
       message: "Что-то пошло не так",
