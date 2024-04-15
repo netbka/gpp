@@ -10,7 +10,7 @@ interface ExerciseTemplateStoreState {
   pagination: ITablePagination;
 }
 const baseUrl = "/api/exerciseTemplate/";
-export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
+export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
   state: (): ExerciseTemplateStoreState => ({
     //defaultItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
     //currentItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
@@ -39,38 +39,30 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     },
     async getById(id: number) {
       await getItemById(this, id);
-      // withErrorHandling(this)(async (props, store) => {
-      //   const response = await $fetch(baseUrl + id, {
-      //     method: "get",
-      //   });
-
-      //   if (response) {
-      //     updateArray(response, this.itemArray);
-      //     this.currentItem = response;
-      //   }
-      // })(null);
     },
     setPagination(pagination: ITablePagination) {
       this.pagination = pagination;
     },
     async ssrSearch() {
-      withErrorHandling(this)(async (payload, store) => {
-        const { data, pending, error } = await useFetch(baseUrl + "search", { query: this.pagination });
+      searchItems(this, "");
+      // withErrorHandling(this)(async (payload, store) => {
+      //   const { data, pending, error } = await useFetch(baseUrl + "search", { query: this.pagination });
 
-        if (data.value !== null) {
-          this.itemArray = data.value.result;
-          this.pagination.rowsNumber = data.value.totalCount;
-        }
-      })(null);
+      //   if (data.value !== null) {
+      //     this.itemArray = data.value.result;
+      //     this.pagination.rowsNumber = data.value.totalCount;
+      //   }
+      // })(null);
     },
     async search(filter: string) {
-      withErrorHandling(this)(async (payload, store) => {
-        const response = await $fetch(baseUrl + "search", {
-          query: { filter: filter, ...this.pagination },
-        });
-        store.itemArray = response.result;
-        this.pagination.rowsNumber = response.totalCount;
-      })(null);
+      searchItems(this, filter);
+      // withErrorHandling(this)(async (payload, store) => {
+      //   const response = await $fetch(baseUrl + "search", {
+      //     query: { filter: filter, ...this.pagination },
+      //   });
+      //   store.itemArray = response.result;
+      //   this.pagination.rowsNumber = response.totalCount;
+      // })(null);
     },
     async fetchAll() {
       withErrorHandling(this)(async (payload, store) => {

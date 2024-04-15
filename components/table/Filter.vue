@@ -8,7 +8,8 @@
           debounce="300"
           color="primary"
           label-color="black"
-          v-model="filter"
+          :model-value="modelValue"
+          @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
           label="Поиск"
         >
           <template v-slot:append>
@@ -42,7 +43,15 @@
 </template>
 
 <script lang="ts" setup>
-const filter = ref("");
+const props = defineProps({
+  modelValue: {
+    type: [String],
+    default: "",
+    required: false,
+  },
+});
+const emits = defineEmits(["update:modelValue"]);
+//const filter = ref("");
 const level = ref(0);
 const muscleIds = ref([]);
 </script>
