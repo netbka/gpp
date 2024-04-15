@@ -4,8 +4,8 @@
       ref="form"
       class="no-padding"
       @onSubmit="onSubmit()"
-      @newItem="newItem()"
-      @onHide="onHide"
+      @newItem="newItem"
+      @onHide="newItem"
       :propHeading="store.currentItem.name"
       :propNewVisible="store.currentItem.id !== null"
       :propLoading="store.loading"
@@ -29,7 +29,7 @@
                 v-model="store.currentItem.name"
                 label="Название упражнения *"
                 :rules="[(val) => !!val || 'Нужно указать значение']"
-                :disable="loading"
+                :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
               />
             </div>
@@ -50,7 +50,7 @@
                 outlined
                 v-model.number="store.currentItem.duration"
                 label="Прододжительность (сек.)"
-                :disable="loading"
+                :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="300"
                 min="10"
@@ -65,7 +65,7 @@
                 outlined
                 v-model.number="store.currentItem.level"
                 label="Сложность"
-                :disable="loading"
+                :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="3"
                 min="0"
@@ -101,28 +101,27 @@ const $q = useQuasar();
 const store = useExerciseTemplateStore();
 const storeMuscle = muscleStore();
 const uploader = ref(null);
-const loading = ref(false);
-onMounted(async () => {});
+
 const imageToUpload = ref(null);
 const imageUpdate = (img) => {
   imageToUpload.value = img;
 };
-const config = {
-  sanitizer: function (dirtyHTML) {
-    const cleanHTML = DOMPurify.sanitize(dirtyHTML);
-    // Remove elements with external links
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(cleanHTML, "text/html");
-    const links = doc.querySelectorAll("a");
-    for (let i = 0; i < links.length; i++) {
-      const link = links[i];
-      if (link.href && !link.href.startsWith(window.location.origin)) {
-        link.remove();
-      }
-    }
-    return doc.body.innerHTML;
-  },
-};
+// const config = {
+//   sanitizer: function (dirtyHTML) {
+//     const cleanHTML = DOMPurify.sanitize(dirtyHTML);
+//     // Remove elements with external links
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(cleanHTML, "text/html");
+//     const links = doc.querySelectorAll("a");
+//     for (let i = 0; i < links.length; i++) {
+//       const link = links[i];
+//       if (link.href && !link.href.startsWith(window.location.origin)) {
+//         link.remove();
+//       }
+//     }
+//     return doc.body.innerHTML;
+//   },
+// };
 const onSubmit = async () => {
   if (imageToUpload.value != null) {
     store.currentItem.imageUrl = ".gif";
@@ -145,15 +144,17 @@ const onSubmit = async () => {
 };
 
 const newItem = () => {
-  store.resetCurrentItem();
+  store.newItem();
+
   uploader.value.reset();
 };
-const onHide = () => {
-  store.resetCurrentItem();
-};
+// const onHide = () => {
+//   store.resetCurrentItem();
+// };
 const form = ref(null);
 
-const show = () => {
+const show = async (id) => {
+  store.getById(id);
   form.value.show();
 };
 const validate = (val) => {
@@ -166,7 +167,7 @@ defineExpose({
 </script>
 
 <style scoped>
-.width-150 {
+/* .width-150 {
   min-width: 150px;
-}
+} */
 </style>

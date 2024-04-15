@@ -15,14 +15,14 @@
 definePageMeta({ auth: false });
 const form = ref(null);
 const store = useExerciseTemplateStore();
-
+store.newItem();
 const newItem = () => {
   store.newItem();
   show();
 };
 
-const show = () => {
-  form.value.show();
+const show = (id) => {
+  form.value.show(id);
 };
 </script>
 

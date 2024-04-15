@@ -1,5 +1,5 @@
 <template>
-  <ContentCard :data="store.currentItem"></ContentCard>
+  <ContentCard :data="data"></ContentCard>
 </template>
 <script lang="ts" setup>
 definePageMeta({ auth: false });
@@ -7,8 +7,11 @@ const route = useRoute();
 const { id } = route.params;
 
 const store = useExerciseTemplateStore();
-await store.getById(parseSlugId(id));
-onBeforeMount(async () => {});
+const { data, pending, error, refresh, execute } = await getItemById(
+  store,
+  parseSlugId(id)
+);
+//await store.getById(parseSlugId(id));
 </script>
 
 <style scoped>

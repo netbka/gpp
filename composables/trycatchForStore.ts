@@ -1,7 +1,7 @@
 export const withErrorHandling = (store) => (actionFn) => async (payload) => {
   try {
     store.loading = true;
-    await actionFn(payload, store);
+    return await actionFn(payload, store);
   } catch (error) {
     console.error("Error in action:", error);
   } finally {
@@ -20,8 +20,8 @@ export const createItem = (store) => {
 };
 
 export const getItemById = async (store, id: number) => {
-  withErrorHandling(store)(async (payload, store) => {
-    const { data, pending, error } = await useFetch(`/api/${store.$id}/${id}`, {
+  return withErrorHandling(store)(async (payload, store) => {
+    const { data, pending, error, refresh, execute } = await useFetch(`/api/${store.$id}/${id}`, {
       method: "GET",
     });
 
@@ -29,25 +29,27 @@ export const getItemById = async (store, id: number) => {
       updateArray(data.value, store.itemArray);
       store.currentItem = data.value;
     }
+    return { data, pending, error, refresh, execute };
   })(null);
 };
 
-export const searchItems = async (store, filter: string) => {
-  withErrorHandling(store)(async (payload, store) => {
-    // const { data, pending, error } = await useFetch(`/api/${store.$id}/search`, {
-    //   query: { filter: filter, ...store.pagination },
-    // });
-    const { data, pending, error } = await useAsyncData("search", () =>
-      $fetch(`/api/${store.$id}/search`, {
-        query: { filter: filter, ...store.pagination },
-        headers: useRequestHeaders(["cookie"]),
-      })
+export const searchItems = async (store) => {
+  return withErrorHandling(store)(async (payload, store) => {
+    const { data, pending, error, refresh, execute } = await useAsyncData(
+      "search",
+      () =>
+        $fetch(`/api/${store.$id}/search`, {
+          query: { filter: store.filter, ...store.pagination },
+          headers: useRequestHeaders(["cookie"]),
+        }),
+      { watch: [store.pagination, ...store.filter] }
     );
 
     if (data.value) {
       store.itemArray = data.value.result;
       store.pagination.rowsNumber = data.value.totalCount;
     }
+    return { data, pending, error, refresh, execute };
   })(null);
 };
 

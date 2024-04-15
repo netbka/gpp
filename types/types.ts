@@ -42,8 +42,8 @@ export interface IExerciseTemplate extends IIdName {
 
 export class ExerciseTemplate extends BaseIdName implements IExerciseTemplate {
   public level = 1;
-  public id?: number | null = null;
-  public name = "";
+  //public id?: number | null = null;
+  //public name = "";
   public description = "";
   public descriptionShort = "";
   public duration = 30;

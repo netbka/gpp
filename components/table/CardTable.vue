@@ -33,7 +33,7 @@
           </template>
 
           <template v-slot:item="prop">
-            <div class="q-pa-xs col-xs-12 col-sm-12 col-lg-4">
+            <div class="q-pa-xs col-xs-12 col-sm-6 col-lg-4">
               <!-- <slot name="cardComponent" :prop="{ row: props.row, col: props.col }"></slot> -->
 
               <TableCard

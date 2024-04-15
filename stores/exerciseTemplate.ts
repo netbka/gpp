@@ -2,23 +2,22 @@ import { defineStore } from "pinia";
 import { type IExerciseTemplate, ExerciseTemplate } from "~/types/types";
 import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
 interface ExerciseTemplateStoreState {
-  //defaultItem: ExerciseTemplate;
   currentItem: IExerciseTemplate;
   itemArray: [];
   loading: boolean;
   rowsNumber: number;
   pagination: ITablePagination;
+  filter: string;
 }
 const baseUrl = "/api/exerciseTemplate/";
 export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
   state: (): ExerciseTemplateStoreState => ({
-    //defaultItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
-    //currentItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
     currentItem: new ExerciseTemplate("").getAll(),
     itemArray: [],
     loading: false,
     rowsNumber: 0,
     pagination: new TablePagination().getAll(),
+    filter: "",
   }),
   getters: {
     getItemArray: (state) => {
@@ -29,41 +28,28 @@ export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
     },
   },
   actions: {
-    newItem() {
-      this.currentItem = new ExerciseTemplate("Новое упражннеие").getAll();
+    newItem(val = "Новое упражннеие") {
+      this.currentItem = new ExerciseTemplate(val).getAll();
       return this.currentItem;
     },
-    resetCurrentItem() {
-      this.currentItem = new ExerciseTemplate("").getAll();
-      //this.currentItem = Object.assign({}, this.defaultItem);
-    },
     async getById(id: number) {
-      await getItemById(this, id);
+      withErrorHandling(this)(async (props, store) => {
+        const response = await $fetch(`/api/${store.$id}/${id}`, {
+          method: "get",
+        });
+        if (response) {
+          updateArray(response, this.itemArray);
+          this.currentItem = response;
+        }
+      })(null);
     },
     setPagination(pagination: ITablePagination) {
       this.pagination = pagination;
     },
-    async ssrSearch() {
-      searchItems(this, "");
-      // withErrorHandling(this)(async (payload, store) => {
-      //   const { data, pending, error } = await useFetch(baseUrl + "search", { query: this.pagination });
-
-      //   if (data.value !== null) {
-      //     this.itemArray = data.value.result;
-      //     this.pagination.rowsNumber = data.value.totalCount;
-      //   }
-      // })(null);
-    },
-    async search(filter: string) {
-      searchItems(this, filter);
-      // withErrorHandling(this)(async (payload, store) => {
-      //   const response = await $fetch(baseUrl + "search", {
-      //     query: { filter: filter, ...this.pagination },
-      //   });
-      //   store.itemArray = response.result;
-      //   this.pagination.rowsNumber = response.totalCount;
-      // })(null);
-    },
+    // async search(filter: string) {
+    //   var x = searchItems(this, filter);
+    //   console.log(x);
+    // },
     async fetchAll() {
       withErrorHandling(this)(async (payload, store) => {
         const { data } = await useFetch(baseUrl + "all", {
@@ -131,7 +117,7 @@ export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
           body: { id },
         });
 
-        if (this.currentItem.id === id) this.resetCurrentItem();
+        if (this.currentItem.id === id) this.newItem();
         removeItemFromArr(id, this.itemArray);
       })(null);
     },

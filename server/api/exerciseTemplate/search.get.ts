@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const user_id = event.context.user === null ? "12345678123456781234567812345678" : event.context.user.id;
-    console.log(user_id);
+
     // const {
     //   user: { id: user_id },
     // } = event.context;

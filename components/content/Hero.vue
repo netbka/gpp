@@ -1,11 +1,11 @@
 <template>
   <div class="hero-wrapper">
-    <div class="hero-text text-center">
-      <h1>{{ header }}</h1>
-      <h4 class="text-weight-thin">{{ subHeader }}</h4>
-    </div>
     <div class="overlay">
       <div :style="{ backgroundImage: 'url(' + hero + ')' }" class="hero-image"></div>
+    </div>
+    <div class="hero-text text-center">
+      <h1>{{ header }}</h1>
+      <h2 class="text-weight-thin text-h4">{{ subHeader }}</h2>
     </div>
   </div>
 </template>

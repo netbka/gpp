@@ -5,8 +5,8 @@
       :headerTitle="'Коллекция упражнений'"
       @onRequest="onRequest"
       ref="tableRef"
-      :rows="store.itemArray"
-      :loading="store.loading"
+      :rows="data.result"
+      :loading="pending"
       :showExecute="false"
       :showEdit="true"
       :showDelete="true"
@@ -30,39 +30,31 @@
 </template>
 
 <script lang="ts" setup>
-import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
-let pagination = new TablePagination().getAll()
-
-// const { data, pending, error } = await useAsyncData("search", () =>
-//   $fetch(`/api/exerciseTemplate/search`, {
-//     query: { filter: "", ...pagination },
-//     headers: useRequestHeaders(['cookie'])
-//   },)
-// );
-const store = useExerciseTemplateStore();
-// store.itemArray =data.value.result;
-// store.pagination.rowsNumber = data.value.totalCount;
-
-
-
 const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
 
-await store.search("");
+const store = useExerciseTemplateStore();
+const { data, pending, error, refresh, execute } = await searchItems(store);
+
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
 
 const onRequest = async (props) => {
-
-  store.setPagination(props.pagination);
-  await store.search(props.filter);
+  try {
+    store.setPagination(props.pagination);
+    store.filter = props.filter;
+    await refresh();
+    store.pagination.rowsNumber = data.value.totalCount;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const onEditItem = async (id) => {
   //store.currentItem = Object.assign({}, getById(id, store.itemArray));
-  await store.getById(id);
-  emits("edit");
+  //await store.getById(id);
+  emits("edit", id);
 };
 const onDeleteItem = async (id) => {
   await store.deleteItem(id);
