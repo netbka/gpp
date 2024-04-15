@@ -8,16 +8,16 @@
     <ExercisetemplateTable @edit="show" :readOnly="false"></ExercisetemplateTable>
 
     <ExercisetemplateForm ref="form"></ExercisetemplateForm>
-    <BaseFab @newItem="newItem" :readOnly="true"></BaseFab>
+    <BaseFab @newItem="newItem" :readOnly="false"></BaseFab>
   </div>
 </template>
 <script lang="ts" setup>
-definePageMeta({ auth: true });
+definePageMeta({ auth: false });
 const form = ref(null);
 const store = useExerciseTemplateStore();
 
 const newItem = () => {
-  store.resetCurrentItem();
+  store.newItem();
   show();
 };
 

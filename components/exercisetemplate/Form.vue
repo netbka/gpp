@@ -68,7 +68,7 @@
                 :disable="loading"
                 :input-style="{ fontSize: '12px' }"
                 max="3"
-                min="1"
+                min="0"
                 step="1"
                 type="number"
                 lazy-rules

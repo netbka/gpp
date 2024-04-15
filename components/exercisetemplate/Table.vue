@@ -33,6 +33,7 @@ const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
 const store = useExerciseTemplateStore();
+
 const tableRef = ref(null);
 const emits = defineEmits(["edit", "confirmDelete"]);
 const tableData = ref([]);

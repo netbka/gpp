@@ -10,12 +10,7 @@ export const useAuthStore = defineStore("AuthStore", {
     rowsNumber: 0,
   }),
   actions: {
-    // resetCurrentItem() {
-    //   this.email = "";
-    //   this.password = "";
-    //   this.name = "";
-    //   this.token = "";
-    // },
+    
     resetState() {
       this.$reset();
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="hero-wrapper">
-    <div class="hero-text z-top-100 text-center">
+    <div class="hero-text text-center">
       <h1>{{ header }}</h1>
       <h4 class="text-weight-thin">{{ subHeader }}</h4>
     </div>
@@ -21,9 +21,9 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.z-top-100 {
-  z-index: 100;
-}
+/* .z-top-100 {
+  z-index: 1;
+} */
 .hero-wrapper {
   position: relative;
   overflow: hidden;

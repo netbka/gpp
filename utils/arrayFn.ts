@@ -18,8 +18,9 @@ export const hasProperties = (obj: Object) => {
   return Object.keys(obj).length > 0;
 };
 
-export const updateArray = (val: Object, arr: Array, id: String) => {
-  var index = id === undefined || id === null ? arr.findIndex((el) => el.id === val.id) : arr.findIndex((el) => el[id] === val[id]);
+export const updateArray = (val: Object, arr: Array) => {
+  //var index = id === undefined || id === null ? arr.findIndex((el) => el.id === val.id) : arr.findIndex((el) => el[id] === val[id]);
+  var index = arr.findIndex((el) => el.id === val.id);
   if (index > -1) {
     arr[index] = val;
   } else {

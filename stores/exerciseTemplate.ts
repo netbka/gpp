@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
-import { type ExerciseTemplate, TablePagination, type ITablePagination } from "~/types/types";
+import { type IExerciseTemplate, ExerciseTemplate } from "~/types/types";
+import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
 interface ExerciseTemplateStoreState {
-  defaultItem: ExerciseTemplate;
-  currentItem: ExerciseTemplate;
+  //defaultItem: ExerciseTemplate;
+  currentItem: IExerciseTemplate;
   itemArray: [];
   loading: boolean;
   rowsNumber: number;
@@ -11,8 +12,9 @@ interface ExerciseTemplateStoreState {
 const baseUrl = "/api/exerciseTemplate/";
 export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
   state: (): ExerciseTemplateStoreState => ({
-    defaultItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
-    currentItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
+    //defaultItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
+    //currentItem: { id: null, name: "", description: "", descriptionShort: "", duration: 30, active: false, imageUrl: "", weight: 0, level: 1, public: false, exerciseTemplateMuscle: [] },
+    currentItem: new ExerciseTemplate("").getAll(),
     itemArray: [],
     loading: false,
     rowsNumber: 0,
@@ -22,36 +24,31 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     getItemArray: (state) => {
       return state.itemArray;
     },
-    // getIimgUrl: (state) => {
-    //   return state.currentItem.imageUrl;
-    // },
     getCurrentItemId: (state) => {
       return state.currentItem.id;
     },
   },
   actions: {
-    newExerciseTemplate() {
-      this.currentItem = Object.assign({}, this.defaultItem);
-      this.currentItem.name = "Новое упражннеие";
-      this.currentItem.muscle = { name: "" };
-      this.currentItem.exerciseTemplateMuscle = [];
-
+    newItem() {
+      this.currentItem = new ExerciseTemplate("Новое упражннеие").getAll();
       return this.currentItem;
     },
     resetCurrentItem() {
-      this.currentItem = Object.assign({}, this.defaultItem);
+      this.currentItem = new ExerciseTemplate("").getAll();
+      //this.currentItem = Object.assign({}, this.defaultItem);
     },
     async getById(id: number) {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch(baseUrl + id, {
-          method: "get",
-        });
+      await getItemById(this, id);
+      // withErrorHandling(this)(async (props, store) => {
+      //   const response = await $fetch(baseUrl + id, {
+      //     method: "get",
+      //   });
 
-        if (response) {
-          updateArray(response, this.itemArray);
-          this.currentItem = response;
-        }
-      })(null);
+      //   if (response) {
+      //     updateArray(response, this.itemArray);
+      //     this.currentItem = response;
+      //   }
+      // })(null);
     },
     setPagination(pagination: ITablePagination) {
       this.pagination = pagination;
@@ -99,10 +96,10 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
 
     async updateCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
-        this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
-        console.log(this.currentItem.descriptionShort);
+        //this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
+
         const response = await $fetch(baseUrl + "update", {
-          method: "post",
+          method: "put",
           body: { ...this.currentItem },
         });
 
@@ -112,7 +109,7 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
     },
     async createCurrentItem() {
       withErrorHandling(this)(async (payload, store) => {
-        this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
+        //this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
         const response = await $fetch(baseUrl + "create", {
           method: "post",
           body: { ...this.currentItem },
@@ -146,37 +143,5 @@ export const useExerciseTemplateStore = defineStore("ExerciseTemplateStore", {
         removeItemFromArr(id, this.itemArray);
       })(null);
     },
-
-    // getGroupedArray() {
-    //   return this.itemArray.reduce((groups, item) => {
-    //     const group = groups[item.muscle.name] || [];
-    //     group.push(item);
-    //     groups[item.muscle.name] = group;
-    //     return groups;
-    //   }, {});
-    // },
-    // getGroupedArray() {
-    //   const groups = this.itemArray.reduce((groups, item) => {
-    //     const group = groups[item.muscle.name] || [];
-    //     group.push(item);
-    //     groups[item.muscle.name] = group;
-    //     return groups;
-    //   }, {});
-
-    //   // Convert the groups object to an array of entries
-    //   const groupEntries = Object.entries(groups);
-
-    //   // Sort the group entries by item.muscle.id
-    //   groupEntries.sort((a, b) => {
-    //     const firstMuscleId = a[1][0].muscle.id;
-    //     const secondMuscleId = b[1][0].muscle.id;
-    //     return firstMuscleId - secondMuscleId;
-    //   });
-
-    //   // Convert the sorted array of entries back to an object
-    //   const sortedGroups = Object.fromEntries(groupEntries);
-
-    //   return sortedGroups;
-    // },
   },
 });

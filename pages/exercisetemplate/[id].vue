@@ -7,9 +7,8 @@ const route = useRoute();
 const { id } = route.params;
 
 const store = useExerciseTemplateStore();
-onBeforeMount(async () => {
-  await store.getById(parseSlugId(id));
-});
+await store.getById(parseSlugId(id));
+onBeforeMount(async () => {});
 </script>
 
 <style scoped>

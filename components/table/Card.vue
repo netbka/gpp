@@ -65,86 +65,10 @@
       >
     </q-card-actions>
   </q-card>
-  <!-- <q-item>
-      <q-item-section avatar>
-        <q-avatar>
-          <img :src="getProfile(data.user_id)" />
-        </q-avatar>
-      </q-item-section>
-
-      <q-item-section>
-        <q-item-label>
-          <InputText
-            :readOnly="props.readOnly"
-            v-model="data.name"
-            @updatedb="$emit('onUpdateField', 'name', data.name, data.id)"
-          ></InputText>
-          <span class="q-ml-sm text-caption text-thin text-grey">
-            <InputNumber
-              :typeDuration="true"
-              :readOnly="props.readOnly"
-              v-model="data.duration"
-              @updatedb="$emit('onUpdateField', 'duration', data.duration, data.id)"
-            ></InputNumber> </span
-        ></q-item-label>
-        <q-item-label caption
-          ><span v-for="muscle in data.exerciseTemplateMuscle" :key="muscle.id">
-            {{ muscle.name + " " }}
-          </span></q-item-label
-        >
-      </q-item-section>
-      <q-item-section>
-        <q-rating
-          v-model="data.level"
-          size="1em"
-          max="3"
-          color="secondary"
-          readonly
-          class="absolute-right q-mr-md"
-          icon="fitness_center"
-        />
-      </q-item-section>
-    </q-item>
-
-    <q-separator />
-
-    <q-card-section horizontal class="card-body-height">
-      <img class="img-exercise" :src="getExerciseImage(data.id + data.imageUrl)" />
-
-      <q-card-section v-html="data.descriptionShort" class="q-pa-sm"> </q-card-section>
-    </q-card-section>
-
-    <q-separator />
-
-    <q-card-actions class="items-center" align="right">
-      <q-btn
-        flat
-        color="light-green-9"
-        size="sm"
-        icon="edit"
-        @click="$emit('onEditItem', data.id)"
-        class="q-px-xs q-mx-xs"
-      >
-      </q-btn>
-      <q-btn
-        flat
-        color="red-7"
-        size="sm"
-        icon="close"
-        @click="$emit('onDeleteItem', data.id)"
-        class="q-px-xs q-mx-xs"
-      >
-      </q-btn>
-
-      <q-btn outline color="primary" size="sm">
-        <NuxtLink class="no-style" :to="link(data)">подробнее</NuxtLink></q-btn
-      >
-    </q-card-actions> 
-  </q-card> -->
 </template>
 
 <script lang="ts" setup>
-import { Slug } from "~/types/types";
+import { Slug } from "~/types/ISlug";
 import errorImg from "/exerciseSmall.png";
 const props = defineProps({
   data: { Type: Object, default: {} },
@@ -159,7 +83,7 @@ const link = (data) => {
 
 <style scoped>
 .exercise-card {
-  height: 310px;
+  height: 300px;
   max-height: 310px;
   width: 100%;
   padding: 0 !important;
@@ -174,22 +98,8 @@ const link = (data) => {
   object-fit: contain;
   max-height: 150px;
   height: 150px;
-  /* filter: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIHZpZXdCb3g9IjAgMCA0IDQiPjxwYXRoIGQ9Ik0wLDA4YTIgMiAwIDExMTYuNjU0MkgxLjczNThIMC4zNDU4OHYyLjY1NDJZMHoiLz48L3N2Zz4=")
-    format("filter-function");
-  filter: noise(2px); */
 }
-/* .card-body-height {
-  max-width: 490px;
-  max-height: 98px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
-  -webkit-line-clamp: 4;
-  word-break: break-word;
-} */
-/* .wrapper {
-  position: relative;
-} */
 .q-img__content > div {
   pointer-events: all;
   position: absolute;
@@ -199,15 +109,10 @@ const link = (data) => {
 }
 
 .card-body {
-  /* left: 5%;
-  width: 90%; */
   height: 105px;
-  /* bottom: 2px; */
+
   position: relative;
   background-color: #02263c;
-  /* background-image: linear-gradient(90deg, #cfe1ed, #eff0f1); */
-  /* border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 4px; */
 }
 .card-actions {
   background-color: #1c3c50;

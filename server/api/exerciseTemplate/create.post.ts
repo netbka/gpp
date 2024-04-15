@@ -12,9 +12,9 @@ export default defineEventHandler(async (event) => {
     body.user_id = user_id;
 
     const newItems = body.newItems ? body.newItems.map(({ id }) => id) : [];
-    let removeItems = body.exerciseTemplateMuscle ? body.exerciseTemplateMuscle.map(({ id }) => id) : [];
-    const itemsToRemoveSet = new Set(newItems);
-    removeItems = removeItems.filter((item) => !itemsToRemoveSet.has(item));
+    //let removeItems = body.exerciseTemplateMuscle ? body.exerciseTemplateMuscle.map(({ id }) => id) : [];
+    //const itemsToRemoveSet = new Set(newItems);
+    //removeItems = removeItems.filter((item) => !itemsToRemoveSet.has(item));
 
     body = omit(body, ["id", "exerciseTemplateMuscle", "newItems"]);
 
@@ -23,7 +23,6 @@ export default defineEventHandler(async (event) => {
         ...body,
         exerciseTemplateMuscle: {
           connect: newItems.map((id) => ({ id })),
-          disconnect: removeItems.map((id) => ({ id })),
         },
       },
       include: {

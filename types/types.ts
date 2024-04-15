@@ -1,75 +1,87 @@
-import { slug } from "./../utils/navigation";
 import type { PrismaClient, TrainingTrack as PrismaTrainingTrack, Muscle as PrismaMuscle, Profile as PrismaProfile, SportType as PrismaSportType, Training as PrismaTraining, ExerciseGroup as PrismaExerciseGroup, ExerciseTemplate as PrismaExerciseTemplate, Exercise as PrismaExercise } from "@prisma/client";
+
+//import { TablePagination as TablePaginationImport, type ITablePagination as ITablePaginationImport } from "./ITablePagination";
 
 export type Profile = PrismaProfile;
 export type SportType = PrismaSportType;
 export type Training = PrismaTraining;
 export type ExerciseGroup = PrismaExerciseGroup;
-export type ExerciseTemplate = PrismaExerciseTemplate;
+//export type ExerciseTemplate = PrismaExerciseTemplate;
 export type Exercise = PrismaExercise;
 export type Muscle = PrismaMuscle;
 export type TrainingTrack = PrismaTrainingTrack;
 
-export interface ITablePagination {
-  sortBy: string;
-  descending: boolean;
-  page: number;
-  rowsPerPage: number;
-  rowsNumber: number;
+export interface IIdName {
+  id?: number | null;
+  name: string;
+  //getAll(): any;
 }
 
-export class TablePagination implements ITablePagination {
-  public sortBy = "name";
-  public descending = false;
-  public page = 1;
-  public rowsPerPage = 12;
-  public rowsNumber = 1;
-  constructor(sortBy?: string, descending?: boolean, page?: number, rowsPerPage?: number, rowsNumber?: number) {
-    this.sortBy = sortBy ?? "name";
-    this.descending = descending ?? false;
-    this.page = page ?? 1;
-    this.rowsPerPage = rowsPerPage ?? 12;
-    this.rowsNumber = rowsNumber ?? 1;
+export abstract class BaseIdName implements IIdName {
+  id?: number | null;
+  name: string;
+  constructor(name?: string) {
+    this.name = name ?? "";
+    this.id = null;
   }
-  public updateRowsNumber(rowsNumber: number) {
-    this.rowsNumber = rowsNumber;
+  public abstract getAll(): {};
+}
+
+export interface IExerciseTemplate extends IIdName {
+  level: number;
+
+  description: string;
+  descriptionShort: string;
+  duration: number;
+  active: boolean;
+  imageUrl: string;
+  weight: number;
+  public: boolean;
+  exerciseTemplateMuscle: Array<Muscle>;
+}
+
+export class ExerciseTemplate extends BaseIdName implements IExerciseTemplate {
+  public level = 1;
+  public id?: number | null = null;
+  public name = "";
+  public description = "";
+  public descriptionShort = "";
+  public duration = 30;
+  public active = false;
+  public imageUrl = "";
+  public weight = 0;
+  public public = false;
+  // public createdAt = new Date();
+  // public updatedAt = new Date();
+  public exerciseTemplateMuscle = [];
+  constructor(name?: string) {
+    super(name);
+    //this.id = null;
+    //this.name = name ?? "";
+    this.level = 1;
+    this.description = "";
+    this.descriptionShort = "";
+    this.duration = 30;
+    this.active = false;
+    this.imageUrl = "";
+    this.weight = 0;
+    this.public = false;
+    this.exerciseTemplateMuscle = [];
   }
-  public updateValues(values: ITablePagination) {
-    this.sortBy = values.sortBy;
-    this.descending = values.descending;
-    this.page = values.page;
-    this.rowsPerPage = values.rowsPerPage;
-    this.rowsNumber = values.rowsNumber;
-  }
+
   public getAll() {
     return {
-      sortBy: this.sortBy,
-      descending: this.descending,
-      page: this.page,
-      rowsPerPage: this.rowsPerPage,
-      rowsNumber: this.rowsNumber,
+      id: this.id,
+      name: this.name,
+      level: this.level,
+      description: this.description,
+      descriptionShort: this.descriptionShort,
+      duration: this.duration,
+      active: this.active,
+      imageUrl: this.imageUrl,
+      weight: this.weight,
+      public: this.public,
+      exerciseTemplateMuscle: this.exerciseTemplateMuscle,
     };
-  }
-}
-
-export interface ISlug {
-  id: number;
-  name: string;
-  action: string;
-}
-
-export class Slug implements ISlug {
-  public id: number;
-  public name: string;
-  public action: string;
-  public slug: string;
-  constructor(slugObj: ISlug, action: string) {
-    this.id = slugObj.id;
-    this.name = slugObj.name;
-    this.action = action;
-    this.slug = generateSlug(this.id + "-" + this.name);
-  }
-  public getSlug() {
-    return "/" + this.action + "/" + this.slug;
   }
 }

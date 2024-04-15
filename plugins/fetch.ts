@@ -21,7 +21,23 @@ export default defineNuxtPlugin((nuxtApp) => {
         $q.notify({
           type: "positive",
           caption: "Все ок",
-          message: "Сохранил",
+          message: "СОздал",
+          timeout: 500,
+        });
+      }
+      if (options.method === "PUT") {
+        $q.notify({
+          type: "positive",
+          caption: "Все ок",
+          message: "Обновил",
+          timeout: 500,
+        });
+      }
+      if (options.method === "PATCH") {
+        $q.notify({
+          type: "positive",
+          caption: "Все ок",
+          message: "Обновил значение",
           timeout: 500,
         });
       }

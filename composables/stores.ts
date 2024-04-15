@@ -45,3 +45,10 @@ import { useMuscleStore } from "~/stores/muscle";
 export const muscleStore = () => {
   return useMuscleStore();
 };
+
+// import type { IExerciseTemplate } from "~/types/types";
+
+// import { useCrudStore } from "~/stores/crud";
+// export const CrudStore = (resource: string) => {
+//   return useCrudStore(resource);
+// };
