@@ -32,75 +32,75 @@ export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
       this.currentItem = new ExerciseTemplate(val).getAll();
       return this.currentItem;
     },
-    async getById(id: number) {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch(`/api/${store.$id}/${id}`, {
-          method: "get",
-        });
-        if (response) {
-          updateArray(response, this.itemArray);
-          this.currentItem = response;
-        }
-      })(null);
-    },
-    setPagination(pagination: ITablePagination) {
-      this.pagination = pagination;
-    },
+    // async getById(id: number) {
+    //   withErrorHandling(this)(async (props, store) => {
+    //     const response = await $fetch(`/api/${store.$id}/${id}`, {
+    //       method: "get",
+    //     });
+    //     if (response) {
+    //       updateArray(response, this.itemArray);
+    //       this.currentItem = response;
+    //     }
+    //   })(null);
+    // },
+    // setPagination(pagination: ITablePagination) {
+    //   this.pagination = pagination;
+    // },
     // async search(filter: string) {
     //   var x = searchItems(this, filter);
     //   console.log(x);
     // },
-    async fetchAll() {
-      withErrorHandling(this)(async (payload, store) => {
-        const { data } = await useFetch(baseUrl + "all", {
-          method: "get",
-        });
+    // async fetchAll() {
+    //   withErrorHandling(this)(async (payload, store) => {
+    //     const { data } = await useFetch(baseUrl + "all", {
+    //       method: "get",
+    //     });
 
-        if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
-      })(null);
-    },
+    //     if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
+    //   })(null);
+    // },
 
-    async fetchMyAndPublic() {
-      withErrorHandling(this)(async (payload, store) => {
-        const { data } = await useFetch(baseUrl + "myandpublic", {
-          method: "get",
-        });
+    // async fetchMyAndPublic() {
+    //   withErrorHandling(this)(async (payload, store) => {
+    //     const { data } = await useFetch(baseUrl + "myandpublic", {
+    //       method: "get",
+    //     });
 
-        if (data.value !== null && data.value.length > 0) {
-          this.itemArray = data.value;
-        }
-      })(null);
-    },
+    //     if (data.value !== null && data.value.length > 0) {
+    //       this.itemArray = data.value;
+    //     }
+    //   })(null);
+    // },
 
-    async updateCurrentItem() {
-      withErrorHandling(this)(async (payload, store) => {
-        //this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
+    // async updateCurrentItem() {
+    //   withErrorHandling(this)(async (payload, store) => {
+    //     //this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
 
-        const response = await $fetch(baseUrl + "update", {
-          method: "put",
-          body: { ...this.currentItem },
-        });
+    //     const response = await $fetch(baseUrl + "update", {
+    //       method: "put",
+    //       body: { ...this.currentItem },
+    //     });
 
-        updateArray(response, this.itemArray);
-        this.currentItem = response;
-      })(null);
-    },
-    async createCurrentItem() {
-      withErrorHandling(this)(async (payload, store) => {
-        //this.currentItem.descriptionShort = getFirstWords(this.currentItem.description);
-        const response = await $fetch(baseUrl + "create", {
-          method: "post",
-          body: { ...this.currentItem },
-        });
+    //     updateArray(response, this.itemArray);
+    //     this.currentItem = response;
+    //   })(null);
+    // },
+    // async createCurrentItem() {
+    //   withErrorHandling(this)(async (payload, store) => {
 
-        updateArray(response, this.itemArray);
-        this.currentItem = response;
-      })(null);
-    },
+    //     const response = await $fetch(baseUrl + "create", {
+    //       method: "post",
+    //       body: { ...this.currentItem },
+    //     });
+
+    //     updateArray(response, this.itemArray);
+    //     this.currentItem = response;
+    //   })(null);
+    // },
 
     async updateItemField(field: String, val, id: number) {
       withErrorHandling(this)(async (payload, store) => {
-        const item = getById(id, this.itemArray);
+        const item = getByIdFromArray(id, this.itemArray);
         if (item === null) return;
         item[field] = val;
         const response = await $fetch(baseUrl + "field", {
@@ -110,16 +110,16 @@ export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
       })(null);
     },
 
-    async deleteItem(id) {
-      withErrorHandling(this)(async (payload, store) => {
-        const response = await $fetch(baseUrl + "delete", {
-          method: "delete",
-          body: { id },
-        });
+    // async deleteItem(id) {
+    //   withErrorHandling(this)(async (payload, store) => {
+    //     const response = await $fetch(baseUrl + "delete", {
+    //       method: "delete",
+    //       body: { id },
+    //     });
 
-        if (this.currentItem.id === id) this.newItem();
-        removeItemFromArr(id, this.itemArray);
-      })(null);
-    },
+    //     if (this.currentItem.id === id) this.newItem();
+    //     removeItemFromArr(id, this.itemArray);
+    //   })(null);
+    // },
   },
 });

@@ -38,26 +38,19 @@ const store = useExerciseTemplateStore();
 const { data, pending, error, refresh, execute } = await searchItems(store);
 
 const tableRef = ref(null);
-const emits = defineEmits(["edit", "confirmDelete"]);
+const emits = defineEmits(["onEditItem", "confirmDelete"]);
 
 const onRequest = async (props) => {
-  try {
-    store.setPagination(props.pagination);
-    store.filter = props.filter;
-    await refresh();
-    store.pagination.rowsNumber = data.value.totalCount;
-  } catch (e) {
-    console.log(e);
-  }
+  setPaginationAndFilter(store, props.pagination, props.filter);
+  await refresh();
+  store.pagination.rowsNumber = data.value.totalCount;
 };
 
 const onEditItem = async (id) => {
-  //store.currentItem = Object.assign({}, getById(id, store.itemArray));
-  //await store.getById(id);
-  emits("edit", id);
+  emits("onEditItem", id);
 };
 const onDeleteItem = async (id) => {
-  await store.deleteItem(id);
+  await deleteItem(store, id);
 };
 const onUpdateField = async (field, val, id) => {
   await store.updateItemField(field, val, id);

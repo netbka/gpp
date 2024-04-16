@@ -87,7 +87,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
 
     async updateItemField(field: String, val, id: number, arr: Array) {
       try {
-        const item = arr === undefined ? getById(id, this.itemArray) : getById(id, arr);
+        const item = arr === undefined ? getByIdFromArray(id, this.itemArray) : getByIdFromArray(id, arr);
         if (item === null) return;
         item[field] = val;
         const response = await $fetch("/api/exerciseGroup/field", {

@@ -5,23 +5,22 @@
       :subHeader="'Популярные упражнения от Просто ОФП'"
     ></ContentHero>
 
-    <ExercisetemplateTable @edit="show" :readOnly="false"></ExercisetemplateTable>
+    <ExercisetemplateTable
+      @onEditItem="showForm"
+      :readOnly="!isAdmin()"
+    ></ExercisetemplateTable>
 
     <ExercisetemplateForm ref="form"></ExercisetemplateForm>
-    <BaseFab @newItem="newItem" :readOnly="false"></BaseFab>
+    <BaseFab @newItem="showForm" :readOnly="!isAdmin()"></BaseFab>
   </div>
 </template>
 <script lang="ts" setup>
 definePageMeta({ auth: false });
 const form = ref(null);
-const store = useExerciseTemplateStore();
-store.newItem();
-const newItem = () => {
-  store.newItem();
-  show();
-};
+//const store = useExerciseTemplateStore();
+const { isAdmin } = useAuthUser();
 
-const show = (id) => {
+const showForm = (id) => {
   form.value.show(id);
 };
 </script>

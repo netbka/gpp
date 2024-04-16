@@ -133,9 +133,11 @@ const onSubmit = async () => {
   });
 
   if (store.currentItem.id === null) {
-    await store.createCurrentItem();
+    //await store.createCurrentItem();
+    await createItem(store);
   } else {
-    await store.updateCurrentItem();
+    await updateItem(store);
+    //await store.updateCurrentItem();
   }
 
   if (imageToUpload.value != null) {
@@ -154,7 +156,11 @@ const newItem = () => {
 const form = ref(null);
 
 const show = async (id) => {
-  store.getById(id);
+  if (id) {
+    getById(store, id);
+  } else {
+    store.newItem();
+  }
   form.value.show();
 };
 const validate = (val) => {

@@ -1,5 +1,7 @@
 <template>
-  <ContentCard :data="data"></ContentCard>
+  <div>
+    <ContentCard :data="data" :loading="pending" v-if="data"></ContentCard>
+  </div>
 </template>
 <script lang="ts" setup>
 definePageMeta({ auth: false });
@@ -11,7 +13,13 @@ const { data, pending, error, refresh, execute } = await getItemById(
   store,
   parseSlugId(id)
 );
-//await store.getById(parseSlugId(id));
+console.log(error.value);
+// if (error.value) {
+//   throw createError({
+//     statusCode: 404,
+//     message: "Нет такого упражнения", //"Этого занятия нет",
+//   });
+// }
 </script>
 
 <style scoped>

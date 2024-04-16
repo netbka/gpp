@@ -1,7 +1,8 @@
 const user = ref(null);
-//peter@mamrukov.com
+
 export const useAuthUser = () => {
   const supabase = useSupabaseClient();
+  const user = useSupabaseUser();
   const login = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -105,8 +106,12 @@ export const useAuthUser = () => {
     }
   };
 
+  const isAdmin = () => {
+    return user.value?.email === "netbka@gmail.com";
+  };
+
   return {
-    user,
+    isAdmin,
     login,
     loginWithSocialProvider,
     isLoggedIn,

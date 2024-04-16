@@ -41,7 +41,7 @@ const executeItem = async (prop) => {
   await navigateTo({ path: "/training/" + url });
 };
 const editItem = (prop) => {
-  store.currentItem = getById(prop.row.id, store.itemArray);
+  store.currentItem = getByIdFromArray(prop.row.id, store.itemArray);
   emits("edit");
 };
 const deleteItem = async (id) => {

@@ -98,7 +98,7 @@ export const useExerciseStore = defineStore("ExerciseStore", {
     },
     async updateItemField(field: String, val, id: number, item: Exercise) {
       withErrorHandling(this)(async (props, store) => {
-        item = item ? item : getById(id, this.itemArray);
+        item = item ? item : getByIdFromArray(id, this.itemArray);
 
         if (item === null || item === undefined) return;
         item[field] = val;

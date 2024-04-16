@@ -26,14 +26,16 @@ export default defineEventHandler(async (event) => {
 
     if (result === null) {
       throw createError({
-        statusCode: 403,
-        statusMessage: "Нет доступа к этому занятию",
+        statusCode: 404,
+        message: "Нет доступа к этому занятию",
       });
     }
 
     return result;
   } catch (error) {
+    prisma.$disconnect();
     console.log(error);
+    return error;
   } finally {
     prisma.$disconnect();
   }

@@ -120,7 +120,7 @@ export const useTrainingStore = defineStore("TrainingStore", {
 
     async updateItemField(field: String, val, id: number) {
       withErrorHandling(this)(async (props, store) => {
-        const item = getById(id, this.itemArray);
+        const item = getByIdFromArray(id, this.itemArray);
         if (item === null) return;
         item[field] = val;
         const response = await $fetch(baseUrl + "field", {

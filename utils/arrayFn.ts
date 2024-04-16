@@ -47,7 +47,7 @@ export const removeNestedItemFromArr = (val: number, arr: Array) => {
   }
 };
 
-export const getById = (val: number, arr: Array) => {
+export const getByIdFromArray = (val: number, arr: Array) => {
   var index = arr.findIndex((el) => el.id === val);
   if (index > -1) {
     return arr[index];

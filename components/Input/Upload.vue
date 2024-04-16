@@ -3,7 +3,15 @@
     <div class="row justify-center">
       <div class="col-12 self-center">
         <div v-if="preview">
-          <img :src="preview" class="img-fluid" />
+          <!-- <img :src="preview" class="img-fluid" /> -->
+          <q-img
+            fit="scale-down"
+            :src="preview"
+            :error-src="errorImg"
+            style="max-width: 300px; height: 300px"
+            class="img-fluid"
+          >
+          </q-img>
         </div>
         <q-file
           clearable
@@ -39,6 +47,8 @@ let image = ref(null);
 let preview = ref(null);
 const picker = ref(null);
 const emits = defineEmits(["updateImge"]);
+import defaultImage from "~/public/defaultCover-transparent.png";
+import errorImg from "/exerciseSmall.png";
 const previewMultiImage = (file) => {
   if (file) {
     const reader = new FileReader();
@@ -48,15 +58,15 @@ const previewMultiImage = (file) => {
     reader.readAsDataURL(file);
     emits("updateImge", file);
   } else {
-    preview.value = null;
+    preview.value = defaultImage;
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (store.currentItem.imageUrl !== "") {
     setExistingPreview(store.currentItem.id + ".gif");
   } else {
-    setNoImage();
+    await setNoImage();
   }
 });
 const onRejectedSize = (rejectedEntries) => {
@@ -66,13 +76,19 @@ const onRejectedSize = (rejectedEntries) => {
 const setExistingPreview = (filename) => {
   preview.value = getExerciseImage(filename);
 };
-const setNoImage = () => {
-  preview.value = "/exerciseSmall.png";
+const setNoImage = async () => {
+  //var image = await fileToBlob(defaultImage);
+  preview.value = defaultImage;
+
+  let blob = await fileToBlob(defaultImage);
+  let file = blobToFile(blob, "default");
+
+  emits("updateImge", file);
 };
 
 const reset = () => {
   image.value = null;
-  preview.value = null;
+  preview.value = defaultImage;
 };
 
 defineExpose({
@@ -86,7 +102,7 @@ const handleFileSelection = () => {
 watch(
   () => store.currentItem,
   (newVal) => {
-    if (newVal.imageUrl !== "") {
+    if (newVal.imageUrl !== "" && newVal.id !== null) {
       setExistingPreview(store.currentItem.id + ".gif");
     }
   },
