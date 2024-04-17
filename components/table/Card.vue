@@ -11,8 +11,10 @@
         </q-img>
       </div>
       <div class="card-body q-px-sm">
-        <div class="text-subtitle1 text-weight-bold text-white q-py-sm">
-          {{ data.name }}
+        <div class="">
+          <h3 class="text-subtitle1 text-weight-bold text-white q-py-sm q-ma-none">
+            {{ data.name }}
+          </h3>
         </div>
         <div class="">
           <span class="text-subtitle2 text-weight-medium text-accent">Мышцы: </span>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <TableCardTable
-      :columns="exerciseTemplateEditableTableColumns()"
       :headerTitle="'Коллекция упражнений'"
       @onRequest="onRequest"
       ref="tableRef"
@@ -35,7 +34,8 @@ const props = defineProps({
 });
 
 const store = useExerciseTemplateStore();
-const { data, pending, error, refresh, execute } = await searchItems(store);
+const crud = useBasicCrud(store);
+const { data, pending, error, refresh, execute } = await crud.searchItem();
 
 const tableRef = ref(null);
 const emits = defineEmits(["onEditItem", "confirmDelete"]);
@@ -50,10 +50,10 @@ const onEditItem = async (id) => {
   emits("onEditItem", id);
 };
 const onDeleteItem = async (id) => {
-  await deleteItem(store, id);
+  await crud.deleteItem(id);
 };
 const onUpdateField = async (field, val, id) => {
-  await store.updateItemField(field, val, id);
+  //await store.updateItemField(field, val, id);
 };
 </script>
 

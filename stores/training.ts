@@ -1,14 +1,17 @@
 import { defineStore } from "pinia";
 import { type Training, type ExerciseGroup } from "~/types/types";
+import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
 interface TrainingStoreState {
   activeGroup: ExerciseGroup;
   defaultItem: Training;
   currentItem: Training;
   itemArray: [];
   loading: Boolean;
+  pagination: ITablePagination;
+  filter: string;
 }
 const baseUrl = "/api/training/";
-export const useTrainingStore = defineStore("TrainingStore", {
+export const useTrainingStore = defineStore("training", {
   state: (): TrainingStoreState => ({
     defaultItem: { id: null, name: "", description: "", descriptionShort: "", level: 0, public: true, exerciseGroup: [] },
     currentItem: { id: null, name: "", description: "", descriptionShort: "", level: 0, public: true, exerciseGroup: [] },
@@ -17,7 +20,9 @@ export const useTrainingStore = defineStore("TrainingStore", {
     isStarted: false,
     activeGroup: {},
     loading: false,
-    rowsNumber: 0,
+
+    pagination: new TablePagination().getAll(),
+    filter: "",
   }),
   getters: {
     getDuration: (state) => {

@@ -9,11 +9,11 @@ const route = useRoute();
 const { id } = route.params;
 
 const store = useExerciseTemplateStore();
-const { data, pending, error, refresh, execute } = await getItemById(
-  store,
-  parseSlugId(id)
-);
-console.log(error.value);
+//const { data, pending, error, refresh } = await getItemById(store, parseSlugId(id));
+
+const crud = useBasicCrud(store);
+const { data, pending, error, refresh } = await crud.getItemById(parseSlugId(id));
+
 // if (error.value) {
 //   throw createError({
 //     statusCode: 404,

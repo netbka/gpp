@@ -99,6 +99,8 @@
 import DOMPurify from "dompurify";
 const $q = useQuasar();
 const store = useExerciseTemplateStore();
+const crud = useBasicCrud(store);
+
 const storeMuscle = muscleStore();
 const uploader = ref(null);
 
@@ -134,9 +136,9 @@ const onSubmit = async () => {
 
   if (store.currentItem.id === null) {
     //await store.createCurrentItem();
-    await createItem(store);
+    await crud.createItem(store);
   } else {
-    await updateItem(store);
+    await crud.updateItem(store);
     //await store.updateCurrentItem();
   }
 
@@ -157,7 +159,7 @@ const form = ref(null);
 
 const show = async (id) => {
   if (id) {
-    getById(store, id);
+    crud.getById(id);
   } else {
     store.newItem();
   }

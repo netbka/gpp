@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { type Exercise, type ExerciseGroup } from "~/types/types";
+import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
 interface WorkoutStoreState {
   defaultItem: ExerciseGroup[];
   //items: Exercise[];

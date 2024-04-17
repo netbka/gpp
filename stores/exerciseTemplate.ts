@@ -5,7 +5,7 @@ interface ExerciseTemplateStoreState {
   currentItem: IExerciseTemplate;
   itemArray: [];
   loading: boolean;
-  rowsNumber: number;
+  //rowsNumber: number;
   pagination: ITablePagination;
   filter: string;
 }
@@ -15,7 +15,7 @@ export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
     currentItem: new ExerciseTemplate("").getAll(),
     itemArray: [],
     loading: false,
-    rowsNumber: 0,
+    //rowsNumber: 0,
     pagination: new TablePagination().getAll(),
     filter: "",
   }),

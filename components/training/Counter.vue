@@ -120,10 +120,12 @@ const resetTraining = () => {
 };
 
 const storeTrainingTrack = trainingTrackStore();
+const crudTT = useBasicCrud(storeTrainingTrack);
 const saveTrainingTrack = async () => {
   storeTrainingTrack.currentItem.trainingId = store.currentItem.id;
   storeTrainingTrack.currentItem.duration = store.getDuration;
-  await storeTrainingTrack.createCurrentItem();
+  //await storeTrainingTrack.createCurrentItem();
+  await crudTT.createItem();
 };
 defineExpose({
   resetTraining,

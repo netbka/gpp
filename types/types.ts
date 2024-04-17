@@ -14,7 +14,6 @@ export type TrainingTrack = PrismaTrainingTrack;
 export interface IIdName {
   id?: number | null;
   name: string;
-  //getAll(): any;
 }
 
 export abstract class BaseIdName implements IIdName {

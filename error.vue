@@ -3,7 +3,7 @@
     <LayoutNavbar />
     <q-page-container class>
       <q-page class="flex flex-center items-center justify-center back_main">
-        <q-card class="card-default absolute-center">
+        <q-card class="card-error absolute-center">
           <q-card-section>
             <div class="text-h2 text-center text-bold">Oooops.</div>
 

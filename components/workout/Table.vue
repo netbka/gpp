@@ -1,33 +1,50 @@
 <template>
   <div>
-    <TableEditable
-      :columns="trainingTableColumns()"
-      :headerTitle="'Тренировки'"
+    <TableCardTable
+      :headerTitle="'Коллекция упражнений'"
       @onRequest="onRequest"
       ref="tableRef"
-      :rows="store.itemArray"
-      :loading="store.loading"
-      :rowsNumber="store.rowsNumber"
-      @executeItem="executeItem"
+      :rows="data.result"
+      :loading="pending"
+      :showExecute="false"
+      :showEdit="true"
+      :showDelete="true"
+      :readOnly="props.readOnly"
+      :pagination="store.pagination"
+      @onEditItem="onEditItem"
+      @onDeleteItem="onDeleteItem"
+      @onUpdateField="onUpdateField"
     >
-    </TableEditable>
+    </TableCardTable>
   </div>
 </template>
 
 <script lang="ts" setup>
+const props = defineProps({
+  readOnly: { Type: Boolean, default: false },
+});
+
 const store = useTrainingStore();
+const crud = useBasicCrud(store);
+const { data, pending, error, refresh, execute } = await crud.searchItem();
+
 const tableRef = ref(null);
+const emits = defineEmits(["onEditItem", "confirmDelete"]);
 
 const onRequest = async (props) => {
-  const { page, rowsPerPage, sortBy, descending } = props.pagination;
-  const filter = props.filter;
-  await store.search(props);
+  setPaginationAndFilter(store, props.pagination, props.filter);
+  await refresh();
+  store.pagination.rowsNumber = data.value.totalCount;
 };
 
-const executeItem = async (prop) => {
-  var slug = prop.row.id + "-" + prop.row.name;
-  const url = generateSlug(slug);
-  await navigateTo({ path: "/workout/" + url });
+const onEditItem = async (id) => {
+  emits("onEditItem", id);
+};
+const onDeleteItem = async (id) => {
+  await crud.deleteItem(id);
+};
+const onUpdateField = async (field, val, id) => {
+  //await store.updateItemField(field, val, id);
 };
 </script>
 

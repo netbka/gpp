@@ -191,6 +191,17 @@ h6 {
     padding: 32px;
   }
 }
+.card-error {
+  width: 365px;
+  padding: 16px;
+}
+@media (min-width: 376px) {
+  .card-error {
+    width: calc(100vw - 10px) !important;
+    max-width: 1400px !important;
+    padding: 32px;
+  }
+}
 
 .font32 {
   font-size: 32px !important;

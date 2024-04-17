@@ -39,26 +39,26 @@ export const useTrainingTrackStore = defineStore("TrainingTrackStore", {
     //     }
     //   })(null);
     // },
-    createCurrentItem() {
-      withErrorHandling(this)(async (payload, store) => {
-        const response = await $fetch(baseUrl + "create", {
-          method: "post",
-          body: { ...store.currentItem },
-        });
+    // createCurrentItem() {
+    //   withErrorHandling(this)(async (payload, store) => {
+    //     const response = await $fetch(baseUrl + "create", {
+    //       method: "post",
+    //       body: { ...store.currentItem },
+    //     });
 
-        updateArray(response, store.itemArray);
+    //     updateArray(response, store.itemArray);
 
-        if (response) store.currentItem = response;
-      })(null);
-    },
-    async fetchAll() {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch(baseUrl + "all", {
-          method: "get",
-        });
+    //     if (response) store.currentItem = response;
+    //   })(null);
+    // },
+    // async fetchAll() {
+    //   withErrorHandling(this)(async (props, store) => {
+    //     const response = await $fetch(baseUrl + "all", {
+    //       method: "get",
+    //     });
 
-        if (response && response.length > 0) this.itemArray = response;
-      })(null);
-    },
+    //     if (response && response.length > 0) this.itemArray = response;
+    //   })(null);
+    // },
   },
 });

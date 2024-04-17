@@ -4,6 +4,7 @@ import { useQuasar } from "quasar";
 export default defineNuxtPlugin((nuxtApp) => {
   const $q = useQuasar();
   globalThis.$fetch = $fetch.create({
+    headers: useRequestHeaders(["cookie"]),
     async onResponseError({ request, options, response }) {
       try {
         $q.notify({

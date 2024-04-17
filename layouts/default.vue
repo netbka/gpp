@@ -3,9 +3,9 @@
     <LayoutNavbar />
     <q-page-container class="">
       <q-page class="" :style-fn="customstyle">
-        <NuxtErrorBoundary>
-          <NuxtPage />
-          <template #error="{ error }">
+        <!-- <NuxtErrorBoundary>
+          <NuxtPage /> -->
+        <!-- <template #error="{ error }">
             <p>
               Что-то пошло не так
               <code>{{ error }}</code>
@@ -18,9 +18,9 @@
                 Reset
               </button>
             </p>
-          </template>
-          <slot></slot>
-        </NuxtErrorBoundary>
+          </template> -->
+        <slot></slot>
+        <!-- </NuxtErrorBoundary> -->
       </q-page>
     </q-page-container>
     <LayoutFooter />
@@ -41,8 +41,5 @@ const customstyle = (offset, additionalStyles = {}) => {
   };
   return combinedStyles;
 };
-const resetError = async (error) => {
-  await navigateTo("/");
-  error.value = null;
-};
+
 </script>
