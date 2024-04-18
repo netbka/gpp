@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Slug } from "~/types/ISlug";
+import { Slug } from "~/types/types";
 import errorImg from "/exerciseSmall.png";
 const props = defineProps({
   data: { Type: Object, default: {} },

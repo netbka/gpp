@@ -80,6 +80,8 @@ export default defineNuxtConfig({
       title: "Я.ОФП - просто тренировки",
       charset: "utf-16",
       viewport: "width=device-width, initial-scale=1",
+
+      meta: [{ name: "google-site-verification", content: "uXK0HHaPvvfo536fFBdCTgJRLl57jaLZmssNa9g6U" }],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         // { rel: "preconnect", href: "https://fonts.googleapis.com" },

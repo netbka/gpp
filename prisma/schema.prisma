@@ -1,4 +1,4 @@
-//prisma migrate dev --name init
+//prisma migrate dev --name nameofmigration
 generator client {
     provider        = "prisma-client-js"
     output          = "../node_modules/.prisma/client"
@@ -41,19 +41,43 @@ model SportType {
 }
 
 model Training {
-    id               Int             @id @default(autoincrement())
-    name             String
-    description      String
-    user_id          String          @db.Uuid
-    createdAt        DateTime        @default(now())
-    updatedAt        DateTime        @updatedAt
-    public           Boolean         @default(true)
-    totalDuration    Int             @default(0)
-    level            Int             @default(0)
-    descriptionShort String          @default("")
-    exerciseGroup    ExerciseGroup[]
-    user_auth_info   users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    trainingTrack    TrainingTrack[]
+    id   Int    @id @default(autoincrement())
+    name String
+
+    level       Int    @default(0)
+    description String
+
+    duration       Int             @default(0)
+    public         Boolean         @default(true)
+    imageUrl       String          @default("")
+    user_id        String          @db.Uuid
+    createdAt      DateTime        @default(now())
+    updatedAt      DateTime        @updatedAt
+    exerciseGroup  ExerciseGroup[]
+    user_auth_info users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    trainingTrack  TrainingTrack[]
+
+    @@schema("public")
+}
+
+model ExerciseTemplate {
+    id                     Int        @id @default(autoincrement())
+    name                   String
+    description            String
+    level                  Int        @default(0)
+    duration               Int
+    public                 Boolean
+    //
+    imageUrl               String
+    active                 Boolean
+    weight                 Int?
+    //
+    user_id                String     @db.Uuid
+    createdAt              DateTime   @default(now())
+    updatedAt              DateTime   @updatedAt
+    exercise               Exercise[]
+    user_auth_info         users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    exerciseTemplateMuscle Muscle[]   @relation("exerciseTemplateMuscle")
 
     @@schema("public")
 }
@@ -100,27 +124,6 @@ model Exercise {
     templateId  Int?
     group       ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
     template    ExerciseTemplate? @relation(fields: [templateId], references: [id])
-
-    @@schema("public")
-}
-
-model ExerciseTemplate {
-    id                     Int        @id @default(autoincrement())
-    name                   String
-    description            String
-    duration               Int
-    active                 Boolean
-    imageUrl               String
-    weight                 Int?
-    user_id                String     @db.Uuid
-    createdAt              DateTime   @default(now())
-    updatedAt              DateTime   @updatedAt
-    public                 Boolean
-    level                  Int        @default(0)
-    descriptionShort       String     @default("")
-    exercise               Exercise[]
-    user_auth_info         users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    exerciseTemplateMuscle Muscle[]   @relation("exerciseTemplateMuscle")
 
     @@schema("public")
 }

@@ -14,7 +14,6 @@ export const useCrudStore = (id: string) => {
 //   }),
 // });
 
-import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
 //import { BaseIdName, type IIdName } from "~/types/types";
 //  const store = defineStore(resource, {
 //    state: () => ({

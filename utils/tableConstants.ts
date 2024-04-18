@@ -56,9 +56,9 @@ export const trainingTableColumns = () => {
       headerClasses: "gt-xs",
     },
     {
-      name: "totalDuration",
+      name: "duration",
       label: "мин:сек",
-      field: "totalDuration",
+      field: "duration",
       required: true,
       align: "center",
       sortable: true,
@@ -115,9 +115,9 @@ export const trainingEditableTableColumns = () => {
       headerClasses: "gt-xs",
     },
     {
-      name: "totalDuration",
+      name: "duration",
       label: "мин:сек",
-      field: "totalDuration",
+      field: "duration",
       required: true,
       align: "center",
       sortable: true,

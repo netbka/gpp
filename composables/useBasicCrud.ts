@@ -214,7 +214,7 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
 //   })(null);
 // };
 
-import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
+import { TablePagination, type ITablePagination } from "~/types/types";
 export const setPagination = (store, pagination: ITablePagination) => {
   store.pagination = pagination;
 };

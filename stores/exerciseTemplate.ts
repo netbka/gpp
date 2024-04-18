@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { type IExerciseTemplate, ExerciseTemplate } from "~/types/types";
-import { TablePagination, type ITablePagination } from "~/types/ITablePagination";
+import { type IExerciseTemplate, ExerciseTemplate, TablePagination, type ITablePagination } from "~/types/types";
+
 interface ExerciseTemplateStoreState {
   currentItem: IExerciseTemplate;
   itemArray: [];
