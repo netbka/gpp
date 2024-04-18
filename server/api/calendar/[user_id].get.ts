@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { weekEvents } from "~/composables/calendarDate";
+import { weekEvents } from "~/utils/calendarDate";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
