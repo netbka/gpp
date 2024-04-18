@@ -4,15 +4,17 @@ import type { PrismaClient, TrainingTrack as PrismaTrainingTrack, Muscle as Pris
 
 export type Profile = PrismaProfile;
 export type SportType = PrismaSportType;
-export type Training = PrismaTraining;
-export type ExerciseGroup = PrismaExerciseGroup;
+//export type Training = PrismaTraining;
+//export type ExerciseGroup = PrismaExerciseGroup;
 //export type ExerciseTemplate = PrismaExerciseTemplate;
-export type Exercise = PrismaExercise;
+//export type Exercise = PrismaExercise;
 export type Muscle = PrismaMuscle;
 export type TrainingTrack = PrismaTrainingTrack;
 
 export * from "./base";
 export * from "./exerciseTemplate";
-export * from "./ITablePagination";
-export * from "./ISlug";
+export * from "./tablePagination";
+export * from "./slug";
 export * from "./training";
+export * from "./exerciseGroup";
+export * from "./exercise";

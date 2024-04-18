@@ -1,6 +1,6 @@
-import { Base, type IBase, type Muscle, type TrainingTrack } from "./types";
+import { Base, type IBase, type IExerciseGroup, type TrainingTrack } from "./types";
 export interface ITraining extends IBase {
-  exerciseGroup: Array<Muscle>;
+  exerciseGroup: Array<IExerciseGroup>;
   trainingTrack: Array<TrainingTrack>;
 }
 

@@ -9,29 +9,24 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
-    body.user_id = user_id;
 
-    //body = omit(body, ["muscle"]);
+    let data = {};
+    data[body.field] = body[body.field];
 
-    // if (body.id === 0) {
-    //   //todo add automatic 3 sections
-    //   body = omit(body, ["id", "exerciseGroup"]);
-    //   result = await prisma.training.create({
-    //     data: { ...body },
-    //   });
-    // } else {
-    body = omit(body, ["exerciseGroup"]);
     let result = await prisma.training.update({
       where: {
         id: body.id,
+        user_id: user_id,
       },
-      data: { ...body },
+      data: { ...data },
     });
-    //}
 
     return result;
   } catch (error) {
-    console.log("error on submit", error);
+    throw createError({
+      statusCode: 500,
+      message: "Что-то пошло не так",
+    });
   } finally {
     await prisma.$disconnect();
   }

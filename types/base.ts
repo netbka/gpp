@@ -3,6 +3,18 @@ export interface IIdName {
   name: string;
 }
 
+export abstract class IdName implements IIdName {
+  id?: number | null;
+  name: string;
+
+  constructor(name?: string) {
+    this.name = name ?? "";
+    this.id = null;
+  }
+
+  public abstract getAll(): {};
+}
+
 export interface IBase extends IIdName {
   level: number;
   description: string;
@@ -18,8 +30,8 @@ export interface IBase extends IIdName {
 // }
 
 export abstract class Base implements IBase {
-  id?: number | null;
-  name: string;
+  // id?: number | null;
+  // name: string;
   description: string;
   level: number;
   duration: number;
@@ -27,6 +39,7 @@ export abstract class Base implements IBase {
   imageUrl: string;
   //active: boolean;
   constructor(name?: string) {
+    //super(name);
     this.name = name ?? "";
     this.id = null;
     this.level = 1;
@@ -37,6 +50,8 @@ export abstract class Base implements IBase {
 
     this.public = false;
   }
+  id?: number | null | undefined;
+  name: string;
 
   public abstract getAll(): {};
 }

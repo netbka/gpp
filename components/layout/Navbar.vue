@@ -17,14 +17,14 @@
           icon="fitness_center"
           v-show="user"
         >
-          <span class="gt-sm">Мои упражнения</span>
+          <span class="gt-sm"> упражнения</span>
         </q-btn>
         <q-btn stretch flat @click="redirectTraining" icon="bolt" v-show="user">
-          <span class="gt-sm">Мои планы</span>
+          <span class="gt-sm">Тренировки</span>
         </q-btn>
-        <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
+        <!-- <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
           <span class="gt-sm">Планы пользователей </span>
-        </q-btn>
+        </q-btn> -->
         <q-separator dark vertical class="gt-xs" />
 
         <LayoutNavLogin></LayoutNavLogin>
@@ -42,9 +42,9 @@ const redirectExerciseTemplate = async () => {
 const redirect = async () => {
   await navigateTo({ path: "/" });
 };
-const redirectEx = async () => {
-  await navigateTo({ path: "/workout" });
-};
+// const redirectEx = async () => {
+//   await navigateTo({ path: "/workout" });
+// };
 
 const redirectTraining = async () => {
   await navigateTo({ path: "/training" });

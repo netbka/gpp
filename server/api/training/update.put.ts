@@ -9,21 +9,19 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
+    body.user_id = user_id;
 
-    let data = {};
-    data[body.field] = body[body.field];
-
+    body = omit(body, ["exerciseGroup"]);
     let result = await prisma.training.update({
       where: {
         id: body.id,
-        user_id: user_id,
       },
-      data: { ...data },
+      data: { ...body },
     });
 
     return result;
   } catch (error) {
-    return null;
+    console.log("error on submit", error);
   } finally {
     await prisma.$disconnect();
   }

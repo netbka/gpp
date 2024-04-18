@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
           ], //
         }),
       },
-      skip: Number((page - 1) * rowsPerPage),
+      skip: Number((Number(page) - 1) * Number(rowsPerPage)),
       take: Number(rowsPerPage),
       select: {
         // Limit output fields

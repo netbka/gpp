@@ -1,54 +1,52 @@
 <template>
   <div>
-    <TableEditable
-      :columns="trainingEditableTableColumns()"
-      :headerTitle="'Тренировки'"
+    <TableCardTable
       @onRequest="onRequest"
       ref="tableRef"
-      :rows="store.itemArray"
-      :loading="store.loading"
-      :rowsNumber="store.rowsNumber"
+      :rows="data.result"
+      :loading="pending"
+      :showExecute="false"
       :showEdit="true"
       :showDelete="true"
-      @executeItem="executeItem"
-      @editItem="editItem"
-      @deleteItem="deleteItem"
+      :readOnly="props.readOnly"
+      :pagination="store.pagination"
+      :cardCaption="'заниматься'"
+      :cardLink="store.$id.toLowerCase()"
+      @onEditItem="onEditItem"
+      @onDeleteItem="onDeleteItem"
+      @onUpdateField="onUpdateField"
     >
-      <template v-slot:editcontrol="prop">
-        <TableInputWrapper
-          @onUpdateField="onUpdateField"
-          :propControlConfig="prop"
-        ></TableInputWrapper>
-      </template>
-    </TableEditable>
+    </TableCardTable>
   </div>
 </template>
 
 <script lang="ts" setup>
+const props = defineProps({
+  readOnly: { Type: Boolean, default: false },
+});
+
 const store = useTrainingStore();
+
+const crud = useBasicCrud(store);
+const { data, pending, error, refresh, execute } = await crud.searchItem();
+
 const tableRef = ref(null);
-const emits = defineEmits(["edit", "confirmDelete"]);
+const emits = defineEmits(["onEditItem", "confirmDelete"]);
 
 const onRequest = async (props) => {
-  const { page, rowsPerPage, sortBy, descending } = props.pagination;
-  const filter = props.filter;
-  await store.searchOwn(props);
+  setPaginationAndFilter(store, props.pagination, props.filter);
+  await refresh();
+  store.pagination.rowsNumber = data.value.totalCount;
 };
 
-const executeItem = async (prop) => {
-  var slug = prop.row.id + "-" + prop.row.name;
-  const url = generateSlug(slug);
-  await navigateTo({ path: "/training/" + url });
+const onEditItem = async (id) => {
+  emits("onEditItem", id);
 };
-const editItem = (prop) => {
-  store.currentItem = getByIdFromArray(prop.row.id, store.itemArray);
-  emits("edit");
-};
-const deleteItem = async (id) => {
-  await store.deleteItem(id);
+const onDeleteItem = async (id) => {
+  await crud.deleteItem(id);
 };
 const onUpdateField = async (field, val, id) => {
-  await store.updateItemField(field, val, id);
+  //await store.updateItemField(field, val, id);
 };
 </script>
 

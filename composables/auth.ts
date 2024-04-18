@@ -109,8 +109,12 @@ export const useAuthUser = () => {
   const isAdmin = () => {
     return user.value?.email === "netbka@gmail.com";
   };
+  const currentUserId = () => {
+    return user.value?.id;
+  };
 
   return {
+    currentUserId,
     isAdmin,
     login,
     loginWithSocialProvider,

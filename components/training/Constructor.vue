@@ -6,11 +6,11 @@
       @onSaveTraining="confirmAddTrainingDescription"
       :readOnly="readOnly"
     ></TrainingBtnControls>
-    <q-skeleton height="150px" square v-show="showSkeleton" />
+    <q-skeleton height="650px" square v-show="store.loading" />
     <BaseNested
-      v-show="!showSkeleton"
+      v-show="!store.loading"
       :readOnly="readOnly"
-      :data="item.exerciseGroup"
+      :data="store.currentItem.exerciseGroup"
       @onAddExercise="onAddExercise"
       @onDeleteGroup="onDeleteGroup"
       @onDeleteExercise="onDeleteExercise"
@@ -47,15 +47,16 @@ const props = defineProps({
 });
 const dialog = ref(null);
 const store = trainingStore();
-const item = computed(() => store.getCurrentItem);
-const showSkeleton = ref(true);
-watch(
-  () => item,
-  (val) => {
-    showSkeleton.value = false;
-  },
-  { deep: true }
-);
+
+// const showSkeleton = ref(true);
+// watch(
+//   () => store.getCurrentItem,
+//   (val) => {
+//     showSkeleton.value = false;
+//     console.log(val);
+//   },
+//   { deep: true }
+// );
 
 const storeExerciseGroup = exerciseGroupStore();
 const storeExercise = exerciseStore();

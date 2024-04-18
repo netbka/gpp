@@ -1,7 +1,7 @@
 <template>
   <div>
     <TableCardTable
-      :headerTitle="'Коллекция упражнений'"
+      
       @onRequest="onRequest"
       ref="tableRef"
       :rows="data.result"
@@ -11,6 +11,8 @@
       :showDelete="true"
       :readOnly="props.readOnly"
       :pagination="store.pagination"
+      :cardCaption="'Подробнее'"
+      :cardLink="store.$id.toLowerCase()"
       @onEditItem="onEditItem"
       @onDeleteItem="onDeleteItem"
       @onUpdateField="onUpdateField"

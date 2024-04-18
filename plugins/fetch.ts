@@ -22,7 +22,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         $q.notify({
           type: "positive",
           caption: "Все ок",
-          message: "СОздал",
+          message: "Создал",
           timeout: 500,
         });
       }

@@ -4,7 +4,7 @@
       ref="form"
       class="no-padding"
       @onSubmit="onSubmit()"
-      @newItem="newItem()"
+      @newItem="newItem"
       @onHide="onHide"
       :propHeading="store.currentItem.name"
       :propNewVisible="store.currentItem.id !== null"
@@ -26,19 +26,11 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <q-input
-            bg-color="white"
-            dense
-            outlined
-            v-model="store.currentItem.description"
-            label="Описание"
-            :disable="store.loading"
-            :input-style="{ fontSize: '12px', maxHeight: '200px' }"
-            type="textarea"
-          />
+          <q-editor v-model="store.currentItem.description" :toolbar="editorToolbar($q)">
+          </q-editor>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if="isAdmin">
         <div class="col-12">
           <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
         </div>
@@ -48,28 +40,38 @@
 </template>
 
 <script lang="ts" setup>
+import DOMPurify from "dompurify";
+const $q = useQuasar();
 const store = useTrainingStore();
+const crud = useBasicCrud(store);
+
+const { isAdmin } = useAuthUser();
+const onHide = () => {
+  store.newItem("");
+};
+const newItem = () => {
+  store.newItem();
+};
 const form = ref(null);
 
-const onHide = () => {
-  store.resetCurrentItem();
-};
-const show = () => {
+const show = (id) => {
+  id ? crud.getById(id) : store.newItem();
+
   form.value.show();
 };
 defineExpose({
   show,
 });
-const newItem = () => {
-  store.resetCurrentItem();
-};
+
 const onSubmit = async () => {
+  store.currentItem.description = sanitizeHtml(store.currentItem.description);
   if (store.currentItem.id === null) {
-    await store.createCurrentItem();
+    await crud.createItem(store);
   } else {
-    await store.updateCurrentItem();
+    await crud.updateItem(store);
   }
 };
+
 </script>
 
 <style></style>

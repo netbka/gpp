@@ -41,11 +41,11 @@
         <div class="text-light-blue-7 text-h4 text-uppercase text-center">
           {{ store.activeGroup.name }}
         </div>
-        <div class="text-light-blue-2 text-h5 text-center">
+        <div class="text-light-blue-10 text-h4 text-center">
           {{ showExerciseName() }}
         </div>
         <div v-if="exerciseImage" class="text-center">
-          <img :src="exerciseImage" class="img-fluid" />
+          <img :src="exerciseImage" class="img-training" />
         </div>
       </q-card-section>
     </q-card>
@@ -233,8 +233,11 @@ watch(isStarted, () => {
 </script>
 
 <style>
-.img-fluid {
+.img-training {
   height: calc(100vh / 3);
+  object-fit: scale-down;
+  max-width: 1400px;
+  width: -webkit-fill-available;
 }
 .padding {
   padding-left: calc((100vw - 1439px) / 2);

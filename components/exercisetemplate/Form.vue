@@ -5,7 +5,7 @@
       class="no-padding"
       @onSubmit="onSubmit()"
       @newItem="newItem"
-      @onHide="newItem"
+      @onHide="onHide"
       :propHeading="store.currentItem.name"
       :propNewVisible="store.currentItem.id !== null"
       :propLoading="store.loading"
@@ -84,7 +84,7 @@
               ></InputSelectMuscle>
             </div>
           </div>
-          <div class="row">
+          <div class="row" v-if="isAdmin">
             <div class="col-12">
               <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
             </div>
@@ -96,10 +96,11 @@
 </template>
 
 <script setup>
-import DOMPurify from "dompurify";
 const $q = useQuasar();
 const store = useExerciseTemplateStore();
 const crud = useBasicCrud(store);
+
+const { isAdmin } = useAuthUser();
 
 const storeMuscle = muscleStore();
 const uploader = ref(null);
@@ -108,61 +109,35 @@ const imageToUpload = ref(null);
 const imageUpdate = (img) => {
   imageToUpload.value = img;
 };
-// const config = {
-//   sanitizer: function (dirtyHTML) {
-//     const cleanHTML = DOMPurify.sanitize(dirtyHTML);
-//     // Remove elements with external links
-//     const parser = new DOMParser();
-//     const doc = parser.parseFromString(cleanHTML, "text/html");
-//     const links = doc.querySelectorAll("a");
-//     for (let i = 0; i < links.length; i++) {
-//       const link = links[i];
-//       if (link.href && !link.href.startsWith(window.location.origin)) {
-//         link.remove();
-//       }
-//     }
-//     return doc.body.innerHTML;
-//   },
-// };
+
 const onSubmit = async () => {
   if (imageToUpload.value != null) {
     store.currentItem.imageUrl = ".gif";
   }
   store.currentItem.newItems = storeMuscle.currentItem;
-  store.currentItem.description = DOMPurify.sanitize(store.currentItem.description, {
-    FORBID_ATTR: ["style", "a", "href", "class", "path"],
-    FORBID_TAGS: ["style", "class", "path"],
-  });
-
+  store.currentItem.description = sanitizeHtml(store.currentItem.description);
   if (store.currentItem.id === null) {
-    //await store.createCurrentItem();
     await crud.createItem(store);
   } else {
     await crud.updateItem(store);
-    //await store.updateCurrentItem();
   }
 
   if (imageToUpload.value != null) {
     await updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
   }
 };
-
+const onHide = () => {
+  store.newItem("");
+};
 const newItem = () => {
   store.newItem();
-
   uploader.value.reset();
 };
-// const onHide = () => {
-//   store.resetCurrentItem();
-// };
+
 const form = ref(null);
 
 const show = async (id) => {
-  if (id) {
-    crud.getById(id);
-  } else {
-    store.newItem();
-  }
+  id ? crud.getById(id) : store.newItem();
   form.value.show();
 };
 const validate = (val) => {

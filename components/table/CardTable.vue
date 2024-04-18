@@ -38,8 +38,9 @@
 
               <TableCard
                 :data="prop.row"
-                :cols="prop.cols"
                 :readOnly="props.readOnly"
+                :cardLink="props.cardLink"
+                :cardCaption="props.cardCaption"
                 @onUpdateField="onUpdateField"
                 @onEditItem="onEditItem"
                 @onDeleteItem="confirmDelete"
@@ -69,6 +70,8 @@ const props = defineProps({
 
   readOnly: { Type: Boolean, default: true },
   pagination: { Type: Object, default: {} },
+  cardLink: { Type: String, default: "" },
+  cardCaption: { Type: String, default: "" },
 });
 
 const dialog = ref(null);

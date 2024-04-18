@@ -27,23 +27,20 @@
 definePageMeta({ auth: true });
 const route = useRoute();
 const { id } = route.params;
-
 const store = trainingStore();
+const crud = useBasicCrud(store);
 
-onBeforeMount(async () => {
-  await store.getById(parseSlugId(id));
-});
-
-//const item = computed(() => store.getCurrentItem);
+//const { data, pending, error, refresh } = await crud.getItemById(parseSlugId(id));
+await crud.getById(parseSlugId(id));
 
 const updateItem = async (field, value, id) => {
-  await store.updateItemField(field, value, id);
+  await crud.updateItemField(field, value, id);
 };
 
 const storeExerciseTemplate = exerciseTemplateStore();
-await storeExerciseTemplate.fetchAll();
+const crudExerciseTemplate = useBasicCrud(storeExerciseTemplate);
+await crudExerciseTemplate.fetchAll();
 
-//const duration = computed(() => calculateDuration(store.currentItem.exerciseGroup));
 const duration = ref({ min: 0, sec: 0 });
 watch(
   () => store.getDuration,

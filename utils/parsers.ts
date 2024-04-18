@@ -66,3 +66,11 @@ export const getFirstWords = (html) => {
   // Return the combined content (up to 60 words)
   return resultString;
 };
+
+import DOMPurify from "dompurify";
+export const sanitizeHtml = (val) => {
+  return DOMPurify.sanitize(val, {
+    FORBID_ATTR: ["style", "a", "href", "class", "path"],
+    FORBID_TAGS: ["style", "class", "path"],
+  });
+};

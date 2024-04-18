@@ -16,7 +16,6 @@ interface ItemResponse<T> {
 export const useBasicCrud = <T>(store) => ({
   async fetchAll(): Promise<ArrayResponse<T>> {
     const { data, pending, error, refresh } = await useAsyncData<TableResponse<T>>(`${store.$id}-fetchAll`, () => $fetch(`/api/${store.$id}/all`));
-
     return { data, pending, error, refresh };
   },
   async searchItem(): Promise<TableResponse<T>> {
@@ -44,8 +43,10 @@ export const useBasicCrud = <T>(store) => ({
     );
 
     if (data.value) {
+      
       updateArray(data.value, store.itemArray);
       store.currentItem = data.value;
+      
     }
     if (error.value) {
       throw createError({
@@ -99,6 +100,21 @@ export const useBasicCrud = <T>(store) => ({
       }
     })(null);
   },
+  async updateItemField(field: string, val, id: number) {
+    withErrorHandling(store)(async (payload, store) => {
+      const item = getByIdFromArray(id, store.itemArray);
+      if (item === null) return;
+      item[field] = val;
+      const response = await $fetch(`/api/${store.$id}/field`, {
+        method: "PATCH",
+        body: { ...item, field },
+      });
+      if (response) {
+        updateArray(response, store.itemArray);
+        store.currentItem = response;
+      }
+    })(null);
+  },
 });
 
 export const withErrorHandling = (store) => (actionFn) => async (payload) => {
@@ -113,6 +129,14 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
   }
 };
 
+import { TablePagination, type ITablePagination } from "~/types/types";
+export const setPagination = (store, pagination: ITablePagination) => {
+  store.pagination = pagination;
+};
+export const setPaginationAndFilter = (store, pagination: ITablePagination, filter: string) => {
+  store.pagination = pagination;
+  store.filter = filter;
+};
 // export const createItem = async (store) => {
 //   await withErrorHandling(store)(async (payload, store) => {
 //     const response = await $fetch(`/api/${store.$id}/create`, {
@@ -213,15 +237,6 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
 //     return { data, pending, error, refresh };
 //   })(null);
 // };
-
-import { TablePagination, type ITablePagination } from "~/types/types";
-export const setPagination = (store, pagination: ITablePagination) => {
-  store.pagination = pagination;
-};
-export const setPaginationAndFilter = (store, pagination: ITablePagination, filter: string) => {
-  store.pagination = pagination;
-  store.filter = filter;
-};
 
 // export const template = async (store, id: number) => {
 //   withErrorHandling(store)(async (payload, store) => {

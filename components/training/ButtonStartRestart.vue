@@ -33,7 +33,7 @@ let startBtn = reactive({
   textStart: "Погнали",
   iconStart: "play_arrow",
 
-  textRestart: "В начало",
+  textRestart: "Заново",
   iconRestart: "restart_alt",
 
   textPause: "Пауза",

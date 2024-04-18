@@ -43,7 +43,7 @@
 
     <q-card-actions class="card-actions" align="right">
       <q-btn
-        v-show="!props.readOnly"
+        v-show="showDeleteButton"
         flat
         color="light-green-9"
         size="sm"
@@ -53,7 +53,7 @@
       >
       </q-btn>
       <q-btn
-        v-show="!props.readOnly"
+        v-show="showDeleteButton"
         flat
         color="red-7"
         size="sm"
@@ -63,7 +63,7 @@
       >
       </q-btn>
       <q-btn outline color="secondary" size="sm">
-        <NuxtLink class="no-style" :to="link(data)">подробнее</NuxtLink></q-btn
+        <NuxtLink class="no-style" :to="link(data)">{{ cardCaption }}</NuxtLink></q-btn
       >
     </q-card-actions>
   </q-card>
@@ -76,11 +76,15 @@ const props = defineProps({
   data: { Type: Object, default: {} },
   //cols: { Type: Object, default: {} },
   readOnly: { Type: Boolean, default: true },
+  cardLink: { Type: String, default: "" },
+  cardCaption: { Type: String, default: "" },
 });
 const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem"]);
 const link = (data) => {
-  return new Slug(data, "exercisetemplate").getSlug();
+  return new Slug(data, props.cardLink).getSlug();
 };
+const { currentUserId } = useAuthUser();
+const showDeleteButton = computed(() => props.data.user_id === currentUserId());
 </script>
 
 <style scoped>

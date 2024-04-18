@@ -1,28 +1,32 @@
 <template>
-  <div class="shadow-1">
-    <BaseFab @newItem="newItem"></BaseFab>
-    <TrainingForm ref="form"></TrainingForm>
-    <TrainingTable @edit="show"></TrainingTable>
+  <div>
+    <NuxtErrorBoundary>
+      <NuxtPage />
+      <template #error="{ error }">
+        <ErrorBoundary :error="error" />
+      </template>
+      <ContentHero
+        :header="'Подборка тренировок'"
+        :subHeader="'Не трать время на планирование. Все готово от Просто ОФП'"
+      ></ContentHero>
+
+      <TrainingTable @onEditItem="showForm" :readOnly="!isAdmin()"></TrainingTable>
+
+      <TrainingForm ref="form"></TrainingForm>
+      <BaseFab @newItem="showForm" :readOnly="!isAdmin()"></BaseFab>
+    </NuxtErrorBoundary>
   </div>
 </template>
 
 <script lang="ts" setup>
-definePageMeta({ auth: true });
+definePageMeta({ auth: false });
 const form = ref(null);
 
-const store = useTrainingStore();
-const newItem = () => {
-  store.resetCurrentItem();
-  show();
-};
+const { isAdmin } = useAuthUser();
 
-const show = () => {
-  form.value.show();
+const showForm = (id) => {
+  form.value.show(id);
 };
 </script>
 
-<style scoped>
-.totop {
-  z-index: 999;
-}
-</style>
+<style scoped></style>
