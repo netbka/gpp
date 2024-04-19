@@ -120,7 +120,7 @@ const resetTraining = () => {
 };
 
 const storeTrainingTrack = trainingTrackStore();
-const crudTT = useBasicCrud(storeTrainingTrack);
+const crudTT = useSSRCrud(storeTrainingTrack);
 const saveTrainingTrack = async () => {
   storeTrainingTrack.currentItem.trainingId = store.currentItem.id;
   storeTrainingTrack.currentItem.duration = store.getDuration;

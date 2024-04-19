@@ -36,7 +36,7 @@ const props = defineProps({
 });
 
 const store = useExerciseTemplateStore();
-const crud = useBasicCrud(store);
+const crud = useSSRCrud(store);
 const { data, pending, error, refresh, execute } = await crud.searchItem();
 
 const tableRef = ref(null);

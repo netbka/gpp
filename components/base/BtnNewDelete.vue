@@ -18,7 +18,7 @@
       dense
       round
       icon="close"
-      color="deep-orange-5"
+      color="deep-orange-4"
       @click="confirmDelete()"
       v-show="!props.readOnly"
     />

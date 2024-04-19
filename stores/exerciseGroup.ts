@@ -8,7 +8,7 @@ interface ExerciseGroupStoreState {
   itemArray: ExerciseGroup[];
 }
 
-export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
+export const useExerciseGroupStore = defineStore("exerciseGroup", {
   state: (): ExerciseGroupStoreState => ({
     defaultItem: { id: null, name: "Группа №", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
     currentItem: { id: null, name: "", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
@@ -29,7 +29,7 @@ export const useExerciseGroupStore = defineStore("ExerciseGroupStore", {
     },
   },
   actions: {
-    resetCurrentItem(trainingId: Number, itemCount: Number) {
+    resetCurrentItem(trainingId: number, itemCount: number) {
       this.currentItem = Object.assign({}, this.defaultItem);
       this.currentItem.trainingId = trainingId;
       this.currentItem.name = this.currentItem.name + (itemCount + 1);

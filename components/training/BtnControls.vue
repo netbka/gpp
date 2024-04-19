@@ -38,14 +38,13 @@
     <div class="col-auto">
       <q-btn
         :disable="store.getDuration == 0"
-        icon="outlined_flag"
+        icon="fa-brands fa-golang"
         outline
         @click="$emit('start')"
         class="q-mr-xs"
-        color="secondary"
+        color="red-13"
         size="sm"
-        >Go</q-btn
-      >
+      ></q-btn>
       <!-- <q-btn
         icon="library_add"
         outline

@@ -98,7 +98,7 @@
 <script setup>
 const $q = useQuasar();
 const store = useExerciseTemplateStore();
-const crud = useBasicCrud(store);
+const crud = useClientCrud(store);
 
 const { isAdmin } = useAuthUser();
 
@@ -111,9 +111,9 @@ const imageUpdate = (img) => {
 };
 
 const onSubmit = async () => {
-  if (imageToUpload.value != null) {
-    store.currentItem.imageUrl = ".gif";
-  }
+  // if (imageToUpload.value != null) {
+  //   store.currentItem.imageUrl = ".gif";
+  // }
   store.currentItem.newItems = storeMuscle.currentItem;
   store.currentItem.description = sanitizeHtml(store.currentItem.description);
   if (store.currentItem.id === null) {
@@ -122,9 +122,9 @@ const onSubmit = async () => {
     await crud.updateItem(store);
   }
 
-  if (imageToUpload.value != null) {
-    await updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
-  }
+  // if (imageToUpload.value != null) {
+  //   await updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
+  // }
 };
 const onHide = () => {
   store.newItem("");

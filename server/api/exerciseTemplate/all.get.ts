@@ -12,14 +12,31 @@ export default defineEventHandler(async (event) => {
       where: {
         user_id: user_id,
       },
-      // include: {
-      //   exerciseTemplateMuscle: true,
-      // },
+      select: {
+        id: true,
+        name: true,
+        level: true,
+        user_id: true,
+        duration: true,
+        imageUrl: true,
+        public: true,
+
+        exerciseTemplateMuscle: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      orderBy: { name: "asc" },
     });
     return result;
   } catch (error) {
     console.log(error);
-    return [];
+    throw createError({
+      statusCode: 500,
+      message: "Что-то пошло не так",
+    });
+    
   } finally {
     prisma.$disconnect();
   }

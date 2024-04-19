@@ -1,34 +1,21 @@
 import { defineStore } from "pinia";
-import { type SportType } from "~/types/types";
+import { type ISportType } from "~/types/types";
 interface SportTypeStoreState {
-  defaultItem: SportType[];
-  itemArray: SportType[];
-  currentItem: SportType[];
+  itemArray: ISportType[];
+  currentItem: ISportType[];
   loading: boolean;
-  rowNumber: number;
 }
 
-export const useSportTypeStore = defineStore("SportTypeStore", {
+export const useSportTypeStore = defineStore("sporttype", {
   state: (): SportTypeStoreState => ({
-    itemArray: [],
-    currentItem: [],
-    defaultItem: [],
+    itemArray: Array<ISportType>(),
+    currentItem: Array<ISportType>(),
     loading: false,
-    rowsNumber: 0,
   }),
 
   actions: {
-    resetCurrentItem() {
-      this.currentItem = Object.assign({}, this.defaultItem);
-    },
-    async fetchAll() {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/sporttype/all", {
-          method: "get",
-        });
-
-        if (response && response.length > 0) this.itemArray = response;
-      })(null);
+    newItem() {
+      this.currentItem = Array<ISportType>();
     },
   },
 });

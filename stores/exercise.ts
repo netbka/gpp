@@ -1,20 +1,16 @@
 import { defineStore } from "pinia";
-import { type Exercise, type ExerciseGroup } from "~/types/types";
+import { type IExercise, Exercise, type ExerciseGroup } from "~/types/types";
 interface ExerciseStoreState {
-  defaultItem: Exercise;
-
-  currentItem: Exercise;
+  currentItem: IExercise;
   itemArray: [];
+  loading: boolean;
 }
 
-export const useExerciseStore = defineStore("ExerciseStore", {
+export const useExerciseStore = defineStore("exercise", {
   state: (): ExerciseStoreState => ({
-    defaultItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0 },
-    currentItem: { id: null, name: "", description: "", duration: 30, active: false, imageUrl: "", weight: 0 },
+    currentItem: new Exercise().getAll(),
     itemArray: [],
     loading: false,
-
-    rowsNumber: 0,
   }),
   getters: {
     getItemArray: (state) => {
@@ -28,9 +24,11 @@ export const useExerciseStore = defineStore("ExerciseStore", {
     },
   },
   actions: {
+    resetCurrentItem() {
+      this.currentItem = new Exercise().getAll();
+    },
     async newExercise(groupId: number) {
-      this.currentItem = Object.assign({}, this.defaultItem);
-      this.currentItem.name = "";
+      this.currentItem = new Exercise().getAll();
       this.currentItem.groupId = groupId;
       withErrorHandling(this)(async (props, store) => {
         const response = await $fetch("/api/exercise/update", {
@@ -43,9 +41,7 @@ export const useExerciseStore = defineStore("ExerciseStore", {
         //return response;
       })(null);
     },
-    resetCurrentItem() {
-      this.currentItem = Object.assign({}, this.defaultItem);
-    },
+
     async fetchAll() {
       withErrorHandling(this)(async (props, store) => {})(null);
       const { data } = await useFetch("/api/exercise/all", {

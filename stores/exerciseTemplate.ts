@@ -33,17 +33,17 @@ export const useExerciseTemplateStore = defineStore("exerciseTemplate", {
       return this.currentItem;
     },
 
-    async updateItemField(field: String, val, id: number) {
-      withErrorHandling(this)(async (payload, store) => {
-        const item = getByIdFromArray(id, this.itemArray);
-        if (item === null) return;
-        item[field] = val;
-        const response = await $fetch(baseUrl + "field", {
-          method: "post",
-          body: { ...item, field },
-        });
-      })(null);
-    },
+    // async updateItemField(field: String, val, id: number) {
+    //   withErrorHandling(this)(async (payload, store) => {
+    //     const item = getByIdFromArray(id, this.itemArray);
+    //     if (item === null) return;
+    //     item[field] = val;
+    //     const response = await $fetch(baseUrl + "field", {
+    //       method: "post",
+    //       body: { ...item, field },
+    //     });
+    //   })(null);
+    // },
     // async getById(id: number) {
     //   withErrorHandling(this)(async (props, store) => {
     //     const response = await $fetch(`/api/${store.$id}/${id}`, {

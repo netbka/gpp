@@ -9,7 +9,7 @@ const route = useRoute();
 const { id } = route.params;
 
 const store = useExerciseTemplateStore();
-const crud = useBasicCrud(store);
+const crud = useSSRCrud(store);
 const { data, pending, error, refresh } = await crud.getItemById(parseSlugId(id));
 </script>
 

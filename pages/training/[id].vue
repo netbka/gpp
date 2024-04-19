@@ -13,19 +13,17 @@
       </div>
     </div>
     <div class="row">
-      <ClientOnly>
-        <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
-      </ClientOnly>
+      <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-definePageMeta({ auth: true });
+definePageMeta({ auth: false });
 const route = useRoute();
 const { id } = route.params;
 const store = trainingStore();
-const crud = useBasicCrud(store);
+const crud = useClientCrud(store);
 
 //const { data, pending, error, refresh } = await crud.getItemById(parseSlugId(id));
 await crud.getById(parseSlugId(id));
@@ -34,9 +32,9 @@ const updateItem = async (field, value, id) => {
   await crud.updateItemField(field, value, id);
 };
 
-// const storeExerciseTemplate = exerciseTemplateStore();
-// const crudExerciseTemplate = useBasicCrud(storeExerciseTemplate);
-// await crudExerciseTemplate.fetchAll();
+const storeExerciseTemplate = exerciseTemplateStore();
+const crudExerciseTemplate = useSSRCrud(storeExerciseTemplate);
+await crudExerciseTemplate.fetchAll("myandpublic");
 
 const duration = ref("");
 watch(

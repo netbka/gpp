@@ -43,7 +43,7 @@
 import DOMPurify from "dompurify";
 const $q = useQuasar();
 const store = useTrainingStore();
-const crud = useBasicCrud(store);
+const crud = useClientCrud(store);
 
 const { isAdmin } = useAuthUser();
 const onHide = () => {
@@ -71,7 +71,6 @@ const onSubmit = async () => {
     await crud.updateItem(store);
   }
 };
-
 </script>
 
 <style></style>

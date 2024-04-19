@@ -1,61 +1,4 @@
-interface ArrayResponse<T> {
-  data: T[];
-}
-interface TableResponse<T> {
-  data: {
-    result: T[];
-    totalCount: number;
-  };
-}
-interface ItemResponse<T> {
-  data: T;
-  pending: boolean;
-  error: Error | null;
-  refresh: () => void;
-}
-export const useBasicCrud = <T>(store) => ({
-  async fetchAll(): Promise<ArrayResponse<T>> {
-    const { data, pending, error, refresh } = await useAsyncData<TableResponse<T>>(`${store.$id}-fetchAll`, () => $fetch(`/api/${store.$id}/all`));
-    return { data, pending, error, refresh };
-  },
-  async searchItem(): Promise<TableResponse<T>> {
-    const { data, pending, error, refresh } = await useAsyncData<TableResponse<T>>(
-      `${store.$id}-searchItems`,
-      () =>
-        $fetch(`/api/${store.$id}/search`, {
-          query: { filter: store.filter, ...store.pagination },
-        }),
-      { watch: [store.pagination, ...store.filter] }
-    );
-
-    if (data.value) {
-      store.itemArray = data.value.result;
-      store.pagination.rowsNumber = data.value.totalCount;
-    }
-    return { data, pending, error, refresh };
-  },
-
-  async getItemById(id: number): Promise<ItemResponse<T>> {
-    const { data, pending, error, refresh } = await useAsyncData<ItemResponse<T>>(`${store.$id}-getItemById`, () =>
-      $fetch(`/api/${store.$id}/${id}`, {
-        //headers: useRequestHeaders(["cookie"]),
-      })
-    );
-
-    if (data.value) {
-      
-      updateArray(data.value, store.itemArray);
-      store.currentItem = data.value;
-      
-    }
-    if (error.value) {
-      throw createError({
-        statusCode: error.value.statusCode,
-        message: "Нет доступа к этому занятию",
-      });
-    }
-    return { data, pending, error, refresh };
-  },
+export const useClientCrud = <T>(store) => ({
   async createItem() {
     await withErrorHandling(store)(async (payload, store) => {
       const response = await $fetch(`/api/${store.$id}/create`, {
@@ -65,6 +8,17 @@ export const useBasicCrud = <T>(store) => ({
 
       updateArray(response, store.itemArray);
       store.currentItem = response;
+    })(null);
+  },
+  async getById(id: number) {
+    withErrorHandling(store)(async (payload, store) => {
+      const response = await $fetch(`/api/${store.$id}/${id}`, {
+        method: "GET",
+      });
+      if (response) {
+        updateArray(response, store.itemArray);
+        store.currentItem = response;
+      }
     })(null);
   },
   async updateItem() {
@@ -89,17 +43,7 @@ export const useBasicCrud = <T>(store) => ({
       removeItemFromArr(id, store.itemArray);
     })(null);
   },
-  async getById(id: number) {
-    withErrorHandling(store)(async (payload, store) => {
-      const response = await $fetch(`/api/${store.$id}/${id}`, {
-        method: "GET",
-      });
-      if (response) {
-        updateArray(response, store.itemArray);
-        store.currentItem = response;
-      }
-    })(null);
-  },
+
   async updateItemField(field: string, val, id: number) {
     withErrorHandling(store)(async (payload, store) => {
       const item = getByIdFromArray(id, store.itemArray);
@@ -129,14 +73,14 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
   }
 };
 
-import { TablePagination, type ITablePagination } from "~/types/types";
-export const setPagination = (store, pagination: ITablePagination) => {
-  store.pagination = pagination;
-};
-export const setPaginationAndFilter = (store, pagination: ITablePagination, filter: string) => {
-  store.pagination = pagination;
-  store.filter = filter;
-};
+// import { TablePagination, type ITablePagination } from "~/types/types";
+// export const setPagination = (store, pagination: ITablePagination) => {
+//   store.pagination = pagination;
+// };
+// export const setPaginationAndFilter = (store, pagination: ITablePagination, filter: string) => {
+//   store.pagination = pagination;
+//   store.filter = filter;
+// };
 // export const createItem = async (store) => {
 //   await withErrorHandling(store)(async (payload, store) => {
 //     const response = await $fetch(`/api/${store.$id}/create`, {

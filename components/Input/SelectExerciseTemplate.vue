@@ -28,12 +28,31 @@
             <q-item-section>
               <q-item-label> {{ scope.opt.name }} </q-item-label>
               <q-item-label caption>
-                <span v-for="muscle in scope.opt.exerciseTemplateMuscle" :key="muscle.id">
+                <span
+                  v-for="muscle in scope.opt.exerciseTemplateMuscle"
+                  :key="muscle.id"
+                  class="text-weight-bold"
+                >
                   {{ muscle.name + " " }}
                 </span>
               </q-item-label>
+              <q-item-label caption
+                ><span class="text-weight-thin">сложность:</span>
+                <q-rating
+                  v-model="scope.opt.level"
+                  size="1em"
+                  max="3"
+                  readonly
+                  class="q-mr-md"
+                  icon="fitness_center"
+                  :color-selected="['red-12', 'red-13', 'red-14']"
+                />
+              </q-item-label>
             </q-item-section>
           </q-item>
+          <div style="display: flex; justify-content: center">
+            <q-separator style="width: 90%"></q-separator>
+          </div>
         </template>
 
         <template v-slot:no-option>
