@@ -9,10 +9,7 @@
             @updatedb="updateItem('name', store.currentItem.name, store.currentItem.id)"
           ></InputText>
         </div>
-        <q-item-label caption
-          >Продолжительность: {{ duration.min }} мин.
-          {{ duration.sec }} сек.</q-item-label
-        >
+        <q-item-label caption>Продолжительность: {{ duration }}</q-item-label>
       </div>
     </div>
     <div class="row">
@@ -37,18 +34,18 @@ const updateItem = async (field, value, id) => {
   await crud.updateItemField(field, value, id);
 };
 
-const storeExerciseTemplate = exerciseTemplateStore();
-const crudExerciseTemplate = useBasicCrud(storeExerciseTemplate);
-await crudExerciseTemplate.fetchAll();
+// const storeExerciseTemplate = exerciseTemplateStore();
+// const crudExerciseTemplate = useBasicCrud(storeExerciseTemplate);
+// await crudExerciseTemplate.fetchAll();
 
-const duration = ref({ min: 0, sec: 0 });
+const duration = ref("");
 watch(
   () => store.getDuration,
   (val) => {
-    duration.value.min = numToMin(val);
-    duration.value.sec = numToSec(val);
+    duration.value = durationToText(val);
   },
-  { deep: true }
+  { deep: true },
+  { immediate: true }
 );
 </script>
 

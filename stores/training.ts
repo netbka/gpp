@@ -23,7 +23,7 @@ export const useTrainingStore = defineStore("training", {
   }),
   getters: {
     getDuration: (state) => {
-      return calculateDuration(state.currentItem.exerciseGroup);
+      return state.currentItem.exerciseGroup.length > 0 ? calculateDuration(state.currentItem.exerciseGroup) : 0;
     },
     getItemArray: (state) => {
       return state.itemArray;
