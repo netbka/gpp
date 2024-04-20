@@ -4,9 +4,10 @@ interface TrainingTrackStoreState {
   defaultItem: TrainingTrack;
   itemArray: TrainingTrack[];
   currentItem: TrainingTrack;
+  loading: boolean;
 }
 const baseUrl = "/api/trainingTrack/";
-export const useTrainingTrackStore = defineStore("TrainingTrackStore", {
+export const useTrainingTrackStore = defineStore("trainingTrack", {
   state: (): TrainingTrackStoreState => ({
     itemArray: [],
     currentItem: { id: null, user_id: "", trainingId: 0, duration: 0 },

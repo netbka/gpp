@@ -13,7 +13,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
+      <ClientOnly>
+        <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
+      </ClientOnly>
     </div>
   </div>
 </template>

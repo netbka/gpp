@@ -120,7 +120,7 @@ const resetTraining = () => {
 };
 
 const storeTrainingTrack = trainingTrackStore();
-const crudTT = useSSRCrud(storeTrainingTrack);
+const crudTT = useClientCrud(storeTrainingTrack);
 const saveTrainingTrack = async () => {
   storeTrainingTrack.currentItem.trainingId = store.currentItem.id;
   storeTrainingTrack.currentItem.duration = store.getDuration;
@@ -200,6 +200,10 @@ const isStarted = computed(() => {
   return store.isStarted;
 });
 const stopTimer = function () {
+  if (counterDuration.value < 10) {
+    audio.currentTime = 10 - counterDuration.value;
+    audio.pause();
+  }
   clearInterval(intervalId);
 };
 //let exerciseIntervalId: number;

@@ -103,9 +103,6 @@ const selectExerciseTemplate = ref(null);
 let model = ref({ name: "" });
 model = Object.assign({}, props.data);
 
-const visibleEdit = ref(false);
-visibleEdit.value = props.editable;
-
 const emits = defineEmits([
   "onUpdateExercise",
   "onDeleteExercise",
@@ -116,12 +113,6 @@ const options = ref([]);
 const store = exerciseTemplateStore();
 
 options.value = Object.assign([], store.itemArray);
-
-const changeVisibility = () => {
-  if (props.readOnly) return;
-  //if (props.modelValue.length === 0) return;
-  visibleEdit.value = !visibleEdit.value;
-};
 
 let searchVal = ref("");
 const addCustomExercise = () => {
@@ -143,6 +134,15 @@ const filterFn = (val, update, abort) => {
 const setModel = (val) => {
   model = val;
 };
+
+//const visibleEdit = ref(false);
+const visibleEdit = toRef(() => props.editable);
+const changeVisibility = () => {
+  if (props.readOnly) return;
+  //if (props.modelValue.length === 0) return;
+  visibleEdit.value = !visibleEdit.value;
+};
+
 const save = () => {
   if (model.name.length < 1) {
     notifyMsgNegative("Нужно выбрать значение");

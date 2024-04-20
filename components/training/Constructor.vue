@@ -58,7 +58,7 @@ const store = trainingStore();
 //   { deep: true }
 // );
 
-const storeExerciseGroup = exerciseGroupStore();
+
 const storeExercise = exerciseStore();
 const description = ref("");
 
@@ -109,6 +109,15 @@ const addGroup = async () => {
   updateArray(group, store.currentItem.exerciseGroup);
 };
 
+
+const onUpdateExerciseField = async (field, val, id) => {
+  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
+  await storeExercise.updateItemField(field, val, id, exercise);
+};
+
+
+
+const storeExerciseGroup = exerciseGroupStore();
 const onUpdateGroup = async (field, value, id) => {
   await storeExerciseGroup.updateItemField(
     field,
@@ -117,12 +126,6 @@ const onUpdateGroup = async (field, value, id) => {
     store.currentItem.exerciseGroup
   );
 };
-
-const onUpdateExerciseField = async (field, val, id) => {
-  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  await storeExercise.updateItemField(field, val, id, exercise);
-};
-
 const onDeleteGroup = async (id: Number) => {
   await storeExerciseGroup.deleteItem(id);
   removeItemFromArr(id, store.currentItem.exerciseGroup);
