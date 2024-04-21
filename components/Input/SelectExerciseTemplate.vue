@@ -136,7 +136,7 @@ const setModel = (val) => {
 };
 
 const visibleEdit = ref(false);
-
+visibleEdit.value = props.editable;
 const changeVisibility = () => {
   if (props.readOnly) return;
   //if (props.modelValue.length === 0) return;

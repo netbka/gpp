@@ -24,8 +24,9 @@ export const useExerciseStore = defineStore("exercise", {
     },
   },
   actions: {
-    resetCurrentItem(name:string, groupId:number ):void {
+    resetCurrentItem(name: string, groupId: number): void {
       this.currentItem = new Exercise(name, groupId).getAll();
+      //console.log(this.currentItem);
     },
     async newExercise(groupId: number) {
       this.currentItem = new Exercise(undefined, groupId).getAll();
