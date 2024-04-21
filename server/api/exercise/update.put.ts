@@ -10,17 +10,23 @@ export default defineEventHandler(async (event) => {
 
     let body = await readBody(event);
 
-    body = omit(body, ["exercise", "id"]);
-    let result = await prisma.exerciseGroup.create({
+    let result = await prisma.exercise.update({
+      where: {
+        id: body.id,
+      },
       data: { ...body },
       include: {
-        exercise: true,
+        template: true,
       },
     });
 
     return result;
   } catch (error) {
     console.log("error on submit", error);
+    throw createError({
+      statusCode: 500,
+      message: "Что-то пошло не так",
+    });
   } finally {
     await prisma.$disconnect();
   }

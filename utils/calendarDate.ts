@@ -18,3 +18,7 @@ export const weekEvents = (fromDate) => {
   });
   return arr;
 };
+
+export const formatDate = (timeStamp) => {
+  return date.formatDate(timeStamp, "DD/MM/YYYY HH:mm");
+};

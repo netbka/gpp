@@ -4,7 +4,7 @@
       <div class="row items-center justify-center img-exercise">
         <q-img
           fit="scale-down"
-          :src="getExerciseImage(data.id + data.imageUrl)"
+          :src="getImageFromStorage(props.cardLink, props.data.id)"
           :error-src="errorImg"
           style="max-width: 100%; height: 150px"
         >
@@ -17,16 +17,6 @@
           </h3>
         </div>
         <div class="">
-          <span class="text-subtitle2 text-weight-medium text-accent">Мышцы: </span>
-          <span
-            class="text-white text-caption"
-            v-for="muscle in data.exerciseTemplateMuscle"
-            :key="muscle.id"
-          >
-            {{ muscle.name + " " }}
-          </span>
-        </div>
-        <div class="">
           <span class="text-subtitle2 text-weight-medium text-accent">Сложность: </span>
           <q-rating
             v-model="data.level"
@@ -37,6 +27,25 @@
             icon="fitness_center"
             :color-selected="['red-12', 'red-13', 'red-14']"
           />
+          <div class="float-right">
+            <q-chip square size="10px" outline color="yellow-3" icon="timer">
+              {{ durationToText(data.duration) }}
+            </q-chip>
+          </div>
+        </div>
+
+        <div class="">
+          <q-chip
+            square
+            outline
+            color="green-3"
+            v-for="muscle in data.exerciseTemplateMuscle"
+            :key="muscle.id"
+            size="10px"
+            class="q-ml-none"
+          >
+            {{ muscle.name }}
+          </q-chip>
         </div>
       </div>
     </q-card-section>
@@ -71,7 +80,7 @@
 
 <script lang="ts" setup>
 import { Slug } from "~/types/types";
-import errorImg from "/exerciseSmall.png";
+import errorImg from "/build_transparent_150.png";
 const props = defineProps({
   data: { Type: Object, default: {} },
   //cols: { Type: Object, default: {} },
@@ -79,6 +88,7 @@ const props = defineProps({
   cardLink: { Type: String, default: "" },
   cardCaption: { Type: String, default: "" },
 });
+
 const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem"]);
 const link = (data) => {
   return new Slug(data, props.cardLink).getSlug();
@@ -89,7 +99,7 @@ const showDeleteButton = computed(() => props.data.user_id === currentUserId());
 
 <style scoped>
 .exercise-card {
-  height: 300px;
+  height: 320px;
   max-height: 310px;
   width: 100%;
   padding: 0 !important;
@@ -115,7 +125,7 @@ const showDeleteButton = computed(() => props.data.user_id === currentUserId());
 }
 
 .card-body {
-  height: 105px;
+  height: 135px;
 
   position: relative;
   background-color: #02263c;

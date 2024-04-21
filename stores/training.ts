@@ -18,7 +18,7 @@ export const useTrainingStore = defineStore("training", {
     loading: false,
     pagination: new TablePagination().getAll(),
     filter: "",
-    activeGroup: new ExerciseGroup("").getAll(),
+    activeGroup: new ExerciseGroup().getAll(),
     isStarted: false,
   }),
   getters: {
@@ -37,10 +37,13 @@ export const useTrainingStore = defineStore("training", {
     },
   },
   actions: {
-    newItem(val = "Новый план") {
+    resetCurrentItem(val: string): void {
       this.currentItem = new Training(val).getAll();
-      return this.currentItem;
     },
+    // newItem(val = "Новый план") {
+    //   this.currentItem = new Training(val).getAll();
+
+    // },
 
     async updateTrainingPlan() {
       withErrorHandling(this)(async (props, store) => {
@@ -109,95 +112,5 @@ export const useTrainingStore = defineStore("training", {
         });
       });
     },
-    // async fetchAll() {
-    //   withErrorHandling(this)(async (props, store) => {
-    //     const { data } = await useFetch(baseUrl + "all", {
-    //       method: "get",
-    //     });
-
-    //     if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
-    //   })(null);
-    // },
-    // async getById(id: number) {
-    //   withErrorHandling(this)(async (props, store) => {
-    //     const response = await $fetch(baseUrl + id, {
-    //       method: "get",
-    //     });
-    //     if (response) {
-    //       updateArray(response, this.itemArray);
-    //       this.currentItem = response;
-    //     }
-    //   })(null);
-    // },
-
-    // async updateCurrentItem() {
-    //   withErrorHandling(this)(async (props, store) => {
-    //     const response = await $fetch(baseUrl + "update", {
-    //       method: "post",
-    //       body: { ...this.currentItem },
-    //     });
-
-    //     updateArray(response, this.itemArray);
-    //     this.currentItem = response;
-    //   })(null);
-    // },
-    // async searchOwn(props) {
-    //   if (props) {
-    //     withErrorHandling(this)(async (props, store) => {
-    //       const response = await $fetch(baseUrl + "own", {
-    //         query: { filter: props.filter, ...props.pagination },
-    //       });
-    //       store.itemArray = response.result;
-    //       store.rowsNumber = response.totalCount;
-    //     })(props);
-    //   }
-    // },
-    // async search(props) {
-    //   if (props) {
-    //     withErrorHandling(this)(async (props, store) => {
-    //       const response = await $fetch(baseUrl + "search", {
-    //         query: { filter: props.filter, ...props.pagination },
-    //       });
-    //       store.itemArray = response.result;
-    //       store.rowsNumber = response.totalCount;
-    //     })(props);
-    //   }
-    // },
-
-    // createCurrentItem() {
-    //   withErrorHandling(this)(async (payload, store) => {
-    //     const response = await $fetch(baseUrl + "create", {
-    //       method: "post",
-    //       body: { ...store.currentItem },
-    //     });
-
-    //     updateArray(response, store.itemArray);
-
-    //     store.currentItem = response;
-    //   })(null);
-    // },
-    // async updateItemField(field: String, val, id: number) {
-    //   withErrorHandling(this)(async (props, store) => {
-    //     const item = getByIdFromArray(id, this.itemArray);
-    //     if (item === null) return;
-    //     item[field] = val;
-    //     const response = await $fetch(baseUrl + "field", {
-    //       method: "post",
-    //       body: { ...item, field },
-    //     });
-    //   })(null);
-    // },
-
-    // async deleteItem(id) {
-    //   withErrorHandling(this)(async (props, store) => {
-    //     const response = await $fetch(baseUrl + "delete", {
-    //       method: "delete",
-    //       body: { id },
-    //     });
-
-    //     if (this.currentItem.id === id) this.resetCurrentItem();
-    //     removeItemFromArr(id, this.itemArray);
-    //   })(null);
-    // },
   },
 });

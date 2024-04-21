@@ -45,7 +45,7 @@ const storeSportType = sportTypeStore();
 let avatar = ref("");
 onBeforeMount(async () => {
   await store.fetchCurrentUser();
-  await storeSportType.fetchAll();
+  //await storeSportType.fetchAll();
 });
 onMounted(async () => {
   await updateProfile();

@@ -13,14 +13,16 @@ export class ExerciseGroup extends IdName implements IExerciseGroup {
   public active: boolean;
   public trainingId: number;
   public exercise: IExercise[];
-  constructor(name?: string) {
-    super(name);
+  constructor(name: string = "Группа №", itemCount?: number, trainingId?: number) {
+    var num = itemCount ? itemCount.toString() : "1";
+    super(name + num);
     this.description = "";
-    this.repeats = 0;
+    this.repeats = 1;
     this.active = false;
-    this.trainingId = 0;
+    this.trainingId = trainingId ? trainingId : 0;
     this.exercise = [];
   }
+  public trainingDefaults() {}
 
   public getAll() {
     return {

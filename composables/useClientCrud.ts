@@ -21,6 +21,14 @@ export const useClientCrud = <T>(store) => ({
       }
     })(null);
   },
+  async fetchAll() {
+    withErrorHandling(store)(async (payload, store) => {
+      const response = await $fetch(`/api/${store.$id}/all`, {
+        method: "GET",
+      });
+      if (response.length > 0) this.itemArray = response;
+    })(null);
+  },
   async updateItem() {
     withErrorHandling(store)(async (payload, store) => {
       const response = await $fetch(`/api/${store.$id}/update`, {
@@ -39,12 +47,12 @@ export const useClientCrud = <T>(store) => ({
         body: { id },
       });
 
-      if (store.currentItem.id === id) store.newItem();
+      if (store.currentItem.id === id) store.resetCurrentItem();
       removeItemFromArr(id, store.itemArray);
     })(null);
   },
 
-  async updateItemField(field: string, val, id: number) {
+  async updateItemField(field: string, val: any, id: number) {
     withErrorHandling(store)(async (payload, store) => {
       const item = getByIdFromArray(id, store.itemArray);
       if (item === null) return;

@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 const router = useRouter();
 
-import hero from "~/public/build_big.png";
+import hero from "~/public/build_transparent_300.png";
 const props = defineProps({
   header: { Type: String, default: false },
   subHeader: { Type: String, default: "" },

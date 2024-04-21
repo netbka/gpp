@@ -9,7 +9,7 @@ interface ExerciseGroupStoreState {
 
 export const useExerciseGroupStore = defineStore("exerciseGroup", {
   state: (): ExerciseGroupStoreState => ({
-    currentItem: new ExerciseGroup("Группа №").getAll(), //{ id: null, name: "", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
+    currentItem: new ExerciseGroup().getAll(), //{ id: null, name: "", description: "", repeats: 1, active: false, trainingId: 0, exercise: [] },
     itemArray: [],
     loading: false,
   }),
@@ -26,45 +26,27 @@ export const useExerciseGroupStore = defineStore("exerciseGroup", {
   },
   actions: {
     resetCurrentItem(trainingId: number, itemCount: number) {
-      this.currentItem = new ExerciseGroup("Группа №").getAll();
-      this.currentItem.trainingId = trainingId;
-      this.currentItem.name = this.currentItem.name + (itemCount + 1);
-      this.currentItem.id = null;
+      //this.currentItem = new ExerciseGroup("Группа №").getAll();
+      this.currentItem = new ExerciseGroup(undefined, itemCount + 1, trainingId).getAll();
+      // this.currentItem.trainingId = trainingId;
+      // this.currentItem.name = this.currentItem.name + (itemCount + 1);
+      // this.currentItem.id = null;
     },
-    // async fetchAll() {
-    //   const { data } = await useFetch("/api/exerciseGroup/all", {
-    //     method: "get",
-    //   });
 
-    //   if (data.value !== null && data.value.length > 0) this.itemArray = data.value;
-    // },
-    // async getById(id: number) {
+    // async create() {
     //   try {
-    //     const response = await $fetch("/api/exerciseGroup/" + id, {
-    //       method: "get",
+    //     const response = await $fetch("/api/exerciseGroup/create", {
+    //       method: "post",
+    //       body: { ...this.currentItem },
     //     });
-    //     if (response) {
-    //       updateArray(response, this.itemArray);
-    //       this.currentItem = response;
-    //     }
+    //     response.exercise = [];
+    //     updateArray(response, this.itemArray);
+    //     this.currentItem = response;
+    //     return this.currentItem;
     //   } catch (error) {
     //     console.log(error);
     //   }
     // },
-    async create() {
-      try {
-        const response = await $fetch("/api/exerciseGroup/create", {
-          method: "post",
-          body: { ...this.currentItem },
-        });
-        response.exercise = [];
-        updateArray(response, this.itemArray);
-        this.currentItem = response;
-        return this.currentItem;
-      } catch (error) {
-        console.log(error);
-      }
-    },
 
     // async updateCurrentItem() {
     //   try {
@@ -80,28 +62,28 @@ export const useExerciseGroupStore = defineStore("exerciseGroup", {
     //   }
     // },
 
-    async updateItemField(field: String, val, id: number, arr: Array) {
-      try {
-        const item = arr === undefined ? getByIdFromArray(id, this.itemArray) : getByIdFromArray(id, arr);
-        if (item === null) return;
-        item[field] = val;
-        const response = await $fetch("/api/exerciseGroup/field", {
-          method: "post",
-          body: { ...item, field },
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async updateItemField(field: String, val, id: number, arr: Array) {
+    //   try {
+    //     const item = arr === undefined ? getByIdFromArray(id, this.itemArray) : getByIdFromArray(id, arr);
+    //     if (item === null) return;
+    //     item[field] = val;
+    //     const response = await $fetch("/api/exerciseGroup/field", {
+    //       method: "post",
+    //       body: { ...item, field },
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
 
-    async deleteItem(id) {
-      const response = await $fetch("/api/exerciseGroup/delete", {
-        method: "delete",
-        body: { id },
-      });
-      //console.log(this.currentItem.id === id);
-      if (this.currentItem.id === id) this.resetCurrentItem();
-      removeItemFromArr(id, this.itemArray);
-    },
+    // async deleteItem(id) {
+    //   const response = await $fetch("/api/exerciseGroup/delete", {
+    //     method: "delete",
+    //     body: { id },
+    //   });
+    //   //console.log(this.currentItem.id === id);
+    //   if (this.currentItem.id === id) this.resetCurrentItem();
+    //   removeItemFromArr(id, this.itemArray);
+    // },
   },
 });

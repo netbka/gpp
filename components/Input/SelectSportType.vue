@@ -39,6 +39,8 @@ const props = defineProps({
 const { selectedIds } = props;
 
 const store = sportTypeStore();
+const crud = useClientCrud(store);
+await crud.fetchAll();
 
 onMounted(async () => {});
 

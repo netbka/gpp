@@ -1,55 +1,59 @@
 <template>
   <div>
-    <q-card class="exercise-card q-mb-md" flat bordered>
-      <q-item>
-        <q-item-section avatar>
-          <q-skeleton type="QAvatar" v-show="loading" />
-          <q-avatar v-show="!loading">
-            <img :src="getProfile(data.user_id)" />
-          </q-avatar>
-        </q-item-section>
+    <div class="row content-heading q-px-sm">
+      <div class="col-12">
+        <h1 class="font-content">
+          {{ data.name }}
+        </h1>
+      </div>
 
-        <q-item-section>
-          <q-item-label v-html="data.name"> </q-item-label>
-          <q-item-label caption
-            ><span v-for="muscle in data.exerciseTemplateMuscle" :key="muscle.id">
-              {{ muscle.name + " " }}
-            </span></q-item-label
-          >
-        </q-item-section>
-        <q-item-section>
-          <span class="text-subtitle2 text-weight-medium text-accent">Сложность: </span>
-          <q-rating
-            v-model="data.level"
-            size="1em"
-            max="3"
-            readonly
-            class="q-mr-md"
-            icon="fitness_center"
-            :color-selected="['red-12', 'red-13', 'red-14']"
-          />
-        </q-item-section>
-      </q-item>
-
-      <q-separator />
-
-      <q-card-section horizontal>
-        <div class="row">
-          <div class="col-12 col-sm-3 q-pa-sm self-top">
-            <img class="img-exercise" :src="getExerciseImage(data.id + data.imageUrl)" />
-          </div>
-          <div class="col-12 col-sm-9 q-pa-sm" v-html="data.description"></div>
-        </div>
-      </q-card-section>
-
-      <q-separator />
-
-      <q-card-actions class="items-center" align="right">
-        <q-btn outline color="primary" size="sm">
+      <div class="col-12">
+        <span class="text-subtitle2 text-weight-medium"><b>Мышцы: </b> </span>
+        <q-chip
+          size="12px"
+          v-for="muscle in data.exerciseTemplateMuscle"
+          :key="muscle.id"
+          outline
+          color="secondary"
+        >
+          {{ muscle.name + " " }}
+        </q-chip>
+      </div>
+      <div class="col-12">
+        <span class="text-subtitle2 text-weight-medium"><b>Сложность: </b> </span>
+        <q-rating
+          v-model="data.level"
+          size="1em"
+          max="3"
+          readonly
+          class="q-mr-md"
+          icon="fitness_center"
+          :color-selected="['red-12', 'red-13', 'red-14']"
+        />
+      </div>
+      <div class="col-12">
+        <span class="text-caption"> Обновлено: </span>
+        <q-chip outline square color="deep-grey" text-color="white" size="sm">
+          {{ formatDate(data.updatedAt) }}
+        </q-chip>
+        <q-btn outline color="primary" size="xs" class="float-right">
           <NuxtLink class="no-style" to="/exercisetemplate/">Назад</NuxtLink></q-btn
         >
-      </q-card-actions>
-    </q-card>
+      </div>
+    </div>
+    <div class="row q-px-sm">
+      <div class="col-12 col-sm-6 q-pa-sm col-md-4 col-lg-3 self-top">
+        <img
+          class="img-exercise"
+          :src="getImageFromStorage('exerciseTemplate', data.id)"
+        />
+      </div>
+      <div class="col-12 col-sm-6 col-md-8 col-lg-9 q-pa-sm">
+        <q-scroll-area class="scroll-content">
+          <div v-html="data.description"></div>
+        </q-scroll-area>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -74,6 +78,7 @@ const resetError = async (error) => {
   await navigateTo("/exerciseTemplate/");
   error.value = null;
 };
+const { getStoreImageById } = useImageManager();
 </script>
 
 <style scoped>
@@ -83,6 +88,22 @@ const resetError = async (error) => {
 .img-exercise {
   min-height: 300px;
   object-fit: cover;
-  max-width: 90%;
+  max-width: 300px;
+  min-width: 300px;
+}
+.content-heading {
+  min-height: 150px;
+}
+.scroll-content {
+  height: calc(100vh - 220px);
+}
+@media (min-width: 768px) {
+  .scroll-content {
+    height: calc(100vh - 270px);
+  }
+}
+
+.font-content {
+  font-size: calc(1.5em + 0.5vw) !important;
 }
 </style>

@@ -45,7 +45,10 @@ export const useAuthUser = () => {
   /**
    * Check if the user is logged in or not
    */
-  const isLoggedIn = () => {};
+  const isLoggedIn = () => {
+    console.log(user);
+    return user.value !== null;
+  };
 
   /**
    * Register

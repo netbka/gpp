@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { type IExercise, Exercise, type ExerciseGroup } from "~/types/types";
+import { type IExercise, Exercise } from "~/types/types";
 interface ExerciseStoreState {
   currentItem: IExercise;
   itemArray: [];
@@ -24,22 +24,22 @@ export const useExerciseStore = defineStore("exercise", {
     },
   },
   actions: {
-    resetCurrentItem() {
-      this.currentItem = new Exercise().getAll();
+    resetCurrentItem(name:string, groupId:number ):void {
+      this.currentItem = new Exercise(name, groupId).getAll();
     },
     async newExercise(groupId: number) {
-      this.currentItem = new Exercise().getAll();
-      this.currentItem.groupId = groupId;
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/exercise/update", {
-          method: "post",
-          body: { ...this.currentItem },
-        });
+      this.currentItem = new Exercise(undefined, groupId).getAll();
+      //this.currentItem.groupId = groupId;
+      // withErrorHandling(this)(async (props, store) => {
+      //   const response = await $fetch("/api/exercise/update", {
+      //     method: "post",
+      //     body: { ...this.currentItem },
+      //   });
 
-        updateArray(response, this.itemArray);
-        this.currentItem = response;
-        //return response;
-      })(null);
+      //   updateArray(response, this.itemArray);
+      //   this.currentItem = response;
+      //   //return response;
+      // })(null);
     },
 
     async fetchAll() {
@@ -52,20 +52,22 @@ export const useExerciseStore = defineStore("exercise", {
     },
     async cloneTemplateItem(template, item) {
       withErrorHandling(this)(async (props, store) => {
-        this.currentItem = Object.assign({}, item);
-
-        this.currentItem.name = template.name;
-        this.currentItem.description = template.description;
-        this.currentItem.duration = template.duration;
-        this.currentItem.imageUrl = template.imageUrl;
-
-        this.currentItem.templateId = template.id;
-        const response = await $fetch("/api/exercise/update", {
+        // this.currentItem = Object.assign({}, item);
+        // this.currentItem.name = template.name;
+        // this.currentItem.description = template.description;
+        // this.currentItem.duration = template.duration;
+        // this.currentItem.imageUrl = template.imageUrl;
+        // this.currentItem.templateId = template.id;
+        let ex = new Exercise();
+        this.resetCurrentItem();
+        this.currentItem = ex.cloneTemplate(template, item.groupId);
+        const response = await $fetch<IExercise>("/api/exercise/update", {
           method: "post",
           body: { ...this.currentItem },
         });
 
         this.currentItem = response;
+        console.log(this.currentItem);
         //return response;
       })(null);
     },
@@ -105,16 +107,16 @@ export const useExerciseStore = defineStore("exercise", {
       })(null);
     },
 
-    async deleteItem(id) {
-      withErrorHandling(this)(async (props, store) => {
-        const response = await $fetch("/api/exercise/delete", {
-          method: "delete",
-          body: { id },
-        });
+    // async deleteItem(id) {
+    //   withErrorHandling(this)(async (props, store) => {
+    //     const response = await $fetch("/api/exercise/delete", {
+    //       method: "delete",
+    //       body: { id },
+    //     });
 
-        if (this.currentItem.id === id) this.resetCurrentItem();
-        removeItemFromArr(id, this.itemArray);
-      })(null);
-    },
+    //     if (this.currentItem.id === id) this.resetCurrentItem();
+    //     removeItemFromArr(id, this.itemArray);
+    //   })(null);
+    // },
   },
 });

@@ -2,17 +2,17 @@
   <div class="wrapper">
     <div class="row justify-center">
       <div class="col-12 self-center">
-        <div v-if="preview">
-          <!-- <img :src="preview" class="img-fluid" /> -->
-          <q-img
-            fit="scale-down"
-            :src="preview"
-            :error-src="errorImg"
-            style="max-width: 300px; height: 300px"
-            class="img-fluid"
-          >
-          </q-img>
-        </div>
+        <!-- <div v-if="preview"> -->
+        <!-- <img :src="preview" class="img-preview" /> -->
+        <q-img
+          fit="scale-down"
+          :src="preview"
+          :error-src="errorImg()"
+          style="max-width: 300px; height: 300px"
+          class="img-preview"
+        >
+        </q-img>
+        <!-- </div> -->
         <q-file
           clearable
           filled
@@ -20,7 +20,7 @@
           label="Пример упражнения. Картинка."
           accept="image/*"
           :max-file-size="fileLimit()"
-          @update:model-value="previewMultiImage"
+          @update:model-value="handleImageChange"
           ref="picker"
           @rejected="onRejectedSize"
           class="hidden"
@@ -30,10 +30,26 @@
           </template>
         </q-file>
         <q-btn
+          v-show="image"
+          size="sm"
+          icon="undo"
+          @click="undoImageHandler"
+          class="undo"
+          outline
+        ></q-btn>
+        <q-btn
+          v-show="image"
           size="sm"
           icon="cloud_upload"
-          @click="handleFileSelection"
+          @click="uploadImageHandler"
           class="upload"
+          outline
+        ></q-btn>
+        <q-btn
+          size="sm"
+          icon="attach_file"
+          @click="selectImageHandler"
+          class="attach"
           outline
         ></q-btn>
       </div>
@@ -42,76 +58,63 @@
 </template>
 
 <script lang="ts" setup>
-const store = useExerciseTemplateStore();
-let image = ref(null);
-let preview = ref(null);
-const picker = ref(null);
-const emits = defineEmits(["updateImge"]);
-import defaultImage from "~/public/defaultCover-transparent.png";
-import errorImg from "/exerciseSmall.png";
-const previewMultiImage = (file) => {
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      preview.value = event.target.result;
-    };
-    reader.readAsDataURL(file);
-    emits("updateImge", file);
-  } else {
-    preview.value = defaultImage;
-  }
-};
-
-onMounted(async () => {
-  if (store.currentItem.imageUrl !== "") {
-    setExistingPreview(store.currentItem.id + ".gif");
-  } else {
-    await setNoImage();
-  }
+const props = defineProps({
+  store: { required: true },
+  // storage: {
+  //   type: String,
+  //   required: true,
+  // },
 });
+const {
+  deleteFile,
+  getImageUsingStore,
+  urlToFile,
+  urlToBlob,
+  blobToFile,
+  uploadImage,
+  getImageUrl,
+  defaultImg,
+  errorImg,
+  preview,
+  handleImageChange,
+} = useImageManager(props.store);
+
+let image = ref(null);
+
+const picker = ref(null);
+
 const onRejectedSize = (rejectedEntries) => {
   notifyRejectedSize(rejectedEntries);
 };
 
-const setExistingPreview = (filename) => {
-  preview.value = getExerciseImage(filename);
-};
-const setNoImage = async () => {
-  //var image = await fileToBlob(defaultImage);
-  preview.value = defaultImage;
-
-  let blob = await fileToBlob(defaultImage);
-  let file = blobToFile(blob, "default");
-
-  emits("updateImge", file);
-};
-
-const reset = () => {
-  image.value = null;
-  preview.value = defaultImage;
-};
-
-defineExpose({
-  reset,
-  //setExistingPreview,
-});
-const handleFileSelection = () => {
+const selectImageHandler = () => {
   picker.value.pickFiles();
+};
+const undoImageHandler = () => {
+  image.value = null;
+  getImageUsingStore(props.store.$id);
+};
+
+const uploadImageHandler = async () => {
+  const { data } = await uploadImage(
+    image.value,
+    props.store.currentItem.id,
+    props.store.$id
+  );
+  image.value = data ? null : image.value;
 };
 
 watch(
-  () => store.currentItem,
+  () => props.store.getCurrentItemId,
   (newVal) => {
-    if (newVal.imageUrl !== "" && newVal.id !== null) {
-      setExistingPreview(store.currentItem.id + ".gif");
-    }
-  },
-  { deep: true }
+    getImageUsingStore(props.store.$id);
+  }
+  // { deep: true }
 );
 </script>
 
 <style scoped>
-.img-fluid {
+.img-preview {
   max-height: 300px;
   height: 300px;
   height: auto;
@@ -121,11 +124,21 @@ watch(
   user-select: none;
   border: solid 1px #eee;
 }
-.preview-result {
+/* .preview-result {
   display: flex;
   flex: 1 1 auto;
+} */
+.undo {
+  position: absolute;
+  right: 4px;
+  bottom: 68px;
 }
 .upload {
+  position: absolute;
+  right: 4px;
+  bottom: 36px;
+}
+.attach {
   position: absolute;
   right: 4px;
   bottom: 4px;

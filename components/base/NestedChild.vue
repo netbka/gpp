@@ -75,7 +75,7 @@ export default {
 
   setup(props, context) {
     onMounted(() => {
-      //console.log(props.data);
+      console.log(props.data);
     });
     const onUpdateExercise = (id, model) => {
       context.emit("onUpdateExercise", id, model);

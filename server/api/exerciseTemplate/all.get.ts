@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
         level: true,
         user_id: true,
         duration: true,
-        imageUrl: true,
+        
         public: true,
 
         exerciseTemplateMuscle: {

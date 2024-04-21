@@ -14,6 +14,9 @@ export const useSportTypeStore = defineStore("sporttype", {
   }),
 
   actions: {
+    resetCurrentItem() {
+      this.currentItem = Array<ISportType>();
+    },
     newItem() {
       this.currentItem = Array<ISportType>();
     },

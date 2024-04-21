@@ -17,6 +17,9 @@ export const useMuscleStore = defineStore("muscle", {
   }),
 
   actions: {
+    resetCurrentItem() {
+      this.currentItem = Array<IMuscle>();
+    },
     newItem() {
       this.currentItem = Array<IMuscle>();
     },

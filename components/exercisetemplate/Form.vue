@@ -15,7 +15,7 @@
         <div class="col-12 col-lg-3">
           <div class="row">
             <div class="col-12">
-              <InputUpload @updateImge="imageUpdate" ref="uploader"></InputUpload>
+              <InputUpload ref="uploader" :store="store"></InputUpload>
             </div>
           </div>
         </div>
@@ -105,15 +105,13 @@ const { isAdmin } = useAuthUser();
 const storeMuscle = muscleStore();
 const uploader = ref(null);
 
-const imageToUpload = ref(null);
-const imageUpdate = (img) => {
-  imageToUpload.value = img;
-};
+// const imageToUpload = ref(null);
+// const imageUpdate = (img) => {
+//   imageToUpload.value = img;
+// };
 
 const onSubmit = async () => {
-  // if (imageToUpload.value != null) {
-  //   store.currentItem.imageUrl = ".gif";
-  // }
+
   store.currentItem.newItems = storeMuscle.currentItem;
   store.currentItem.description = sanitizeHtml(store.currentItem.description);
   if (store.currentItem.id === null) {
@@ -127,17 +125,17 @@ const onSubmit = async () => {
   // }
 };
 const onHide = () => {
-  store.newItem("");
+  store.resetCurrentItem("");
 };
 const newItem = () => {
-  store.newItem();
+  store.resetCurrentItem();
   uploader.value.reset();
 };
 
 const form = ref(null);
 
 const show = async (id) => {
-  id ? crud.getById(id) : store.newItem();
+  id ? await crud.getById(id) : store.resetCurrentItem();
   form.value.show();
 };
 const validate = (val) => {

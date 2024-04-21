@@ -2,15 +2,18 @@ import { Base, type IBase, type IExerciseGroup, type TrainingTrack } from "./typ
 export interface ITraining extends IBase {
   exerciseGroup: Array<IExerciseGroup>;
   trainingTrack: Array<TrainingTrack>;
+  public: boolean;
 }
 
 export class Training extends Base implements ITraining {
   public exerciseGroup = [];
   public trainingTrack = [];
-  constructor(name?: string) {
+  public public: boolean;
+  constructor(name?: string | "Новый план") {
     super(name);
     this.exerciseGroup = [];
     this.trainingTrack = [];
+    this.public = false;
   }
 
   public getAll() {
@@ -21,7 +24,7 @@ export class Training extends Base implements ITraining {
       level: this.level,
       duration: this.duration,
       public: this.public,
-      imageUrl: this.imageUrl,
+
       exerciseGroup: this.exerciseGroup,
       trainingTrack: this.trainingTrack,
     };

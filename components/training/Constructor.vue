@@ -46,37 +46,30 @@ const props = defineProps({
   },
 });
 const dialog = ref(null);
-const store = trainingStore();
-
-// const showSkeleton = ref(true);
-// watch(
-//   () => store.getCurrentItem,
-//   (val) => {
-//     showSkeleton.value = false;
-//     console.log(val);
-//   },
-//   { deep: true }
-// );
-
-
-const storeExercise = exerciseStore();
 const description = ref("");
+
+const store = trainingStore();
 
 const confirmAddTrainingDescription = () => {
   description.value = exerciseToText(store.currentItem.exerciseGroup);
   dialog.value.show();
 };
 
-const onDeleteExercise = async (id: Number) => {
-  await storeExercise.deleteItem(id);
-  removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
-};
-
+const storeExercise = exerciseStore();
+const crudExercise = useClientCrud(storeExercise);
 const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
-    await storeExercise.newExercise(item.id);
+    storeExercise.resetCurrentItem(undefined, item.id);
+    await crudExercise.createItem();
+    //console.log(storeExercise.currentItem);
     item.exercise.push(storeExercise.currentItem);
   }
+};
+
+const onDeleteExercise = async (id: Number) => {
+  //await storeExercise.deleteItem(id);
+  await crudExercise.deleteItem(id);
+  removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
 const onAddCustomExercise = async (id, val) => {
@@ -99,35 +92,40 @@ const addDescription = async () => {
 const onSaveTraining = async () => {
   await store.updateTrainingPlan();
 };
-const addGroup = async () => {
-  storeExerciseGroup.resetCurrentItem(
-    store.currentItem.id,
-    store.currentItem.exerciseGroup.length
-  );
-  const group = await storeExerciseGroup.create();
-
-  updateArray(group, store.currentItem.exerciseGroup);
-};
-
 
 const onUpdateExerciseField = async (field, val, id) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
   await storeExercise.updateItemField(field, val, id, exercise);
 };
 
-
-
 const storeExerciseGroup = exerciseGroupStore();
-const onUpdateGroup = async (field, value, id) => {
-  await storeExerciseGroup.updateItemField(
-    field,
-    value,
-    id,
-    store.currentItem.exerciseGroup
+const crudExerciseGroup = useClientCrud(storeExerciseGroup);
+
+const addGroup = async () => {
+  storeExerciseGroup.resetCurrentItem(
+    store.currentItem.id,
+    store.currentItem.exerciseGroup.length
   );
+  //const group = await storeExerciseGroup.create();
+  //updateArray(group, store.currentItem.exerciseGroup);
+  await crudExerciseGroup.createItem();
+  updateArray(storeExerciseGroup.currentItem, store.currentItem.exerciseGroup);
+};
+
+const onUpdateGroup = async (field, value, id) => {
+  storeExerciseGroup.itemArray = Object.assign([], store.currentItem.exerciseGroup);
+
+  await crudExerciseGroup.updateItemField(field, value, id);
+  // await storeExerciseGroup.updateItemField(
+  //   field,
+  //   value,
+  //   id,
+  //   store.currentItem.exerciseGroup
+  // );
 };
 const onDeleteGroup = async (id: Number) => {
-  await storeExerciseGroup.deleteItem(id);
+  await crudExerciseGroup.deleteItem(id);
+  //await storeExerciseGroup.deleteItem(id);
   removeItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
@@ -144,10 +142,10 @@ const start = async (val) => {
 //   trainingCounter.value.resetTraining();
 // };
 //todo add mute button to counter
-const stopTimer = () => {
-  workout.value.resetTraining();
-};
-const duration = ref({ min: 0, sec: 0 });
+// const stopTimer = () => {
+//   workout.value.resetTraining();
+// };
+//const duration = ref({ min: 0, sec: 0 });
 </script>
 
 <style></style>

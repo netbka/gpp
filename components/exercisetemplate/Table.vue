@@ -1,7 +1,6 @@
 <template>
   <div>
     <TableCardTable
-      
       @onRequest="onRequest"
       ref="tableRef"
       :rows="data.result"
@@ -12,7 +11,7 @@
       :readOnly="props.readOnly"
       :pagination="store.pagination"
       :cardCaption="'Подробнее'"
-      :cardLink="store.$id.toLowerCase()"
+      :cardLink="store.$id"
       @onEditItem="onEditItem"
       @onDeleteItem="onDeleteItem"
       @onUpdateField="onUpdateField"
@@ -54,9 +53,7 @@ const onEditItem = async (id) => {
 const onDeleteItem = async (id) => {
   await crud.deleteItem(id);
 };
-const onUpdateField = async (field, val, id) => {
-  //await store.updateItemField(field, val, id);
-};
+const onUpdateField = async (field, val, id) => {};
 </script>
 
 <style></style>

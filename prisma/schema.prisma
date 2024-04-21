@@ -47,9 +47,9 @@ model Training {
     level       Int    @default(0)
     description String
 
-    duration       Int             @default(0)
-    public         Boolean         @default(true)
-    imageUrl       String          @default("")
+    duration Int     @default(0)
+    public   Boolean @default(true)
+
     user_id        String          @db.Uuid
     createdAt      DateTime        @default(now())
     updatedAt      DateTime        @updatedAt
@@ -61,14 +61,14 @@ model Training {
 }
 
 model ExerciseTemplate {
-    id                     Int        @id @default(autoincrement())
-    name                   String
-    description            String
-    level                  Int        @default(0)
-    duration               Int
-    public                 Boolean
+    id          Int     @id @default(autoincrement())
+    name        String
+    description String
+    level       Int     @default(0)
+    duration    Int
+    public      Boolean
     //
-    imageUrl               String
+
     active                 Boolean
     weight                 Int?
     //
@@ -111,19 +111,20 @@ model ExerciseGroup {
 }
 
 model Exercise {
-    id          Int               @id @default(autoincrement())
+    id          Int     @id @default(autoincrement())
     name        String
     description String
+    level       Int     @default(0)
     duration    Int
     active      Boolean
-    imageUrl    String
-    weight      Int?
-    createdAt   DateTime          @default(now())
-    updatedAt   DateTime          @updatedAt
-    groupId     Int
-    templateId  Int?
-    group       ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
-    template    ExerciseTemplate? @relation(fields: [templateId], references: [id])
+
+    weight     Int?
+    createdAt  DateTime          @default(now())
+    updatedAt  DateTime          @updatedAt
+    groupId    Int
+    templateId Int?
+    group      ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    template   ExerciseTemplate? @relation(fields: [templateId], references: [id])
 
     @@schema("public")
 }

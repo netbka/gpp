@@ -66,7 +66,6 @@
 import { useProfileStore } from "~/stores/profile";
 const store = useProfileStore();
 
-import { useSportTypeStore } from "~/stores/sportType";
 const storeSportType = useSportTypeStore();
 
 const loading = ref(false);

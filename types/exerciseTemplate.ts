@@ -9,12 +9,14 @@ export class ExerciseTemplate extends Base implements IExerciseTemplate {
   public exerciseTemplateMuscle = [];
   public active: boolean;
   public weight: number;
+  public public: boolean;
 
-  constructor(name?: string) {
+  constructor(name?: string | "Новое упражннеие") {
     super(name);
     this.exerciseTemplateMuscle = [];
     this.active = false;
     this.weight = 0;
+    this.public = false;
   }
 
   public getAll() {
@@ -25,7 +27,7 @@ export class ExerciseTemplate extends Base implements IExerciseTemplate {
       level: this.level,
       duration: this.duration,
       public: this.public,
-      imageUrl: this.imageUrl,
+
       active: this.active,
       weight: this.weight,
       exerciseTemplateMuscle: this.exerciseTemplateMuscle,

@@ -10,29 +10,43 @@
       :propNewVisible="store.currentItem.id !== null"
       :propLoading="store.loading"
     >
-      <div class="row">
-        <div class="col-12">
-          <q-input
-            bg-color="white"
-            dense
-            outlined
-            v-model="store.currentItem.name"
-            label="Название плана *"
-            :rules="[(val) => !!val || 'Нужно указать значение']"
-            :disable="store.loading"
-            :input-style="{ fontSize: '12px' }"
-          />
+      <div class="row q-col-gutter-md">
+        <div class="col-12 col-lg-3">
+          <div class="row">
+            <div class="col-12">
+              <InputUpload ref="uploader" :store="store"></InputUpload>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <q-editor v-model="store.currentItem.description" :toolbar="editorToolbar($q)">
-          </q-editor>
-        </div>
-      </div>
-      <div class="row" v-if="isAdmin">
-        <div class="col-12">
-          <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
+        <div class="col-12 col-lg-9">
+          <div class="row">
+            <div class="col-12">
+              <q-input
+                bg-color="white"
+                dense
+                outlined
+                v-model="store.currentItem.name"
+                label="Название плана *"
+                :rules="[(val) => !!val || 'Нужно указать значение']"
+                :disable="store.loading"
+                :input-style="{ fontSize: '12px' }"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <q-editor
+                v-model="store.currentItem.description"
+                :toolbar="editorToolbar($q)"
+              >
+              </q-editor>
+            </div>
+          </div>
+          <div class="row" v-if="isAdmin">
+            <div class="col-12">
+              <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
+            </div>
+          </div>
         </div>
       </div>
     </BaseDialogForm>
@@ -47,15 +61,15 @@ const crud = useClientCrud(store);
 
 const { isAdmin } = useAuthUser();
 const onHide = () => {
-  store.newItem("");
+  store.resetCurrentItem("");
 };
 const newItem = () => {
-  store.newItem();
+  store.resetCurrentItem();
 };
 const form = ref(null);
 
 const show = (id) => {
-  id ? crud.getById(id) : store.newItem();
+  id ? crud.getById(id) : store.resetCurrentItem();
 
   form.value.show();
 };

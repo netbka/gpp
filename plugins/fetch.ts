@@ -18,7 +18,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     },
     async onResponse({ request, options, response }) {
+      if (!response.ok) return;
       if (options.method === "POST") {
+        console.log(response);
         $q.notify({
           type: "positive",
           caption: "Все ок",
@@ -26,6 +28,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           timeout: 500,
         });
       }
+
       if (options.method === "PUT") {
         $q.notify({
           type: "positive",

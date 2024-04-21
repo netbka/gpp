@@ -45,9 +45,7 @@ const onEditItem = async (id) => {
 const onDeleteItem = async (id) => {
   await crud.deleteItem(id);
 };
-const onUpdateField = async (field, val, id) => {
-  //await store.updateItemField(field, val, id);
-};
+const onUpdateField = async (field, val, id) => {};
 </script>
 
 <style></style>

@@ -61,7 +61,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  propFullHeight: { type: Boolean, default: false },
+  //propFullHeight: { type: Boolean, default: false },
 });
 const dialog = ref(null);
 let counterDuration: number = ref(0);
@@ -71,9 +71,7 @@ const grpIndex: number = ref(0);
 const exrIndex: number = ref(0);
 let timer = ref(100);
 let intervalId: number;
-//import { useQuasar } from "quasar";
 const audio = new Audio("/sound/10sec.mp3");
-//const $q = useQuasar();
 
 onMounted(() => {
   grpIndex.value = store.getInitialActiveGroup();
@@ -87,11 +85,12 @@ const hide = () => {
   resetTraining();
 };
 
+//todo fix to q-image
 const exerciseImage = computed(() => {
   try {
-    return store.activeGroup.exercise[exrIndex.value].imageUrl.length > 0 &&
-      store.activeGroup.exercise[exrIndex.value].templateId !== null
-      ? getExerciseImage(store.activeGroup.exercise[exrIndex.value].templateId + ".gif")
+    return;
+    store.activeGroup.exercise[exrIndex.value].templateId !== null
+      ? getExerciseImage(store.activeGroup.exercise[exrIndex.value].templateId)
       : null;
   } catch (error) {}
 });
@@ -118,10 +117,11 @@ const resetTraining = () => {
   store.getInitialActiveGroup();
   dialog.value.hide();
 };
-
+const { isLoggedIn } = useAuthUser();
 const storeTrainingTrack = trainingTrackStore();
 const crudTT = useClientCrud(storeTrainingTrack);
 const saveTrainingTrack = async () => {
+  if (!isLoggedIn()) return;
   storeTrainingTrack.currentItem.trainingId = store.currentItem.id;
   storeTrainingTrack.currentItem.duration = store.getDuration;
   //await storeTrainingTrack.createCurrentItem();
