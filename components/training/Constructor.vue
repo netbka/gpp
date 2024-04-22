@@ -16,7 +16,6 @@
       @onDeleteExercise="onDeleteExercise"
       @onUpdateExercise="onUpdateExercise"
       @onUpdateGroup="onUpdateGroup"
-      @onUpdateExerciseField="onUpdateExerciseField"
       @onAddCustomExercise="onAddCustomExercise"
     ></BaseNested>
 
@@ -59,28 +58,28 @@ const storeExercise = exerciseStore();
 const crudExercise = useClientCrud(storeExercise);
 const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
-    storeExercise.resetCurrentItem(undefined, item.id);
+    storeExercise.newExercise(item.id);
     await crudExercise.createItem();
-    //console.log(storeExercise.currentItem);
     item.exercise.push(storeExercise.currentItem);
   }
 };
 
 const onDeleteExercise = async (id: Number) => {
-  //await storeExercise.deleteItem(id);
   await crudExercise.deleteItem(id);
   removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
-const onAddCustomExercise = async (id, val) => {
+const onAddCustomExercise = async (id, name: string) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  await storeExercise.updateCustomExercise(exercise, val);
+  storeExercise.cloneExerciseItem(exercise, name, null);
+  await crudExercise.updateItem();
   updateNestedItem(storeExercise.currentItem, store.currentItem.exerciseGroup);
 };
 
 const onUpdateExercise = async (id, exerciseTemplate) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  await storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
+  storeExercise.cloneTemplateItem(exerciseTemplate, exercise);
+  await crudExercise.updateItem();
   updateNestedItem(storeExercise.currentItem, store.currentItem.exerciseGroup);
 };
 
@@ -93,11 +92,6 @@ const onSaveTraining = async () => {
   await store.updateTrainingPlan();
 };
 
-const onUpdateExerciseField = async (field, val, id) => {
-  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  await storeExercise.updateItemField(field, val, id, exercise);
-};
-
 const storeExerciseGroup = exerciseGroupStore();
 const crudExerciseGroup = useClientCrud(storeExerciseGroup);
 
@@ -106,26 +100,17 @@ const addGroup = async () => {
     store.currentItem.id,
     store.currentItem.exerciseGroup.length
   );
-  //const group = await storeExerciseGroup.create();
-  //updateArray(group, store.currentItem.exerciseGroup);
   await crudExerciseGroup.createItem();
   updateArray(storeExerciseGroup.currentItem, store.currentItem.exerciseGroup);
 };
 
 const onUpdateGroup = async (field, value, id) => {
   storeExerciseGroup.itemArray = Object.assign([], store.currentItem.exerciseGroup);
-
   await crudExerciseGroup.updateItemField(field, value, id);
-  // await storeExerciseGroup.updateItemField(
-  //   field,
-  //   value,
-  //   id,
-  //   store.currentItem.exerciseGroup
-  // );
 };
 const onDeleteGroup = async (id: Number) => {
   await crudExerciseGroup.deleteItem(id);
-  //await storeExerciseGroup.deleteItem(id);
+
   removeItemFromArr(id, store.currentItem.exerciseGroup);
 };
 

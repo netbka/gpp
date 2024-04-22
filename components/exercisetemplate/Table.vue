@@ -36,6 +36,7 @@ const props = defineProps({
 
 const store = useExerciseTemplateStore();
 const crud = useSSRCrud(store);
+const crudClient = useClientCrud(store);
 const { data, pending, error, refresh, execute } = await crud.searchItem();
 
 const tableRef = ref(null);
@@ -51,7 +52,7 @@ const onEditItem = async (id) => {
   emits("onEditItem", id);
 };
 const onDeleteItem = async (id) => {
-  await crud.deleteItem(id);
+  await crudClient.deleteItem(id);
 };
 const onUpdateField = async (field, val, id) => {};
 </script>

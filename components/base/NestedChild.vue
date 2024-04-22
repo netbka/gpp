@@ -84,12 +84,8 @@ export default {
     const onAddCustomExercise = (id, val) => {
       context.emit("onAddCustomExercise", id, val);
     };
-    // const onChoose = (val) => {
-    //   console.log(val);
-    // };
 
     return {
-      //onChoose,
       onAddCustomExercise,
       onUpdateExercise,
       onDeleteExercise,

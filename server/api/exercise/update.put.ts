@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
-
+    body = omit(body, ["template"]);
     let result = await prisma.exercise.update({
       where: {
         id: body.id,
