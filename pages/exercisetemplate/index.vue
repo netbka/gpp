@@ -7,7 +7,7 @@
       </template> -->
     <ContentHero
       :header="'Подборка упражнений'"
-      :subHeader="'Популярные упражнения от Просто ОФП'"
+      :subHeading="'Популярные упражнения от Просто ОФП'"
     ></ContentHero>
 
     <ExercisetemplateTable

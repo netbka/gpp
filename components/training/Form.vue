@@ -30,6 +30,8 @@
                 :rules="[(val) => !!val || 'Нужно указать значение']"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
+                counter
+                maxlength="37"
               />
             </div>
           </div>

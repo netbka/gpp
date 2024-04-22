@@ -31,6 +31,8 @@
                 :rules="[(val) => !!val || 'Нужно указать значение']"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
+                counter
+                maxlength="37"
               />
             </div>
           </div>
@@ -111,7 +113,6 @@ const uploader = ref(null);
 // };
 
 const onSubmit = async () => {
-
   store.currentItem.newItems = storeMuscle.currentItem;
   store.currentItem.description = sanitizeHtml(store.currentItem.description);
   if (store.currentItem.id === null) {

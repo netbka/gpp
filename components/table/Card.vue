@@ -12,7 +12,9 @@
       </div>
       <div class="card-body q-px-sm">
         <div class="">
-          <h3 class="text-subtitle1 text-weight-bold text-white q-py-sm q-ma-none">
+          <h3
+            class="text-subtitle1 text-weight-bold text-white q-py-sm q-ma-none text-no-wrap"
+          >
             {{ data.name }}
           </h3>
         </div>

@@ -5,7 +5,8 @@
     </div>
     <div class="hero-text text-center">
       <h1>{{ header }}</h1>
-      <h2 class="text-weight-thin text-h4">{{ subHeader }}</h2>
+      <h2 class="text-weight-thin text-h4">{{ subHeading }}</h2>
+      <h2 class="text-weight-thin text-h4">{{ subHeading2 }}</h2>
     </div>
   </div>
 </template>
@@ -16,7 +17,8 @@ const router = useRouter();
 import hero from "~/public/build_transparent_300.png";
 const props = defineProps({
   header: { Type: String, default: false },
-  subHeader: { Type: String, default: "" },
+  subHeading: { Type: String, default: "" },
+  subHeading2: { Type: String, default: "" },
 });
 </script>
 

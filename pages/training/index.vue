@@ -7,7 +7,8 @@
       </template>
       <ContentHero
         :header="'Подборка тренировок'"
-        :subHeader="'Не трать время на планирование. Все готово от Просто ОФП'"
+        :subHeading="'Не трать время на планирование '"
+        :subHeading2="' Все готово от Просто ОФП'"
       ></ContentHero>
 
       <TrainingTable @onEditItem="showForm" :readOnly="!isAdmin()"></TrainingTable>

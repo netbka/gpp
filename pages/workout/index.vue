@@ -7,7 +7,7 @@
       </template>
       <ContentHero
         :header="'Подборка тренировок'"
-        :subHeader="'Не трать время на планирование. Все готово от Просто ОФП'"
+        :subHeading="'Не трать время на планирование. Все готово от Просто ОФП'"
       ></ContentHero>
       <WorkoutTable></WorkoutTable>
     </NuxtErrorBoundary>
