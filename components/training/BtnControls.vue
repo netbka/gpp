@@ -45,14 +45,15 @@
         color="red-13"
         size="sm"
       ></q-btn>
-      <!-- <q-btn
+      <q-btn
         icon="library_add"
         outline
         @click="$emit('addGroup')"
         class="q-mr-xs"
-        color="green-7"
+        color="light-green-7"
         size="sm"
-      ></q-btn> -->
+        v-if="!props.readOnly"
+      ></q-btn>
       <q-btn
         v-if="!props.readOnly"
         icon="save"

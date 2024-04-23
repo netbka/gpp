@@ -2,8 +2,9 @@
   <div>
     <TrainingBtnControls
       @setDuration="setDuration"
-      @start="start"
+      @start="showTrainingCounter"
       @onSaveTraining="confirmAddTrainingDescription"
+      @addGroup="addGroup"
       :readOnly="readOnly"
     ></TrainingBtnControls>
     <q-skeleton height="650px" square v-show="store.loading" />
@@ -19,11 +20,11 @@
       @onAddCustomExercise="onAddCustomExercise"
     ></BaseNested>
 
-    <BaseInitCounter ref="initCounter"></BaseInitCounter>
+    <!-- <TrainingCounterCountdown ref="initCounter"></TrainingCounterCountdown> -->
     <ClientOnly>
       <TrainingCounter ref="trainingCounter"></TrainingCounter>
     </ClientOnly>
-    <BaseFab @newItem="addGroup" v-if="!props.readOnly"></BaseFab>
+    <!-- <BaseFab @newItem="addGroup" v-if="!props.readOnly"></BaseFab> -->
     <BaseDialogYesNo
       ref="dialog"
       @ok="addDescription"
@@ -45,6 +46,7 @@ const props = defineProps({
   },
 });
 const dialog = ref(null);
+const trainingCounter = ref(null);
 const description = ref("");
 
 const store = trainingStore();
@@ -117,10 +119,11 @@ const onDeleteGroup = async (id: Number) => {
 const setDuration = async (val) => {
   await store.setDuration(val);
 };
-const initCounter = ref(null);
-const start = async (val) => {
-  await initCounter.value.start();
-  store.isStarted = true;
+// const initCounter = ref(null);
+const showTrainingCounter = (val) => {
+  //await initCounter.value.start();
+  //store.isStarted = true;
+  trainingCounter.value.show();
 };
 //const trainingCounter = ref(null);
 // const restart = () => {

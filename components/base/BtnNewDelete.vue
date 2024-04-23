@@ -17,7 +17,7 @@
       flat
       dense
       round
-      icon="close"
+      icon="cancel"
       color="deep-orange-4"
       @click="confirmDelete()"
       v-show="!props.readOnly"

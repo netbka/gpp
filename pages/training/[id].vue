@@ -4,7 +4,6 @@
       <div class="row shadow-1 q-py-sm no-wrap ellipsis q-px-xs">
         <div class="col-grow self-center">
           <div class="text-subtitle1 text-bold">
-            План тренировки
             <InputText
               v-model="store.currentItem.name"
               @updatedb="

@@ -109,6 +109,26 @@ export const calculateDuration = (arr: Array) => {
   }
 };
 
+export const calculateLevel = (arr: Array) => {
+  try {
+    var totalLevel = 0;
+    var totralDuration 
+    arr.forEach((parent) => {
+      if (!parent) return;
+      var phaseduration = 0;
+      parent.exercise.forEach((child) => {
+        phaseduration += parseInt(child.duration);
+      });
+
+      phaseduration = phaseduration * parseInt(parent.repeats);
+      totalLevel += phaseduration;
+    });
+    return totalLevel;
+  } catch (error) {
+    return 0;
+  }
+};
+
 export const exerciseToText = (arr: Array) => {
   let text = "";
   arr.forEach((item) => {

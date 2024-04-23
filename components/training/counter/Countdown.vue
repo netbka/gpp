@@ -24,6 +24,8 @@ const start = async () => {
     });
     await new Promise((resolve) => setTimeout(resolve, 1000));
     audio.play();
+    // audio.pause();
+    // audio.currentTime = 0;
     $q.loading.hide();
   }
 };

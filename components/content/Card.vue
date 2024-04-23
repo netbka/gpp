@@ -78,7 +78,8 @@ const resetError = async (error) => {
   await navigateTo("/exerciseTemplate/");
   error.value = null;
 };
-const { getStoreImageById } = useImageManager();
+///reasearch why this composable is not working in SSR
+//const { getStoreImageById } = useImageManager();
 </script>
 
 <style scoped>

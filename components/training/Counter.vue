@@ -1,60 +1,67 @@
 <template>
-  <q-dialog
-    persistent
-    full-height
-    v-on:keyup.esc="hide()"
-    ref="dialog"
-    class="no-padding"
-  >
-    <q-card class="bg-white text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-          <TrainingButtonStartRestart
-            @hide="hide"
-            @restart="restart"
-          ></TrainingButtonStartRestart>
-        </q-toolbar-title>
-        <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
-      </q-toolbar>
+  <div>
+    <TrainingCounterCountdown ref="initCounter"></TrainingCounterCountdown>
+    <q-dialog
+      persistent
+      full-height
+      v-on:keyup.esc="hide()"
+      ref="dialog"
+      class="no-padding counter-dialog"
+    >
+      <q-card class="bg-white text-white counter-card">
+        <q-toolbar>
+          <q-toolbar-title>
+            <TrainingButtonStartRestart
+              @hide="hide"
+              @restart="restart"
+            ></TrainingButtonStartRestart>
+          </q-toolbar-title>
+          <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
+        </q-toolbar>
 
-      <q-card-section>
-        <div class="text-center">
-          <q-knob
-            show-value
-            font-size="40px"
-            class="q-ma-md"
-            v-model="timer"
-            size="250px"
-            :thickness="0.05"
-            color="primary"
-            track-color="grey-2"
-            readonly
-          >
-            <span class="text-light-blue-2">
-              {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
-            </span>
-          </q-knob>
-        </div>
-      </q-card-section>
+        <q-card-section>
+          <div class="text-center">
+            <q-knob
+              show-value
+              font-size="40px"
+              class="q-ma-md"
+              v-model="timer"
+              size="200px"
+              :thickness="0.05"
+              color="primary"
+              track-color="grey-2"
+              readonly
+            >
+              <span class="text-light-blue-2">
+                {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
+              </span>
+            </q-knob>
+          </div>
+        </q-card-section>
 
-      <q-card-section class="q-pt-none">
-        <div class="text-light-blue-7 text-h4 text-uppercase text-center">
-          {{ store.activeGroup.name }}
-        </div>
-        <div class="text-light-blue-10 text-h4 text-center">
-          {{ showExerciseName() }}
-        </div>
-        <div v-if="exerciseImage" class="text-center">
-          <img :src="exerciseImage" class="img-training" />
-        </div>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
+        <q-card-section class="q-pt-none">
+          <div class="text-light-blue-7 text-h4 text-uppercase text-center">
+            {{ store.activeGroup.name }}
+          </div>
+          <div class="text-light-blue-10 text-h4 text-center">
+            {{ showExerciseName() }}
+          </div>
+          <div class="">
+            <q-img
+              :src="exerciseImage"
+              :error-src="errorImg"
+              fit="scale-down"
+              class="exercise-image"
+            />
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
-const store = useTrainingStore();
-
+import errorImg from "/build_transparent_150.png";
 const emits = defineEmits(["stopTimer"]);
 const props = defineProps({
   isStarted: {
@@ -63,7 +70,10 @@ const props = defineProps({
   },
   //propFullHeight: { type: Boolean, default: false },
 });
+const initCounter = ref(null);
 const dialog = ref(null);
+const store = useTrainingStore();
+
 let counterDuration: number = ref(0);
 
 const initDuration = computed(() => store.getActiveExerciseDuration());
@@ -85,14 +95,17 @@ const hide = () => {
   resetTraining();
 };
 
-//todo fix to q-image
+const { getImageUrl } = useImageManager();
 const exerciseImage = computed(() => {
   try {
-    return;
-    store.activeGroup.exercise[exrIndex.value].templateId !== null
-      ? getExerciseImage(store.activeGroup.exercise[exrIndex.value].templateId)
+    let fileName = store.activeGroup.exercise[exrIndex.value].templateId;
+
+    return store.activeGroup.exercise[exrIndex.value].templateId !== null
+      ? getImageUrl(fileName, "exerciseTemplate")
       : null;
-  } catch (error) {}
+  } catch (error) {
+    return null;
+  }
 });
 
 const stopAudio = () => {
@@ -127,10 +140,7 @@ const saveTrainingTrack = async () => {
   //await storeTrainingTrack.createCurrentItem();
   await crudTT.createItem();
 };
-defineExpose({
-  resetTraining,
-  saveTrainingTrack,
-});
+
 const showExerciseName = () => {
   const index = store.getActiveExerciseIndex();
   try {
@@ -140,7 +150,18 @@ const showExerciseName = () => {
   } catch (error) {}
 };
 
-const startTimer = () => {
+// const startInitCounter = async () => {
+//   await initCounter.value.start();
+// };
+
+const startTimer = async () => {
+  if (
+    grpIndex.value === 0 &&
+    exrIndex.value === 0 &&
+    counterDuration.value === initDuration.value
+  ) {
+    await initCounter.value.start();
+  }
   if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
   if (
     grpIndex.value + 1 > store.currentItem.exerciseGroup.length &&
@@ -234,17 +255,42 @@ watch(isStarted, () => {
     stopTimer();
   }
 });
+
+const show = () => {
+  dialog.value.show();
+};
+defineExpose({
+  show,
+  resetTraining,
+  saveTrainingTrack,
+});
 </script>
 
 <style>
-.img-training {
+.exercise-image {
   height: calc(100vh / 3);
   object-fit: scale-down;
-  max-width: 1400px;
+  max-width: 1200px;
   width: -webkit-fill-available;
 }
 .padding {
   padding-left: calc((100vw - 1439px) / 2);
   padding-right: calc((100vw - 1439px) / 2);
+}
+.counter-card {
+  max-width: 100vw !important;
+  width: calc(100vw - 30px) !important;
+}
+
+@media (min-width: 760px) {
+  .counter-card {
+    min-width: 720x !important;
+    max-width: 1200px !important;
+    width: calc(100vw - 30px);
+  }
+}
+
+.counter-dialog {
+  width: 700px !important;
 }
 </style>
