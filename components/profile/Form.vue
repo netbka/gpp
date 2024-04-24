@@ -7,30 +7,47 @@
             bg-color="white"
             dense
             outlined
-            v-model="store.currentProfile.firstName"
-            label="Имя *"
+            v-model="store.currentItem.name"
+            label="Ник *"
             :rules="[(val) => !!val || 'Нужно указать значение']"
             :disable="store.loading"
             :input-style="{ fontSize: '12px' }"
+            maxlength="16"
+            counter
           />
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
+      <div class="row q-col-gutter-sm">
+        <div class="col-6">
+          <q-input
+            bg-color="white"
+            dense
+            outlined
+            v-model="store.currentItem.firstName"
+            label="Имя "
+            :disable="store.loading"
+            :input-style="{ fontSize: '12px' }"
+            maxlength="16"
+            counter
+          />
+        </div>
+        <div class="col-6">
           <q-input
             dense
             outlined
-            v-model="store.currentProfile.lastName"
+            v-model="store.currentItem.lastName"
             label="Фамилия"
             :disable="store.loading"
             :input-style="{ fontSize: '12px' }"
+            maxlength="16"
+            counter
           />
         </div>
       </div>
-      <div class="row q-my-md">
+      <div class="row q-mb-md">
         <div class="col-12">
           <InputSelectSportType
-            :selectedIds="store.currentProfile.profilesSportType"
+            :selectedIds="store.currentItem.profilesSportType"
             :loading="store.loading"
           ></InputSelectSportType>
         </div>
@@ -65,18 +82,21 @@
 
 import { useProfileStore } from "~/stores/profile";
 const store = useProfileStore();
-
 const storeSportType = useSportTypeStore();
-
-const loading = ref(false);
-onBeforeMount(async () => {});
-onMounted(async () => {});
-
+const crud = useSSRCrud(store);
+const crudClient = useClientCrud(store);
+const crudSportType = useSSRCrud(storeSportType);
+const { data, pending, error, refresh } = await crud.getItemOwn();
+const {
+  data: dataSportStyle,
+  pending: pendingSportStyle,
+  error: errorSportStyle,
+  refresh: refreshSportStyle,
+} = await crudSportType.fetchAll();
 const onSubmit = async () => {
-  store.currentProfile.newItems = storeSportType.currentItem;
-  await store.updateCurrentUser();
-
-  store.currentProfile.profilesSportType = storeSportType.currentItem;
+  // store.currentItem.newItems = storeSportType.currentItem;
+  await crudClient.updateItemOwn();
+  // store.currentItem.profilesSportType = storeSportType.currentItem;
 };
 
 const onReset = () => {

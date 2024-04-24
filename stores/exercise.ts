@@ -25,7 +25,7 @@ export const useExerciseStore = defineStore("exercise", {
     resetCurrentItem(name: string, groupId: number): void {
       this.currentItem = new Exercise(name, groupId).getAll();
     },
-    async newExercise(groupId: number) {
+    async newCurrentItem(groupId: number) {
       this.currentItem = new Exercise(undefined, groupId).getAll();
     },
     cloneTemplateItem(template: IExerciseTemplate, exercise: Exercise) {

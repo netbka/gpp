@@ -1,10 +1,10 @@
 <template>
   <div v-if="user" class="rounded px-3 flex items-center space-x-3 shadow">
-    <img class="rounded-full w-8" :src="getProfile(store.currentProfile.user_id +
+    <img class="rounded-full w-8" :src="getProfile(store.currentItem.user_id +
     ".jpeg")" />
     <div class="text-right">
       <div class="font-medium">
-        {{ store.currentProfile.firstName }} {{ store.currentProfile.lastName }}
+        {{ store.currentItem.firstName }} {{ store.currentItem.lastName }}
       </div>
       <!-- <button class="text-sm underline text-slate-500" @click="logout">Log out</button> -->
     </div>

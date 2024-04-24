@@ -124,11 +124,11 @@ const uploadAvatar = async () => {
   //console.log(inputfile.value);
   //console.log(croppedFile.value);
   if (croppedFile.value) {
-    await updateUserAvatar(croppedFile.value, store.currentProfile.user_id);
+    await updateUserAvatar(croppedFile.value, store.currentItem.user_id);
     return;
   }
   if (inputfile.value) {
-    await updateUserAvatar(inputfile.value, store.currentProfile.user_id);
+    await updateUserAvatar(inputfile.value, store.currentItem.user_id);
     return;
   }
 };
@@ -152,7 +152,7 @@ const cropImage = async () => {
 
   canvas.toBlob(
     (blob) => {
-      croppedFile.value = blobToFile(blob, store.currentProfile.user_id);
+      croppedFile.value = blobToFile(blob, store.currentItem.user_id);
       setAvatar(croppedFile.value);
     },
     image.value.type,
@@ -161,7 +161,7 @@ const cropImage = async () => {
 };
 
 watch(
-  () => store.currentProfile.avatarPath,
+  () => store.currentItem.avatarPath,
   async (val) => {
     if (image.src) {
       URL.revokeObjectURL(image.src);
@@ -174,12 +174,12 @@ defineExpose({
   uploadAvatar,
 });
 //const updateNewAvatar = async () => {
-// if (!store.currentProfile.avatarPath && profile.value.length > 6) {
+// if (!store.currentItem.avatarPath && profile.value.length > 6) {
 //   var url = profile.value;
-//   var fileName = store.currentProfile.user_id + ".jpeg";
+//   var fileName = store.currentItem.user_id + ".jpeg";
 //   const fileToUpload = await urlToFile(url, fileName);
 //   updateUserAvatar(fileToUpload, fileName);
-//   store.currentProfile.avatarPath = fileName;
+//   store.currentItem.avatarPath = fileName;
 //   store.updateCurrentUser();
 // }
 //};

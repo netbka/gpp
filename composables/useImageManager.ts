@@ -80,6 +80,12 @@ export function useImageManager(store) {
     const image = id;
     preview.value = getImageUrl(image, storage);
   };
+  const getAvatar = async (): Promise<string> => {
+    const supabase = useSupabaseClient();
+    const { data } = supabase.storage.from(store.$id).getPublicUrl(store.currentItem.user_id);
+    const result = (await isImageAvailable(data.publicUrl)) ? data.publicUrl + "?" + new Date().getTime() : "https://eu.ui-avatars.com/api/?name=" + store.currentItem.name + "&size=100";
+    return result;
+  };
 
   const handleImageChange = (file: File) => {
     if (file) {
@@ -98,7 +104,25 @@ export function useImageManager(store) {
   const errorImg = () => {
     return errorImage;
   };
+  const isImageAvailable = async (url: string) => {
+    return await fetch(url, {
+      method: "HEAD",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking file existence:", error);
+        return false;
+      });
+  };
   return {
+    isImageAvailable,
+    getAvatar,
     deleteFile,
     getImageById,
     getImageUsingStore,

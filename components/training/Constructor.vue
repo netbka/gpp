@@ -60,7 +60,7 @@ const storeExercise = exerciseStore();
 const crudExercise = useClientCrud(storeExercise);
 const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
-    storeExercise.newExercise(item.id);
+    storeExercise.newCurrentItem(item.id);
     await crudExercise.createItem();
     item.exercise.push(storeExercise.currentItem);
   }

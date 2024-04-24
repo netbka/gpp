@@ -2,7 +2,7 @@ import type { PrismaClient, TrainingTrack as PrismaTrainingTrack, Muscle as Pris
 
 //import { TablePagination as TablePaginationImport, type ITablePagination as ITablePaginationImport } from "./ITablePagination";
 
-export type Profile = PrismaProfile;
+//export type Profile = PrismaProfile;
 //export type SportType = PrismaSportType;
 //export type Training = PrismaTraining;
 //export type ExerciseGroup = PrismaExerciseGroup;
@@ -12,6 +12,7 @@ export type Profile = PrismaProfile;
 //export type TrainingTrack = PrismaTrainingTrack;
 
 export * from "./base";
+export * from "./profile";
 export * from "./exerciseTemplate";
 export * from "./tablePagination";
 export * from "./slug";

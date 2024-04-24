@@ -1,25 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
-// const parserUserId = (event) => {
-//   try {
-//     const {
-//       user: { id: user_id },
-//     } = event.context;
-//     return user_id;
-//   } catch (error) {
-//     return null;
-//   }
-// };
 
 export default defineEventHandler(async (event) => {
-  // if (parserUserId(event) === null) {
-  //   console.log("not parsed");
-  //   return;
-  // }
-
-  //const user_id = parserUserId(event);
-  //if (event.context.user === null) return null;
   try {
     const {
       user: { id: user_id },
@@ -33,10 +15,13 @@ export default defineEventHandler(async (event) => {
         profilesSportType: true,
       },
     });
-    var model = { firstName: user_id.split("-")[0], lastName: "", user_id: user_id };
+    var model = { firstName: user_id.split("-")[0], lastName: "", user_id: user_id, name: "" };
     model.firstName = event.context.user.email.split("@")[0];
+
+    //if not result then create a new profile
     if (result === null) {
       if (event.context.user.user_metadata.name) {
+        model.name = event.context.user.user_metadata;
         var fullName = event.context.user.user_metadata.name.split(" ");
 
         if (fullName.length > 0) {
@@ -54,41 +39,28 @@ export default defineEventHandler(async (event) => {
         },
       });
     }
-    //console.log(result.avatarPath);
-    if (result.avatarPath === undefined || result.avatarPath === null || (result.avatarPath !== undefined && result.avatarPath?.length < 3)) {
-      var uploadResult = await initAvatar(event.context.user.user_metadata.avatar_url, result.user_id, result.firstName);
-
-      if (uploadResult) {
-        result = await prisma.profile.update({
-          where: {
-            user_id: user_id,
-          },
-          data: {
-            avatarPath: uploadResult,
-          },
-          include: {
-            profilesSportType: true,
-          },
-        });
-      }
-    }
+    // let hasProfile = await hasProfileImage(result.user_id);
+    // if (!hasProfile) {
+    //   var avatarInitials = isEmptyString(result.name) ? result.firstName : result.name;
+    //   await initAvatar(event.context.user.user_metadata.avatar_url, result.user_id, avatarInitials);
+    // }
+    return result;
   } catch (error) {
     console.log("error from server", error);
-    return null;
+    throw createError({
+      statusCode: 500,
+      message: "Что-то пошло не так",
+    });
   } finally {
     prisma.$disconnect();
-    return result;
   }
 });
 import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 const initAvatar = async (url: string, fileName: string, name: string) => {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_KEY;
-  const supabase = createClient(supabaseUrl, supabaseKey);
   const fileToUpload = await urlFile(url, fileName, name);
-  //console.log(fileToUpload);
-  //const fileExt = getFileExtension(fileToUpload.type);
-  //fileName = fileName + "." + fileExt;
   let { error } = await supabase.storage.from("avatars").upload(fileName, fileToUpload, {
     upsert: true,
   });
@@ -96,7 +68,26 @@ const initAvatar = async (url: string, fileName: string, name: string) => {
   return error === null ? fileName : null; //return false if ok
 };
 
-const getAvatarFromUrl = async (url, name: string) => {
+const hasProfileImage = async (fileName: string): Promise<boolean> => {
+  const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
+
+  return await fetch(data.publicUrl, {
+    method: "HEAD",
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking file existence:", error);
+      return false;
+    });
+};
+
+const getAvatarFromUrl = async (url: string, name: string) => {
   try {
     return await fetch(url);
   } catch (error) {
@@ -110,3 +101,7 @@ const urlFile = async (url: string, fileName: string, name: string) => {
   const blob = await response.blob();
   return new File([blob], fileName, { type: blob.type });
 };
+
+function isEmptyString(str) {
+  return str?.length === 0;
+}

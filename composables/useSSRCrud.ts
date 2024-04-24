@@ -63,4 +63,19 @@ export const useSSRCrud = <T>(store) => ({
     }
     return { data, pending, error, refresh };
   },
+  async getItemOwn(): Promise<ItemResponse<T>> {
+    const { data, pending, error, refresh } = await useAsyncData<ItemResponse<T>>(`${store.$id}-getItemById`, () => $fetch(`/api/${store.$id}/own`, {}));
+
+    if (data.value) {
+      store.currentItem = data.value;
+      if (store.itemArray !== undefined) updateArray(data.value, store.itemArray);
+    }
+    if (error.value) {
+      throw createError({
+        statusCode: error.value.statusCode,
+        message: "Нет доступа к этому занятию",
+      });
+    }
+    return { data, pending, error, refresh };
+  },
 });

@@ -8,7 +8,7 @@
           </q-avatar>
         </div> -->
         <!-- <div class="text-subtitle2 q-mt-md q-mb-xs text-center ellipsis">
-          {{ store.currentProfile.firstName }} {{ store.currentProfile.lastName }}
+          {{ store.currentItem.firstName }} {{ store.currentItem.lastName }}
         </div> -->
         <div class="q-py-sm">
           <q-btn

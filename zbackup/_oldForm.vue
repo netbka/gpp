@@ -125,7 +125,7 @@ const onSubmit = async () => {
     updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
   }
 
-  // store.currentProfile.profilesSportType = storeSportType.currentItem;
+  // store.currentItem.profilesSportType = storeSportType.currentItem;
   loading.value = false;
 };
 

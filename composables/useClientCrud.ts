@@ -40,6 +40,17 @@ export const useClientCrud = <T>(store) => ({
       store.currentItem = response;
     })(null);
   },
+  async updateItemOwn() {
+    withErrorHandling(store)(async (payload, store) => {
+      const response = await $fetch(`/api/${store.$id}/own`, {
+        method: "PUT",
+        body: { ...store.currentItem },
+      });
+
+      if (store.itemArray !== undefined)  updateArray(response, store.itemArray);
+      store.currentItem = response;
+    })(null);
+  },
   async deleteItem(id: number) {
     await withErrorHandling(store)(async (payload, store) => {
       const response = await $fetch(`/api/${store.$id}/delete`, {

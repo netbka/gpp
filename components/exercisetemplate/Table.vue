@@ -37,7 +37,7 @@ const props = defineProps({
 const store = useExerciseTemplateStore();
 const crud = useSSRCrud(store);
 const crudClient = useClientCrud(store);
-const { data, pending, error, refresh, execute } = await crud.searchItem();
+const { data, pending, error, refresh } = await crud.searchItem();
 
 const tableRef = ref(null);
 const emits = defineEmits(["onEditItem", "confirmDelete"]);
