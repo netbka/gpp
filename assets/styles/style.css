@@ -224,3 +224,9 @@ h6 {
 .z-top {
   z-index: 999;
 }
+
+.vue-advanced-cropper__background,
+.vue-advanced-cropper__foreground {
+  opacity: 0.3 !important;
+  background: #bababa !important;
+}

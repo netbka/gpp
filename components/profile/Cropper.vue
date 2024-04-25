@@ -1,7 +1,12 @@
 <template>
-  <BaseDialogEmpty ref="dialog" propHeading="Редактировать аватар">
+  <BaseDialogEmpty
+    ref="dialog"
+    propHeading="Редактировать аватар"
+    @onHide="$emit('onHide')"
+  >
     <div>
       <div class="wrapper">
+        <q-skeleton height="180px" square v-show="image.src === null" />
         <div class="preview-result">
           <Cropper
             :autoZoom="true"
@@ -37,7 +42,7 @@
               outline
             ></q-btn>
           </div>
-          <div v-show="inputfile !== null && croppedFile !== null">
+          <div v-show="inputfile !== null || croppedFile != null">
             <q-btn size="sm" icon="undo" @click="undoImage" class="undo" outline></q-btn>
           </div>
           <q-file
@@ -61,17 +66,25 @@
 </template>
 
 <script lang="ts" setup>
-import { urlToFile, getProfile } from "~/composables/profileUpd";
+//import { urlToFile, getProfile } from "~/composables/profileUpd";
 import { CircleStencil, Cropper } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 import "vue-advanced-cropper/dist/theme.compact.css";
-
+const emits = defineEmits(["onHide"]);
 const limitations = ref({
   minWidth: 128,
   minHeight: 128,
 });
 
 const store = profileStore();
+const {
+  getAvatar,
+  blobToFile,
+  urlToFile,
+  uploadImage,
+  uploadImageUsingStorage,
+} = useImageManager(store);
+
 const cropper = ref(null);
 const file = ref(null);
 const croppedFile = ref(null);
@@ -97,18 +110,23 @@ const setAvatar = (_file) => {
   image.value.type = _file.type;
 };
 
-const undoImage = () => {
-  setAvatar(inputfile.value);
-  croppedFile = ref(null);
+const undoImage = async () => {
+  if (croppedFile.value != null) {
+    inputfile.value != null ? setAvatar(inputfile.value) : await initPreview();
+    croppedFile.value = null;
+    return;
+  }
+  inputfile.value = null;
+  await initPreview();
 };
 
 const uploadAvatar = async () => {
   if (croppedFile.value) {
-    await updateUserAvatar(croppedFile.value, store.currentItem.user_id);
+    await uploadImageUsingStorage(croppedFile.value);
     return;
   }
   if (inputfile.value) {
-    await updateUserAvatar(inputfile.value, store.currentItem.user_id);
+    await uploadImageUsingStorage(inputfile.value);
     return;
   }
 };
@@ -129,7 +147,6 @@ const handleFileChange = (event) => {
 
 const cropImage = async () => {
   const { canvas } = cropper.value.getResult();
-
   canvas.toBlob(
     (blob) => {
       croppedFile.value = blobToFile(blob, store.currentItem.user_id);
@@ -139,22 +156,16 @@ const cropImage = async () => {
     0.85
   );
 };
+const initPreview = async () => {
+  const imgUrl = await getAvatar();
+  const imgFile = await urlToFile(imgUrl, store.currentItem.user_id);
+  setAvatar(imgFile);
+};
 
-watch(
-  () => store.currentItem.avatarPath,
-  async (val) => {
-    if (image.src) {
-      URL.revokeObjectURL(image.src);
-    }
-    image.value.src = getProfile(val);
-  },
-  { deep: true },
-  { immediate: true }
-);
-
-const show = () => {
-  image.value.src = getProfile(store.currentItem.avatarPath);
+const show = async () => {
   dialog.value.show();
+
+  if (image.value.src === null) await initPreview();
 };
 
 defineExpose({

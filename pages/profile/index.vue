@@ -8,32 +8,31 @@
         Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
       </span>
       <div class="q-mt-md">
-        <!-- <ClientOnly>
+        <ClientOnly>
           <ProfileCropper ref="cropperDialog" @onHide="onHide"></ProfileCropper>
-        </ClientOnly> -->
+        </ClientOnly>
       </div>
     </div>
     <div class="col-12 col-sm">
       <div class="row q-mb-sm">
-        <div class="col-12 float-left">
-          <!-- <q-skeleton type="QCheckbox" v-show="!avatar.length > 0" /> -->
+        <div class="col-4">
           <q-img
             :src="avatar"
             fit="scale-down"
-            class="items-start"
+            class="items-start image-exercise"
             style="max-width: 100%; height: 64px; left: 1px"
-          ></q-img>
-          <!-- <q-avatar v-show="avatar.length > 0" size="64px">
-            <img :src="avatar" alt="avatar" />
-            <q-badge
-              floating
-              color="transparent"
-              @click="openCropper"
-              class="cursor-pointer"
-            >
-              <q-icon name="photo_camera" color="grey-5" size="sm" class="q-ml-xs" />
-            </q-badge>
-          </q-avatar> -->
+            position="0 0"
+          >
+            <div class="image-exercise-container cursor-pointer">
+              <q-icon
+                @click="openCropper"
+                name="photo_camera"
+                color="yellow-10"
+                size="sm"
+                class="q-ml-xs icon-exercise"
+              />
+            </div>
+          </q-img>
         </div>
       </div>
 
@@ -49,18 +48,15 @@ const avatar = ref("");
 const store = profileStore();
 const { getAvatar } = useImageManager(store);
 
-const avatarSrc = async () => {
-  avatar.value = await getAvatar();
-};
-
 onBeforeMount(async () => {
-  await avatarSrc();
+  avatar.value = await getAvatar();
 });
 
 const openCropper = () => {
   cropperDialog.value.show();
 };
 const onHide = async () => {
+  avatar.value = await getAvatar();
   //avatar.value = "";
   //await updateProfile();
 };
@@ -79,11 +75,36 @@ const onHide = async () => {
 // };
 </script>
 
-<style>
+<style scoped>
 .q-badge--floating {
   position: absolute;
   top: 42px;
   right: -22px;
   cursor: inherit;
+}
+.change-image {
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  cursor: inherit;
+  z-index: 99;
+}
+.image-exercise {
+}
+.image-exercise-container {
+  left: 48px;
+  bottom: 0;
+  z-index: 1;
+  background: rgb(229 235 238) !important;
+  max-width: 16px;
+  max-height: 16px;
+}
+.icon-exercise {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.q-img__content > div {
+  padding: 12px !important;
 }
 </style>

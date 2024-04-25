@@ -4,9 +4,9 @@
     :full-height="propFullHeight"
     ref="dialog"
     class="no-padding row"
-    :position="position"
+    position="top"
   >
-    <q-card class="">
+    <q-card class="cropper-card">
       <q-card-section class="row q-pr-sm">
         <div class="text-h6">{{ propHeading }}</div>
         <q-space />
@@ -36,11 +36,11 @@
 <script lang="ts" setup>
 import { useQuasar } from "quasar";
 
-const $q = useQuasar();
+// const $q = useQuasar();
 
-const position = computed(() => {
-  return $q.screen.gt.xs ? "standard" : "top";
-});
+// const position = computed(() => {
+//   return $q.screen.gt.xs ? "top" : "top";
+// });
 
 const props = defineProps({
   propHeading: { type: String, default: "" },
@@ -62,28 +62,28 @@ defineExpose({
   show,
 });
 </script>
-<style>
+<style scoped>
 .nooverflow {
   overflow: hidden;
 }
-.form-size {
+.cropper-card {
   min-width: 300px !important;
   max-width: calc(100vw - 2px) !important;
   width: 100vw;
 }
 @media (min-width: 600px) {
-  .form-size {
+  .cropper-card {
     min-width: 300px !important;
     max-width: calc(100vw - 2px) !important;
-    width: calc(100vw 4 / 5);
+    width: calc(100vw * 4 / 5);
   }
 }
 
 @media (min-width: 1000px) {
-  .form-size {
+  .cropper-card {
     min-width: 300px !important;
     max-width: calc(100vw - 2px) !important;
-    width: calc(100vw / 2);
+    width: calc(1000px);
   }
 }
 </style>
