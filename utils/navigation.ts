@@ -15,7 +15,7 @@ export const parseSlugId = (val: String) => {
     console.error(error);
     throw createError({
       statusCode: 500,
-      statusMessage: "Нет такого занятия",
+      message: "Нет такого занятия",
     });
   }
 };

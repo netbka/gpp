@@ -107,11 +107,6 @@ const { isAdmin } = useAuthUser();
 const storeMuscle = muscleStore();
 const uploader = ref(null);
 
-// const imageToUpload = ref(null);
-// const imageUpdate = (img) => {
-//   imageToUpload.value = img;
-// };
-
 const onSubmit = async () => {
   store.currentItem.newItems = storeMuscle.currentItem;
   store.currentItem.description = sanitizeHtml(store.currentItem.description);
@@ -120,10 +115,6 @@ const onSubmit = async () => {
   } else {
     await crud.updateItem(store);
   }
-
-  // if (imageToUpload.value != null) {
-  //   await updateExerciseImage(imageToUpload.value, store.currentItem.id + ".gif");
-  // }
 };
 const onHide = () => {
   store.resetCurrentItem("");
@@ -140,7 +131,7 @@ const show = async (id) => {
   form.value.show();
 };
 const validate = (val) => {
-  if (val === null || !val || val < 1) return "нужно указать значение";
+  if (val === null || val < 0) return "нужно указать значение";
 };
 
 defineExpose({

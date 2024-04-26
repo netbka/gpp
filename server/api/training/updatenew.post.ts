@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
     console.log("error on submit", error);
     throw createError({
       statusCode: 401,
-      statusMessage: "Не авторизован",
+      message: "Не авторизован",
     });
   } finally {
     await prisma.$disconnect();

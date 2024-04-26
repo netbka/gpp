@@ -11,10 +11,10 @@
         :subHeading2="' Все готово от Просто ОФП'"
       ></ContentHero>
 
-      <TrainingTable @onEditItem="showForm" :readOnly="!isAdmin()"></TrainingTable>
+      <TrainingTable @onEditItem="showForm"></TrainingTable>
 
       <TrainingForm ref="form"></TrainingForm>
-      <BaseFab @newItem="showForm" :readOnly="!isAdmin()"></BaseFab>
+      <BaseFab @newItem="showForm" :readOnly="!isLoggedIn()"></BaseFab>
     </NuxtErrorBoundary>
   </div>
 </template>
@@ -23,7 +23,7 @@
 definePageMeta({ auth: false });
 const form = ref(null);
 
-const { isAdmin } = useAuthUser();
+const { isAdmin, isLoggedIn } = useAuthUser();
 
 const showForm = (id) => {
   form.value.show(id);

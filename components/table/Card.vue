@@ -54,7 +54,7 @@
 
     <q-card-actions class="card-actions" align="right">
       <q-btn
-        v-show="showDeleteButton"
+        v-show="canDeleteEdit"
         flat
         color="light-green-9"
         size="sm"
@@ -64,7 +64,7 @@
       >
       </q-btn>
       <q-btn
-        v-show="showDeleteButton"
+        v-show="canDeleteEdit"
         flat
         color="red-7"
         size="sm"
@@ -86,7 +86,7 @@ import errorImg from "/build_transparent_150.png";
 const props = defineProps({
   data: { Type: Object, default: {} },
   //cols: { Type: Object, default: {} },
-  readOnly: { Type: Boolean, default: true },
+  //readOnly: { Type: Boolean, default: true },
   cardLink: { Type: String, default: "" },
   cardCaption: { Type: String, default: "" },
 });
@@ -96,7 +96,7 @@ const link = (data) => {
   return new Slug(data, props.cardLink).getSlug();
 };
 const { currentUserId } = useAuthUser();
-const showDeleteButton = computed(() => props.data.user_id === currentUserId());
+const canDeleteEdit = computed(() => props.data.user_id === currentUserId());
 </script>
 
 <style scoped>

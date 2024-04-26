@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-  readOnly: { Type: Boolean, default: false },
+  readOnly: { Type: Boolean, default: false }, //not properly implemented
 });
 
 const store = useTrainingStore();

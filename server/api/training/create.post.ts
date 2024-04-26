@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
     //body = omit(body, ["muscle"]);
 
-    body = omit(body, ["id", "exerciseGroup"]);
+    body = omit(body, ["id", "exerciseGroup", "trainingTrack"]);
     let result = await prisma.training.create({
       data: { ...body },
     });

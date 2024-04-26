@@ -9,13 +9,18 @@ export const notifyMsgNegative = (msg: string) => {
   });
 };
 
-export const notifyRejectedSize = (rejectedEntries: String) => {
-  Notify.create({
-    type: "negative",
-    caption: "Слишком большой размер файла",
-    message: `${rejectedEntries[0].file.name} `,
-    timeout: 1000,
-  });
+export const notifyRejectedSize = (rejectedEntries: Array) => {
+  console.log(rejectedEntries);
+  try {
+    Notify.create({
+      type: "negative",
+      caption: "Слишком большой размер файла",
+      message: `${rejectedEntries[0].file.name} `,
+      timeout: 1000,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const notifyMsgPositive = (msg: string) => {

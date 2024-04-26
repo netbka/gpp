@@ -26,7 +26,8 @@ export const useClientCrud = <T>(store) => ({
       const response = await $fetch(`/api/${store.$id}/all`, {
         method: "GET",
       });
-      if (response.length > 0) this.itemArray = response;
+
+      if (response.length > 0) store.itemArray = response;
     })(null);
   },
   async updateItem() {
@@ -47,7 +48,7 @@ export const useClientCrud = <T>(store) => ({
         body: { ...store.currentItem },
       });
 
-      if (store.itemArray !== undefined)  updateArray(response, store.itemArray);
+      if (store.itemArray !== undefined) updateArray(response, store.itemArray);
       store.currentItem = response;
     })(null);
   },

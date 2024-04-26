@@ -29,7 +29,7 @@
 //   } catch (error) {
 //     // throw createError({
 //     //   statusCode: 500,
-//     //   statusMessage: "Something bad happened on the server",
+//     //   message: "Something bad happened on the server",
 //     // });
 //     console.log("error on submit", error);
 //   } finally {

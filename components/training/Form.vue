@@ -70,8 +70,8 @@ const newItem = () => {
 };
 const form = ref(null);
 
-const show = (id) => {
-  id ? crud.getById(id) : store.resetCurrentItem();
+const show = async (id) => {
+  id ? await crud.getById(id) : store.resetCurrentItem();
 
   form.value.show();
 };

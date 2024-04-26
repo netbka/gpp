@@ -5,12 +5,12 @@
       @start="showTrainingCounter"
       @onSaveTraining="confirmAddTrainingDescription"
       @addGroup="addGroup"
-      :readOnly="readOnly"
+      :readOnly="!canEditDelete"
     ></TrainingBtnControls>
     <q-skeleton height="650px" square v-show="store.loading" />
     <BaseNested
       v-show="!store.loading"
-      :readOnly="readOnly"
+      :readOnly="!canEditDelete"
       :data="store.currentItem.exerciseGroup"
       @onAddExercise="onAddExercise"
       @onDeleteGroup="onDeleteGroup"
@@ -39,17 +39,20 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  readOnly: {
-    type: Boolean,
-    default: false,
-  },
-});
+// const props = defineProps({
+//   readOnly: {
+//     type: Boolean,
+//     default: false,
+//   },
+// });
 const dialog = ref(null);
 const trainingCounter = ref(null);
 const description = ref("");
 
 const store = trainingStore();
+const { canEditDelete } = useCanEditDelete(store);
+
+console.log(canEditDelete.value);
 
 const confirmAddTrainingDescription = () => {
   description.value = exerciseToText(store.currentItem.exerciseGroup);
@@ -125,15 +128,6 @@ const showTrainingCounter = (val) => {
   //store.isStarted = true;
   trainingCounter.value.show();
 };
-//const trainingCounter = ref(null);
-// const restart = () => {
-//   trainingCounter.value.resetTraining();
-// };
-//todo add mute button to counter
-// const stopTimer = () => {
-//   workout.value.resetTraining();
-// };
-//const duration = ref({ min: 0, sec: 0 });
 </script>
 
 <style></style>

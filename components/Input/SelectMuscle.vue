@@ -38,10 +38,9 @@ const props = defineProps({
 });
 const { selectedIds } = props;
 
-const store = muscleStore();
+const store = useMuscleStore();
 const crud = useClientCrud(store);
 await crud.fetchAll();
-
 store.currentItem = props.selectedIds;
 
 watch(

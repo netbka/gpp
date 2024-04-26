@@ -74,9 +74,9 @@ const props = defineProps({
   },
 });
 const router = useRouter();
+
 const back = async () => {
   await navigateTo({ path: "/" + router.currentRoute.value.fullPath.split("/")[1] });
-  //console.log();
 };
 const store = trainingStore();
 </script>

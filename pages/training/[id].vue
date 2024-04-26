@@ -5,6 +5,7 @@
         <div class="col-grow self-center">
           <div class="text-subtitle1 text-bold">
             <InputText
+              :readOnly="!canEditDelete"
               v-model="store.currentItem.name"
               @updatedb="
                 updateItemField('name', store.currentItem.name, store.currentItem.id)
@@ -35,9 +36,13 @@ const updateItemField = async (field, value, id) => {
   await crud.updateItemField(field, value, id);
 };
 
+const { currentUserId } = useAuthUser();
+
 const storeExerciseTemplate = exerciseTemplateStore();
 const crudExerciseTemplate = useSSRCrud(storeExerciseTemplate);
 await crudExerciseTemplate.fetchAll("myandpublic");
+
+const { canEditDelete } = useCanEditDelete(store);
 
 const duration = ref("");
 watch(

@@ -10,7 +10,7 @@
       <div
         class="row q-pa-xs shadow-1 q-my-sm bg-color-nested no-wrap ellipsis"
         v-for="el in data"
-        :key="el.name"
+        :key="el.id"
       >
         <div class="col-grow">
           <span v-show="el.active">

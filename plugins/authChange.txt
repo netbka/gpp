@@ -1,4 +1,0 @@
-const supabase = useSupabaseClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-export default defineNuxtPlugin((nuxtApp) => {
-    
-});

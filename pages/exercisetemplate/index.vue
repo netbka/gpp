@@ -24,7 +24,7 @@
 definePageMeta({ auth: false });
 const form = ref(null);
 
-const { isAdmin } = useAuthUser();
+const { isAdmin,currentUserId } = useAuthUser();
 
 const showForm = (id) => {
   form.value.show(id);

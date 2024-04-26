@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
     console.log("error on submit", error);
     throw createError({
       statusCode: 500,
-      statusMessage: "Something bad happened on the server",
+      message: "Something bad happened on the server",
     });
   } finally {
     await prisma.$disconnect();

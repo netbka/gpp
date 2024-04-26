@@ -2,14 +2,6 @@
   <q-btn-dropdown v-show="user" stretch flat icon="account_circle">
     <div class="row q-pa-sm width-profile wrap justify-center items-center content-start">
       <div class="col-grow self-center">
-        <!-- <div class="text-center">
-          <q-avatar size="72px">
-            <img :src="profile" />
-          </q-avatar>
-        </div> -->
-        <!-- <div class="text-subtitle2 q-mt-md q-mb-xs text-center ellipsis">
-          {{ store.currentItem.firstName }} {{ store.currentItem.lastName }}
-        </div> -->
         <div class="q-py-sm">
           <q-btn
             label="Мой профиль"
@@ -48,15 +40,6 @@ const logoff = async () => {
 </script>
 
 <style>
-.nounderline {
-  text-decoration: none !important;
-}
-.borders {
-  border: 1px solid #000;
-  padding: 1px;
-  text-decoration: none !important;
-}
-
 .width-profile {
   min-width: 150px;
   max-width: 150px;

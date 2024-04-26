@@ -1,43 +1,51 @@
 <template>
-  <div
-    class="row q-col-gutter-md justify-center items-start content-start shadow-2 q-pa-md q-mx-md"
-  >
-    <div class="col-12 col-sm">
-      <div class="text-h6">Давайте познакомимся</div>
-      <span class="text-caption">
-        Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
-      </span>
-      <div class="q-mt-md">
-        <ClientOnly>
-          <ProfileCropper ref="cropperDialog" @onHide="onHide"></ProfileCropper>
-        </ClientOnly>
-      </div>
-    </div>
-    <div class="col-12 col-sm">
-      <div class="row q-mb-sm">
-        <div class="col-4">
-          <q-img
-            :src="avatar"
-            fit="scale-down"
-            class="items-start image-exercise"
-            style="max-width: 100%; height: 64px; left: 1px"
-            position="0 0"
-          >
-            <div class="image-exercise-container cursor-pointer">
-              <q-icon
-                @click="openCropper"
-                name="photo_camera"
-                color="yellow-10"
-                size="sm"
-                class="q-ml-xs icon-exercise"
-              />
+  <div>
+    <NuxtErrorBoundary>
+      <NuxtPage />
+      <template #error="{ error }">
+        <ErrorBoundary :error="error" />
+      </template>
+      <div
+        class="row q-col-gutter-md justify-center items-start content-start shadow-2 q-pa-md q-mx-md"
+      >
+        <div class="col-12 col-sm">
+          <div class="text-h6">Давайте познакомимся</div>
+          <span class="text-caption">
+            Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
+          </span>
+          <div class="q-mt-md">
+            <ClientOnly>
+              <ProfileCropper ref="cropperDialog" @onHide="onHide"></ProfileCropper>
+            </ClientOnly>
+          </div>
+        </div>
+        <div class="col-12 col-sm">
+          <div class="row q-mb-sm">
+            <div class="col-4">
+              <q-img
+                :src="avatar"
+                fit="scale-down"
+                class="items-start image-exercise"
+                style="max-width: 100%; height: 64px; left: 1px"
+                position="0 0"
+              >
+                <div class="image-exercise-container cursor-pointer">
+                  <q-icon
+                    @click="openCropper"
+                    name="photo_camera"
+                    color="yellow-10"
+                    size="sm"
+                    class="q-ml-xs icon-exercise"
+                  />
+                </div>
+              </q-img>
             </div>
-          </q-img>
+          </div>
+
+          <ProfileForm></ProfileForm>
         </div>
       </div>
-
-      <ProfileForm></ProfileForm>
-    </div>
+    </NuxtErrorBoundary>
   </div>
 </template>
 
