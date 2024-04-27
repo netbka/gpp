@@ -109,6 +109,7 @@ export const useAuthUser = () => {
   };
 
   const isAdmin = () => {
+    console.log(user.value?.email === "netbka@gmail.com");
     return user.value?.email === "netbka@gmail.com";
   };
   const currentUserId = () => {

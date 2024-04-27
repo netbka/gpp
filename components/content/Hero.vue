@@ -5,8 +5,8 @@
     </div>
     <div class="hero-text text-center">
       <h1>{{ header }}</h1>
-      <h2 class="text-weight-thin text-h4">{{ subHeading }}</h2>
-      <h2 class="text-weight-thin text-h4">{{ subHeading2 }}</h2>
+      <h2 class="text-weight-thin text-h4 q-mb-none line-height">{{ subHeading }}</h2>
+      <h2 class="text-weight-thin text-h4 q-mt-none line-height">{{ subHeading2 }}</h2>
     </div>
   </div>
 </template>
@@ -36,8 +36,13 @@ const props = defineProps({
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 350px;
 }
-
+@media (min-width: 500px) {
+  .hero-text {
+    min-width: 480px;
+  }
+}
 .hero-image {
   height: 300px;
   background-size: contain;
@@ -57,5 +62,8 @@ const props = defineProps({
   opacity: 0.5;
 
   mix-blend-mode: multiply;
+}
+.line-height {
+  line-height: 2rem;
 }
 </style>

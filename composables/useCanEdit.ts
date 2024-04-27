@@ -9,7 +9,6 @@ export function useCanEditDelete(store) {
     () => store.getCurrentItem,
     (val) => {
       userIsequal.value = val.user_id === currentUserId();
-      console.log(val.user_id === currentUserId());
     },
 
     { deep: true, immediate: true }

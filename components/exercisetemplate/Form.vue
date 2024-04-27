@@ -86,7 +86,7 @@
               ></InputSelectMuscle>
             </div>
           </div>
-          <div class="row" v-if="isAdmin">
+          <div class="row" v-if="isAdmin()">
             <div class="col-12">
               <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
             </div>

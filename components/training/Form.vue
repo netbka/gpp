@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12" v-if="isAdmin">
+            <div class="col-12" v-if="isAdmin()">
               <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
             </div>
           </div>
