@@ -1,7 +1,7 @@
 export const useClientCrud = <T>(store) => ({
   async createItem() {
     await withErrorHandling(store)(async (payload, store) => {
-      const response = await $fetch(`/api/${store.$id}/create`, {
+      const response = await $fetch(`/api/${store.$id}`, {
         method: "POST",
         body: { ...store.currentItem },
       });
@@ -23,7 +23,7 @@ export const useClientCrud = <T>(store) => ({
   },
   async fetchAll() {
     withErrorHandling(store)(async (payload, store) => {
-      const response = await $fetch(`/api/${store.$id}/all`, {
+      const response = await $fetch(`/api/${store.$id}`, {
         method: "GET",
       });
 
@@ -32,12 +32,12 @@ export const useClientCrud = <T>(store) => ({
   },
   async updateItem() {
     withErrorHandling(store)(async (payload, store) => {
-      const response = await $fetch(`/api/${store.$id}/update`, {
+      const response = await $fetch(`/api/${store.$id}`, {
         method: "PUT",
         body: { ...store.currentItem },
       });
 
-      updateArray(response, store.itemArray);
+      if (store.itemArray !== undefined) updateArray(response, store.itemArray);
       store.currentItem = response;
     })(null);
   },
@@ -54,7 +54,7 @@ export const useClientCrud = <T>(store) => ({
   },
   async deleteItem(id: number) {
     await withErrorHandling(store)(async (payload, store) => {
-      const response = await $fetch(`/api/${store.$id}/delete`, {
+      const response = await $fetch(`/api/${store.$id}`, {
         method: "DELETE",
         body: { id },
       });

@@ -86,7 +86,7 @@ const storeSportType = useSportTypeStore();
 const crud = useSSRCrud(store);
 const crudClient = useClientCrud(store);
 const crudSportType = useSSRCrud(storeSportType);
-const { data, pending, error, refresh } = await crud.getItemOwn();
+const { data, pending, error, refresh } = await crud.getItem();
 const {
   data: dataSportStyle,
   pending: pendingSportStyle,
@@ -94,8 +94,8 @@ const {
   refresh: refreshSportStyle,
 } = await crudSportType.fetchAll();
 const onSubmit = async () => {
-  // store.currentItem.newItems = storeSportType.currentItem;
-  await crudClient.updateItemOwn();
+  store.currentItem.newItems = storeSportType.currentItem;
+  await crudClient.updateItem();
   // store.currentItem.profilesSportType = storeSportType.currentItem;
 };
 

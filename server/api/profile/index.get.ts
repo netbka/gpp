@@ -39,6 +39,7 @@ export default defineEventHandler(async (event) => {
         },
       });
     }
+    console.log(result);
     // let hasProfile = await hasProfileImage(result.user_id);
     // if (!hasProfile) {
     //   var avatarInitials = isEmptyString(result.name) ? result.firstName : result.name;

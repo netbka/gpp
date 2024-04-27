@@ -22,7 +22,7 @@ interface ItemResponse<T> {
   refresh: () => void;
 }
 export const useSSRCrud = <T>(store) => ({
-  async fetchAll(url: string = "all"): Promise<ArrayResponse<T>> {
+  async fetchAll(url: string = ""): Promise<ArrayResponse<T>> {
     const { data, pending, error, refresh } = await useAsyncData<TableResponse<T>>(`${store.$id}-fetchAll`, () => $fetch(`/api/${store.$id}/${url}`));
     store.itemArray = data.value;
     return { data, pending, error, refresh };
@@ -63,8 +63,8 @@ export const useSSRCrud = <T>(store) => ({
     }
     return { data, pending, error, refresh };
   },
-  async getItemOwn(): Promise<ItemResponse<T>> {
-    const { data, pending, error, refresh } = await useAsyncData<ItemResponse<T>>(`${store.$id}-getItemById`, () => $fetch(`/api/${store.$id}/own`, {}));
+  async getItem(): Promise<ItemResponse<T>> {
+    const { data, pending, error, refresh } = await useAsyncData<ItemResponse<T>>(`${store.$id}-getItemById`, () => $fetch(`/api/${store.$id}`, {}));
 
     if (data.value) {
       store.currentItem = data.value;

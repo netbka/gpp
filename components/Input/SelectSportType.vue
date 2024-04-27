@@ -41,10 +41,8 @@ const { selectedIds } = props;
 const store = sportTypeStore();
 const crud = useClientCrud(store);
 await crud.fetchAll();
+store.currentItem = props.selectedIds;
 
-onMounted(async () => {});
-
-onBeforeMount(async () => {});
 watch(
   () => props.selectedIds,
   (newVal) => {
