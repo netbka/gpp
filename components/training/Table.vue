@@ -29,10 +29,10 @@ const store = useTrainingStore();
 
 const crud = useSSRCrud(store);
 const crudClient = useClientCrud(store);
-const { data, pending, error, refresh, execute } = await crud.searchItem();
+const { data, pending, error, refresh } = await crud.searchItem();
 
-const tableRef = ref(null);
-const emits = defineEmits(["onEditItem", "confirmDelete"]);
+const emits = defineEmits(["onEditItem"]);
+const { onEditItem, onDeleteItem, onUpdateField } = useUseTableOperations(store, emits);
 
 const onRequest = async (props) => {
   setPaginationAndFilter(store, props.pagination, props.filter);
@@ -40,13 +40,16 @@ const onRequest = async (props) => {
   store.pagination.rowsNumber = data.value.totalCount;
 };
 
-const onEditItem = async (id) => {
-  emits("onEditItem", id);
-};
-const onDeleteItem = async (id) => {
-  await crudClient.deleteItem(id);
-};
-const onUpdateField = async (field, val, id) => {};
+//const tableRef = ref(null);
+// const onEditItem = async (id) => {
+//   emits("onEditItem", id);
+// };
+// const imageManager = useImageManager(store);
+// const onDeleteItem = async (id) => {
+//   await crudClient.deleteItem(id);
+//   await imageManager.deleteFileUsingStorage(id);
+// };
+//const onUpdateField = async (field, val, id) => {};
 </script>
 
 <style></style>

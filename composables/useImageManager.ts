@@ -1,5 +1,6 @@
 import defaultImage from "~/public/defaultCover-transparent.png";
 import errorImage from "/exerciseSmall.png";
+import { type FileObject, type StorageError } from "@supabase/storage-js";
 export function useImageManager(store) {
   const preview = ref(defaultImage);
   const supabase = useSupabaseClient();
@@ -37,8 +38,34 @@ export function useImageManager(store) {
     const { data } = supabase.storage.from(storage).getPublicUrl(fileName);
     return data.publicUrl + "?" + new Date().getTime();
   };
-  const deleteFile = async (fileName: string, storage: string): Promise<void> => {
-    const { data, error } = await supabase.storage.from(storage).remove([fileName]);
+  const deleteFile = async (
+    fileName: string,
+    storage: string
+  ): Promise<
+    | {
+        data: FileObject[];
+        error: null;
+      }
+    | {
+        data: null;
+        error: StorageError;
+      }
+  > => {
+    return await supabase.storage.from(storage).remove([fileName]);
+  };
+  const deleteFileUsingStorage = async (
+    fileName: string
+  ): Promise<
+    | {
+        data: FileObject[];
+        error: null;
+      }
+    | {
+        data: null;
+        error: StorageError;
+      }
+  > => {
+    return await supabase.storage.from(store.$id).remove([fileName]);
   };
   const getImageUsingStore = (storage: string): void => {
     const image = store.currentItem.id;
@@ -93,6 +120,7 @@ export function useImageManager(store) {
     isImageAvailable,
     getAvatar,
     deleteFile,
+    deleteFileUsingStorage,
     getImageById,
     getImageUsingStore,
     urlToFile,

@@ -58,7 +58,7 @@ export const useSSRCrud = <T>(store) => ({
     if (error.value) {
       throw createError({
         statusCode: error.value.statusCode,
-        message: "Нет доступа к этому занятию",
+        message: "Нет доступа к этому объекту",
       });
     }
     return { data, pending, error, refresh };
@@ -73,7 +73,7 @@ export const useSSRCrud = <T>(store) => ({
     if (error.value) {
       throw createError({
         statusCode: error.value.statusCode,
-        message: "Нет доступа к этому занятию",
+        message: "Нет доступа к этому объекту",
       });
     }
     return { data, pending, error, refresh };
