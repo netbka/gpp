@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="col-12 col-lg-9">
-          <div class="row">
-            <div class="col-12">
+          <div class="row q-col-gutter-sm">
+            <div class="col-9">
               <q-input
                 bg-color="white"
                 dense
@@ -34,6 +34,21 @@
                 maxlength="37"
               />
             </div>
+            <div class="col-3">
+              <q-input
+                dense
+                outlined
+                v-model.number="store.currentItem.level"
+                label="Сложность"
+                :disable="store.loading"
+                :input-style="{ fontSize: '12px' }"
+                max="3"
+                min="0"
+                type="number"
+                lazy-rules
+                :rules="[(val) => validate(val)]"
+              />
+            </div>
           </div>
           <div class="row">
             <div class="col-12">
@@ -44,8 +59,8 @@
               </q-editor>
             </div>
           </div>
-          <div class="row" v-if="isAdmin">
-            <div class="col-12">
+          <div class="row">
+            <div class="col-12" v-if="isAdmin">
               <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
             </div>
           </div>
@@ -56,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import DOMPurify from "dompurify";
+//import DOMPurify from "dompurify";
 const $q = useQuasar();
 const store = useTrainingStore();
 const crud = useClientCrud(store);
@@ -86,6 +101,9 @@ const onSubmit = async () => {
   } else {
     await crud.updateItem(store);
   }
+};
+const validate = (val) => {
+  if (val === null || val < 0) return "нужно указать значение";
 };
 </script>
 

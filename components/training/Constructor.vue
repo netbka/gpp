@@ -52,8 +52,6 @@ const description = ref("");
 const store = trainingStore();
 const { canEditDelete } = useCanEditDelete(store);
 
-console.log(canEditDelete.value);
-
 const confirmAddTrainingDescription = () => {
   description.value = exerciseToText(store.currentItem.exerciseGroup);
   dialog.value.show();
