@@ -11,9 +11,11 @@
       <q-separator dark vertical class="gt-xs" />
 
       <q-btn stretch flat @click="redirectExerciseTemplate" icon="fitness_center">
+        <!-- <NuxtLink class="no-style gt-sm" to="/exercisetemplate">упражнения</NuxtLink> -->
         <span class="gt-sm"> упражнения</span>
       </q-btn>
       <q-btn stretch flat @click="redirectTraining" icon="bolt">
+        <!-- <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> -->
         <span class="gt-sm">Тренировки</span>
       </q-btn>
       <!-- <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
