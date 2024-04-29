@@ -1,0 +1,49 @@
+import { createClient } from "@supabase/supabase-js";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+export default defineEventHandler(async (event) => {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  try {
+    const {
+      user: { id: user_id },
+    } = event.context;
+
+    let body = await readBody(event);
+    let training_id = Number(body.id);
+
+    const { data, error } = await supabase.rpc("clone_training", {
+      training_id,
+      user_id: user_id,
+    });
+    if (error) {
+      throw error;
+    }
+
+    const result = await prisma.training.findUnique({
+      where: {
+        id: data.id,
+      },
+      include: {
+        exerciseGroup: {
+          include: {
+            exercise: true,
+          },
+        },
+      },
+    });
+
+    return result;
+  } catch (error) {
+    console.log("error on clone", error);
+    throw createError({
+      statusCode: 500,
+      message: "Что-то пошло не так",
+    });
+  } finally {
+    prisma.$disconnect();
+  }
+});

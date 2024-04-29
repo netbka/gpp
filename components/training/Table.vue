@@ -15,6 +15,7 @@
       @onEditItem="onEditItem"
       @onDeleteItem="onDeleteItem"
       @onUpdateField="onUpdateField"
+      @onCloneItem="onCloneItem"
     >
     </TableCardTable>
   </div>
@@ -32,7 +33,11 @@ const crudClient = useClientCrud(store);
 const { data, pending, error, refresh } = await crud.searchItem();
 
 const emits = defineEmits(["onEditItem"]);
-const { onEditItem, onDeleteItem, onUpdateField } = useUseTableOperations(store, emits);
+const { onEditItem, onDeleteItem, onUpdateField, onCloneItem } = useUseTableOperations(
+  store,
+  emits,
+  data
+);
 
 const onRequest = async (props) => {
   setPaginationAndFilter(store, props.pagination, props.filter);

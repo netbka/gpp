@@ -42,6 +42,7 @@
                 :cardLink="props.cardLink"
                 :cardCaption="props.cardCaption"
                 @onUpdateField="onUpdateField"
+                @onCloneItem="onCloneItem"
                 @onEditItem="onEditItem"
                 @onDeleteItem="confirmDelete"
               ></TableCard>
@@ -61,6 +62,7 @@ const emits = defineEmits([
   "onCustomAction",
   "onDeleteItem",
   "onUpdateField",
+  "onCloneItem",
 ]);
 const props = defineProps({
   loading: { Type: Boolean, default: false },
@@ -105,6 +107,9 @@ const customSortFunction = (rows, sortBy, descending) => {};
 
 const confirmDelete = (id) => {
   dialog.value.show(id);
+};
+const onCloneItem = (id) => {
+  emits("onCloneItem", id);
 };
 const onEditItem = (id) => {
   emits("onEditItem", id);

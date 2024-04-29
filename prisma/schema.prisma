@@ -82,19 +82,6 @@ model ExerciseTemplate {
     @@schema("public")
 }
 
-model TrainingTrack {
-    id             Int      @id @default(autoincrement())
-    user_id        String   @db.Uuid
-    trainingId     Int
-    createdAt      DateTime @default(now())
-    updatedAt      DateTime @updatedAt
-    duration       Int      @default(0)
-    training       Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
-    user_auth_info users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-    @@schema("public")
-}
-
 model ExerciseGroup {
     id          Int        @id @default(autoincrement())
     name        String
@@ -125,6 +112,19 @@ model Exercise {
     templateId Int?
     group      ExerciseGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
     template   ExerciseTemplate? @relation(fields: [templateId], references: [id])
+
+    @@schema("public")
+}
+
+model TrainingTrack {
+    id             Int      @id @default(autoincrement())
+    user_id        String   @db.Uuid
+    trainingId     Int
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
+    duration       Int      @default(0)
+    training       Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+    user_auth_info users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
     @@schema("public")
 }

@@ -54,6 +54,15 @@
 
     <q-card-actions class="card-actions" align="right">
       <q-btn
+        v-show="!canDeleteEdit"
+        outline
+        color="teal"
+        size="sm"
+        icon="content_copy"
+        @click="$emit('onCloneItem', data.id)"
+        class="q-px-xs q-mx-xs"
+      />
+      <q-btn
         v-show="canDeleteEdit"
         flat
         color="light-green-9"
@@ -61,8 +70,8 @@
         icon="edit"
         @click="$emit('onEditItem', data.id)"
         class="q-px-xs q-mx-xs"
-      >
-      </q-btn>
+      />
+
       <q-btn
         v-show="canDeleteEdit"
         flat
@@ -71,8 +80,8 @@
         icon="close"
         @click="$emit('onDeleteItem', data.id)"
         class="q-px-xs q-mx-xs"
-      >
-      </q-btn>
+      />
+
       <q-btn outline color="secondary" size="sm">
         <NuxtLink class="no-style" :to="link(data)">{{ cardCaption }}</NuxtLink></q-btn
       >
@@ -91,7 +100,7 @@ const props = defineProps({
   cardCaption: { Type: String, default: "" },
 });
 
-const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem"]);
+const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem", "onCloneItem"]);
 const link = (data) => {
   return new Slug(data, props.cardLink).getSlug();
 };

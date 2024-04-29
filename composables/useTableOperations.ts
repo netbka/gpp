@@ -1,20 +1,26 @@
 import { defineEmits } from "vue";
-export function useUseTableOperations(store, emits) {
+export function useUseTableOperations(store, emits, data) {
   const imageManager = useImageManager(store);
   //const crud = useSSRCrud(store);
   const crudClient = useClientCrud(store);
   //const emits = defineEmits(["onEditItem"]);
 
-  const onEditItem = async (id) => {
+  const onEditItem = async (id: number) => {
     emits("onEditItem", id);
   };
-  const onDeleteItem = async (id) => {
-    await crudClient.deleteItem(id);
-    await imageManager.deleteFileUsingStorage(id);
+  const onDeleteItem = async (id: number) => {
+    await crudClient.deleteItem(id, data.value.result);
+    await imageManager.deleteFileUsingStorage(String(id));
   };
-  const onUpdateField = async (field, val, id) => {};
+
+  const onCloneItem = async (id: number) => {
+    await crudClient.cloneItem(id, data.value.result);
+    store.pagination.rowsNumber = store.pagination.rowsNumber + 1;
+  };
+  const onUpdateField = async (field: string, val: any, id: number) => {};
 
   return {
+    onCloneItem,
     onEditItem,
     onDeleteItem,
     onUpdateField,

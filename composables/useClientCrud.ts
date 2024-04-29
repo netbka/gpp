@@ -10,6 +10,17 @@ export const useClientCrud = <T>(store) => ({
       store.currentItem = response;
     })(null);
   },
+  async cloneItem(id: number, arr: any[]) {
+    await withErrorHandling(store)(async (payload, store) => {
+      const response = await $fetch(`/api/${store.$id}/clone`, {
+        method: "POST",
+        body: { id: id },
+      });
+
+      updateArray(response, arr);
+      //store.currentItem = response;
+    })(null);
+  },
   async getById(id: number) {
     withErrorHandling(store)(async (payload, store) => {
       const response = await $fetch(`/api/${store.$id}/${id}`, {
@@ -52,7 +63,7 @@ export const useClientCrud = <T>(store) => ({
       store.currentItem = response;
     })(null);
   },
-  async deleteItem(id: number) {
+  async deleteItem(id: number, arr: any[]) {
     await withErrorHandling(store)(async (payload, store) => {
       const response = await $fetch(`/api/${store.$id}`, {
         method: "DELETE",
@@ -61,6 +72,7 @@ export const useClientCrud = <T>(store) => ({
 
       if (store.currentItem.id === id) store.resetCurrentItem();
       removeItemFromArr(id, store.itemArray);
+      if (arr) removeItemFromArr(id, arr);
     })(null);
   },
 
