@@ -25,6 +25,14 @@
         </template>
         <template v-slot:option="scope">
           <q-item v-bind="scope.itemProps">
+            <q-item-section avatar>
+              <q-img
+                :src="getImageFromStorage('exerciseTemplate', scope.opt.id)"
+                fit="scale-down"
+                :error-src="errorImage"
+                style="max-width: 65px; height: 65px"
+              />
+            </q-item-section>
             <q-item-section>
               <q-item-label> {{ scope.opt.name }} </q-item-label>
               <q-item-label caption>
@@ -84,6 +92,7 @@
 </template>
 
 <script lang="ts" setup>
+import errorImage from "/exerciseSmall.png";
 const props = defineProps({
   data: {
     type: [Object],
