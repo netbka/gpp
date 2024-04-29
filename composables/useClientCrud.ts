@@ -81,7 +81,7 @@ export const useClientCrud = <T>(store) => ({
       const item = getByIdFromArray(id, store.itemArray);
       if (item === null) return;
       item[field] = val;
-      const response = await $fetch(`/api/${store.$id}/field`, {
+      const response = await $fetch(`/api/${store.$id}`, {
         method: "PATCH",
         body: { ...item, field },
       });

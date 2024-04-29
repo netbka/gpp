@@ -12,12 +12,7 @@
       >
         <template v-slot:after>
           <q-icon size="sm" name="done" @click="save()" class="cursor-pointer" />
-          <q-icon
-            size="sm"
-            name="clear"
-            @click="changeVisibility()"
-            class="cursor-pointer"
-          />
+          <q-icon size="sm" name="clear" @click="cancel()" class="cursor-pointer" />
         </template>
       </q-input>
     </span>
@@ -44,8 +39,13 @@ const props = defineProps({
   },
 });
 const visibleEdit = ref(false);
-
+const initValue = ref(props.modelValue);
 const emits = defineEmits(["update:modelValue", "updatedb"]);
+
+const cancel = () => {
+  changeVisibility();
+  emits("update:modelValue", initValue.value);
+};
 
 const changeVisibility = () => {
   if (props.readOnly) return;
@@ -54,6 +54,8 @@ const changeVisibility = () => {
 };
 
 const save = () => {
+  initValue.value = props.modelValue;
+
   visibleEdit.value = !visibleEdit.value;
   emits("updatedb");
 };
