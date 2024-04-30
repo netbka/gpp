@@ -28,9 +28,9 @@ const route = useRoute();
 const { id } = route.params;
 const store = trainingStore();
 const crud = useClientCrud(store);
-
-//const { data, pending, error, refresh } = await crud.getItemById(parseSlugId(id));
-await crud.getById(parseSlugId(id));
+onBeforeMount(async () => {
+  await crud.getById(parseSlugId(id));
+});
 
 const updateItemField = async (field, value, id) => {
   await crud.updateItemField(field, value, id);

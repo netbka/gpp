@@ -32,9 +32,11 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    console.log(result);
+
     return result;
   } catch (error) {
-    console.log(error);
+    console.log("erro in fetching:", error);
   } finally {
     prisma.$disconnect();
   }
