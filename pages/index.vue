@@ -21,26 +21,7 @@
           <NuxtLink class="no-style" to="/training/">GO к тренировкам</NuxtLink></q-btn
         >
       </div>
-      <!-- <div class="col-shrink gt-xs">
-        <div class="q-mt-lg">
-          <img :src="hero" alt="Просто ОФП. Логотип" class="hero-sizing pic" />
-        </div>
-      </div> -->
     </div>
-    <!-- <div class="hero-wrapper window-height-100">
-      <div class="">
-        <div :style="{ backgroundImage: 'url(' + hero + ')' }" class="hero-image"></div>
-      </div>
-      <div class="hero-text text-center">
-        <h1>{{ header }}</h1>
-        <h2 class="text-weight-thin text-h4 q-mb-none hero-text-line-height">
-          {{ subHeading }}
-        </h2>
-        <h2 class="text-weight-thin text-h4 q-mt-none hero-text-line-height">
-          {{ subHeading2 }}
-        </h2>
-      </div>
-    </div> -->
   </div>
 </template>
 

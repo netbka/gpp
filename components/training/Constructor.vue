@@ -68,8 +68,8 @@ const onAddExercise = async (item: ExerciseGroup) => {
 };
 
 const onDeleteExercise = async (id: Number) => {
-  await crudExercise.deleteItem(id);
-  removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
+  await crudExercise.deleteItem(id, store.currentItem.exerciseGroup);
+  //removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
 const onAddCustomExercise = async (id, name: string) => {

@@ -82,6 +82,6 @@ export default defineEventHandler(async (event) => {
       message: "Что-то пошло не так",
     });
   } finally {
-    prisma.$disconnect();
+    await prisma.$disconnect();
   }
 });

@@ -9,5 +9,6 @@ export default defineEventHandler(async (event) => {
     event.context.user = {};
     event.context.user.id = "12345678123456781234567812345678";
   }
+
   //event.context.user = user;
 });

@@ -6,6 +6,6 @@ export default defineEventHandler(async (event) => {
   //   user: { email: userEmail },
   // } = event.context;
   const result = await prisma.sportType.findMany({});
-  prisma.$disconnect();
+  await prisma.$disconnect();
   return result;
 });

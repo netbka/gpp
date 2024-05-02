@@ -69,7 +69,7 @@ export const useClientCrud = <T>(store) => ({
         method: "DELETE",
         body: { id },
       });
-
+      console.log("delete", response);
       if (store.currentItem.id === id) store.resetCurrentItem();
       removeItemFromArr(id, store.itemArray);
       if (arr) removeItemFromArr(id, arr);
@@ -98,8 +98,8 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
     store.loading = true;
     return await actionFn(payload, store);
   } catch (error) {
-    console.error("Error in action:", error);
-    throw error;
+    //console.error("Error in action:", error);
+    //throw error;
   } finally {
     store.loading = false;
   }
