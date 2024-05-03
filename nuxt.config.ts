@@ -17,8 +17,8 @@ export default defineNuxtConfig({
   // },
   modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag"],
   gtag: {
-    id: 'G-F8G8QM2PBG'
-  }
+    id: "G-F8G8QM2PBG",
+  },
   // lodash: {
   //   prefix: "_",
   //   prefixSkip: ["string"],
