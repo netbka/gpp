@@ -33,7 +33,7 @@
           </template>
 
           <template v-slot:item="prop">
-            <div class="q-pa-xs col-xs-12 col-sm-6 col-lg-4">
+            <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4 card-center">
               <!-- <slot name="cardComponent" :prop="{ row: props.row, col: props.col }"></slot> -->
 
               <TableCard
@@ -128,4 +128,8 @@ watch(
   { deep: true }
 );
 </script>
-<style></style>
+<style scoped>
+.card-center {
+  text-align: -webkit-center;
+}
+</style>

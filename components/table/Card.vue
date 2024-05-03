@@ -3,23 +3,25 @@
     <q-card-section class="relative-position q-pa-none">
       <div class="row items-center justify-center img-exercise">
         <q-img
-          fit="scale-down"
+          fit="cover"
           :src="getImageFromStorage(props.cardLink, props.data.id)"
           :error-src="errorImg"
-          style="max-width: 100%; height: 150px"
+          style="max-width: 100%; height: calc(100%)"
         >
         </q-img>
       </div>
       <div class="card-body q-px-sm">
         <div class="">
           <h3
-            class="text-subtitle1 text-weight-bold text-white q-py-sm q-ma-none text-no-wrap"
+            class="text-subtitle1 text-weight-bold text-white q-py-sm q-ma-none text-no-wrap text-left"
           >
             {{ data.name }}
           </h3>
         </div>
-        <div class="">
-          <span class="text-subtitle2 text-weight-medium text-accent">Сложность: </span>
+        <div class="text-left">
+          <span class="text-subtitle2 text-weight-medium text-accent text-left"
+            >Сложность:
+          </span>
           <q-rating
             v-model="data.level"
             size="1em"
@@ -36,7 +38,7 @@
           </div>
         </div>
 
-        <div class="">
+        <div class="text-left">
           <q-chip
             square
             outline
@@ -114,6 +116,7 @@ const canDeleteEdit = computed(() => props.data.user_id === currentUserId());
   max-height: 310px;
   width: 100%;
   padding: 0 !important;
+  max-width: 350px;
 }
 .q-img__image--loaded {
   filter: opacity(0.7);
