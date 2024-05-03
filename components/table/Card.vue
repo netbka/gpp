@@ -54,7 +54,7 @@
 
     <q-card-actions class="card-actions" align="right">
       <q-btn
-        v-show="!canDeleteEdit"
+        v-show="!canDeleteEdit && currentUserId()"
         outline
         color="teal"
         size="sm"
