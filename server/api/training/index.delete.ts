@@ -15,6 +15,6 @@ export default defineEventHandler(async (event) => {
     },
   });
   await prisma.$disconnect();
-  //  console.log(result);
+
   return result;
 });

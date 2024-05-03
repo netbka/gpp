@@ -15,6 +15,20 @@ export default defineEventHandler(async (event) => {
     let body = await readBody(event);
     let training_id = Number(body.id);
 
+    let result = await prisma.training.findUnique({
+      where: {
+        id: training_id,
+      },
+    });
+
+    //protect from id injection
+    if (result === null || result.public === false) {
+      throw createError({
+        statusCode: 500,
+        message: "Что-то пошло не так",
+      });
+    }
+
     const { data, error } = await supabase.rpc("clone_training", {
       training_id,
       user_id: user_id,
@@ -23,7 +37,7 @@ export default defineEventHandler(async (event) => {
       throw error;
     }
 
-    const result = await prisma.training.findUnique({
+    result = await prisma.training.findUnique({
       where: {
         id: data.id,
       },
