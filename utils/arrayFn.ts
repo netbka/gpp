@@ -34,7 +34,7 @@ export const removeItemFromArr = (val: number, arr: Array) => {
   }
 };
 
-export const removeNestedItemFromArr = (val: number, arr: Array) => {
+export const removeExerciseItemFromGroup = (val: number, arr: Array) => {
   var found = false;
   for (let group of arr) {
     if (found) return;
@@ -112,7 +112,7 @@ export const calculateDuration = (arr: Array) => {
 export const calculateLevel = (arr: Array) => {
   try {
     var totalLevel = 0;
-    var totralDuration 
+    var totralDuration;
     arr.forEach((parent) => {
       if (!parent) return;
       var phaseduration = 0;

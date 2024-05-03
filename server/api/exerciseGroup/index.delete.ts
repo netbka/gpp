@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const id = body.id;
-
+  //await protectRoute(event, "excerciseGroup", body.id);
   var result = await prisma.exerciseGroup.delete({
     where: {
       id: id,

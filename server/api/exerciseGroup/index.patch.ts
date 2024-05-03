@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
-
+    //await protectRoute(event, "excerciseGroup", body.id);
     let data = {};
     data[body.field] = body[body.field];
 
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       },
       data: { ...data },
     });
-    
+
     return result;
   } catch (error) {
     return null;

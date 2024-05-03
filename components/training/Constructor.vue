@@ -68,8 +68,8 @@ const onAddExercise = async (item: ExerciseGroup) => {
 };
 
 const onDeleteExercise = async (id: Number) => {
-  await crudExercise.deleteItem(id, store.currentItem.exerciseGroup);
-  //removeNestedItemFromArr(id, store.currentItem.exerciseGroup);
+  await crudExercise.deleteItem(id);
+  removeExerciseItemFromGroup(id, store.currentItem.exerciseGroup);
 };
 
 const onAddCustomExercise = async (id, name: string) => {
@@ -112,9 +112,8 @@ const onUpdateGroup = async (field, value, id) => {
   await crudExerciseGroup.updateItemField(field, value, id);
 };
 const onDeleteGroup = async (id: Number) => {
-  await crudExerciseGroup.deleteItem(id);
-
-  removeItemFromArr(id, store.currentItem.exerciseGroup);
+  await crudExerciseGroup.deleteItem(id, store.currentItem.exerciseGroup);
+  //removeItemFromArr(id, store.currentItem.exerciseGroup);
 };
 
 const setDuration = async (val) => {

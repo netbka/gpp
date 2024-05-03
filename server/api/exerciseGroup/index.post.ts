@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     } = event.context;
 
     let body = await readBody(event);
-
+    //await protectRoute(event, "excerciseGroup", body.id);
     body = omit(body, ["exercise", "id"]);
     let result = await prisma.exerciseGroup.create({
       data: { ...body },

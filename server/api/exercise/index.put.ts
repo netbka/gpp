@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
 
     let body = await readBody(event);
     body = omit(body, ["template"]);
+    //await protectRoute(event, "exercise", body.id);
     let result = await prisma.exercise.update({
       where: {
         id: body.id,

@@ -11,4 +11,13 @@ export default defineEventHandler(async (event) => {
   }
 
   //event.context.user = user;
+  //console.log(getRequestURL(event));
+  const url = event.node.req.url;
+  const method = event.node.req.method;
+
+  await protectRoute(method, url.split("/").slice(-1)[0]);
 });
+
+async function protectRoute(method?: string, url?: string) {
+  console.log(method, url);
+}

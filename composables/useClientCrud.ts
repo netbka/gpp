@@ -69,9 +69,10 @@ export const useClientCrud = <T>(store) => ({
         method: "DELETE",
         body: { id },
       });
-      console.log("delete", response);
+
       if (store.currentItem.id === id) store.resetCurrentItem();
-      removeItemFromArr(id, store.itemArray);
+      //removeItemFromArr(id, store.itemArray);
+
       if (arr) removeItemFromArr(id, arr);
     })(null);
   },

@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
     let body = await readBody(event);
 
     body = omit(body, ["id", "template"]);
+    //await protectRoute(event, "exercise", body.id);
     let result = await prisma.exercise.create({
       data: { ...body },
       include: {
