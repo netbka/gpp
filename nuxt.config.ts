@@ -15,7 +15,10 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt"],
+  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag"],
+  gtag: {
+    id: 'G-F8G8QM2PBG'
+  }
   // lodash: {
   //   prefix: "_",
   //   prefixSkip: ["string"],
