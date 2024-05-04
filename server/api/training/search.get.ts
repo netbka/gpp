@@ -51,7 +51,8 @@ export default defineEventHandler(async (event) => {
           },
         },
       },
-      orderBy: orderByObject,
+      //orderBy: orderByObject,
+      orderBy: { createdAt: "asc" },
     });
     result.forEach((obj) => {
       if (!obj.exerciseGroup) {

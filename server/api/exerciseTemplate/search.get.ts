@@ -75,7 +75,8 @@ export default defineEventHandler(async (event) => {
           },
         },
       },
-      orderBy: orderByObject,
+      //orderBy: orderByObject,
+      orderBy: { name: "asc" },
       // include: {
       //   exerciseTemplateMuscle: true,
       // },

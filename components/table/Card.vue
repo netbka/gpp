@@ -3,7 +3,7 @@
     <q-card-section class="relative-position q-pa-none">
       <div class="row items-center justify-center img-exercise">
         <q-img
-          fit="cover"
+          fit="scale-down"
           :src="getImageFromStorage(props.cardLink, props.data.id)"
           :error-src="errorImg"
           style="max-width: 100%; height: calc(100%)"
@@ -93,7 +93,7 @@
 
 <script lang="ts" setup>
 import { Slug } from "~/types/types";
-import errorImg from "/build_transparent_150.png";
+import errorImg from "/build_transparent_350x150.png";
 const props = defineProps({
   data: { Type: Object, default: {} },
   //cols: { Type: Object, default: {} },
