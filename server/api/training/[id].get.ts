@@ -11,10 +11,8 @@ export default defineEventHandler(async (event) => {
   try {
     const { id } = event.context.params;
     const _id = Number(id);
-
     const result = await prisma.training.findUnique({
       where: {
-        // AND: [{ id: _id }, { user_id: user_id }],
         id: _id,
         OR: [
           {
@@ -26,11 +24,33 @@ export default defineEventHandler(async (event) => {
       include: {
         exerciseGroup: {
           include: {
-            exercise: true,
+            exercise: {
+              orderBy: { order_by: "asc" }, // Order exercises within each group by updated_at (desc)
+            },
           },
+          orderBy: { order_by: "asc" },
         },
       },
     });
+
+    // const result = await prisma.training.findUnique({
+    //   where: {
+    //     id: _id,
+    //     OR: [
+    //       {
+    //         user_id: user_id,
+    //       },
+    //       { public: true },
+    //     ],
+    //   },
+    //   include: {
+    //     exerciseGroup: {
+    //       include: {
+    //         exercise: true,
+    //       },
+    //     },
+    //   },
+    // });
 
     return result;
   } catch (error) {

@@ -1,12 +1,11 @@
-import { template } from "./../composables/useBasicCrud copy";
 import { Base, type IBase, type IExerciseGroup, ExerciseGroup, type IExerciseTemplate, ExerciseTemplate } from "./types";
 export interface IExercise extends IBase {
   active: boolean;
   weight: number;
   groupId: number;
   templateId?: number | null;
-  //group: IExerciseGroup;
   template?: IExerciseTemplate | null;
+  order_by: number;
 }
 
 export class Exercise extends Base implements IExercise {
@@ -14,17 +13,17 @@ export class Exercise extends Base implements IExercise {
   public weight: number;
   public groupId: number;
   public templateId?: number | null;
-
   public template: IExerciseTemplate | null;
+  public order_by: number;
   constructor(name?: string, groupId?: number) {
     super(name);
-
     this.active = false;
     this.weight = 0;
     this.groupId = groupId ? groupId : 0;
     this.templateId = null;
-    //this.group = {};
-    this.template = null; //new ExerciseTemplate("").getAll();
+
+    this.template = null;
+    this.order_by = 0;
   }
   public cloneExercise(exerciseToClone: IExercise, name: string): IExercise {
     this.id = exerciseToClone.id;
@@ -35,6 +34,7 @@ export class Exercise extends Base implements IExercise {
     this.templateId = exerciseToClone.templateId;
     this.level = exerciseToClone.level;
     this.duration = exerciseToClone.duration;
+    this.order_by = exerciseToClone.order_by;
     return this.getAll();
   }
   public cloneTemplate(template: IExerciseTemplate, exercise: IExercise): IExercise {
@@ -46,6 +46,7 @@ export class Exercise extends Base implements IExercise {
     this.templateId = Number(template.id);
     this.level = template.level;
     this.duration = template.duration;
+    this.order_by = 0;
     return this.getAll();
   }
   public getAll() {
@@ -60,8 +61,8 @@ export class Exercise extends Base implements IExercise {
       weight: this.weight,
       groupId: this.groupId,
       templateId: this.templateId,
-
       template: this.template,
+      order_by: this.order_by,
     };
   }
 }

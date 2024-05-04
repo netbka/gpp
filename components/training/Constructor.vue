@@ -13,6 +13,7 @@
       :readOnly="!canEditDelete"
       :data="store.currentItem.exerciseGroup"
       @onAddExercise="onAddExercise"
+      @onUpdateExerciseField="onUpdateExerciseField"
       @onDeleteGroup="onDeleteGroup"
       @onDeleteExercise="onDeleteExercise"
       @onUpdateExercise="onUpdateExercise"
@@ -65,6 +66,11 @@ const onAddExercise = async (item: ExerciseGroup) => {
     await crudExercise.createItem();
     item.exercise.push(storeExercise.currentItem);
   }
+};
+const onUpdateExerciseField = async (field, val, id) => {
+  let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
+  
+  await crudExercise.updateItemField(field, val, id, exercise);
 };
 
 const onDeleteExercise = async (id: Number) => {

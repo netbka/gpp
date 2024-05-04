@@ -77,9 +77,10 @@ export const useClientCrud = <T>(store) => ({
     })(null);
   },
 
-  async updateItemField(field: string, val: any, id: number) {
+  async updateItemField(field: string, val: any, id: number, item) {
     withErrorHandling(store)(async (payload, store) => {
-      const item = getByIdFromArray(id, store.itemArray);
+      item = item ? item : getByIdFromArray(id, store.itemArray); //either provide item or find it from the array
+
       if (item === null) return;
       item[field] = val;
       const response = await $fetch(`/api/${store.$id}`, {

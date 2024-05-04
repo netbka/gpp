@@ -53,6 +53,7 @@
             @onDeleteExercise="onDeleteExercise"
             @onUpdateExercise="onUpdateExercise"
             @onAddCustomExercise="onAddCustomExercise"
+            @onUpdateExerciseField="onUpdateExerciseField"
           ></BaseNestedChild>
         </div>
       </draggable>
@@ -92,11 +93,14 @@ export default {
     const onAddCustomExercise = (id, val) => {
       context.emit("onAddCustomExercise", id, val);
     };
+    const onUpdateExerciseField = (field, val, id) => {
+      context.emit("onUpdateExerciseField", field, val, id);
+    };
 
     return {
       //onChoose,
       onAddCustomExercise,
-
+      onUpdateExerciseField,
       onUpdateExercise,
       onDeleteExercise,
     };
