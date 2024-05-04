@@ -6,7 +6,7 @@
           fit="scale-down"
           :src="getImageFromStorage(props.cardLink, props.data.id)"
           :error-src="errorImg"
-          style="max-width: 100%; height: calc(100%)"
+          style="width: 350px; height: 150px"
         >
         </q-img>
       </div>
