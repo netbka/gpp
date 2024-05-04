@@ -33,7 +33,7 @@ onBeforeMount(async () => {
 });
 
 const updateItemField = async (field, value, id) => {
-  await crud.updateItemField(field, value, id);
+  await crud.updateItemField(field, value, id, null, false);
 };
 
 const { currentUserId } = useAuthUser();

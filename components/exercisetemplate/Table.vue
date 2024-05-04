@@ -3,7 +3,7 @@
     <TableCardTable
       @onRequest="onRequest"
       ref="tableRef"
-      :rows="data.result"
+      :rows="store.itemArray"
       :loading="pending"
       :showExecute="false"
       :showEdit="true"

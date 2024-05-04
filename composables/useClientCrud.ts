@@ -77,7 +77,7 @@ export const useClientCrud = <T>(store) => ({
     })(null);
   },
 
-  async updateItemField(field: string, val: any, id: number, item) {
+  async updateItemField(field: string, val: any, id: number, item, updateArray: boolean = true) {
     withErrorHandling(store)(async (payload, store) => {
       item = item ? item : getByIdFromArray(id, store.itemArray); //either provide item or find it from the array
 
@@ -87,7 +87,7 @@ export const useClientCrud = <T>(store) => ({
         method: "PATCH",
         body: { ...item, field },
       });
-      if (response) {
+      if (response && updateArray) {
         updateArray(response, store.itemArray);
         store.currentItem = response;
       }
