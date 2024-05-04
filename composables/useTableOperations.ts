@@ -9,12 +9,12 @@ export function useUseTableOperations(store, emits, data) {
     emits("onEditItem", id);
   };
   const onDeleteItem = async (id: number) => {
-    await crudClient.deleteItem(id, data.value.result);
+    await crudClient.deleteItem(id, store.itemArray);
     await imageManager.deleteFileUsingStorage(String(id));
   };
 
   const onCloneItem = async (id: number) => {
-    await crudClient.cloneItem(id, data.value.result);
+    await crudClient.cloneItem(id, store.itemArray);
     store.pagination.rowsNumber = store.pagination.rowsNumber + 1;
   };
   const onUpdateField = async (field: string, val: any, id: number) => {};
