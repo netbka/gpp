@@ -64,7 +64,7 @@ const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
     storeExercise.newCurrentItem(item.id);
     let result = await crudExercise.createItem();
-
+    console.log(result);
     if (result) item.exercise.push(storeExercise.currentItem);
   }
 };

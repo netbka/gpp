@@ -1,6 +1,6 @@
 export const useClientCrud = <T>(store) => ({
   async createItem() {
-    await withErrorHandling(store)(async (payload, store) => {
+    return await withErrorHandling(store)(async (payload, store) => {
       const response = await $fetch(`/api/${store.$id}`, {
         method: "POST",
         body: { ...store.currentItem },
