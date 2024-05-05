@@ -84,7 +84,7 @@ export const editorToolbar = ($q) => {
         label: "форматирование",
         icon: $q.iconSet.editor.formatting,
         list: "no-icons",
-        options: ["p", "h4", "h5", "h6", "code"],
+        options: ["p", "h2", "h3", "code"],
       },
       {
         label: "шрифт",

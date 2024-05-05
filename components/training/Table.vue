@@ -5,9 +5,6 @@
       ref="tableRef"
       :rows="store.itemArray"
       :loading="pending"
-      :showExecute="false"
-      :showEdit="true"
-      :showDelete="true"
       :readOnly="props.readOnly"
       :pagination="store.pagination"
       :cardCaption="'заниматься'"
@@ -27,7 +24,6 @@ const props = defineProps({
 });
 
 const store = useTrainingStore();
-
 const crud = useSSRCrud(store);
 const crudClient = useClientCrud(store);
 const { data, pending, error, refresh } = await crud.searchItem();
@@ -42,19 +38,9 @@ const { onEditItem, onDeleteItem, onUpdateField, onCloneItem } = useUseTableOper
 const onRequest = async (props) => {
   setPaginationAndFilter(store, props.pagination, props.filter);
   await refresh();
+  store.itemArray = data.value.result;
   store.pagination.rowsNumber = data.value.totalCount;
 };
-
-//const tableRef = ref(null);
-// const onEditItem = async (id) => {
-//   emits("onEditItem", id);
-// };
-// const imageManager = useImageManager(store);
-// const onDeleteItem = async (id) => {
-//   await crudClient.deleteItem(id);
-//   await imageManager.deleteFileUsingStorage(id);
-// };
-//const onUpdateField = async (field, val, id) => {};
 </script>
 
 <style></style>

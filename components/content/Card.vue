@@ -43,9 +43,12 @@
     </div>
     <div class="row q-px-sm">
       <div class="col-12 col-sm-6 q-pa-sm col-md-4 col-lg-3 self-top">
-        <img
+        <q-img
           class="img-exercise"
           :src="getImageFromStorage('exerciseTemplate', data.id)"
+          :error-src="errorImg"
+          fit="scale-down"
+          :alt="data.name"
         />
       </div>
       <div class="col-12 col-sm-6 col-md-8 col-lg-9 q-pa-sm">
@@ -58,6 +61,7 @@
 </template>
 
 <script lang="ts" setup>
+import errorImg from "/build_transparent_300x300.webp";
 const props = defineProps({
   data: { Type: Object, required: true },
   readOnly: { Type: Boolean, default: false },
