@@ -32,17 +32,13 @@
 <script lang="ts" setup>
 import logo from "/logo110.png";
 const redirectExerciseTemplate = async () => {
-  await navigateTo({ path: "/exercisetemplate" });
+  navigateTo({ path: "/exercisetemplate" });
 };
 const redirect = async () => {
-  await navigateTo({ path: "/" });
+  navigateTo({ path: "/" });
 };
-// const redirectEx = async () => {
-//   await navigateTo({ path: "/workout" });
-// };
-
 const redirectTraining = async () => {
-  await navigateTo({ path: "/training" });
+  navigateTo({ path: "/training" });
 };
 </script>
 <style scoped>

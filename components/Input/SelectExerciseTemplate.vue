@@ -136,7 +136,7 @@ const filterFn = (val, update, abort) => {
       return;
     }
     const needle = val.toLocaleLowerCase();
-    options.value = searchExercise(options.value, needle);
+    options.value = searchExercise(store.itemArray, needle);
     searchVal.value = val;
   });
 };

@@ -80,7 +80,7 @@ export default defineNuxtConfig({
     // pageTransition: { name: "page", mode: "out-in" },
 
     head: {
-      title: "Я.ОФП - просто тренировки",
+      title: "Я.ОФП | ОФП для бегунов. Занимайся онлайн бесплатно.",
       charset: "utf-16",
       viewport: "width=device-width, initial-scale=1",
 

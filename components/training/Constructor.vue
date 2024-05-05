@@ -63,13 +63,14 @@ const crudExercise = useClientCrud(storeExercise);
 const onAddExercise = async (item: ExerciseGroup) => {
   if (store.currentItem.exerciseGroup.length > 0) {
     storeExercise.newCurrentItem(item.id);
-    await crudExercise.createItem();
-    item.exercise.push(storeExercise.currentItem);
+    let result = await crudExercise.createItem();
+
+    if (result) item.exercise.push(storeExercise.currentItem);
   }
 };
 const onUpdateExerciseField = async (field, val, id) => {
   let exercise = findExerciseById(store.currentItem.exerciseGroup, id);
-  
+
   await crudExercise.updateItemField(field, val, id, exercise);
 };
 
@@ -109,8 +110,9 @@ const addGroup = async () => {
     store.currentItem.id,
     store.currentItem.exerciseGroup.length
   );
-  await crudExerciseGroup.createItem();
-  updateArray(storeExerciseGroup.currentItem, store.currentItem.exerciseGroup);
+  var result = await crudExerciseGroup.createItem();
+  if (result)
+    updateArray(storeExerciseGroup.currentItem, store.currentItem.exerciseGroup);
 };
 
 const onUpdateGroup = async (field, value, id) => {

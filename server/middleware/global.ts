@@ -20,13 +20,17 @@ export default defineEventHandler(async (event) => {
 
     switch (method) {
       case "PATCH":
-        await protectPutPatch(url.split("/").slice(-1)[0].toLowerCase(), event, event.context.user.id);
+        await protectPutPatchDelete(url.split("/").slice(-1)[0].toLowerCase(), event, event.context.user.id);
         break;
       case "PUT":
-        await protectPutPatch(url.split("/").slice(-1)[0].toLowerCase(), event, event.context.user.id);
+        await protectPutPatchDelete(url.split("/").slice(-1)[0].toLowerCase(), event, event.context.user.id);
         break;
-      // case "DELETE":
-      //   break;
+      case "DELETE":
+        await protectPutPatchDelete(url.split("/").slice(-1)[0].toLowerCase(), event, event.context.user.id);
+        break;
+      case "POST":
+        await protectPost(url.split("/").slice(-1)[0].toLowerCase(), event, event.context.user.id);
+        break;
     }
   } catch (err) {
     console.log(err);
@@ -39,24 +43,60 @@ export default defineEventHandler(async (event) => {
   }
 });
 
-async function protectPutPatch(action: string, event: H3Event, user_id: string) {
+async function protectPost(action: string, event: H3Event, user_id: string) {
+  let totalCount = 0;
+  const body = await readBody(event);
+  const trainingId = body.trainingId;
+  const groupId = body.groupId;
+
+  try {
+    switch (action) {
+      case "exercisegroup":
+        isAuthenticated(user_id);
+        totalCount = await prisma.training.count({
+          where: {
+            user_id: user_id,
+            id: trainingId,
+          },
+        });
+
+        checkFound(totalCount);
+        break;
+
+      case "exercise":
+        isAuthenticated(user_id);
+        totalCount = await prisma.training.count({
+          where: {
+            user_id: user_id,
+            exerciseGroup: {
+              some: {
+                id: groupId,
+              },
+            },
+          },
+        });
+        checkFound(totalCount);
+        break;
+      default:
+    }
+  } catch (err) {
+    throw createError({
+      statusCode: err.statusCode,
+      message: err.message,
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+async function protectPutPatchDelete(action: string, event: H3Event, user_id: string) {
   let totalCount = 0;
   const body = await readBody(event);
   const id = body.id;
 
   try {
     switch (action) {
-      // case "training":
-
-      //   totalCount = await prisma.training.count({
-      //     where: {
-      //       user_id: user_id,
-      //       id: id,
-      //     },
-      //   });
-
-      //   break;
-      case "excercisegroup":
+      case "exercisegroup":
         isAuthenticated(user_id);
         totalCount = await prisma.training.count({
           where: {
@@ -97,6 +137,7 @@ async function protectPutPatch(action: string, event: H3Event, user_id: string) 
       message: err.message,
     });
   } finally {
+    await prisma.$disconnect();
   }
 }
 function checkFound(count: number) {

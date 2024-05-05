@@ -6,8 +6,13 @@ export const useClientCrud = <T>(store) => ({
         body: { ...store.currentItem },
       });
 
-      updateArray(response, store.itemArray);
-      store.currentItem = response;
+      if (response) {
+        updateArray(response, store.itemArray);
+        store.currentItem = response;
+        return true;
+      } else {
+        return false;
+      }
     })(null);
   },
   async cloneItem(id: number, arr: any[]) {
@@ -100,6 +105,7 @@ export const withErrorHandling = (store) => (actionFn) => async (payload) => {
     store.loading = true;
     return await actionFn(payload, store);
   } catch (error) {
+    return false;
     //console.error("Error in action:", error);
     //throw error;
   } finally {
