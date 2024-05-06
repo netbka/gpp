@@ -1,9 +1,13 @@
 export const slug = (str: string) => {};
 
 export const generateSlug = (text: String) => {
+  // text = replaceRussianWithEnglish(text);
+  // const prohibitedChars = /[^a-z0-9\-_]+/gi;
+  // const slugText = text.toLowerCase().replace(prohibitedChars, "");
+  // const slug = slugText.replace(/-{2,}/g, "-");
+  // return slug.trim("-");
   text = replaceRussianWithEnglish(text);
-  const prohibitedChars = /[^a-z0-9\-_]+/gi;
-  const slugText = text.toLowerCase().replace(prohibitedChars, "");
+  const slugText = text.toLowerCase().replace(/\s+|[^\w\-]+/gi, "-");
   const slug = slugText.replace(/-{2,}/g, "-");
   return slug.trim("-");
 };

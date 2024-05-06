@@ -80,9 +80,7 @@ export default {
   name: "nested-draggable",
 
   setup(props, context) {
-    onMounted(() => {
-      //console.log(props.data);
-    });
+    onMounted(() => {});
     const onUpdateExercise = (id, model) => {
       context.emit("onUpdateExercise", id, model);
     };

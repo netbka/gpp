@@ -30,7 +30,6 @@ export const useAuthUser = () => {
       },
     });
     if (error) {
-      console.log(error);
     }
   };
 

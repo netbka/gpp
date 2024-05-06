@@ -61,35 +61,6 @@ const { login, loginWithSocialProvider } = useAuthUser();
 const socialLogin = async (provider: string) => {
   loginWithSocialProvider(provider);
 };
-
-// const supabase = useSupabaseClient();
-
-// const loginGoogle = async () => {
-//   const { error } = await supabase.auth.signInWithOAuth({
-//     provider: "google",
-//     options: {
-//       // queryParams: {
-//       //   access_type: "offline",
-//       //   prompt: "consent",
-//       // },
-//       //redirectTo,
-//     },
-//   });
-//   if (error) {
-//     console.log(error);
-//   }
-// };
-// const loginFacebook = async () => {
-//   const { error } = await supabase.auth.signInWithOAuth({
-//     provider: "facebook",
-//     options: {
-//       //redirectTo: baseUrl + "/workout",
-//     },
-//   });
-//   if (error) {
-//     console.log(error);
-//   }
-// };
 </script>
 
 <style scoped>
