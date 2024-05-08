@@ -27,6 +27,17 @@
 
 <script setup>
 import hero from "/main_page_hero.webp";
+useServerSeoMeta({
+  titleTemplate: "%s - Занимайся онлайн бесплатно",
+  description:
+    "Подбор тренировок для улучшения результатов бега с возможностью онлайн занятий",
+  url: "https://ofp.mamrukov.com",
+  image: "https://ofp.mamrukov.com/main_page_hero.webp",
+  ogTitle: "%s - Занимайся онлайн бесплатно",
+  ogDescription:
+    "Подбор тренировок для улучшения результатов бега с возможностью онлайн занятий",
+  ogImage: "https://ofp.mamrukov.com/main_page_hero.webp",
+});
 </script>
 
 <style scoped>

@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     plugins: ["Notify", "Loading"],
     extras: {
       font: "roboto-font",
-      fontIcons: ["fontawesome-v6"],
+      //fontIcons: ["fontawesome-v6"],
     },
     sassVariables: "~/assets/styles/quasar.sass",
 
@@ -80,7 +80,7 @@ export default defineNuxtConfig({
     // pageTransition: { name: "page", mode: "out-in" },
 
     head: {
-      title: "Я.ОФП | ОФП для бегунов. Занимайся онлайн бесплатно.",
+      title: "Я.ОФП | ОФП для бегунов ",
       charset: "utf-16",
       viewport: "width=device-width, initial-scale=1",
 
