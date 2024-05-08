@@ -28,8 +28,21 @@ const route = useRoute();
 const { id } = route.params;
 const store = trainingStore();
 const crud = useClientCrud(store);
+const crudSSR = useSSRCrud(store);
+const { data, pending, error, refresh } = await crudSSR.getItemById(parseSlugId(id));
 onBeforeMount(async () => {
-  await crud.getById(parseSlugId(id));
+  //await crud.getById(parseSlugId(id));
+});
+
+useServerSeoMeta({
+  titleTemplate: data.value.name + " | %s",
+  description: data.value.description,
+  image: getImageFromStorage(store.$id, data.value.id),
+  ogTitle: data.value.name + " | %s",
+  ogDescription: data.value.description,
+
+  ogImage: getImageFromStorage(store.$id, data.value.id),
+  twitterCard: getImageFromStorage(store.$id, data.value.id),
 });
 
 const updateItemField = async (field, value, id) => {
