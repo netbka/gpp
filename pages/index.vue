@@ -29,11 +29,11 @@
 import hero from "/main_page_hero.webp";
 
 useServerSeoMeta({
-  titleTemplate: "Занимайся ОФП онлайн бесплатно | %s",
+  titleTemplate: "Занимайся ОФП онлайн бесплатно %s",
   description:
     "Подбор тренировок для улучшения результатов бега с возможностью онлайн занятий",
   image: "https://www.ofp.mamrukov.com/main_page_hero.webp",
-  ogTitle: "Занимайся ОФП онлайн бесплатно | %s",
+  ogTitle: "Занимайся ОФП онлайн бесплатно %s",
   ogDescription:
     "Подбор тренировок для улучшения результатов бега с возможностью онлайн занятий",
   ogImage: "https://www.ofp.mamrukov.com/main_page_hero.webp",

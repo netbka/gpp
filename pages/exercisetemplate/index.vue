@@ -22,6 +22,15 @@
 </template>
 <script lang="ts" setup>
 definePageMeta({ auth: false });
+useServerSeoMeta({
+  titleTemplate: "Подборка упражнений %s",
+  description: "Сборник ОФП для бегунов. Советы и практические примеры выполнения.",
+  image: "https://www.ofp.mamrukov.com/main_page_hero.webp",
+  ogTitle: "Подборка упражнений %s",
+  ogDescription: "Сборник ОФП для бегунов. Советы и практические примеры выполнения.",
+  ogImage: "https://www.ofp.mamrukov.com/main_page_hero.webp",
+  twitterCard: "https://www.ofp.mamrukov.com/main_page_hero.png",
+});
 const form = ref(null);
 
 const { isAdmin, currentUserId } = useAuthUser();

@@ -21,6 +21,15 @@
 
 <script lang="ts" setup>
 definePageMeta({ auth: false });
+useServerSeoMeta({
+  titleTemplate: "Подборка тренировок %s",
+  description: "Не трать время на планирование. Все готово от Просто ОФП",
+  image: "https://www.ofp.mamrukov.com/main_page_hero.webp",
+  ogTitle: "Подборка тренировок %s",
+  ogDescription: "Не трать время на планирование. Все готово от Просто ОФП",
+  ogImage: "https://www.ofp.mamrukov.com/main_page_hero.webp",
+  twitterCard: "https://www.ofp.mamrukov.com/main_page_hero.png",
+});
 const form = ref(null);
 
 const { isAdmin, isLoggedIn } = useAuthUser();
