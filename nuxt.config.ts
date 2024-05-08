@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag"],
+  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag", "@nuxtjs/sitemap"],
   gtag: {
     id: "G-F8G8QM2PBG",
   },
@@ -75,12 +75,15 @@ export default defineNuxtConfig({
   runtimeConfig: {
     dbPassword: process.env.DB_PASSWORD,
   },
+  site: {
+    url: "https://ofp.mamrukov.com",
+  },
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
     // pageTransition: { name: "page", mode: "out-in" },
 
     head: {
-      title: "Я.ОФП | ОФП для бегунов ",
+      title: " | ОФП для бегунов ",
       charset: "utf-16",
       viewport: "width=device-width, initial-scale=1",
 
@@ -127,7 +130,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/auth",
       callback: "/training",
-      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exercisetemplate", "/exercisetemplate/*"],
+      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exercisetemplate", "/exercisetemplate/*", "/privacy-policy/*"],
     },
   },
 });
