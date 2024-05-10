@@ -3,7 +3,7 @@
     <q-toolbar class="m-l">
       <q-toolbar-title>
         <q-avatar @click="redirect">
-          <img :src="logo" class="cursor-pointer" />
+          <img :src="logo" class="cursor-pointer" data-nosnippet />
         </q-avatar>
         <span class="text-weight-thin text-uppercase gt-sm logo-text" data-nosnippet
           >Просто ОФП</span
