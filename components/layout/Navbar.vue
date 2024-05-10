@@ -5,18 +5,26 @@
         <q-avatar @click="redirect">
           <img :src="logo" class="cursor-pointer" />
         </q-avatar>
-        <span class="text-weight-thin text-uppercase gt-sm logo-text">Просто ОФП</span>
+        <span class="text-weight-thin text-uppercase gt-sm logo-text" data-nosnippet
+          >Просто ОФП</span
+        >
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
 
-      <q-btn stretch flat @click="redirectExerciseTemplate" icon="fitness_center">
+      <q-btn
+        stretch
+        flat
+        @click="redirectExerciseTemplate"
+        icon="fitness_center"
+        data-nosnippet
+      >
         <!-- <NuxtLink class="no-style gt-sm" to="/exercisetemplate">упражнения</NuxtLink> -->
-        <span class="gt-sm"> упражнения</span>
+        <span class="gt-sm" data-nosnippet> упражнения</span>
       </q-btn>
-      <q-btn stretch flat @click="redirectTraining" icon="bolt">
+      <q-btn stretch flat @click="redirectTraining" icon="bolt" data-nosnippet>
         <!-- <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> -->
-        <span class="gt-sm">Тренировки</span>
+        <span class="gt-sm" data-nosnippet>Тренировки</span>
       </q-btn>
       <!-- <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
           <span class="gt-sm">Планы пользователей </span>

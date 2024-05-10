@@ -1,5 +1,5 @@
 <template>
-  <q-btn-dropdown v-show="user" stretch flat icon="account_circle">
+  <q-btn-dropdown v-show="user" stretch flat icon="account_circle" data-nosnippet>
     <div class="row q-pa-sm width-profile wrap justify-center items-center content-start">
       <div class="col-grow self-center">
         <div class="q-py-sm">
@@ -26,7 +26,7 @@
     </div>
   </q-btn-dropdown>
 
-  <q-btn stretch flat label="Вход" v-show="!user" to="/auth" />
+  <q-btn stretch flat label="Вход" v-show="!user" to="/auth" data-nosnippet />
 </template>
 
 <script lang="ts" setup>
