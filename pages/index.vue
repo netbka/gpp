@@ -6,9 +6,9 @@
     ></div>
 
     <div class="row window-height-100 no-wrap justify-between items-center">
-      <div class="col q-pa-md">
-        <h1 class="text-black">Просто ОФП для бега</h1>
-        <h2 class="">Выбирай готовую тренировку или создай свою</h2>
+      <div class="col q-pa-md z-top">
+        <h2 class="text-black custom">Прокачай скорость и выносливость</h2>
+        <h3 class="">Выбирай готовую тренировку или создай свою</h3>
 
         <q-btn
           style="
@@ -55,5 +55,11 @@ useHead({
 }
 .main-btn {
   color: #000;
+}
+.z-top {
+  z-index: 99999;
+}
+.custom {
+  font-size: 3rem;
 }
 </style>

@@ -5,9 +5,7 @@
         <q-avatar @click="redirect">
           <img :src="logo" class="cursor-pointer" data-nosnippet />
         </q-avatar>
-        <span class="text-weight-thin text-uppercase gt-sm logo-text" data-nosnippet
-          >Просто ОФП</span
-        >
+        <h1 class="text-weight-thin text-uppercase logo-text">Просто ОФП</h1>
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
@@ -26,9 +24,7 @@
         <!-- <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> -->
         <span class="gt-sm" data-nosnippet>Тренировки</span>
       </q-btn>
-      <!-- <q-btn stretch flat @click="redirectEx" icon="outlined_flag">
-          <span class="gt-sm">Планы пользователей </span>
-        </q-btn> -->
+
       <q-separator dark vertical class="gt-xs" />
       <ClientOnly>
         <LayoutNavLogin></LayoutNavLogin>
@@ -52,5 +48,8 @@ const redirectTraining = async () => {
 <style scoped>
 .logo-text {
   letter-spacing: -2px;
+  font-size: 21px;
+  line-height: 32px;
+  display: inline;
 }
 </style>
