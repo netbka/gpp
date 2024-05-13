@@ -83,14 +83,21 @@ export default defineNuxtConfig({
     // pageTransition: { name: "page", mode: "out-in" },
 
     head: {
-      title: " | ОФП для бегунов ",
+      //title: "Тренировки ОФП | ОФП для бегунов ",
       charset: "utf-16",
       viewport: "width=device-width, initial-scale=1",
 
       meta: [
         //{ name: "google-site-verification", content: "uXK0HHaPvvfo536fFBdCTgJRLl57jaLZmssNa9g6U" },
-        { name: "url", content: "https://www.ofp.mamrukov.com" },
+        { name: "url", content: "https://ofp.mamrukov.com" },
+        { name: "locale", content: "ru_RU" },
+        { name: "image", content: "https://www.ofp.mamrukov.com/main_page_hero.webp" },
         { name: "og:locale", content: "ru_RU" },
+        { name: "og:image", content: "https://www.ofp.mamrukov.com/main_page_hero.webp" },
+        { name: "og:url", content: "https://ofp.mamrukov.com" },
+        { name: "og:site_name", content: "Готовые тренировки ОФП - Просто ОФП" },
+        { name: "twitter:image", content: "https://www.ofp.mamrukov.com/main_page_hero.webp" },
+        { name: "twitter:site", content: "https://ofp.mamrukov.com" },
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
@@ -130,7 +137,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/auth",
       callback: "/training",
-      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exercisetemplate", "/exercisetemplate/*", "/privacy-policy/*"],
+      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exerciseTemplate/*", "/exercisetemplate/*", "/exercisetemplate", "/privacy-policy/*"],
     },
   },
 });

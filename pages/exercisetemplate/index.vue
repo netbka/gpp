@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Head>
+      <Title>Подборка упражнений | ОФП для бегунов</Title>
+    </Head>
     <NuxtErrorBoundary>
       <NuxtPage />
       <template #error="{ error }">
@@ -22,15 +25,13 @@
 </template>
 <script lang="ts" setup>
 definePageMeta({ auth: false });
-useServerSeoMeta({
-  titleTemplate: "Подборка упражнений %s",
+useHead({
+  titleTemplate: "Подборка ОФП упражнений | ОФП для бегунов",
   description: "Сборник ОФП для бегунов. Советы и практические примеры выполнения.",
-  image: "https://www.ofp.mamrukov.com/main_page_hero.webp",
-  ogTitle: "Подборка упражнений %s",
+  ogTitle: "Подборка ОФП упражнений | ОФП для бегунов",
   ogDescription: "Сборник ОФП для бегунов. Советы и практические примеры выполнения.",
-  ogImage: "https://www.ofp.mamrukov.com/main_page_hero.webp",
-  twitterCard: "https://www.ofp.mamrukov.com/main_page_hero.png",
 });
+
 const form = ref(null);
 
 const { isAdmin, currentUserId } = useAuthUser();

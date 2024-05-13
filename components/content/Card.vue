@@ -67,12 +67,7 @@ const props = defineProps({
   readOnly: { Type: Boolean, default: false },
   loading: { Type: Boolean, default: false },
 });
-// if (!props.data) {
-//   throw createError({
-//     statusCode: 404,
-//     message: "Этого занятия нет",
-//   });
-// }
+
 const emits = defineEmits(["onUpdateField", "editItem"]);
 const link = (data) => {
   return new Slug(data, "exercisetemplate");
@@ -82,8 +77,6 @@ const resetError = async (error) => {
   await navigateTo("/exerciseTemplate/");
   error.value = null;
 };
-///reasearch why this composable is not working in SSR
-//const { getStoreImageById } = useImageManager();
 </script>
 
 <style scoped>

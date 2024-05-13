@@ -10,6 +10,11 @@
   </q-layout>
 </template>
 <script setup>
+// useServerHead({
+//   titleTemplate: (titleChunk) => {
+//     return titleChunk ? `${titleChunk} - Site Title` : "Site Title";
+//   },
+// });
 const customstyle = (offset, additionalStyles = {}) => {
   const baseStyles = {
     minHeight: offset ? `calc(100vh - ${offset}px)` : "100vh",

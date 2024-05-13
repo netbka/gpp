@@ -7,8 +7,8 @@
 
     <div class="row window-height-100 no-wrap justify-between items-center">
       <div class="col q-pa-md">
-        <h1 class="text-black">Просто ОФП</h1>
-        <h2 class="">Выбирай тренировку или создай свою</h2>
+        <h1 class="text-black">Просто ОФП для бега</h1>
+        <h2 class="">Выбирай готовую тренировку или создай свою</h2>
 
         <q-btn
           style="
@@ -27,17 +27,15 @@
 
 <script setup>
 import hero from "/main_page_hero.webp";
-
-useServerSeoMeta({
-  titleTemplate: "Занимайся ОФП онлайн бесплатно %s",
+useHead({
+  titleTemplate:
+    "Подбор тренировок для увеличения скорости бега и повышения выносливости | ОФП для бегунов",
   description:
-    "Подбор тренировок для улучшения результатов бега с возможностью онлайн занятий",
-  image: "https://www.ofp.mamrukov.com/main_page_hero.webp",
-  ogTitle: "Занимайся ОФП онлайн бесплатно %s",
+    "Добавьте к своим тренировкам ОФП (общую физическую подготовку) - упражнения для бегунов. Все тренировки готовы для онлайн занятия.",
+  ogTitle:
+    "Подбор тренировок для увеличения скорости бега и повышения выносливости | ОФП для бегунов",
   ogDescription:
-    "Подбор тренировок для улучшения результатов бега с возможностью онлайн занятий",
-  ogImage: "https://www.ofp.mamrukov.com/main_page_hero.webp",
-  twitterCard: "https://www.ofp.mamrukov.com/main_page_hero.png",
+    "Добавьте к своим тренировкам ОФП (общую физическую подготовку) - упражнения для бегунов. Все тренировки готовы для онлайн занятия.",
 });
 </script>
 
