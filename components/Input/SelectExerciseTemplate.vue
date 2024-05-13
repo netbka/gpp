@@ -1,6 +1,7 @@
 <template>
   <div style="display: inline">
-    <span v-show="visibleEdit" class="float-left">
+    <!-- style="width: 350px; padding: 0 !important" -->
+    <span v-show="visibleEdit" class="float-left parent">
       <q-select
         bg-color="white"
         dense
@@ -8,9 +9,8 @@
         use-input
         hide-selected
         fill-input
-        style="width: 250px; padding: 0 !important"
         input-style=""
-        class="super-small float-right"
+        class="super-small float-right child"
         option-value="id"
         option-label="name"
         :options="options"
@@ -171,4 +171,18 @@ const remove = (val) => {
 };
 </script>
 
-<style></style>
+<style scoped>
+.parent {
+  width: 100%;
+  display: flex; /* Enable Flexbox for the parent */
+}
+
+.child {
+  flex: 0 0 100%; /* Set flex properties for the child element */
+}
+@media (min-width: 768px) {
+  .child {
+    max-width: 640px;
+  }
+}
+</style>
