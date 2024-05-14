@@ -14,7 +14,7 @@
       >
         <div class="col-grow">
           <span v-show="el.active">
-            <q-spinner-rings color="purple" size="3em" class="q-mr-sm" />
+            <q-spinner-rings color="purple" size="2em" class="q-mr-sm" />
           </span>
 
           <InputSelectExerciseTemplate

@@ -14,12 +14,13 @@
             <TrainingButtonStartRestart
               @hide="hide"
               @restart="restart"
+              @forwardExercise="forwardExercise"
             ></TrainingButtonStartRestart>
           </q-toolbar-title>
           <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
         </q-toolbar>
 
-        <q-card-section>
+        <q-card-section v-show="!showResult">
           <div class="text-center">
             <q-knob
               show-value
@@ -39,7 +40,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section class="q-pt-none" v-show="!showResult">
           <div class="text-light-blue-7 text-h4 text-uppercase text-center">
             {{ store.activeGroup.name }}
           </div>
@@ -53,6 +54,18 @@
               fit="scale-down"
               class="exercise-image"
             />
+          </div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none" v-show="showResult">
+          <div class="text-light-blue-7 text-h4 text-uppercase text-center">
+            Тренировка завершена
+          </div>
+          <div class="text-light-blue-10 text-h4 text-center">Ты молодец!</div>
+          <div class="row justify-center">
+            <div class="col-auto">
+              <div class="text-blue-10" v-html="store.currentItem.description"></div>
+            </div>
           </div>
         </q-card-section>
       </q-card>
@@ -70,6 +83,16 @@ const props = defineProps({
   },
   //propFullHeight: { type: Boolean, default: false },
 });
+
+// const currentExercisePosition = useState(
+//   () => store.activeGroup.exercise[exrIndex.value]
+// );
+//const currentExercisePosition = reactive(store.activeGroup.exercise[exrIndex.value]);
+// const savedTrainingPosition = reactive({
+//   grpIndex: 0,
+//   exrIndex: 0,
+// });
+const showResult = ref(true);
 const initCounter = ref(null);
 const dialog = ref(null);
 const store = useTrainingStore();
@@ -84,7 +107,9 @@ let intervalId: number;
 const audio = new Audio("/sound/10sec.mp3");
 
 onMounted(() => {
-  grpIndex.value = store.getInitialActiveGroup();
+  //grpIndex.value = store.getInitialActiveGroup();
+
+  restart();
 });
 let resetCounter = () => {
   timer.value = 100;
@@ -92,7 +117,13 @@ let resetCounter = () => {
   exrIndex.value = 0;
 };
 const hide = () => {
-  resetTraining();
+  // savedTrainingPosition.grpIndex = grpIndex.value;
+  // savedTrainingPosition.exrIndex = exrIndex.value;
+
+  //endOfTraining();
+  if (audio.currentTime > 0) stopAudio();
+  store.isStarted = false;
+  dialog.value.hide();
 };
 
 const { getImageUrl } = useImageManager();
@@ -108,12 +139,19 @@ const exerciseImage = computed(() => {
   }
 });
 
+const forwardExercise = () => {
+  counterDuration.value = 1;
+};
+
+const backwardExercise = () => {};
+
 const stopAudio = () => {
   audio.pause();
   audio.currentTime = 0;
 };
 
 const restart = () => {
+  showResult.value = !showResult.value;
   if (audio.currentTime > 0) stopAudio();
 
   store.resetActive();
@@ -122,13 +160,14 @@ const restart = () => {
   store.getInitialActiveGroup();
 };
 
-const resetTraining = () => {
-  if (audio.currentTime > 0) stopAudio();
-  store.resetActive();
-  resetCounter();
-  store.isStarted = false;
-  store.getInitialActiveGroup();
-  dialog.value.hide();
+const endOfTraining = () => {
+  showResult.value = true;
+  //if (audio.currentTime > 0) stopAudio();
+  //store.resetActive();
+  //resetCounter();
+  //store.isStarted = false;
+  //store.getInitialActiveGroup();
+  //dialog.value.hide();
 };
 const { isLoggedIn } = useAuthUser();
 const storeTrainingTrack = trainingTrackStore();
@@ -168,7 +207,7 @@ const startTimer = async () => {
     this.activeGroup.repeats === 0
   ) {
     saveTrainingTrack();
-    resetTraining();
+    endOfTraining();
 
     return;
   } //got to end of training
@@ -187,7 +226,7 @@ const startTimer = async () => {
         grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
         if (grpIndex.value < 0) {
           saveTrainingTrack();
-          resetTraining();
+          endOfTraining();
           return;
         }
         store.resetActive();
@@ -261,7 +300,7 @@ const show = () => {
 };
 defineExpose({
   show,
-  resetTraining,
+  endOfTraining,
   saveTrainingTrack,
 });
 </script>

@@ -14,8 +14,22 @@
         {{ !store.isStarted ? startBtn.textStart : startBtn.textPause }}</span
       >
     </q-btn>
-    <q-btn @click="$emit('restart')" :icon="startBtn.iconRestart" outline color="black">
+    <q-btn
+      @click="$emit('restart')"
+      :icon="startBtn.iconRestart"
+      outline
+      color="black"
+      class="q-mr-md"
+    >
       <span class="gt-xs"> {{ startBtn.textRestart }}</span>
+    </q-btn>
+    <q-btn
+      @click="$emit('forwardExercise')"
+      :icon="startBtn.iconForward"
+      outline
+      color="black"
+    >
+      <span class="gt-xs"> {{ startBtn.textForward }}</span>
     </q-btn>
     <!-- </div> -->
 
@@ -36,10 +50,13 @@ let startBtn = reactive({
   textRestart: "Заново",
   iconRestart: "restart_alt",
 
+  textForward: "След. упражнение",
+  iconForward: "last_page",
+
   textPause: "Пауза",
   iconPause: "pause",
 });
-const emits = defineEmits(["restart"]);
+const emits = defineEmits(["restart", "forwardExercise"]);
 let error = ref(false);
 const startTimer = () => {
   store.isStarted = !store.isStarted;

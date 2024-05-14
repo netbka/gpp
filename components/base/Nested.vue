@@ -12,7 +12,7 @@
           <div class="bg-color q-pa-xs shadow-2 row cursor-pointer">
             <div class="col-grow text-weight-bold text-uppercase self-center width-65">
               <span v-show="el.active" class="" style="display: inline">
-                <q-spinner-grid color="purple" size="2em" class="q-mr-sm" />
+                <q-spinner-grid color="purple" size="1.6em" class="q-mr-sm" />
               </span>
               <InputText
                 :readOnly="readOnly"

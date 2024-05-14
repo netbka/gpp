@@ -40,10 +40,6 @@ export const useTrainingStore = defineStore("training", {
     resetCurrentItem(val: string): void {
       this.currentItem = new Training(val).getAll();
     },
-    // newItem(val = "Новый план") {
-    //   this.currentItem = new Training(val).getAll();
-
-    // },
 
     async updateTrainingPlan() {
       withErrorHandling(this)(async (props, store) => {

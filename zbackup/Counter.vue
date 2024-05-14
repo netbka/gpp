@@ -52,7 +52,7 @@ let resetCounter = () => {
   //counterDuration.value = 0;
 };
 
-const resetTraining = () => {
+const endOfTraining = () => {
   store.resetActive();
   resetCounter();
   emits("stopTimer");
@@ -61,7 +61,7 @@ const resetTraining = () => {
 };
 
 defineExpose({
-  resetTraining,
+  endOfTraining,
 });
 
 const showExerciseName = () => {
@@ -75,7 +75,7 @@ const showExerciseName = () => {
 const startTimer = () => {
   if (store.calculateDuration() === 0) return; // no exercises available
   if (grpIndex.value + 1 > store.defaultItem.length && this.activeGroup.repeats === 0) {
-    resetTraining();
+    endOfTraining();
 
     return;
   } //got to end of training
@@ -93,7 +93,7 @@ const startTimer = () => {
       if (store.activeGroup.repeats === 0) {
         grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
         if (grpIndex.value < 0) {
-          resetTraining();
+          endOfTraining();
           return;
         }
         store.resetActive();
