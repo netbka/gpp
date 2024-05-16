@@ -17,6 +17,7 @@
               @forwardExercise="forwardExercise"
               @backwardExercise="backExercise"
               :endOfTraining="showResult"
+              :backwardDisabled="grpIndex === 0 && exrIndex === 0"
             ></TrainingButtonStartRestart>
           </q-toolbar-title>
           <q-btn dense flat icon="close" @click="hide" color="grey" class="" />

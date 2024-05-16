@@ -31,6 +31,7 @@
       color="black"
       class="q-mr-md"
       v-show="!endOfTraining"
+      :disabled="backwardDisabled"
     >
       <span class="gt-xs"> {{ startBtn.textBackward }}</span>
     </q-btn>
@@ -40,21 +41,18 @@
       outline
       color="black"
       v-show="!endOfTraining"
+      :disabled="forwardDisabled"
     >
       <span class="gt-xs"> {{ startBtn.textForward }}</span>
     </q-btn>
-    <!-- </div> -->
-
-    <!-- <div class="col-auto"> -->
-
-    <!-- </div> -->
-    <!-- </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
   endOfTraining: { Type: Boolean, default: false },
+  forwardDisabled: { Type: Boolean, default: false },
+  backwardDisabled: { Type: Boolean, default: false },
 });
 const store = useTrainingStore();
 
