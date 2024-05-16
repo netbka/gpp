@@ -17,7 +17,7 @@
               @forwardExercise="forwardExercise"
               @backwardExercise="backExercise"
               :endOfTraining="showResult"
-              :backwardDisabled="grpIndex === 0 && exrIndex === 0"
+              :backwardDisabled="backwardDisabled"
             ></TrainingButtonStartRestart>
           </q-toolbar-title>
           <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
@@ -112,6 +112,7 @@ const {
   endOfTraining,
   updateCounterTimer,
   backwardExercise,
+  backwardDisabled,
 } = useTrainingExercise();
 
 onMounted(() => {
@@ -163,7 +164,7 @@ const saveTrainingTrack = async () => {
 
 const startTimer = async () => {
   if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
-  if (isBeginningOfTraining() === true) await initCounter.value.start(); //show 5 to 1 counter
+  //if (isBeginningOfTraining() === true) await initCounter.value.start(); //show 5 to 1 counter
 
   if (counterDuration.value === 0) {
     if (isLastExerciseInGroup() === true) {

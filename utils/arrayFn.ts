@@ -129,16 +129,18 @@ export const calculateLevel = (arr: Array) => {
   }
 };
 
-export const exerciseToText = (arr: Array) => {
-  let text = "";
+export const exerciseToText = (arr: Array, name: string, duration: string) => {
+  let text = `<h1 class="text-h4 q-ma-none line1-3em"><b>${name}</b></h1>`;
+  text += `<h5 class=" q-mt-none q-mb-md "> Продолжительность:<b> ${duration} </b></h5>`;
   arr.forEach((item) => {
-    text += `${item.repeats}x`;
     text += `<b>${item.name}:</b>`;
+    text += ` x${item.repeats} </br>`;
     let i = 0;
     item.exercise.forEach((exercise) => {
       i++;
-      let prefix = i === 1 ? "  " : "  + ";
-      text += `${prefix}${exercise.name} (${exercise.duration} сек)`;
+      //let prefix = i === 1 ? "  " : "  + ";
+      let prefix = "- ";
+      text += `${prefix}${exercise.name} (${exercise.duration} сек)</br>`;
     });
     text += "</br>";
   });

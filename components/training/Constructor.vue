@@ -21,11 +21,10 @@
       @onAddCustomExercise="onAddCustomExercise"
     ></BaseNested>
 
-    <!-- <TrainingCounterCountdown ref="initCounter"></TrainingCounterCountdown> -->
     <ClientOnly>
       <TrainingCounter ref="trainingCounter"></TrainingCounter>
     </ClientOnly>
-    <!-- <BaseFab @newItem="addGroup" v-if="!props.readOnly"></BaseFab> -->
+
     <BaseDialogYesNo
       ref="dialog"
       @ok="addDescription"
@@ -54,7 +53,11 @@ const store = trainingStore();
 const { canEditDelete } = useCanEditDelete(store);
 
 const confirmAddTrainingDescription = () => {
-  description.value = exerciseToText(store.currentItem.exerciseGroup);
+  description.value = exerciseToText(
+    store.currentItem.exerciseGroup,
+    store.currentItem.name,
+    durationToText(store.getDuration)
+  );
   dialog.value.show();
 };
 

@@ -7,6 +7,11 @@ export function useTrainingExercise() {
   let timer = ref(100);
 
   const initDuration = computed(() => store.getActiveExerciseDuration());
+  const backwardDisabled = computed(() => {
+    if (store.activeGroup.repeats === undefined) return true;
+
+    return grpIndex.value === 0 && exrIndex.value === 0 && store.activeGroup.repeats === store.currentItem.exerciseGroup[grpIndex.value].repeats;
+  });
 
   const isLastExerciseInGroup = () => {
     return exrIndex.value + 1 > store.activeGroup.exercise.length;
@@ -31,7 +36,7 @@ export function useTrainingExercise() {
     store.resetActive();
     resetCounter();
     store.isStarted = false;
-    store.getInitialActiveGroup();
+    grpIndex.value = store.getInitialActiveGroup();
   };
   const showExerciseName = () => {
     const index = store.getActiveExerciseIndex();
@@ -55,7 +60,6 @@ export function useTrainingExercise() {
     return false;
   };
   const backwardExercise = () => {
-    console.log("backward exercise");
     if (grpIndex.value === 0 && exrIndex.value === 0 && store.activeGroup.repeats === store.currentItem.exerciseGroup[grpIndex.value].repeats) return;
     store.resetActive();
     timer.value = 100;
@@ -66,8 +70,14 @@ export function useTrainingExercise() {
       exrIndex.value = store.activeGroup.exercise.length - 1;
     } else if (grpIndex.value > 0 && exrIndex.value === 0) {
       grpIndex.value = store.getPrevGroupByIndex(grpIndex.value - 1);
-      exrIndex.value = store.activeGroup.exercise.length - 1;
-      store.activeGroup.repeats = 1;
+
+      if (grpIndex.value === -1) {
+        exrIndex.value = 0;
+        grpIndex.value = store.getNextGroupByIndex(grpIndex.value + 1);
+      } else {
+        exrIndex.value = store.activeGroup.exercise.length - 1;
+        store.activeGroup.repeats = 1;
+      }
     }
     store.setActiveGroup(true);
     store.setActiveExercise(exrIndex.value, true);
@@ -106,5 +116,6 @@ export function useTrainingExercise() {
     endOfTraining,
     updateCounterTimer,
     backwardExercise,
+    backwardDisabled,
   };
 }
