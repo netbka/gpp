@@ -19,17 +19,7 @@ export default defineNuxtConfig({
   gtag: {
     id: "G-F8G8QM2PBG",
   },
-  // lodash: {
-  //   prefix: "_",
-  //   prefixSkip: ["string"],
-  //   upperAfterPrefix: false,
-  //   exclude: ["map"],
-  //   alias: [
-  //     ["camelCase", "stringToCamelCase"], // => stringToCamelCase
-  //     ["kebabCase", "stringToKebab"], // => stringToKebab
-  //     ["isDate", "isLodashDate"], // => _isLodashDate
-  //   ],
-  // },
+
   plugins: [
     //"~/plugins/prisma-client.ts",
     "~/plugins/fetch.ts",
@@ -77,6 +67,12 @@ export default defineNuxtConfig({
   },
   site: {
     url: "https://ofp.mamrukov.com",
+  },
+  sitemap: {
+    sources: [
+      "https://ofp.mamrukov.com/api/training/url",
+      // fetch from an authenticated endpoint
+    ],
   },
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
