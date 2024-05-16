@@ -9,6 +9,7 @@
       color="black"
       :disabled="error"
       class="q-mr-md"
+      v-show="!endOfTraining"
     >
       <span class="gt-xs">
         {{ !store.isStarted ? startBtn.textStart : startBtn.textPause }}</span
@@ -28,6 +29,7 @@
       :icon="startBtn.iconForward"
       outline
       color="black"
+      v-show="!endOfTraining"
     >
       <span class="gt-xs"> {{ startBtn.textForward }}</span>
     </q-btn>
@@ -41,6 +43,9 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps({
+  endOfTraining: { Type: Boolean, default: false },
+});
 const store = useTrainingStore();
 
 let startBtn = reactive({

@@ -25,6 +25,9 @@ export const useTrainingStore = defineStore("training", {
     getDuration: (state) => {
       return state.currentItem.exerciseGroup.length > 0 ? calculateDuration(state.currentItem.exerciseGroup) : 0;
     },
+    getIsStarted: (state) => {
+      return state.isStarted;
+    },
     getItemArray: (state) => {
       return state.itemArray;
     },
@@ -78,7 +81,7 @@ export const useTrainingStore = defineStore("training", {
     },
     setActiveGroup(val: boolean) {
       const foundItem = this.currentItem.exerciseGroup.find((item) => item.id === this.activeGroup.id);
-      foundItem.active = val;
+      if (foundItem) foundItem.active = val;
     },
     setActiveExercise(index: number, val: boolean) {
       this.activeGroup.exercise[index].active = val;
@@ -90,14 +93,22 @@ export const useTrainingStore = defineStore("training", {
       if (!this.activeGroup.exercise) return -1;
       return this.activeGroup.exercise.findIndex((item) => item["active"] === true);
     },
+    // setNextActiveGroup(_index: number): number {
+    //   while (_index< this.currentItem.exerciseGroup.length){
 
+    //     _index +=1;
+    //   }
+    // },
     getGroupByIndex(_index: number): number {
       if (_index + 1 > this.currentItem.exerciseGroup.length) return -1;
 
       const initialActiveGroup = Object.assign({}, this.currentItem.exerciseGroup.filter((item, index) => index === _index)[0]);
-      if (initialActiveGroup.exercise.length === 0) return this.getGroupByIndex(_index + 1); //no exercise in group
-      this.activeGroup = initialActiveGroup;
-      return _index;
+      if (initialActiveGroup.exercise.length === 0) {
+        return this.getGroupByIndex(_index + 1); //no exercise in group
+      } else {
+        this.activeGroup = initialActiveGroup;
+        return _index;
+      }
     },
 
     resetActive() {

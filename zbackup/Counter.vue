@@ -1,68 +1,183 @@
 <template>
-  <div class="text-center q-ml-sm">
-    <q-knob
-      show-value
-      font-size="48px"
-      class="q-ma-md"
-      v-model="timer"
-      size="300px"
-      :thickness="0.05"
-      color="primary"
-      track-color="grey-2"
-      readonly
+  <div>
+    <TrainingCounterCountdown ref="initCounter"></TrainingCounterCountdown>
+    <q-dialog
+      persistent
+      full-height
+      v-on:keyup.esc="hide()"
+      ref="dialog"
+      class="no-padding counter-dialog"
     >
-      {{ numToMin(counterDuration) }}мин. {{ numToSec(counterDuration) }}сек.
-    </q-knob>
+      <q-card class="bg-white text-white counter-card">
+        <q-toolbar>
+          <q-toolbar-title>
+            <TrainingButtonStartRestart
+              @hide="hide"
+              @restart="restart"
+              @forwardExercise="forwardExercise"
+              :endOfTraining="showResult"
+            ></TrainingButtonStartRestart>
+          </q-toolbar-title>
+          <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
+        </q-toolbar>
 
-    <br />
-    {{ store.activeGroup.name }}
+        <q-card-section v-show="!showResult">
+          <div class="text-center">
+            <q-knob
+              show-value
+              font-size="40px"
+              class="q-ma-md"
+              v-model="timer"
+              size="200px"
+              :thickness="0.05"
+              color="primary"
+              track-color="grey-2"
+              readonly
+            >
+              <span class="text-light-blue-2">
+                {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
+              </span>
+            </q-knob>
+          </div>
+        </q-card-section>
 
-    <br />
-    {{ showExerciseName() }}
+        <q-card-section class="q-pt-none" v-show="!showResult">
+          <div class="text-light-blue-7 text-h4 text-uppercase text-center">
+            {{ store.activeGroup.name }}
+          </div>
+          <div class="text-light-blue-10 text-h4 text-center">
+            {{ showExerciseName() }}
+          </div>
+          <div class="">
+            <q-img
+              :src="exerciseImage"
+              :error-src="errorImg"
+              fit="scale-down"
+              class="exercise-image"
+            />
+          </div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none" v-show="showResult">
+          <div class="text-light-blue-7 text-h4 text-uppercase text-center">
+            Тренировка завершена
+          </div>
+          <div class="text-light-blue-10 text-h4 text-center">Ты молодец!</div>
+          <div class="row justify-center">
+            <div class="col-auto">
+              <div class="text-blue-10" v-html="store.currentItem.description"></div>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useWorkoutStore } from "~/stores/workout";
-const store = useWorkoutStore();
-
+import errorImg from "/build_transparent_150.png";
 const emits = defineEmits(["stopTimer"]);
 const props = defineProps({
   isStarted: {
     type: Boolean,
     default: false,
   },
+  //propFullHeight: { type: Boolean, default: false },
 });
+
+const initCounter = ref(null);
+const dialog = ref(null);
+const store = useTrainingStore();
 
 let counterDuration: number = ref(0);
 
 const initDuration = computed(() => store.getActiveExerciseDuration());
 const grpIndex: number = ref(0);
 const exrIndex: number = ref(0);
+const showResult = ref(true);
 let timer = ref(100);
 let intervalId: number;
+const audio = new Audio("/sound/10sec.mp3");
 
 onMounted(() => {
-  grpIndex.value = store.getInitialActiveGroup();
+  //grpIndex.value = store.getInitialActiveGroup();
+
+  restart();
 });
 let resetCounter = () => {
   timer.value = 100;
   grpIndex.value = 0;
   exrIndex.value = 0;
-  //counterDuration.value = 0;
+};
+const hide = () => {
+  // savedTrainingPosition.grpIndex = grpIndex.value;
+  // savedTrainingPosition.exrIndex = exrIndex.value;
+
+  //endOfTraining();
+  if (audio.currentTime > 0) stopAudio();
+  store.isStarted = false;
+  dialog.value.hide();
 };
 
-const endOfTraining = () => {
+const { getImageUrl } = useImageManager();
+const exerciseImage = computed(() => {
+  try {
+    let fileName = store.activeGroup.exercise[exrIndex.value].templateId;
+
+    return store.activeGroup.exercise[exrIndex.value].templateId !== null
+      ? getImageUrl(fileName, "exerciseTemplate")
+      : null;
+  } catch (error) {
+    return null;
+  }
+});
+
+const forwardExercise = () => {
+  // if (exrIndex.value + 1 > store.activeGroup.exercise.length &&
+
+  // if !(exrIndex.value + 1 > store.activeGroup.exercise.length){
+  //   exrIndex.value +=1
+  // }
+
+  counterDuration.value = 1;
+};
+
+const backwardExercise = () => {};
+
+const stopAudio = () => {
+  audio.pause();
+  audio.currentTime = 0;
+};
+
+const restart = () => {
+  showResult.value = !showResult.value;
+  if (audio.currentTime > 0) stopAudio();
+
   store.resetActive();
   resetCounter();
-  emits("stopTimer");
   store.isStarted = false;
   store.getInitialActiveGroup();
 };
 
-defineExpose({
-  endOfTraining,
-});
+const endOfTraining = () => {
+  showResult.value = true;
+  //if (audio.currentTime > 0) stopAudio();
+  //store.resetActive();
+  //resetCounter();
+  //store.isStarted = false;
+  //store.getInitialActiveGroup();
+  //dialog.value.hide();
+};
+const { isLoggedIn } = useAuthUser();
+const storeTrainingTrack = trainingTrackStore();
+const crudTT = useClientCrud(storeTrainingTrack);
+const saveTrainingTrack = async () => {
+  if (!isLoggedIn()) return;
+  storeTrainingTrack.currentItem.trainingId = store.currentItem.id;
+  storeTrainingTrack.currentItem.duration = store.getDuration;
+  //await storeTrainingTrack.createCurrentItem();
+  await crudTT.createItem();
+};
 
 const showExerciseName = () => {
   const index = store.getActiveExerciseIndex();
@@ -72,9 +187,25 @@ const showExerciseName = () => {
       : store.activeGroup.exercise[0].name;
   } catch (error) {}
 };
-const startTimer = () => {
-  if (store.calculateDuration() === 0) return; // no exercises available
-  if (grpIndex.value + 1 > store.defaultItem.length && this.activeGroup.repeats === 0) {
+
+// const startInitCounter = async () => {
+//   await initCounter.value.start();
+// };
+
+const startTimer = async () => {
+  if (
+    grpIndex.value === 0 &&
+    exrIndex.value === 0 &&
+    counterDuration.value === initDuration.value
+  ) {
+    await initCounter.value.start();
+  }
+  if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
+  if (
+    grpIndex.value + 1 > store.currentItem.exerciseGroup.length &&
+    this.activeGroup.repeats === 0
+  ) {
+    saveTrainingTrack();
     endOfTraining();
 
     return;
@@ -93,6 +224,7 @@ const startTimer = () => {
       if (store.activeGroup.repeats === 0) {
         grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
         if (grpIndex.value < 0) {
+          saveTrainingTrack();
           endOfTraining();
           return;
         }
@@ -103,20 +235,22 @@ const startTimer = () => {
     store.setActiveGroup(true);
     store.setActiveExercise(exrIndex.value, true);
     counterDuration.value = store.getActiveExerciseDuration();
+    dialog.value.show();
   } //counter duration ===0
 
   intervalId = setInterval(() => {
-    //reached to end of exercise
+    if (counterDuration.value < 11) {
+      audio.play();
+    }
     if (counterDuration.value === 0) {
+      if (audio.currentTime > 0) stopAudio(); //stop audio
       clearInterval(intervalId);
       store.setActiveExercise(exrIndex.value, false);
       exrIndex.value++;
       startTimer();
-      //if (exrIndex.value+1>)
     } else {
       counterDuration.value--;
       timer.value = (counterDuration.value / initDuration.value) * 100;
-      //console.log(timer.value);
     }
   }, 1000);
 };
@@ -125,6 +259,10 @@ const isStarted = computed(() => {
   return store.isStarted;
 });
 const stopTimer = function () {
+  if (counterDuration.value < 10) {
+    audio.currentTime = 10 - counterDuration.value;
+    audio.pause();
+  }
   clearInterval(intervalId);
 };
 //let exerciseIntervalId: number;
@@ -140,9 +278,9 @@ watch(
 );
 
 watch(
-  () => store.defaultItem,
+  () => store.getCurrentItem,
   (newVal) => {
-    if (!isStarted) grpIndex.value = store.getInitialActiveGroup();
+    if (!isStarted.value) grpIndex.value = store.getInitialActiveGroup();
   },
   { deep: true }
 );
@@ -155,6 +293,42 @@ watch(isStarted, () => {
     stopTimer();
   }
 });
+
+const show = () => {
+  dialog.value.show();
+};
+defineExpose({
+  show,
+  endOfTraining,
+  saveTrainingTrack,
+});
 </script>
 
-<style></style>
+<style>
+.exercise-image {
+  height: calc(100vh / 3);
+  object-fit: scale-down;
+  max-width: 1200px;
+  width: -webkit-fill-available;
+}
+.padding {
+  padding-left: calc((100vw - 1439px) / 2);
+  padding-right: calc((100vw - 1439px) / 2);
+}
+.counter-card {
+  max-width: 100vw !important;
+  width: calc(100vw - 30px) !important;
+}
+
+@media (min-width: 760px) {
+  .counter-card {
+    min-width: 720x !important;
+    max-width: 1200px !important;
+    width: calc(100vw - 30px);
+  }
+}
+
+.counter-dialog {
+  width: 700px !important;
+}
+</style>
