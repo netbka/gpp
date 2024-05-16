@@ -69,10 +69,11 @@ export default defineNuxtConfig({
     url: "https://ofp.mamrukov.com",
   },
   sitemap: {
-    sources: [
-      "https://ofp.mamrukov.com/api/training/url",
-      // fetch from an authenticated endpoint
-    ],
+    hostname: "https://ofp.mamrukov.com",
+    exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
+    gzip: true,
+
+    sources: ["/api/__sitemap__/urls"],
   },
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },

@@ -1,29 +1,42 @@
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
-
-export default defineEventHandler(async (event) => {
+export default defineSitemapEventHandler(async () => {
   try {
-    const result = await prisma.training.findMany({
+    const exerciseTemplate = await prisma.exerciseTemplate.findMany({
       where: {
         public: true,
       },
       select: {
         id: true,
         name: true,
+        updatedAt: true,
+      },
+    });
+    const training = await prisma.training.findMany({
+      where: {
+        public: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        updatedAt: true,
       },
     });
 
-    const desiredResult = {
-      pages: result.map((item) => ({
-        slug: generateSlug(item.id.toString() + "-" + item.name),
+    return [
+      ...exerciseTemplate.map((item) => ({
+        loc: "exerciseTemplate/" + generateSlug(item.id.toString() + "-" + item.name),
         title: item.name,
+        lastmod: item.updatedAt,
       })),
-    };
+      ...training.map((item) => ({
+        loc: "training/" + generateSlug(item.id.toString() + "-" + item.name),
+        title: item.name,
+        lastmod: item.updatedAt,
+      })),
+    ];
 
-    console.log(desiredResult);
-
-    return desiredResult;
+    //return desiredResult;
   } catch (error) {
     console.log("erro in fetching:", error);
   } finally {
