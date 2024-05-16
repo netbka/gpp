@@ -15,6 +15,7 @@
               @hide="hide"
               @restart="restart"
               @forwardExercise="forwardExercise"
+              @backwardExercise="backExercise"
               :endOfTraining="showResult"
             ></TrainingButtonStartRestart>
           </q-toolbar-title>
@@ -109,6 +110,7 @@ const {
   restartTraining,
   endOfTraining,
   updateCounterTimer,
+  backwardExercise,
 } = useTrainingExercise();
 
 onMounted(() => {
@@ -137,7 +139,10 @@ const forwardExercise = () => {
   counterDuration.value = 1;
 };
 
-const backwardExercise = () => {};
+const backExercise = () => {
+  stopAudio();
+  backwardExercise();
+};
 
 const restart = () => {
   stopAudio();
@@ -159,36 +164,16 @@ const startTimer = async () => {
   if (calculateDuration(store.currentItem.exerciseGroup) === 0) return; // no exercises available
   if (isBeginningOfTraining() === true) await initCounter.value.start(); //show 5 to 1 counter
 
-  if (isEndOfTraining() === true) {
-    //saveTrainingTrack();
-    return;
-  } //got to end of training
-
   if (counterDuration.value === 0) {
     if (isLastExerciseInGroup() === true) {
       store.activeGroup.repeats--;
       exrIndex.value = 0;
       store.resetActive();
-      if (store.activeGroup.repeats === 0) {
-        //need to repeat this group
+      if (store.activeGroup.repeats === 0)
+        grpIndex.value = store.getNextGroupByIndex(grpIndex.value + 1); //go to next group
 
-        grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
-      }
-
-      if (isEndOfTraining() === true) {
-        //saveTrainingTrack();
-        return;
-      } //got to end of training
-
-      // if (store.activeGroup.repeats === 0) {
-      //   grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
-      //   if (grpIndex.value < 0) {
-      //     endOfTraining();
-      //     return;
-      //   }
-      //   store.resetActive();
-      //   exrIndex.value = 0;
-      // }
+      if (isEndOfTraining() === true) return;
+      //got to end of training
     }
     store.setActiveGroup(true);
     store.setActiveExercise(exrIndex.value, true);
@@ -209,10 +194,6 @@ const startTimer = async () => {
     }
   }, 1000);
 };
-
-// const isStarted = computed(() => {
-//   return store.isStarted;
-// });
 
 const stopTimer = function () {
   pauseAudio(counterDuration.value);

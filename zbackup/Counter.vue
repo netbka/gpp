@@ -222,7 +222,7 @@ const startTimer = async () => {
         //startTimer();
       }
       if (store.activeGroup.repeats === 0) {
-        grpIndex.value = store.getGroupByIndex(grpIndex.value + 1); //go to next group
+        grpIndex.value = store.getNextGroupByIndex(grpIndex.value + 1); //go to next group
         if (grpIndex.value < 0) {
           saveTrainingTrack();
           endOfTraining();

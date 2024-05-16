@@ -48,11 +48,30 @@ export function useTrainingExercise() {
   };
 
   const isEndOfTraining = () => {
-    if (grpIndex.value<0 || grpIndex.value + 1 > store.currentItem.exerciseGroup.length && store.activeGroup.repeats === 0) {
+    if (grpIndex.value < 0 || (grpIndex.value + 1 > store.currentItem.exerciseGroup.length && store.activeGroup.repeats === 0)) {
       endOfTraining();
       return true;
     }
     return false;
+  };
+  const backwardExercise = () => {
+    console.log("backward exercise");
+    if (grpIndex.value === 0 && exrIndex.value === 0 && store.activeGroup.repeats === store.currentItem.exerciseGroup[grpIndex.value].repeats) return;
+    store.resetActive();
+    timer.value = 100;
+    if (exrIndex.value > 0) {
+      exrIndex.value -= 1;
+    } else if (store.activeGroup.repeats !== store.currentItem.exerciseGroup[grpIndex.value].repeats) {
+      store.activeGroup.repeats += 1;
+      exrIndex.value = store.activeGroup.exercise.length - 1;
+    } else if (grpIndex.value > 0 && exrIndex.value === 0) {
+      grpIndex.value = store.getPrevGroupByIndex(grpIndex.value - 1);
+      exrIndex.value = store.activeGroup.exercise.length - 1;
+      store.activeGroup.repeats = 1;
+    }
+    store.setActiveGroup(true);
+    store.setActiveExercise(exrIndex.value, true);
+    return;
   };
 
   watch(
@@ -86,5 +105,6 @@ export function useTrainingExercise() {
     restartTraining,
     endOfTraining,
     updateCounterTimer,
+    backwardExercise,
   };
 }

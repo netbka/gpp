@@ -25,6 +25,16 @@
       <span class="gt-xs"> {{ startBtn.textRestart }}</span>
     </q-btn>
     <q-btn
+      @click="$emit('backwardExercise')"
+      :icon="startBtn.iconBackward"
+      outline
+      color="black"
+      class="q-mr-md"
+      v-show="!endOfTraining"
+    >
+      <span class="gt-xs"> {{ startBtn.textBackward }}</span>
+    </q-btn>
+    <q-btn
       @click="$emit('forwardExercise')"
       :icon="startBtn.iconForward"
       outline
@@ -58,10 +68,13 @@ let startBtn = reactive({
   textForward: "След. упражнение",
   iconForward: "last_page",
 
+  textBackward: "Пред. упражнение",
+  iconBackward: "first_page",
+
   textPause: "Пауза",
   iconPause: "pause",
 });
-const emits = defineEmits(["restart", "forwardExercise"]);
+const emits = defineEmits(["restart", "forwardExercise", "backwardExercise"]);
 let error = ref(false);
 const startTimer = () => {
   store.isStarted = !store.isStarted;

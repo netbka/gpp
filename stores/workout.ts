@@ -151,11 +151,11 @@ export const useWorkoutStore = defineStore("WorkoutStore", {
       return this.activeGroup.exercise.findIndex((item) => item["active"] === true);
     },
 
-    getGroupByIndex(_index: number): number {
+    getNextGroupByIndex(_index: number): number {
       if (_index + 1 > this.defaultItem.length) return -1;
 
       const initialActiveGroup = Object.assign({}, this.defaultItem.filter((item, index) => index === _index)[0]);
-      if (initialActiveGroup.exercise.length === 0) return this.getGroupByIndex(_index + 1); //no exercise in group
+      if (initialActiveGroup.exercise.length === 0) return this.getNextGroupByIndex(_index + 1); //no exercise in group
       this.activeGroup = initialActiveGroup;
       return _index;
     },

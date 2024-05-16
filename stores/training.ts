@@ -99,12 +99,22 @@ export const useTrainingStore = defineStore("training", {
     //     _index +=1;
     //   }
     // },
-    getGroupByIndex(_index: number): number {
+    getPrevGroupByIndex(_index: number): number {
+      if (_index < 0) return -1;
+      const initialActiveGroup = Object.assign({}, this.currentItem.exerciseGroup.filter((item, index) => index === _index)[0]);
+      if (initialActiveGroup.exercise.length === 0) {
+        return this.getPrevGroupByIndex(_index - 1); //no exercise in group
+      } else {
+        this.activeGroup = initialActiveGroup;
+        return _index;
+      }
+    },
+    getNextGroupByIndex(_index: number): number {
       if (_index + 1 > this.currentItem.exerciseGroup.length) return -1;
 
       const initialActiveGroup = Object.assign({}, this.currentItem.exerciseGroup.filter((item, index) => index === _index)[0]);
       if (initialActiveGroup.exercise.length === 0) {
-        return this.getGroupByIndex(_index + 1); //no exercise in group
+        return this.getNextGroupByIndex(_index + 1); //no exercise in group
       } else {
         this.activeGroup = initialActiveGroup;
         return _index;
