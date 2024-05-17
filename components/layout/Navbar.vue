@@ -3,28 +3,33 @@
     <q-toolbar class="m-l">
       <q-toolbar-title>
         <q-avatar @click="redirect">
-          <img :src="logo" class="cursor-pointer" data-nosnippet />
+          <img
+            :src="logo"
+            class="cursor-pointer"
+            data-nosnippet
+            alt="Логотип Просто ОФП"
+          />
         </q-avatar>
         <h1 class="text-weight-thin text-uppercase logo-text">Просто ОФП</h1>
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
-
-      <q-btn
-        stretch
-        flat
-        @click="redirectExerciseTemplate"
-        icon="fitness_center"
-        data-nosnippet
-      >
-        <!-- <NuxtLink class="no-style gt-sm" to="/exercisetemplate">упражнения</NuxtLink> -->
-        <span class="gt-sm" data-nosnippet> упражнения</span>
-      </q-btn>
-      <q-btn stretch flat @click="redirectTraining" icon="bolt" data-nosnippet>
-        <!-- <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> -->
-        <span class="gt-sm" data-nosnippet>Тренировки</span>
-      </q-btn>
-
+      <span data-nosnippet>
+        <q-btn
+          stretch
+          flat
+          @click="redirectExerciseTemplate"
+          icon="fitness_center"
+          data-nosnippet
+        >
+          <!-- <NuxtLink class="no-style gt-sm" to="/exercisetemplate">упражнения</NuxtLink> -->
+          <span class="gt-sm" data-nosnippet>Упражнения</span>
+        </q-btn>
+        <q-btn stretch flat @click="redirectTraining" icon="bolt" data-nosnippet>
+          <!-- <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> -->
+          <span class="gt-sm" data-nosnippet>Тренировки</span>
+        </q-btn>
+      </span>
       <q-separator dark vertical class="gt-xs" />
       <ClientOnly>
         <LayoutNavLogin></LayoutNavLogin>
