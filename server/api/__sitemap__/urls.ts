@@ -26,12 +26,12 @@ export default defineSitemapEventHandler(async () => {
     return [
       ...exerciseTemplate.map((item) => ({
         loc: "exerciseTemplate/" + generateSlug(item.id.toString() + "-" + item.name),
-        title: item.name,
+
         lastmod: item.updatedAt,
       })),
       ...training.map((item) => ({
         loc: "training/" + generateSlug(item.id.toString() + "-" + item.name),
-        title: item.name,
+
         lastmod: item.updatedAt,
       })),
     ];
