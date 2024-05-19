@@ -121,7 +121,7 @@ const onHide = () => {
 };
 const newItem = () => {
   store.resetCurrentItem();
-  uploader.value.reset();
+  // uploader.value.handleImageChange();
 };
 
 const form = ref(null);

@@ -84,7 +84,6 @@ let image = ref(null);
 const picker = ref(null);
 
 const onRejectedSize = (rejectedEntries) => {
-  
   notifyRejectedSize(rejectedEntries);
 };
 
