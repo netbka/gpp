@@ -25,7 +25,7 @@
 </template>
 <script lang="ts" setup>
 definePageMeta({ auth: false });
-useHead({
+useSeoMeta({
   titleTemplate: "Подборка ОФП упражнений | ОФП для бегунов",
   description: "Сборник ОФП для бегунов. Советы и практические примеры выполнения.",
   ogTitle: "Подборка ОФП упражнений | ОФП для бегунов",

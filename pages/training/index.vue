@@ -26,7 +26,7 @@
 definePageMeta({
   auth: false,
 });
-useHead({
+useSeoMeta({
   titleTemplate: "Подборка ОФП тренировок | ОФП для бегунов",
   description:
     "Сборник ОФП тренировок для бегунов. Советы и практические примеры выполнения.",

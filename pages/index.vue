@@ -27,7 +27,7 @@
 
 <script setup>
 import hero from "/main_page_hero.webp";
-useHead({
+useSeoMeta({
   titleTemplate:
     "Подбор тренировок для увеличения скорости бега и повышения выносливости | ОФП для бегунов",
   description:

@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  //   useHead({
+  //   useSeoMeta({
   //     title: to.name + " Занимайся ОФП онлайн бесплатно  | ОФП для бегунов",
   //   });
 });

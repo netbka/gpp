@@ -31,7 +31,7 @@ const crud = useClientCrud(store);
 const crudSSR = useSSRCrud(store);
 const { data, pending, error, refresh } = await crudSSR.getItemById(parseSlugId(id));
 
-useHead({
+useSeoMeta({
   titleTemplate: data.value.name + " | ОФП для бегунов",
   description: "Занимайся онлайн. " + data.value.description,
   ogTitle: data.value.name + " | ОФП для бегунов",
