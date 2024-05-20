@@ -1,15 +1,12 @@
 <template>
   <div>
-    <Head>
-      <Title>Подборка тренировок | ОФП для бегунов</Title>
-    </Head>
     <NuxtErrorBoundary>
       <NuxtPage />
       <template #error="{ error }">
         <ErrorBoundary :error="error" />
       </template>
       <ContentHero
-        :header="'Подборка тренировок'"
+        :header="'Программа тренировок'"
         :subHeading="'Не трать время на планирование '"
         :subHeading2="' Все готово от Просто ОФП'"
       ></ContentHero>
@@ -27,10 +24,11 @@ definePageMeta({
   auth: false,
 });
 useSeoMeta({
-  titleTemplate: "Подборка ОФП тренировок | ОФП для бегунов",
+  titleTemplate:
+    "Программа тренировок для улучшения беговых результатов | ОФП для бегунов",
   description:
     "Сборник ОФП тренировок для бегунов. Советы и практические примеры выполнения.",
-  ogTitle: "Подборка ОФП тренировок | ОФП для бегунов",
+  ogTitle: "Программа ОФП тренировок | ОФП для бегунов",
   ogDescription:
     "Сборник ОФП тренировок для бегунов. Советы и практические примеры выполнения.",
 });
