@@ -8,6 +8,7 @@
       <ContentHero
         :header="'Подборка упражнений'"
         :subHeading="'Популярные упражнения от Просто ОФП'"
+        :subHeading2="' Делай упражнения правильно'"
       ></ContentHero>
 
       <ExercisetemplateTable

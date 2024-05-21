@@ -3,7 +3,7 @@
     <q-card-section class="relative-position q-pa-none">
       <div class="row items-center justify-center img-exercise">
         <q-img
-          fit="scale-down"
+          fit="cover"
           :src="getImageFromStorage(props.cardLink, props.data.id)"
           :error-src="errorImg"
           style="width: 350px; height: 150px"
@@ -54,7 +54,7 @@
       </div>
     </q-card-section>
 
-    <q-card-actions class="card-actions" align="right">
+    <q-card-actions class="card-actions" align="left">
       <q-btn
         v-show="!canDeleteEdit && currentUserId()"
         outline
@@ -83,9 +83,21 @@
         @click="$emit('onDeleteItem', data.id)"
         class="q-px-xs q-mx-xs"
       />
+      <q-separator dark vertical class="gt-xs" v-if="isLoggedIn()" />
+      <q-space />
 
       <q-btn outline color="secondary" size="sm">
         <NuxtLink class="no-style" :to="link(data)">{{ cardCaption }}</NuxtLink></q-btn
+      >
+      <q-btn
+        outline
+        color="secondary"
+        size="sm"
+        v-if="props.cardCaptionSecondary.length > 0"
+      >
+        <NuxtLink class="no-style" :to="traininglink(data)">{{
+          cardCaptionSecondary
+        }}</NuxtLink></q-btn
       >
     </q-card-actions>
   </q-card>
@@ -100,13 +112,19 @@ const props = defineProps({
   //readOnly: { Type: Boolean, default: true },
   cardLink: { Type: String, default: "" },
   cardCaption: { Type: String, default: "" },
+  cardLinkSecondary: { Type: String, default: "" },
+  cardCaptionSecondary: { Type: String, default: "" },
 });
 
 const emits = defineEmits(["onUpdateField", "onEditItem", "onDeleteItem", "onCloneItem"]);
+const traininglink = (data) => {
+  return new Slug(data, props.cardLink + "/workout").getSlug();
+};
+
 const link = (data) => {
   return new Slug(data, props.cardLink).getSlug();
 };
-const { currentUserId } = useAuthUser();
+const { currentUserId, isLoggedIn } = useAuthUser();
 const canDeleteEdit = computed(() => props.data.user_id === currentUserId());
 </script>
 

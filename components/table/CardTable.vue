@@ -23,7 +23,7 @@
           no-data-label="Нет данных"
           no-results-label="Ничего не найдено"
           @request="onRequest"
-          :rows-per-page-options="[12, 24]"
+          :rows-per-page-options="[12, 24, 48, 96]"
           rows-per-page-label="показывать по"
           :loading-label="'Загружаю'"
           :pagination-label="(start, end, total) => `${start}-${end} из ${total}`"
@@ -41,6 +41,7 @@
                 :readOnly="props.readOnly"
                 :cardLink="props.cardLink"
                 :cardCaption="props.cardCaption"
+                :cardCaptionSecondary="props.cardCaptionSecondary"
                 @onUpdateField="onUpdateField"
                 @onCloneItem="onCloneItem"
                 @onEditItem="onEditItem"
@@ -74,6 +75,7 @@ const props = defineProps({
   pagination: { Type: Object, default: {} },
   cardLink: { Type: String, default: "" },
   cardCaption: { Type: String, default: "" },
+  cardCaptionSecondary: { Type: String, default: "" },
 });
 
 const dialog = ref(null);

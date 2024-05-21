@@ -77,7 +77,7 @@ export default defineNuxtConfig({
   },
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
-    // pageTransition: { name: "page", mode: "out-in" },
+    //pageTransition: { name: "page", mode: "out-in" },
 
     head: {
       //title: "Тренировки ОФП | ОФП для бегунов ",
@@ -136,7 +136,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/auth",
       callback: "/training",
-      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exerciseTemplate/*", "/exercisetemplate/*", "/exercisetemplate", "/privacy-policy/*"],
+      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exerciseTemplate/*", "/exercisetemplate/*", "/exercisetemplate", "/exerciseTemplate", "/privacy-policy/*"],
     },
   },
 });

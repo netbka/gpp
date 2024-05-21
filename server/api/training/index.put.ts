@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     let body = await readBody(event);
     body.user_id = user_id;
 
-    body = omit(body, ["exerciseGroup"]);
+    body = omit(body, ["exerciseGroup", "exerciseTemplateMuscle"]);
     let result = await prisma.training.update({
       where: {
         id: body.id,

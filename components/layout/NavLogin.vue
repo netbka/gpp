@@ -1,5 +1,11 @@
 <template>
-  <q-btn-dropdown v-show="user" stretch flat icon="account_circle" data-nosnippet>
+  <q-btn-dropdown
+    v-show="user"
+    stretch
+    flat
+    data-nosnippet
+    dropdown-icon="img:/icons/account.svg"
+  >
     <div class="row q-pa-sm width-profile wrap justify-center items-center content-start">
       <div class="col-grow self-center">
         <div class="q-py-sm">

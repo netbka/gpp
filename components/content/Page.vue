@@ -11,7 +11,7 @@
         <span class="text-subtitle2 text-weight-medium"><b>Мышцы: </b> </span>
         <q-chip
           size="12px"
-          v-for="muscle in data.exerciseTemplateMuscle"
+          v-for="muscle in props.muscleArr"
           :key="muscle.id"
           outline
           color="secondary"
@@ -37,7 +37,9 @@
           {{ formatDate(data.updatedAt) }}
         </q-chip>
         <q-btn outline color="primary" size="xs" class="float-right">
-          <NuxtLink class="no-style" to="/exercisetemplate/">Назад</NuxtLink></q-btn
+          <NuxtLink class="no-style" :to="'/' + props.link.toLowerCase()"
+            >Назад</NuxtLink
+          ></q-btn
         >
       </div>
     </div>
@@ -45,7 +47,7 @@
       <div class="col-12 col-sm-6 q-pa-sm col-md-4 col-lg-3 self-top">
         <q-img
           class="img-exercise"
-          :src="getImageFromStorage('exerciseTemplate', data.id)"
+          :src="getImageFromStorage(props.link, data.id)"
           :error-src="errorImg"
           fit="scale-down"
           :alt="data.name"
@@ -66,17 +68,13 @@ const props = defineProps({
   data: { Type: Object, required: true },
   readOnly: { Type: Boolean, default: false },
   loading: { Type: Boolean, default: false },
+  muscleArr: { Type: Array, default: [] },
+  link: { Type: String, default: "" },
 });
 
-const emits = defineEmits(["onUpdateField", "editItem"]);
-const link = (data) => {
-  return new Slug(data, "exercisetemplate");
-};
+//const emits = defineEmits(["onUpdateField", "editItem"]);
+
 const loading = toRef(() => props.loading);
-const resetError = async (error) => {
-  await navigateTo("/exerciseTemplate/");
-  error.value = null;
-};
 </script>
 
 <style scoped>

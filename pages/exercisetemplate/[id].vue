@@ -1,6 +1,12 @@
 <template>
   <div>
-    <ContentCard :data="data" :loading="pending" v-if="data"></ContentCard>
+    <ContentPage
+      :data="data"
+      :loading="pending"
+      v-if="data"
+      :link="store.$id"
+      :muscleArr="data.exerciseTemplateMuscle"
+    ></ContentPage>
   </div>
 </template>
 <script lang="ts" setup>

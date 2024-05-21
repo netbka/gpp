@@ -146,3 +146,23 @@ export const exerciseToText = (arr: Array, name: string, duration: string) => {
   });
   return text;
 };
+
+export const exerciseToTextNoName = (arr: Array) => {
+  //console.log(arr);
+  let text = "";
+
+  arr.forEach((item) => {
+    text += `<b>${item.name}:</b>`;
+    text += `<b><span class=text-positive> x${item.repeats} </span></b></br>`;
+    let i = 0;
+    item.exercise.forEach((exercise) => {
+      // console.log(exercise);
+      i++;
+      //let prefix = i === 1 ? "  " : "  + ";
+      let prefix = "- ";
+      text += `${prefix}${exercise.name} (${exercise.duration} сек)</br>`;
+    });
+    text += "</br>";
+  });
+  return text;
+};

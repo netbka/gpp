@@ -4,7 +4,7 @@
       <q-toolbar-title>
         <q-avatar @click="redirect">
           <img
-            :src="logo"
+            :src="websitelogo()"
             class="cursor-pointer"
             data-nosnippet
             alt="Логотип Просто ОФП"
@@ -14,7 +14,16 @@
       </q-toolbar-title>
 
       <q-separator dark vertical class="gt-xs" />
-      <span data-nosnippet>
+      <NuxtLink class="no-style text-uppercase q-px-md" to="/exercisetemplate">
+        <q-icon name="img:/icons/exercise.svg" size="sm"></q-icon>
+        <span class="gt-sm">Упражнения</span></NuxtLink
+      >
+      <NuxtLink class="no-style text-uppercase q-px-md" to="/training">
+        <q-icon name="img:/icons/training.svg" size="sm"></q-icon>
+        <span class="gt-sm">Тренировки</span></NuxtLink
+      >
+
+      <!-- <span data-nosnippet>
         <q-btn
           stretch
           flat
@@ -22,14 +31,14 @@
           icon="fitness_center"
           data-nosnippet
         >
-          <!-- <NuxtLink class="no-style gt-sm" to="/exercisetemplate">упражнения</NuxtLink> -->
+          
           <span class="gt-sm" data-nosnippet>Упражнения</span>
-        </q-btn>
-        <q-btn stretch flat @click="redirectTraining" icon="bolt" data-nosnippet>
-          <!-- <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> -->
+        </q-btn>  <!-- <q-btn stretch flat @click="redirectTraining" icon="bolt" data-nosnippet>
+           <NuxtLink class="no-style gt-sm" to="/training">тренировки</NuxtLink> 
           <span class="gt-sm" data-nosnippet>Тренировки</span>
-        </q-btn>
-      </span>
+        </q-btn> 
+      </span>-->
+
       <q-separator dark vertical class="gt-xs" />
       <ClientOnly>
         <LayoutNavLogin></LayoutNavLogin>
@@ -39,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-import logo from "/logo110.png";
+//import logo from "/logo110.png";
 const redirectExerciseTemplate = async () => {
   await navigateTo({ path: "/exercisetemplate" });
 };

@@ -21,18 +21,51 @@ export default defineEventHandler(async (event) => {
           { public: true },
         ],
       },
-      include: {
+
+      select: {
+        id: true,
+        name: true,
+        level: true,
+        user_id: true,
+        duration: true,
+        description: true,
+        public: true,
+        updatedAt: true,
         exerciseGroup: {
-          include: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            repeats: true,
+            active: true,
+            trainingId: true,
+            order_by: true,
+
             exercise: {
-              include: {
+              //orderBy: { order_by: "asc" },
+              select: {
+                id: true,
+                name: true,
+                level: true,
+                duration: true,
+                active: true,
+                groupId: true,
+                templateId: true,
+                order_by: true,
+
                 template: {
-                  include: {
-                    exerciseTemplateMuscle: true,
+                  select: {
+                    name: true,
+                    exerciseTemplateMuscle: {
+                      select: {
+                        name: true,
+                        id: true,
+                      },
+                    },
                   },
                 },
               },
-              orderBy: { order_by: "asc" }, // Order exercises within each group by updated_at (desc)
+              orderBy: { order_by: "asc" },
             },
           },
           orderBy: { order_by: "asc" },
@@ -54,6 +87,25 @@ export default defineEventHandler(async (event) => {
 
     result.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
 
+    // const result = await prisma.training.findUnique({
+    //   where: {
+    //     id: _id,
+    //     OR: [
+    //       {
+    //         user_id: user_id,
+    //       },
+    //       { public: true },
+    //     ],
+    //   },
+    //   include: {
+    //     exerciseGroup: {
+    //       include: {
+    //         exercise: true,
+    //       },
+    //     },
+    //   },
+    // });
+    //console.log(result);
     return result;
   } catch (error) {
     console.log("erro in fetching:", error);
