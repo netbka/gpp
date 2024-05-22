@@ -216,8 +216,10 @@ watch(
   () => store.getIsStarted,
   (newVal) => {
     if (newVal) {
+      requestWakeLock(newVal);
       startTimer();
     } else {
+      requestWakeLock(newVal);
       stopTimer();
     }
   },
