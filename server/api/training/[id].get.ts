@@ -39,24 +39,33 @@ export default defineEventHandler(async (event) => {
         },
       },
     });
-
-    const exerciseTemplateMuscles = result.exerciseGroup.flatMap((group) => {
-      if (!group.exercise) return [];
-
-      return group.exercise.flatMap((exercise) => {
-        if (!exercise.template || !exercise.template.exerciseTemplateMuscle) return [];
-
-        return exercise.template.exerciseTemplateMuscle;
+    if (result === null) {
+      throw createError({
+        statusCode: 500,
+        message: "Нет доступа к тренировке",
       });
-    });
+    } else {
+      const exerciseTemplateMuscles = result.exerciseGroup.flatMap((group) => {
+        if (!group.exercise) return [];
 
-    const distinctExerciseTemplateMuscles = [...new Map(exerciseTemplateMuscles.map((item) => [item.id, item])).values()];
+        return group.exercise.flatMap((exercise) => {
+          if (!exercise.template || !exercise.template.exerciseTemplateMuscle) return [];
 
-    result.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
+          return exercise.template.exerciseTemplateMuscle;
+        });
+      });
 
+      const distinctExerciseTemplateMuscles = [...new Map(exerciseTemplateMuscles.map((item) => [item.id, item])).values()];
+
+      result.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
+    }
     return result;
   } catch (error) {
-    console.log("erro in fetching:", error);
+    console.log("error in fetching:", error);
+    throw createError({
+      statusCode: 500,
+      message: error.message,
+    });
   } finally {
     prisma.$disconnect();
   }

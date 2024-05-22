@@ -18,6 +18,7 @@ const store = trainingStore();
 
 const crud = useSSRCrud(store);
 const { data, pending, error, refresh } = await crud.getItemById(parseSlugId(id));
+
 //console.log(data);
 useSeoMeta({
   titleTemplate: data.value.name + " | ОФП для бегунов",

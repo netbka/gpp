@@ -50,7 +50,7 @@ export const useSSRCrud = <T>(store) => ({
         //headers: useRequestHeaders(["cookie"]),
       })
     );
-
+    //console.log(error);
     if (data.value) {
       updateArray(data.value, store.itemArray);
       store.currentItem = data.value;

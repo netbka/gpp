@@ -53,11 +53,7 @@
         <q-scroll-area class="scroll-content">
           <div v-html="description"></div>
           <q-btn color="primary" size="sm" class="float-left">
-            <NuxtLink
-              class="no-style"
-              :to="'/' + props.link.toLowerCase() + '/workout/' + props.data.id"
-              >Заниматься</NuxtLink
-            ></q-btn
+            <NuxtLink class="no-style" :to="traininglink()">Заниматься</NuxtLink></q-btn
           >
           <q-btn color="secondary" size="sm" class="float-right">
             <NuxtLink class="no-style" :to="'/' + props.link.toLowerCase()"
@@ -80,6 +76,7 @@
 
 <script lang="ts" setup>
 import errorImg from "/build_transparent_300x300.webp";
+import { Slug } from "~/types/types";
 const props = defineProps({
   data: { Type: Object, required: true },
   readOnly: { Type: Boolean, default: false },
@@ -92,6 +89,9 @@ const props = defineProps({
 
 const loading = toRef(() => props.loading);
 const description = exerciseToTextNoName(props.data.exerciseGroup);
+const traininglink = () => {
+  return new Slug(props.data, props.link + "/workout").getSlug();
+};
 </script>
 
 <style scoped>

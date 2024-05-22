@@ -3,10 +3,10 @@
     <q-card-section class="relative-position q-pa-none">
       <div class="row items-center justify-center img-exercise">
         <q-img
-          fit="cover"
+          :fit="props.cardLink !== 'training' ? 'scale-down' : 'cover'"
           :src="getImageFromStorage(props.cardLink, props.data.id)"
           :error-src="errorImg"
-          style="width: 350px; height: 150px"
+          style="width: 350px; height: 149px"
         >
         </q-img>
       </div>
@@ -131,9 +131,10 @@ const canDeleteEdit = computed(() => props.data.user_id === currentUserId());
 <style scoped>
 .exercise-card {
   height: 320px;
-  max-height: 310px;
+  max-height: 320px;
   width: 100%;
   padding: 0 !important;
+
   max-width: 350px;
 }
 .q-img__image--loaded {
@@ -145,7 +146,7 @@ const canDeleteEdit = computed(() => props.data.user_id === currentUserId());
 .img-exercise {
   object-fit: contain;
   max-height: 150px;
-  height: 150px;
+  height: 149px;
 }
 
 .q-img__content > div {
