@@ -1,5 +1,5 @@
 import { useWakeLock } from "@vueuse/core";
-//const { isSupported, isActive, request, release } = useWakeLock();
+
 let wakelockPC;
 export const requestWakeLock = async (enable: boolean) => {
   const wakeLock = reactive(useWakeLock());
