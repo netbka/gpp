@@ -52,7 +52,10 @@ definePageMeta({
   layout: "auth",
 });
 
-const supabase = useSupabaseClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const supabase = useSupabaseClient(
+  puseRuntimeConfig().public.supabase.url,
+  useRuntimeConfig().public.supabase.key
+);
 
 const loginGithub = async () => {
   let baseUrl;

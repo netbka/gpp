@@ -57,8 +57,9 @@ export default defineEventHandler(async (event) => {
   }
 });
 import { createClient } from "@supabase/supabase-js";
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+import { useRuntimeConfig } from "#imports";
+const supabaseUrl = useRuntimeConfig().public.supabase.url;
+const supabaseKey = useRuntimeConfig().public.supabase.key;
 const supabase = createClient(supabaseUrl, supabaseKey);
 const initAvatar = async (url: string, fileName: string, name: string) => {
   const fileToUpload = await urlFile(url, fileName, name);

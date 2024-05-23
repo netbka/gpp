@@ -19,6 +19,8 @@ logs
 .idea
 
 # Local env files
+*1.env
 .env
 .env.*
 !.env.example
+zbackup
