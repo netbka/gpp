@@ -1,7 +1,7 @@
 <template>
   <div class="back_main">
     <div
-      :style="{ backgroundImage: 'url(' + hero + ')' }"
+      :style="{ backgroundImage: 'url(' + website_main_page_hero() + ')' }"
       class="main-page-hero-image"
     ></div>
 
@@ -26,7 +26,6 @@
 </template>
 
 <script setup>
-import hero from "/main_page_hero.webp";
 useSeoMeta({
   titleTemplate: "Занятия ОФП для начинающих и опытных атлетов | Просто ОФП",
   description:

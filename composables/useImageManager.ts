@@ -72,7 +72,7 @@ export function useImageManager(store) {
     preview.value = getImageUrl(image, storage);
   };
   const getImageById = (storage: string, id: string): void => {
-    console.log(storage);
+    
     const image = id;
     preview.value = getImageUrl(image, storage);
   };

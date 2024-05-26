@@ -57,7 +57,7 @@ const store = profileStore();
 const { getAvatar } = useImageManager(store);
 
 onBeforeMount(async () => {
-  avatar.value = await getAvatar();
+  //avatar.value = await getAvatar();
 });
 
 const openCropper = () => {
@@ -69,13 +69,14 @@ const onHide = async () => {
   //await updateProfile();
 };
 
-// watch(
-//   () => store.currentItem.user_id,
-//   async (val) => {
-//     avatar.value = (await getProfile(val)) + "?" + new Date().getTime();
-//   },
-//   { immediate: true }
-// );
+watch(
+  () => store.currentItem.user_id,
+  async (val) => {
+    //avatar.value = (await getProfile(val)) + "?" + new Date().getTime();
+    if (val.length > 0) avatar.value = await getAvatar();
+  },
+  { immediate: true }
+);
 
 // const updateProfile = async () => {
 //   avatar.value =

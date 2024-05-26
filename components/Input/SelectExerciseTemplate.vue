@@ -16,7 +16,7 @@
         :options="options"
         @filter="filterFn"
         @update:model-value="setModel"
-        input-debounce="100"
+        input-debounce="400"
         ref="selectExerciseTemplate"
       >
         <template v-slot:after>
@@ -66,9 +66,10 @@
         <template v-slot:no-option>
           <q-item>
             <q-item-section class="text-grey">
-              Не нашел в базе
+              Упражнения нет в базе. Добавить?
               <div>
                 <q-btn
+                  color="primary"
                   outline
                   size="sm"
                   icon="add"
@@ -125,6 +126,9 @@ options.value = Object.assign([], store.itemArray);
 
 let searchVal = ref("");
 const addCustomExercise = () => {
+  setModel({ name: searchVal.value });
+  changeVisibility();
+  selectExerciseTemplate.value.hidePopup();
   emits("onAddCustomExercise", props.data.id, searchVal.value);
 };
 

@@ -143,4 +143,8 @@ defineExpose({
 /* .width-150 {
   min-width: 150px;
 } */
+.q-editor {
+  max-height: 500px;
+  overflow: overlay;
+}
 </style>

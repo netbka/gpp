@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
         profilesSportType: true,
       },
     });
+
     var model = { firstName: user_id.split("-")[0], lastName: "", user_id: user_id, name: "" };
     model.firstName = event.context.user.email.split("@")[0];
 
@@ -58,8 +59,8 @@ export default defineEventHandler(async (event) => {
 });
 import { createClient } from "@supabase/supabase-js";
 import { useRuntimeConfig } from "#imports";
-const supabaseUrl = useRuntimeConfig().public.supabase.url;
-const supabaseKey = useRuntimeConfig().public.supabase.key;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 const initAvatar = async (url: string, fileName: string, name: string) => {
   const fileToUpload = await urlFile(url, fileName, name);
