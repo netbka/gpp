@@ -13,11 +13,11 @@
 
       <ExercisetemplateTable
         @onEditItem="showForm"
-        :readOnly="!isAdmin()"
+        :readOnly="!isAdmin"
       ></ExercisetemplateTable>
 
       <ExercisetemplateForm ref="form"></ExercisetemplateForm>
-      <BaseFab @newItem="showForm" :readOnly="!isAdmin()"></BaseFab>
+      <BaseFab @newItem="showForm" :readOnly="!_isAdmin"></BaseFab>
     </NuxtErrorBoundary>
   </div>
 </template>
@@ -35,6 +35,10 @@ useSeoMeta({
 const form = ref(null);
 
 const { isAdmin, currentUserId } = useAuthUser();
+const _isAdmin = await isAdmin;
+// onMounted(async () => {
+//   await isAdmin;
+// });
 
 const showForm = (id) => {
   form.value.show(id);

@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     const itemsToRemoveSet = new Set(newItems);
     removeItems = removeItems.filter((item) => !itemsToRemoveSet.has(item));
 
-    body = omit(body, ["user_id", "id", "profilesSportType", "newItems"]);
+    body = omit(body, ["user_id", "id", "profilesSportType", "newItems", "is_admin"]);
     //console.log(body);
 
     const result = await prisma.profile.update({

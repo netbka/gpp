@@ -83,10 +83,10 @@
 import { useProfileStore } from "~/stores/profile";
 const store = useProfileStore();
 const storeSportType = useSportTypeStore();
-const crud = useSSRCrud(store);
+//const crud = useSSRCrud(store);
 const crudClient = useClientCrud(store);
 const crudSportType = useSSRCrud(storeSportType);
-const { data, pending, error, refresh } = await crud.getItem();
+//const { data, pending, error, refresh } = await crud.getItem();
 const {
   data: dataSportStyle,
   pending: pendingSportStyle,
@@ -99,9 +99,7 @@ const onSubmit = async () => {
   // store.currentItem.profilesSportType = storeSportType.currentItem;
 };
 
-const onReset = () => {
-  //console.log("Reset");
-};
+const onReset = () => {};
 </script>
 
 <style scoped>

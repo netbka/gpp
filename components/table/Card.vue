@@ -56,7 +56,7 @@
 
     <q-card-actions class="card-actions" align="left">
       <q-btn
-        v-show="!canDeleteEdit && currentUserId()"
+        v-show="!canDeleteEdit && currentUserId() && cardLink === 'training'"
         outline
         color="teal"
         size="sm"
@@ -83,7 +83,14 @@
         @click="$emit('onDeleteItem', data.id)"
         class="q-px-xs q-mx-xs"
       />
-      <q-separator dark vertical class="gt-xs" v-if="isLoggedIn()" />
+      <q-separator
+        dark
+        vertical
+        class="gt-xs"
+        v-if="
+          (!canDeleteEdit && currentUserId() && cardLink === 'training') || canDeleteEdit
+        "
+      />
       <q-space />
 
       <q-btn outline color="secondary" size="sm">

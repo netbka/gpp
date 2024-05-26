@@ -3,7 +3,7 @@ import { type IProfile, Profile } from "~/types/types";
 interface ProfileStoreState {
   //profiles: Profile[];
   currentItem: IProfile;
-  
+
   loading: boolean;
 }
 const baseUrl = "/api/profile/";
@@ -14,7 +14,10 @@ export const useProfileStore = defineStore("profile", {
   }),
 
   actions: {
-    
+    resetCurrentItem(): void {
+      this.currentItem = new Profile().getAll();
+    },
+
     // async fetchAll() {
     //   withErrorHandling(this)(async (props, store) => {
     //     const { data } = await useFetch(baseUrl + "all", {

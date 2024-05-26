@@ -46,6 +46,7 @@ export default defineEventHandler(async (event) => {
     //   var avatarInitials = isEmptyString(result.name) ? result.firstName : result.name;
     //   await initAvatar(event.context.user.user_metadata.avatar_url, result.user_id, avatarInitials);
     // }
+
     return result;
   } catch (error) {
     console.log("error from server", error);

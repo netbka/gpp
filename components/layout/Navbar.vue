@@ -37,15 +37,16 @@
 
 <script lang="ts" setup>
 //import logo from "/logo110.png";
-const redirectExerciseTemplate = async () => {
-  await navigateTo({ path: "/exercisetemplate" });
-};
 const redirect = async () => {
   await navigateTo({ path: "/" });
 };
-const redirectTraining = async () => {
-  await navigateTo({ path: "/training" });
-};
+// const redirectExerciseTemplate = async () => {
+//   await navigateTo({ path: "/exercisetemplate" });
+// };
+
+// const redirectTraining = async () => {
+//   await navigateTo({ path: "/training" });
+// };
 </script>
 <style scoped>
 .logo-text {

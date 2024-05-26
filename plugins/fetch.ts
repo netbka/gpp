@@ -13,9 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           message: "Ошибка: " + response.status,
           timeout: 500,
         });
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
     async onResponse({ request, options, response }) {
       if (!response.ok) return;

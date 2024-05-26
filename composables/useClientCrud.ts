@@ -32,8 +32,20 @@ export const useClientCrud = <T>(store) => ({
         method: "GET",
       });
       if (response) {
-        updateArray(response, store.itemArray);
         store.currentItem = response;
+        if (store.itemArray !== undefined) updateArray(response, store.itemArray);
+      }
+    })(null);
+  },
+  async getItem() {
+    await withErrorHandling(store)(async (payload, store) => {
+      const response = await $fetch(`/api/${store.$id}`, {
+        method: "GET",
+      });
+
+      if (response) {
+        store.currentItem = response;
+        if (store.itemArray !== undefined) updateArray(response, store.itemArray);
       }
     })(null);
   },

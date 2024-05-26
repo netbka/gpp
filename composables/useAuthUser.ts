@@ -1,6 +1,7 @@
 const user = ref(null);
 
 export const useAuthUser = () => {
+  const store = useProfileStore();
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
   const login = async (email, password) => {
@@ -15,7 +16,10 @@ export const useAuthUser = () => {
       }
       if (error.message.includes("Invalid login credentials")) notifyMsgNegative("в логине/пароле");
     }
-    if (data.session) await navigateTo("/training");
+    console.log(data);
+    if (data.session) {
+      await navigateTo("/training");
+    }
   };
 
   const loginWithSocialProvider = async (_provider) => {
@@ -37,6 +41,7 @@ export const useAuthUser = () => {
    * Logout
    */
   const logout = async () => {
+    store.resetCurrentItem();
     const { error } = await supabase.auth.signOut();
     await navigateTo("/");
   };
@@ -107,16 +112,38 @@ export const useAuthUser = () => {
     }
   };
 
-  const isAdmin = () => {
-    return user.value?.email === "netbka@gmail.com";
+  const isAdmin = computed(() => {
+    return store.currentItem.is_admin;
+  });
+
+  const getCurrentUserProfile = async () => {
+    const id = user.value?.id;
+    //console.log("id:", id, "store:", store.currentItem);
+    //console.log(id !== null && id !== undefined && store.currentItem.user_id !== id);
+    if (id !== null && id !== undefined && store.currentItem.user_id !== id) {
+      const crud = useClientCrud(store);
+      const x = await crud.getItem();
+      //console.log("Fetching user profile", store.currentItem);
+    }
   };
+
   const currentUserId = () => {
     return user.value?.id;
   };
 
+  // watch(
+  //   () => supabase.auth.onAuthStateChange,
+  //   (val) => {
+  //     console.log(val);
+  //   },
+  //   { deep: true }
+  // );
+
   return {
+    getCurrentUserProfile,
     currentUserId,
     isAdmin,
+    //isAdminClient,
     login,
     loginWithSocialProvider,
     isLoggedIn,

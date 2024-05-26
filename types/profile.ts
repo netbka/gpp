@@ -5,6 +5,7 @@ export interface IProfile extends IIdName {
   birthDay?: string;
   user_id: string;
   profilesSportType: ISportType[];
+  is_admin: boolean;
 }
 
 export class Profile extends IdName implements IProfile {
@@ -12,6 +13,7 @@ export class Profile extends IdName implements IProfile {
   lastName?: string;
   birthDay?: string;
   user_id: string;
+  is_admin: boolean;
   profilesSportType: ISportType[] = [];
   constructor(name?: string) {
     super(name);
@@ -19,6 +21,7 @@ export class Profile extends IdName implements IProfile {
     this.lastName = "";
     this.birthDay = "";
     this.user_id = "";
+    this.is_admin = false;
   }
 
   public getAll() {
@@ -29,6 +32,7 @@ export class Profile extends IdName implements IProfile {
       lastName: this.lastName,
       birthDay: this.birthDay,
       user_id: this.user_id,
+      is_admin: this.is_admin,
       profilesSportType: this.profilesSportType,
     };
   }
