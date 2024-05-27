@@ -22,6 +22,7 @@
             @click="socialLogin('google')"
             label="Google"
             class="full-width btn_google"
+            :style="{ backgroundImage: 'url(' + website_google_icon() + ')' }"
           >
           </q-btn>
         </div>
@@ -33,6 +34,7 @@
             @click="socialLogin('facebook')"
             label="Facebook"
             class="full-width btn_fb"
+            :style="{ backgroundImage: 'url(' + website_fb_icon() + ')' }"
           >
           </q-btn>
         </div>
@@ -66,7 +68,7 @@ const socialLogin = async (provider: string) => {
 .btn_fb {
   min-width: 260px;
   color: #fff;
-  background-image: url(/icons/facebook-icon.svg);
+  /* background-image: url(/icons/facebook-icon.svg); */
   background-position: 10px center !important;
   background-repeat: no-repeat !important;
   background-size: 24px !important;
@@ -81,7 +83,7 @@ const socialLogin = async (provider: string) => {
 .btn_google {
   min-width: 260px;
 
-  background-image: url(/icons/google-icon.svg);
+  /* background-image: url(/icons/google-icon.svg); */
   background-position: 10px center !important;
   background-repeat: no-repeat !important;
   background-size: 24px !important;

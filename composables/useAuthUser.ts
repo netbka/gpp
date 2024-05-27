@@ -113,13 +113,12 @@ export const useAuthUser = () => {
   };
 
   const isAdmin = computed(() => {
-    return store.currentItem.is_admin;
+    return user.value?.user_metadata.is_admin === true;
   });
 
   const getCurrentUserProfile = async () => {
     const id = user.value?.id;
-    //console.log("id:", id, "store:", store.currentItem);
-    //console.log(id !== null && id !== undefined && store.currentItem.user_id !== id);
+
     if (id !== null && id !== undefined && store.currentItem.user_id !== id) {
       const crud = useClientCrud(store);
       const x = await crud.getItem();
@@ -130,14 +129,6 @@ export const useAuthUser = () => {
   const currentUserId = () => {
     return user.value?.id;
   };
-
-  // watch(
-  //   () => supabase.auth.onAuthStateChange,
-  //   (val) => {
-  //     console.log(val);
-  //   },
-  //   { deep: true }
-  // );
 
   return {
     getCurrentUserProfile,

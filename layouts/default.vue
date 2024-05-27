@@ -10,8 +10,6 @@
   </q-layout>
 </template>
 <script setup>
-const { getCurrentUserProfile } = useAuthUser();
-await getCurrentUserProfile();
 const customstyle = (offset, additionalStyles = {}) => {
   const baseStyles = {
     minHeight: offset ? `calc(100vh - ${offset}px)` : "100vh",

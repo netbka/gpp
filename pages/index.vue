@@ -1,5 +1,7 @@
 <template>
-  <div class="back_main">
+  <div class="back_main"
+  :style="{ backgroundImage: 'url(' + website_main_page_background() + ')' }"
+  >
     <div
       :style="{ backgroundImage: 'url(' + website_main_page_hero() + ')' }"
       class="main-page-hero-image"
