@@ -22,7 +22,7 @@
     ></BaseNested>
 
     <ClientOnly>
-      <TrainingCounter ref="trainingCounter"></TrainingCounter>
+      <TrainingWorkoutapp ref="workoutapp"></TrainingWorkoutapp>
     </ClientOnly>
 
     <BaseDialogYesNo
@@ -46,7 +46,7 @@
 //   },
 // });
 const dialog = ref(null);
-const trainingCounter = ref(null);
+const workoutapp = ref(null);
 const description = ref("");
 
 const store = trainingStore();
@@ -134,7 +134,7 @@ const setDuration = async (val) => {
 const showTrainingCounter = (val) => {
   //await initCounter.value.start();
   //store.isStarted = true;
-  trainingCounter.value.show();
+  workoutapp.value.show();
 };
 </script>
 

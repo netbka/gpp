@@ -1,10 +1,11 @@
 export function useTrainingExercise() {
   const store = useTrainingStore();
-  const grpIndex = ref(0);
-  const exrIndex = ref(0);
-  let counterDuration = ref(0);
-  const showResult = ref(true);
-  let timer = ref(100);
+  const grpIndex = useState("grpIndex", () => 0); // ref(0);
+  const exrIndex = useState("exrIndex", () => 0); //ref(0);
+
+  const counterDuration = useState("counterDuration", () => 0); //let counterDuration = ref(0);
+  const showResult = useState("showResult", () => false); //ref(false);
+  const timer = useState("timer", () => 100); //let timer = ref(100);
 
   const initDuration = computed(() => store.getActiveExerciseDuration());
   const backwardDisabled = computed(() => {

@@ -19,7 +19,7 @@ export function useAudio(pathToAudio: string) {
   };
 
   const startAudioConditional = (interval: number) => {
-    if (interval <audioDuration.value)  audio.play();
+    if (interval < audioDuration.value) audio.play();
   };
 
   const pauseAudio = (inteval: number) => {
@@ -36,3 +36,5 @@ export function useAudio(pathToAudio: string) {
     startAudioConditional,
   };
 }
+
+export const useCoreAudio = () => {};

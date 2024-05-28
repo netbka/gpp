@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <!-- <div class="row items-start q-mt-sm q-ml-sm justify-between fixed-top">
-    <div class="col-grow"> -->
+  <div class="fit row justify-center items-start content-start q-gutter-xs">
     <q-btn
       @click="startTimer"
       :icon="!store.isStarted ? startBtn.iconStart : startBtn.iconPause"
       outline
       color="black"
       :disabled="error"
-      class="q-mr-md"
+      class=""
       v-show="!endOfTraining"
     >
       <span class="gt-xs">
@@ -20,20 +18,20 @@
       :icon="startBtn.iconRestart"
       outline
       color="black"
-      class="q-mr-md"
+      class=""
     >
-      <span class="gt-xs"> {{ startBtn.textRestart }}</span>
+      <!-- <span class="gt-xs"> {{ startBtn.textRestart }}</span> -->
     </q-btn>
     <q-btn
       @click="$emit('backwardExercise')"
       :icon="startBtn.iconBackward"
       outline
       color="black"
-      class="q-mr-md"
+      class=""
       v-show="!endOfTraining"
       :disabled="backwardDisabled"
     >
-      <span class="gt-xs"> {{ startBtn.textBackward }}</span>
+      <!-- <span class="gt-xs"> {{ startBtn.textBackward }}</span> -->
     </q-btn>
     <q-btn
       @click="$emit('forwardExercise')"
@@ -43,7 +41,7 @@
       v-show="!endOfTraining"
       :disabled="forwardDisabled"
     >
-      <span class="gt-xs"> {{ startBtn.textForward }}</span>
+      <!-- <span class="gt-xs"> {{ startBtn.textForward }}</span> -->
     </q-btn>
   </div>
 </template>

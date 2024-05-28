@@ -1,7 +1,19 @@
 <template>
   <div>
     <TrainingCounterCountdown ref="initCounter"></TrainingCounterCountdown>
-    <q-dialog
+    <TrainingDialogcardMain ref="dialog" :counterDuration="counterDuration">
+      <template #actions>
+        <TrainingDialogcardButtonStartRestart
+          @hide="hide"
+          @restart="restart"
+          @forwardExercise="forwardExercise"
+          @backwardExercise="backExercise"
+          :endOfTraining="showResult"
+          :backwardDisabled="backwardDisabled"
+        ></TrainingDialogcardButtonStartRestart>
+      </template>
+    </TrainingDialogcardMain>
+    <!-- <q-dialog
       persistent
       full-height
       v-on:keyup.esc="hide()"
@@ -10,34 +22,25 @@
     >
       <q-card class="bg-white text-white counter-card">
         <q-toolbar>
-          <q-toolbar-title>
-            <TrainingButtonStartRestart
-              @hide="hide"
-              @restart="restart"
-              @forwardExercise="forwardExercise"
-              @backwardExercise="backExercise"
-              :endOfTraining="showResult"
-              :backwardDisabled="backwardDisabled"
-            ></TrainingButtonStartRestart>
-          </q-toolbar-title>
+          <q-toolbar-title> </q-toolbar-title>
           <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
         </q-toolbar>
 
-        <q-card-section v-show="!showResult">
+        <q-card-section v-show="!showResult" class="fixed-center">
           <div class="text-center">
             <q-knob
               show-value
-              font-size="40px"
+              font-size="60px"
               class="q-ma-md"
               v-model="timer"
-              size="200px"
+              size="60px"
               :thickness="0.05"
-              color="primary"
-              track-color="grey-2"
+              color="white "
+              track-color="white "
               readonly
             >
               <span class="text-light-blue-2">
-                {{ numToMinText(counterDuration) }}:{{ numToSecText(counterDuration) }}
+                {{ durationToTextCounter(counterDuration) }}
               </span>
             </q-knob>
           </div>
@@ -71,21 +74,31 @@
             </div>
           </div>
         </q-card-section>
+        <q-card-actions class="fixed-bottom">
+          <TrainingButtonStartRestart
+            @hide="hide"
+            @restart="restart"
+            @forwardExercise="forwardExercise"
+            @backwardExercise="backExercise"
+            :endOfTraining="showResult"
+            :backwardDisabled="backwardDisabled"
+          ></TrainingButtonStartRestart>
+        </q-card-actions>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import errorImg from "/build_transparent_150.png";
 const emits = defineEmits(["stopTimer"]);
-const props = defineProps({
-  // isStarted: {
-  //   type: Boolean,
-  //   default: false,
-  // },
-  //propFullHeight: { type: Boolean, default: false },
-});
+// const props = defineProps({
+//   isStarted: {
+//     type: Boolean,
+//     default: false,
+//   },
+//   propFullHeight: { type: Boolean, default: false },
+// });
 
 const initCounter = ref(null);
 const dialog = ref(null);
@@ -94,10 +107,10 @@ const store = useTrainingStore();
 let intervalId: number;
 
 const { pauseAudio, stopAudio, startAudio, startAudioConditional } = useAudio(
-  "/sound/10sec.mp3"
+  "/sound/exerciseFinish.mp3"
 );
 const {
-  showExerciseName,
+  //showExerciseName,
   isLastExerciseInGroup,
   isLastGroup,
   isBeginningOfTraining,
@@ -106,8 +119,8 @@ const {
   grpIndex,
   counterDuration,
   showResult,
-  timer,
-  initDuration,
+  //timer,
+  //initDuration,
   restartTraining,
   endOfTraining,
   updateCounterTimer,
@@ -124,18 +137,18 @@ const hide = () => {
   dialog.value.hide();
 };
 
-const { getImageUrl } = useImageManager();
-const exerciseImage = computed(() => {
-  try {
-    let fileName = store.activeGroup.exercise[exrIndex.value].templateId;
+// const { getImageUrl } = useImageManager();
+// const exerciseImage = computed(() => {
+//   try {
+//     let fileName = store.activeGroup.exercise[exrIndex.value].templateId;
 
-    return store.activeGroup.exercise[exrIndex.value].templateId !== null
-      ? getImageUrl(fileName, "exerciseTemplate")
-      : null;
-  } catch (error) {
-    return null;
-  }
-});
+//     return store.activeGroup.exercise[exrIndex.value].templateId !== null
+//       ? getImageUrl(fileName, "exerciseTemplate")
+//       : null;
+//   } catch (error) {
+//     return null;
+//   }
+// });
 
 const forwardExercise = () => {
   counterDuration.value = 1;
@@ -237,12 +250,12 @@ defineExpose({
 </script>
 
 <style scoped>
-.exercise-image {
+/* .exercise-image {
   height: calc(100vh / 3);
   object-fit: scale-down;
   max-width: 1200px;
   width: -webkit-fill-available;
-}
+} 
 .padding {
   padding-left: calc((100vw - 1439px) / 2);
   padding-right: calc((100vw - 1439px) / 2);
@@ -263,4 +276,9 @@ defineExpose({
 .counter-dialog {
   width: 700px !important;
 }
+
+.position_knob {
+  position: relative;
+  left: 100px;
+}*/
 </style>

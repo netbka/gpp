@@ -14,6 +14,18 @@ export function numToSecText(val: number) {
   return Math.floor(val % 60) > 9.9 ? Math.floor(val % 60) : "0" + Math.floor(val % 60);
 }
 
+export const durationToText = (duration: number) => {
+  var minutes = Math.floor(duration / 60);
+  var seconds = duration - minutes * 60;
+  return minutes + " мин " + (seconds < 10 ? "0" + seconds : seconds) + " сек.";
+};
+
+export const durationToTextCounter = (duration: number) => {
+  var minutes = Math.floor(duration / 60);
+  var seconds = duration - minutes * 60;
+  return numToMinText(minutes) + ":" + numToSecText(seconds);
+};
+
 export const validateEmail = (email) => {
   const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(String(email).toLowerCase());

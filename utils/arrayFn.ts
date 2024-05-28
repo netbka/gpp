@@ -84,12 +84,6 @@ export const findExerciseById = (arr: Array, id: number) => {
   return item;
 };
 
-export const durationToText = (duration: number) => {
-  var minutes = Math.floor(duration / 60);
-  var seconds = duration - minutes * 60;
-  return minutes + " мин:" + (seconds < 10 ? "0" + seconds : seconds) + " сек.";
-};
-
 export const calculateDuration = (arr: Array) => {
   try {
     var totalduration = 0;
