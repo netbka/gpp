@@ -27,10 +27,13 @@
           <q-item v-bind="scope.itemProps">
             <q-item-section avatar>
               <q-img
-                :src="getImageFromStorage('exerciseTemplate', scope.opt.id)"
+                :src="getImageUrl(scope.opt.id, 'exerciseTemplate', false)"
                 fit="scale-down"
-                :error-src="errorImage"
+                :error-src="website_errorImg()"
                 style="max-width: 65px; height: 65px"
+                loading-show-delay="700"
+                :loading="'eager'"
+                :no-spinner="true"
               />
             </q-item-section>
             <q-item-section>
@@ -93,7 +96,7 @@
 </template>
 
 <script lang="ts" setup>
-import errorImage from "/exerciseSmall.png";
+const { getImageUrl } = useImageManager();
 const props = defineProps({
   data: {
     type: [Object],

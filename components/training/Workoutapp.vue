@@ -13,84 +13,10 @@
         ></TrainingDialogcardButtonStartRestart>
       </template>
     </TrainingDialogcardMain>
-    <!-- <q-dialog
-      persistent
-      full-height
-      v-on:keyup.esc="hide()"
-      ref="dialog"
-      class="no-padding counter-dialog"
-    >
-      <q-card class="bg-white text-white counter-card">
-        <q-toolbar>
-          <q-toolbar-title> </q-toolbar-title>
-          <q-btn dense flat icon="close" @click="hide" color="grey" class="" />
-        </q-toolbar>
-
-        <q-card-section v-show="!showResult" class="fixed-center">
-          <div class="text-center">
-            <q-knob
-              show-value
-              font-size="60px"
-              class="q-ma-md"
-              v-model="timer"
-              size="60px"
-              :thickness="0.05"
-              color="white "
-              track-color="white "
-              readonly
-            >
-              <span class="text-light-blue-2">
-                {{ durationToTextCounter(counterDuration) }}
-              </span>
-            </q-knob>
-          </div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none" v-show="!showResult">
-          <div class="text-light-blue-7 text-h4 text-uppercase text-center">
-            {{ store.activeGroup.name }}
-          </div>
-          <div class="text-light-blue-10 text-h4 text-center">
-            {{ showExerciseName() }}
-          </div>
-          <div class="">
-            <q-img
-              :src="exerciseImage"
-              :error-src="errorImg"
-              fit="scale-down"
-              class="exercise-image"
-            />
-          </div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none" v-show="showResult">
-          <div class="text-light-blue-7 text-h4 text-uppercase text-center">
-            Тренировка завершена
-          </div>
-          <div class="text-light-blue-10 text-h4 text-center">Ты молодец!</div>
-          <div class="row justify-center">
-            <div class="col-auto">
-              <div class="text-blue-10" v-html="store.currentItem.description"></div>
-            </div>
-          </div>
-        </q-card-section>
-        <q-card-actions class="fixed-bottom">
-          <TrainingButtonStartRestart
-            @hide="hide"
-            @restart="restart"
-            @forwardExercise="forwardExercise"
-            @backwardExercise="backExercise"
-            :endOfTraining="showResult"
-            :backwardDisabled="backwardDisabled"
-          ></TrainingButtonStartRestart>
-        </q-card-actions>
-      </q-card>
-    </q-dialog> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import errorImg from "/build_transparent_150.png";
 const emits = defineEmits(["stopTimer"]);
 // const props = defineProps({
 //   isStarted: {
@@ -136,19 +62,6 @@ const hide = () => {
   store.isStarted = false;
   dialog.value.hide();
 };
-
-// const { getImageUrl } = useImageManager();
-// const exerciseImage = computed(() => {
-//   try {
-//     let fileName = store.activeGroup.exercise[exrIndex.value].templateId;
-
-//     return store.activeGroup.exercise[exrIndex.value].templateId !== null
-//       ? getImageUrl(fileName, "exerciseTemplate")
-//       : null;
-//   } catch (error) {
-//     return null;
-//   }
-// });
 
 const forwardExercise = () => {
   counterDuration.value = 1;

@@ -28,7 +28,10 @@ export default defineEventHandler(async (event) => {
               include: {
                 template: {
                   include: {
-                    exerciseTemplateMuscle: true,
+                    //exerciseTemplateMuscle: true,
+                    exerciseTemplateMuscle: {
+                      select: { id: true, name: true },
+                    },
                   },
                 },
               },

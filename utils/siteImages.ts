@@ -5,6 +5,12 @@ import main_page_background from "/main_background.svg";
 import fb_icon from "/icons/facebook-icon.svg";
 import google_icon from "/icons//google-icon.svg";
 
+import errorImg from "/errorImage_150.webp";
+
+export const website_errorImg = () => {
+  return errorImg;
+};
+
 export const websitelogo = () => {
   return logo;
 };

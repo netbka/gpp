@@ -10,7 +10,7 @@
       <div class="exercise-image text-center">
         <q-img
           :src="exerciseImage"
-          :error-src="errorImg"
+          :error-src="website_errorImg()"
           fit="scale-down"
           class="exercise-image"
         />
@@ -29,14 +29,12 @@ const props = defineProps({
 const store = useTrainingStore();
 const { getImageUrl } = useImageManager();
 const { exrIndex } = useTrainingExercise();
-import errorImg from "/build_transparent_150.png";
+
 const exerciseImage = computed(() => {
   try {
     let fileName = store.activeGroup.exercise[exrIndex.value].templateId;
 
-    return store.activeGroup.exercise[exrIndex.value].templateId !== null
-      ? getImageUrl(fileName, "exerciseTemplate")
-      : null;
+    return fileName !== null ? getImageUrl(fileName, "exerciseTemplate") : null;
   } catch (error) {
     console.log("error");
     return null;

@@ -1,6 +1,7 @@
 import defaultImage from "~/public/defaultCover-transparent.png";
 import errorImage from "/exerciseSmall.png";
 import { type FileObject, type StorageError } from "@supabase/storage-js";
+import { timestamp } from "@vueuse/core";
 export function useImageManager(store) {
   const preview = ref(defaultImage);
   const supabase = useSupabaseClient();
@@ -34,9 +35,11 @@ export function useImageManager(store) {
       return { error };
     }
   };
-  const getImageUrl = (fileName: string, storage: string): string => {
+  const getImageUrl = (fileName: string, storage: string, addTimestamp: boolean): string => {
     const { data } = supabase.storage.from(storage).getPublicUrl(fileName);
-    return data.publicUrl + "?" + new Date().getTime();
+    const timestamp = addTimestamp === true ? "?" + new Date().getTime() : "";
+
+    return data.publicUrl + timestamp;
   };
   const deleteFile = async (
     fileName: string,
@@ -72,7 +75,6 @@ export function useImageManager(store) {
     preview.value = getImageUrl(image, storage);
   };
   const getImageById = (storage: string, id: string): void => {
-    
     const image = id;
     preview.value = getImageUrl(image, storage);
   };
