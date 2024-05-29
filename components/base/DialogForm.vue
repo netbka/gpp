@@ -86,7 +86,7 @@ defineExpose({
   show,
 });
 </script>
-<style>
+<style scoped>
 .nooverflow {
   overflow: hidden;
 }

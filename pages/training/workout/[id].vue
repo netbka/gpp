@@ -12,17 +12,38 @@
               "
             ></InputText>
           </div>
-          <q-item-label caption>Продолжительность: {{ duration }}</q-item-label>
+          <div class="row">
+            <div class="col-grow self-center">
+              <q-item-label caption>Продолжительность: {{ duration }}</q-item-label>
+            </div>
+            <div class="col-auto align-right q-mr-md">
+              <q-toggle
+                :label="toggleText ? 'Конструктор' : 'Тренировка'"
+                color="secondary"
+                keep-color
+                class="float-right inline"
+                v-model="toggleText"
+                size="sm"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-12"><TrainingConstructor></TrainingConstructor></div>
+        <div class="col-12">
+          <TrainingConstructor v-show="toggleText"></TrainingConstructor>
+          <ContentDetailedTraining
+            :data="store.currentItem"
+            v-show="!toggleText"
+          ></ContentDetailedTraining>
+        </div>
       </div>
     </div>
   </ClientOnly>
 </template>
 
 <script lang="ts" setup>
+const toggleText = ref(true);
 definePageMeta({ auth: false });
 const route = useRoute();
 const { id } = route.params;

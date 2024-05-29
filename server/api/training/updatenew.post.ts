@@ -13,7 +13,12 @@ export default defineEventHandler(async (event) => {
 
     let body = await readBody(event);
     body.user_id = user_id;
-
+    // body.exerciseGroup.forEach((group) => {
+    //   console.log(group.id, group.name, group.order_by);
+    //   group.exercise.forEach((exercise) => {
+    //     console.log(exercise.id, exercise.name, exercise.order_by, "groupId", exercise.groupId);
+    //   });
+    // });
     const { data, error } = await supabase.rpc("update_training", { training_data: body });
 
     // if (error) {

@@ -7,7 +7,7 @@
       @addGroup="addGroup"
       :readOnly="!canEditDelete"
     ></TrainingBtnControls>
-    <q-skeleton height="650px" square v-show="store.loading" />
+    <!-- <q-skeleton height="650px" square v-show="store.loading" /> -->
     <BaseNested
       v-show="!store.loading"
       :readOnly="!canEditDelete"
@@ -24,17 +24,20 @@
     <ClientOnly>
       <TrainingWorkoutapp ref="workoutapp"></TrainingWorkoutapp>
     </ClientOnly>
-
+    <!-- @cancel="onSaveTraining" -->
     <BaseDialogYesNo
       ref="dialog"
-      @ok="addDescription"
-      @cancel="onSaveTraining"
-      propHeader="Добавить описание?"
+      @ok="onSaveTrainingPlan"
+      propHeader="Сохранить тренировку?"
       propOkText="Да"
       propOkColor="green"
       propCancelText="Нет"
       :propBody="description"
     ></BaseDialogYesNo>
+    <q-inner-loading :showing="store.loading">
+      <q-spinner-box size="100px" color="primary" />
+      <div class="text-h3">Сохраняю...</div>
+    </q-inner-loading>
   </div>
 </template>
 
@@ -96,14 +99,15 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
   updateNestedItem(storeExercise.currentItem, store.currentItem.exerciseGroup);
 };
 
-const addDescription = async () => {
+const onSaveTrainingPlan = async () => {
   store.currentItem.description = description.value;
-  await onSaveTraining();
+  await store.updateTrainingPlan();
+  //await onSaveTraining();
 };
 
-const onSaveTraining = async () => {
-  await store.updateTrainingPlan();
-};
+// const onSaveTraining = async () => {
+//   await store.updateTrainingPlan();
+// };
 
 const storeExerciseGroup = exerciseGroupStore();
 const crudExerciseGroup = useClientCrud(storeExerciseGroup);

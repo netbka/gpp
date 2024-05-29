@@ -28,14 +28,14 @@ export default defineEventHandler(async (event) => {
               include: {
                 template: {
                   include: {
-                    //exerciseTemplateMuscle: true,
-                    exerciseTemplateMuscle: {
-                      select: { id: true, name: true },
-                    },
+                    exerciseTemplateMuscle: true,
+                    // exerciseTemplateMuscle: {
+                    //   select: { id: true, name: true },
+                    // },
                   },
                 },
               },
-              orderBy: { order_by: "asc" }, // Order exercises within each group by updated_at (desc)
+              orderBy: { order_by: "asc" },
             },
           },
           orderBy: { order_by: "asc" },
@@ -62,6 +62,12 @@ export default defineEventHandler(async (event) => {
 
       result.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
     }
+    // result.exerciseGroup.forEach((group) => {
+    //   console.log(group.id, group.name, group.order_by);
+    //   group.exercise.forEach((exercise) => {
+    //     console.log(exercise.id, exercise.name, exercise.order_by, "groupId", exercise.groupId);
+    //   });
+    // });
     return result;
   } catch (error) {
     console.log("error in fetching:", error);

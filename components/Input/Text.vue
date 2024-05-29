@@ -63,6 +63,6 @@ const save = () => {
 
 <style scoped>
 .inline {
-  display: inline;
+  display: inline-block;
 }
 </style>

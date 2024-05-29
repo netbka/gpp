@@ -17,7 +17,7 @@ export class ExerciseGroup extends IdName implements IExerciseGroup {
   public trainingId: number;
   public exercise: IExercise[];
   public order_by: number;
-  constructor(name: string = "Группа №", itemCount?: number, trainingId?: number) {
+  constructor(name: string = "Занятие ", itemCount?: number, trainingId?: number) {
     var num = itemCount ? itemCount.toString() : "1";
     super(name + num);
     this.description = "";
