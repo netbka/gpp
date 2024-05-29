@@ -1,6 +1,8 @@
 <template>
   <q-layout view="hHh lpR fFf">
+    <NuxtLoadingIndicator />
     <LayoutNavbar />
+
     <q-page-container class="">
       <q-page class="" :style-fn="customstyle">
         <slot></slot>

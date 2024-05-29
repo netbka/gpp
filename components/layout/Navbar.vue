@@ -40,13 +40,6 @@
 const redirect = async () => {
   await navigateTo({ path: "/" });
 };
-// const redirectExerciseTemplate = async () => {
-//   await navigateTo({ path: "/exercisetemplate" });
-// };
-
-// const redirectTraining = async () => {
-//   await navigateTo({ path: "/training" });
-// };
 </script>
 <style scoped>
 .logo-text {
