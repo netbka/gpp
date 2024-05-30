@@ -13,14 +13,14 @@ export class TablePagination implements ITablePagination {
   public page = 1;
   public rowsPerPage = 12;
   public rowsNumber = 1;
-  public level = 1;
+  public level = 0;
   constructor(sortBy?: string, descending?: boolean, page?: number, rowsPerPage?: number, rowsNumber?: number, level?: number) {
     this.sortBy = sortBy ?? "name";
     this.descending = descending ?? false;
     this.page = page ?? 1;
     this.rowsPerPage = rowsPerPage ?? 12;
     this.rowsNumber = rowsNumber ?? 1;
-    this.level = level ?? 1;
+    this.level = level ?? 0;
   }
   public updateRowsNumber(rowsNumber: number) {
     this.rowsNumber = rowsNumber;
