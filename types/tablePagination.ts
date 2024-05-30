@@ -4,6 +4,7 @@ export interface ITablePagination {
   page: number;
   rowsPerPage: number;
   rowsNumber: number;
+  level: number;
 }
 
 export class TablePagination implements ITablePagination {
@@ -12,12 +13,14 @@ export class TablePagination implements ITablePagination {
   public page = 1;
   public rowsPerPage = 12;
   public rowsNumber = 1;
-  constructor(sortBy?: string, descending?: boolean, page?: number, rowsPerPage?: number, rowsNumber?: number) {
+  public level = 1;
+  constructor(sortBy?: string, descending?: boolean, page?: number, rowsPerPage?: number, rowsNumber?: number, level?: number) {
     this.sortBy = sortBy ?? "name";
     this.descending = descending ?? false;
     this.page = page ?? 1;
     this.rowsPerPage = rowsPerPage ?? 12;
     this.rowsNumber = rowsNumber ?? 1;
+    this.level = level ?? 1;
   }
   public updateRowsNumber(rowsNumber: number) {
     this.rowsNumber = rowsNumber;
@@ -28,6 +31,7 @@ export class TablePagination implements ITablePagination {
     this.page = values.page;
     this.rowsPerPage = values.rowsPerPage;
     this.rowsNumber = values.rowsNumber;
+    this.level = values.level;
   }
   public getAll() {
     return {
@@ -36,6 +40,7 @@ export class TablePagination implements ITablePagination {
       page: this.page,
       rowsPerPage: this.rowsPerPage,
       rowsNumber: this.rowsNumber,
+      level: this.level,
     };
   }
 }

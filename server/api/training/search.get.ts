@@ -3,12 +3,13 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const user_id = event.context.user === null ? "12345678123456781234567812345678" : event.context.user.id;
-    const { sortBy, descending, page, rowsPerPage, filter } = getQuery(event);
+    const { sortBy, descending, page, rowsPerPage, filter, level } = getQuery(event);
 
     const totalCount = await prisma.training.count({
       where: {
         OR: [{ user_id: user_id }, { public: true }],
         name: { contains: String(filter), mode: "insensitive" },
+        ...(Number(level) !== 0 && { level: Number(level) }),
       },
     });
 
@@ -19,6 +20,7 @@ export default defineEventHandler(async (event) => {
       where: {
         OR: [{ user_id: user_id }, { public: true }],
         name: { contains: String(filter), mode: "insensitive" },
+        ...(Number(level) !== 0 && { level: Number(level) }),
       },
       skip: Number((Number(page) - 1) * Number(rowsPerPage)),
       take: Number(rowsPerPage),

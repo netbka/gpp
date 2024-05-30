@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-
+import DOMPurify from "dompurify";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {

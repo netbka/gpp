@@ -8,11 +8,12 @@ export default defineEventHandler(async (event) => {
     //   user: { id: user_id },
     // } = event.context;
 
-    const { sortBy, descending, page, rowsPerPage, filter } = getQuery(event);
+    const { sortBy, descending, page, rowsPerPage, filter, level } = getQuery(event);
 
     const totalCount = await prisma.exerciseTemplate.count({
       where: {
         OR: [{ user_id: user_id }, { public: true }],
+        ...(Number(level) !== 0 && { level: Number(level) }),
         ...(filter && {
           AND: [
             {
@@ -39,6 +40,7 @@ export default defineEventHandler(async (event) => {
     const result = await prisma.exerciseTemplate.findMany({
       where: {
         OR: [{ user_id: user_id }, { public: true }],
+        ...(Number(level) !== 0 && { level: Number(level) }),
         ...(filter && {
           AND: [
             {

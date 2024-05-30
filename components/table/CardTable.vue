@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-12 col-lg-3">
-        <TableFilter v-model="filter"></TableFilter>
+        <TableFilter v-model="filter" @updateLevel="updateLevel"></TableFilter>
       </div>
 
       <div class="col-12 col-lg-9">
@@ -88,6 +88,7 @@ const pagination = ref({
   page: 1,
   rowsPerPage: 12,
   rowsNumber: 1,
+  level: 0,
 });
 
 onMounted(async () => {
@@ -100,6 +101,11 @@ const updatePagination = (prop) => {
   pagination.value.page = prop.page;
   pagination.value.rowsPerPage = prop.rowsPerPage;
   pagination.value.rowsNumber = prop.rowsNumber;
+};
+
+const updateLevel = (level) => {
+  pagination.value.level = level;
+  onRequest({ filter: filter.value, pagination });
 };
 
 const onRequest = (prop) => {

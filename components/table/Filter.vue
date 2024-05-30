@@ -30,6 +30,7 @@
           class="q-ml-md"
           icon="fitness_center"
           :color-selected="['red-12', 'red-13', 'red-14']"
+          @update:model-value="(newValue) => $emit('updateLevel', newValue)"
         />
       </div>
     </div>
@@ -50,7 +51,7 @@ const props = defineProps({
     required: false,
   },
 });
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue", "updateLevel"]);
 //const filter = ref("");
 const level = ref(0);
 const muscleIds = ref([]);
