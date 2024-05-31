@@ -113,6 +113,9 @@ export default defineNuxtConfig({
   // build: {
   //   transpile: ["quasar"],
   // },
+  // build: {
+  //   transpile: ["@supabase/gotrue-js"],
+  // },
   // vite: {
   //   define: {
   //     "process.env.DEBUG": false,
