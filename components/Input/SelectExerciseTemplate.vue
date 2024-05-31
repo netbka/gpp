@@ -24,7 +24,7 @@
           <q-icon size="sm" name="clear" @click="remove(this)" class="cursor-pointer" />
         </template>
         <template v-slot:option="scope">
-          <q-item v-bind="scope.itemProps">
+          <q-item v-bind="scope.itemProps" class="selectitem">
             <q-item-section avatar>
               <q-img
                 :src="getImageUrl(scope.opt.id, 'exerciseTemplate', false)"
@@ -61,9 +61,6 @@
               </q-item-label>
             </q-item-section>
           </q-item>
-          <div style="display: flex; justify-content: center">
-            <q-separator style="width: 90%"></q-separator>
-          </div>
         </template>
 
         <template v-slot:no-option>
@@ -191,5 +188,8 @@ const remove = (val) => {
   .child {
     max-width: 640px;
   }
+}
+.selectitem {
+  border-bottom: 1px solid #165d8712;
 }
 </style>
