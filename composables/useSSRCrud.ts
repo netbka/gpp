@@ -12,7 +12,7 @@ export const setPagination = (store, pagination: ITablePagination) => {
   store.pagination = pagination;
 };
 export const setPaginationAndFilter = (store, pagination: ITablePagination, filter: string) => {
-  store.pagination = pagination;
+  //store.pagination = pagination;
   store.filter = filter;
 };
 interface ItemResponse<T> {

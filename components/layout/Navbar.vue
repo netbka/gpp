@@ -13,10 +13,13 @@
               />
             </q-avatar>
           </span>
-          <h1 class="text-weight-thin text-uppercase logo-text">Просто ОФП</h1>
+          <h1 class="text-weight-thin text-uppercase logo-text gt-xs">Просто ОФП</h1>
         </q-toolbar-title>
 
         <q-separator dark vertical class="gt-xs" />
+        <a href="https://t.me/prostoofp" target="_blank"
+          ><q-icon name="img:/icons/telegram-icon.svg" size="md"></q-icon
+        ></a>
         <NuxtLink class="no-style text-uppercase q-px-md" to="/exercisetemplate">
           <q-icon name="img:/icons/exercise.svg" size="sm"></q-icon>
           <span class="gt-sm" data-nosnippet>Упражнения</span></NuxtLink

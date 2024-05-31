@@ -24,18 +24,20 @@
         <span>Сложность</span>
         <q-rating
           color="primary"
-          v-model="level"
+          v-model="store.pagination.level"
           size="1.5em"
           max="3"
           class="q-ml-md"
           icon="fitness_center"
           :color-selected="['red-12', 'red-13', 'red-14']"
-          @update:model-value="(newValue) => $emit('updateLevel', newValue)"
         />
       </div>
     </div>
 
-    <!-- <div class="row q-my-lg">
+    <!-- 
+       @update:model-value="(newValue) => $emit('updateLevel', newValue)"
+      
+      <div class="row q-my-lg">
       <div class="col-12">
         <InputSelectMuscle v-model="muscleIds"></InputSelectMuscle>
       </div>
@@ -50,10 +52,14 @@ const props = defineProps({
     default: "",
     required: false,
   },
+
+  storename: { Type: String, default: "" },
 });
-const emits = defineEmits(["update:modelValue", "updateLevel"]);
+const emits = defineEmits(["update:modelValue"]); //, "updateLevel"]);
+let store = selectStore(props.storename);
+//console.log(store.pagination.level);
 //const filter = ref("");
-const level = ref(0);
+//const level = ref(0);
 const muscleIds = ref([]);
 </script>
 

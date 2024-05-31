@@ -4,7 +4,7 @@ import main_page_background from "/main_background.svg";
 
 import fb_icon from "/icons/facebook-icon.svg";
 import google_icon from "/icons//google-icon.svg";
-
+import telegram_icon from "/icons//telegram-icon.svg";
 import errorImg from "/errorImage_150.webp";
 
 export const website_errorImg = () => {
@@ -29,4 +29,8 @@ export const website_fb_icon = () => {
 
 export const website_google_icon = () => {
   return google_icon;
+};
+
+export const website_telegram_icon = () => {
+  return telegram_icon;
 };

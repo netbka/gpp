@@ -46,6 +46,18 @@ export const muscleStore = () => {
   return useMuscleStore();
 };
 
+export const selectStore = (storeName: string) => {
+  switch (storeName.toLowerCase()) {
+    case "training":
+      return trainingStore();
+
+    case "exercisetemplate":
+      return exerciseTemplateStore();
+    default:
+      break;
+  }
+};
+
 // import type { IExerciseTemplate } from "~/types/types";
 
 // import { useCrudStore } from "~/stores/crud";

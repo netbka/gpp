@@ -6,7 +6,6 @@
       :rows="store.itemArray"
       :loading="pending"
       :readOnly="props.readOnly"
-      :pagination="store.pagination"
       :cardCaption="'Программа'"
       :cardCaptionSecondary="'Заниматься'"
       :cardLink="store.$id.toLowerCase()"

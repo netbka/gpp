@@ -69,7 +69,7 @@ defineExpose({
   overflow: hidden;
 }
 .scroll-content {
-  height: calc(100vh - 102px);
+  height: calc(100vh - 152px);
 }
 /* @media (min-width: 768px) {
   .scroll-content {

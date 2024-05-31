@@ -6,7 +6,7 @@
       :rows="store.itemArray"
       :loading="pending"
       :readOnly="props.readOnly"
-      :pagination="store.pagination"
+      
       :cardCaption="'Подробнее'"
       :cardLink="store.$id"
       @onEditItem="onEditItem"
@@ -14,6 +14,7 @@
       @onUpdateField="onUpdateField"
     >
     </TableCardTable>
+    <!-- :pagination="store.pagination" -->
   </div>
 </template>
 
@@ -30,7 +31,7 @@ const { data, pending, error, refresh } = await crud.searchItem();
 const emits = defineEmits(["onEditItem"]);
 const { onEditItem, onDeleteItem, onUpdateField } = useUseTableOperations(store, emits);
 const onRequest = async (props) => {
-  setPaginationAndFilter(store, props.pagination, props.filter);
+  setPaginationAndFilter(store, store.pagination, props.filter);
   await refresh();
   store.itemArray = data.value.result;
   store.pagination.rowsNumber = data.value.totalCount;
