@@ -4,6 +4,7 @@ export const useAuthUser = () => {
   const store = useProfileStore();
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
+
   const login = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -50,7 +51,10 @@ export const useAuthUser = () => {
    * Check if the user is logged in or not
    */
   const isLoggedIn = () => {
-    return user.value !== null;
+    // const { data, error } = await supabase.auth.refreshSession();
+    // console.log(error, data);
+    // console.log(user.value);
+    return user.value !== null && user.value !== undefined;
   };
 
   /**

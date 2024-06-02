@@ -7,8 +7,10 @@
           <q-card-section>
             <div class="text-h2 text-center text-bold">Oooops.</div>
 
-            <div class="text-h3 text-center q-mb-lg">Ошибка: {{ error.statusCode }}</div>
-            <div class="text-h5 text-center">{{ error.message }}</div>
+            <div class="text-h3 text-center q-mb-lg">
+              Код ошибки: {{ error.statusCode }}
+            </div>
+            <div class="text-h5 text-center">Ошибка: {{ error.message }}</div>
           </q-card-section>
           <q-separator />
           <q-card-section class="q-pb-sm"> </q-card-section>

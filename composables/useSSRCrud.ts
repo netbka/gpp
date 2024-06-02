@@ -56,6 +56,7 @@ export const useSSRCrud = <T>(store) => ({
       store.currentItem = data.value;
     }
     if (error.value) {
+      //console.log("from client", error.value);
       throw createError({
         statusCode: error.value.statusCode,
         message: "Нет доступа к этому объекту",
@@ -71,9 +72,10 @@ export const useSSRCrud = <T>(store) => ({
       if (store.itemArray !== undefined) updateArray(data.value, store.itemArray);
     }
     if (error.value) {
+      //console.log("from client", error.value);
       throw createError({
         statusCode: error.value.statusCode,
-        message: "Нет доступа к этому объекту",
+        message: error.value.data.message ? error.value.data.message : "Нет доступа к этому объекту",
       });
     }
     return { data, pending, error, refresh };

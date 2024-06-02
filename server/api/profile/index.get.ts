@@ -1,3 +1,9 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -15,6 +21,13 @@ export default defineEventHandler(async (event) => {
         profilesSportType: true,
       },
     });
+
+    if (result === null) {
+      throw createError({
+        statusCode: 401,
+        message: "Не авторизован",
+      });
+    }
 
     var model = { firstName: user_id.split("-")[0], lastName: "", user_id: user_id, name: "" };
     model.firstName = event.context.user.email.split("@")[0];
@@ -49,47 +62,44 @@ export default defineEventHandler(async (event) => {
 
     return result;
   } catch (error) {
-    console.log("error from server", error);
+    //console.log("error from server", error.statusCode, error.message);
     throw createError({
-      statusCode: 500,
-      message: "Что-то пошло не так",
+      statusCode: error.statusCode ? error.statusCode : 500,
+      message: error.message ? error.message : "Что-то пошло не так",
+      //message: "Что-то пошло не так",
     });
   } finally {
     prisma.$disconnect();
   }
 });
-import { createClient } from "@supabase/supabase-js";
-import { useRuntimeConfig } from "#imports";
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-const initAvatar = async (url: string, fileName: string, name: string) => {
-  const fileToUpload = await urlFile(url, fileName, name);
-  let { error } = await supabase.storage.from("avatars").upload(fileName, fileToUpload, {
-    upsert: true,
-  });
 
-  return error === null ? fileName : null; //return false if ok
-};
+// const initAvatar = async (url: string, fileName: string, name: string) => {
+//   const fileToUpload = await urlFile(url, fileName, name);
+//   let { error } = await supabase.storage.from("avatars").upload(fileName, fileToUpload, {
+//     upsert: true,
+//   });
 
-const hasProfileImage = async (fileName: string): Promise<boolean> => {
-  const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
+//   return error === null ? fileName : null; //return false if ok
+// };
 
-  return await fetch(data.publicUrl, {
-    method: "HEAD",
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return true;
-      } else {
-        return false;
-      }
-    })
-    .catch((error) => {
-      console.error("Error checking file existence:", error);
-      return false;
-    });
-};
+// const hasProfileImage = async (fileName: string): Promise<boolean> => {
+//   const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
+
+//   return await fetch(data.publicUrl, {
+//     method: "HEAD",
+//   })
+//     .then((response) => {
+//       if (response.status === 200) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error checking file existence:", error);
+//       return false;
+//     });
+// };
 
 const getAvatarFromUrl = async (url: string, name: string) => {
   try {
