@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
   },
+  ssr: true,
+  //cors: true,
+
   // compilerOptions: {
   //   isCustomElement: (tag) => tag === "Textareatool",
   // },
@@ -15,7 +18,10 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["@nuxtjs/supabase", "nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag", "@nuxtjs/sitemap"],
+  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin"], //"@nuxtjs/supabase",
+  googleSignIn: {
+    clientId: "1012403012975-8klr44gtthf5ngdu61u4au91c28l00h7.apps.googleusercontent.com",
+  },
   gtag: {
     id: "G-F8G8QM2PBG",
   },
@@ -23,6 +29,7 @@ export default defineNuxtConfig({
   plugins: [
     //"~/plugins/prisma-client.ts",
     "~/plugins/fetch.ts",
+    "~/plugins/apifetch.ts",
 
     // ... other plugins
   ],
@@ -45,25 +52,27 @@ export default defineNuxtConfig({
       },
     },
   },
-  ssr: true,
-  vite: {
-    resolve: {
-      alias: {
-        ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
-      },
-    },
-  },
+
   // vite: {
-  //   css: {
-  //     preprocessorOptions: {
-  //       sass: {
-  //         additionalData: '@use "~/assets/styles/quasar.sass" as *\n',
-  //       },
+  //   resolve: {
+  //     alias: {
+  //       ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
+  //     },
+  //   },
+  // },
+  // nitro: {
+  //   routeRules: {
+  //     "/api/**": {
+  //       proxy: "https://localhost:7094/**",
   //     },
   //   },
   // },
   runtimeConfig: {
     dbPassword: process.env.DB_PASSWORD,
+    public: {
+      baseUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094/api" : "https://apiofp.mamrukov.com/api",
+      wwwwUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094" : "https://apiofp.mamrukov.com",
+    },
   },
   site: {
     url: "https://ofp.mamrukov.com",
@@ -75,6 +84,7 @@ export default defineNuxtConfig({
 
     sources: ["/api/__sitemap__/urls"],
   },
+
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
     //pageTransition: { name: "page", mode: "out-in" },
@@ -122,30 +132,37 @@ export default defineNuxtConfig({
   //   },
   //   plugins: [quasar({ sassVariables: "assets/styles/quasar.variables.sass" })],
   // },
-  // ssr: true,
+
   publicRuntimeConfig: {
-    supabase: {
-      url: process.env.SUPABASE_URL,
-      key: process.env.SUPABASE_KEY,
+    // supabase: {
+    //   url: process.env.SUPABASE_URL,
+    //   key: process.env.SUPABASE_KEY,
+    // },
+  },
+
+  devServer: {
+    https: {
+      key: "localhost-key-home.pem",
+      cert: "localhost-home.pem",
     },
   },
-  supabase: {
-    // cookieOptions: {
-    //   name: 'test',
-    //   maxAge: 60 * 60,
-    //   sameSite: 'strict',
-    //   secure: false,
-    // },
-    // clientOptions: {
-    //   auth: {
-    //     flowType: 'implicit',
-    //   },
-    // },
-    redirect: true,
-    redirectOptions: {
-      login: "/auth",
-      callback: "/training",
-      exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exerciseTemplate/*", "/exercisetemplate/*", "/exercisetemplate", "/exerciseTemplate", "/privacy-policy/*"],
-    },
-  },
+  // supabase: {
+  //   // cookieOptions: {
+  //   //   name: 'test',
+  //   //   maxAge: 60 * 60,
+  //   //   sameSite: 'strict',
+  //   //   secure: false,
+  //   // },
+  //   // clientOptions: {
+  //   //   auth: {
+  //   //     flowType: 'implicit',
+  //   //   },
+  //   // },
+  //   redirect: true,
+  //   redirectOptions: {
+  //     login: "/auth",
+  //     callback: "/training",
+  //     exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exerciseTemplate/*", "/exercisetemplate/*", "/exercisetemplate", "/exerciseTemplate", "/privacy-policy/*"],
+  //   },
+  // },
 });

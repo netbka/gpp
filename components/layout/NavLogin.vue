@@ -1,6 +1,6 @@
 <template>
   <q-btn-dropdown
-    v-show="user"
+    v-show="isLoggedIn()"
     stretch
     flat
     data-nosnippet
@@ -32,13 +32,13 @@
     </div>
   </q-btn-dropdown>
 
-  <q-btn stretch flat label="Вход" v-show="!user" to="/auth" data-nosnippet />
+  <q-btn stretch flat label="Вход" v-show="!isLoggedIn()" to="/auth" data-nosnippet />
 </template>
 
 <script lang="ts" setup>
-const user = useSupabaseUser();
+//const user = useSupabaseUser();
 
-const { logout } = useAuthUser();
+const { logout, isLoggedIn } = useAuthUser();
 
 const logoff = async () => {
   logout();

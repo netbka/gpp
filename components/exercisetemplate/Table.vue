@@ -32,8 +32,9 @@ const { onEditItem, onDeleteItem, onUpdateField } = useUseTableOperations(store,
 const onRequest = async (props) => {
   setPaginationAndFilter(store, props.pagination, props.filter);
   await refresh();
-  store.itemArray = data.value.result;
-  store.pagination.rowsNumber = data.value.totalCount;
+  store.itemArray = data.value.entity;
+  store.pagination.rowsNumber = data.value.count;
+  store.itemArray = flatMuscleExercise(store.itemArray);
 };
 </script>
 

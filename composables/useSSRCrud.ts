@@ -28,20 +28,26 @@ export const useSSRCrud = <T>(store) => ({
     return { data, pending, error, refresh };
   },
   async searchItem(): Promise<TableResponse<T>> {
-    const { data, pending, error, refresh } = await useAsyncData<TableResponse<T>>(
-      `${store.$id}-searchItems`,
-      () =>
-        $fetch(`/api/${store.$id}/search`, {
-          query: { filter: store.filter, ...store.pagination },
-        }),
-      { watch: [store.pagination, ...store.filter] }
-    );
+    try {
+      const { data, pending, error, refresh } = await useAsyncData<TableResponse<T>>(
+        `${store.$id}-searchItems`,
+        () =>
+          $fetch(`/api/${store.$id}/search`, {
+            query: { filter: store.filter, ...store.pagination },
+          }),
+        { watch: [store.pagination, ...store.filter], immediate: false }
+      );
 
-    if (data.value) {
-      store.itemArray = data.value.result;
-      store.pagination.rowsNumber = data.value.totalCount;
+      if (data.value) {
+        store.itemArray = data.value.entity;
+        store.pagination.rowsNumber = data.value.count;
+        //store.itemArray = flatMuscle(store.itemArray);
+      }
+
+      return { data, pending, error, refresh };
+    } catch (err) {
+      console.log(err);
     }
-    return { data, pending, error, refresh };
   },
 
   async getItemById(id: number): Promise<ItemResponse<T>> {

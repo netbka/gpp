@@ -1,10 +1,10 @@
 import defaultImage from "~/public/defaultCover-transparent.png";
 import errorImage from "/exerciseSmall.png";
-import { type FileObject, type StorageError } from "@supabase/storage-js";
+//import { type FileObject, type StorageError } from "@supabase/storage-js";
 import { timestamp } from "@vueuse/core";
 export function useImageManager(store) {
   const preview = ref(defaultImage);
-  const supabase = useSupabaseClient();
+  //const supabase = useSupabaseClient();
   const urlToBlob = async (url: string): Promise<Blob> => {
     const response = await fetch(url);
     const imageData = await response.blob();
@@ -79,7 +79,7 @@ export function useImageManager(store) {
     preview.value = getImageUrl(image, storage);
   };
   const getAvatar = async (): Promise<string> => {
-    const supabase = useSupabaseClient();
+    //const supabase = useSupabaseClient();
     const { data } = supabase.storage.from(store.$id).getPublicUrl(store.currentItem.user_id);
     const result = (await isImageAvailable(data.publicUrl)) ? data.publicUrl + "?" + new Date().getTime() : "https://eu.ui-avatars.com/api/?name=" + store.currentItem.name + "&size=100";
     return result;
@@ -139,10 +139,9 @@ export function useImageManager(store) {
 }
 
 export const getImageFromStorage = (storage: string, fileName: string) => {
-  const supabase = useSupabaseClient();
+  //const supabase = useSupabaseClient();
   try {
-    const { data } = supabase.storage.from(storage).getPublicUrl(fileName);
-    return data.publicUrl; // + "?" + new Date().getTime();
+    return useRuntimeConfig().public.wwwwUrl + "/" + storage + "/" + fileName + ".gif";
   } catch (error) {
     return null;
   }

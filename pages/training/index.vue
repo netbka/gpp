@@ -1,21 +1,23 @@
 <template>
   <div>
-    <NuxtErrorBoundary>
+    <!-- <NuxtErrorBoundary>
       <NuxtPage />
       <template #error="{ error }">
         <ErrorBoundary :error="error" />
-      </template>
-      <ContentHero
-        :header="'Программа тренировок'"
-        :subHeading="'Не трать время на планирование '"
-        :subHeading2="' Все готово от Просто ОФП'"
-      ></ContentHero>
+      </template> -->
+    <ContentHero
+      :header="'Программа тренировок'"
+      :subHeading="'Не трать время на планирование '"
+      :subHeading2="' Все готово от Просто ОФП'"
+    ></ContentHero>
 
-      <TrainingTable @onEditItem="showForm"></TrainingTable>
+    <TrainingTable @onEditItem="showForm"></TrainingTable>
 
-      <TrainingForm ref="form"></TrainingForm>
-      <BaseFab @newItem="showForm" :readOnly="!isLoggedIn()"></BaseFab>
-    </NuxtErrorBoundary>
+    <TrainingForm ref="form"></TrainingForm>
+
+    <BaseFab @newItem="showForm"></BaseFab>
+
+    <!-- </NuxtErrorBoundary> -->
   </div>
 </template>
 

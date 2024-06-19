@@ -1,0 +1,115 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export default defineEventHandler(async (event) => {
+  const user_id = event.context.user === null ? "12345678123456781234567812345678" : event.context.user.id;
+  // const {
+  //   user: { id: user_id },
+  // } = event.context;
+
+  try {
+    const { id } = event.context.params;
+    const _id = Number(id);
+    const result = await prisma.training.findUnique({
+      where: {
+        id: _id,
+        OR: [
+          {
+            user_id: user_id,
+          },
+          { public: true },
+        ],
+      },
+
+      select: {
+        id: true,
+        name: true,
+        level: true,
+        user_id: true,
+        duration: true,
+        description: true,
+        public: true,
+        updatedAt: true,
+        exerciseGroup: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            repeats: true,
+            active: true,
+            trainingId: true,
+            order_by: true,
+
+            exercise: {
+              //orderBy: { order_by: "asc" },
+              select: {
+                id: true,
+                name: true,
+                level: true,
+                duration: true,
+                active: true,
+                groupId: true,
+                templateId: true,
+                order_by: true,
+
+                template: {
+                  select: {
+                    name: true,
+                    exerciseTemplateMuscle: {
+                      select: {
+                        name: true,
+                        id: true,
+                      },
+                    },
+                  },
+                },
+              },
+              orderBy: { order_by: "asc" },
+            },
+          },
+          orderBy: { order_by: "asc" },
+        },
+      },
+    });
+
+    const exerciseTemplateMuscles = result.exerciseGroup.flatMap((group) => {
+      if (!group.exercise) return [];
+
+      return group.exercise.flatMap((exercise) => {
+        if (!exercise.template || !exercise.template.exerciseTemplateMuscle) return [];
+
+        return exercise.template.exerciseTemplateMuscle;
+      });
+    });
+
+    const distinctExerciseTemplateMuscles = [...new Map(exerciseTemplateMuscles.map((item) => [item.id, item])).values()];
+
+    result.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
+
+    // const result = await prisma.training.findUnique({
+    //   where: {
+    //     id: _id,
+    //     OR: [
+    //       {
+    //         user_id: user_id,
+    //       },
+    //       { public: true },
+    //     ],
+    //   },
+    //   include: {
+    //     exerciseGroup: {
+    //       include: {
+    //         exercise: true,
+    //       },
+    //     },
+    //   },
+    // });
+    //console.log(result);
+    return result;
+  } catch (error) {
+    console.log("erro in fetching:", error);
+  } finally {
+    prisma.$disconnect();
+  }
+});

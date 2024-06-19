@@ -1,3 +1,51 @@
+export const flatMuscleExercise = (arr) => {
+  arr.forEach((obj) => {
+    if (!obj.exerciseTemplateMuscle) {
+      obj.exerciseTemplateMuscle = [];
+      return;
+    }
+
+    const exerciseTemplateMuscles = obj.exerciseTemplateMuscle.flatMap((group) => {
+      if (!group.muscle) return [];
+
+      return group.muscle;
+    });
+
+    const distinctExerciseTemplateMuscles = [...new Map(exerciseTemplateMuscles.map((item) => [item.id, item])).values()];
+
+    obj.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
+  });
+
+  return arr;
+};
+
+export const flatMuscle = (arr) => {
+  arr.forEach((obj) => {
+    if (!obj.exerciseGroup) {
+      obj.exerciseTemplateMuscle = [];
+      return;
+    }
+
+    const exerciseTemplateMuscles = obj.exerciseGroup.flatMap((group) => {
+      if (!group.exercise) return [];
+
+      return group.exercise.flatMap((exercise) => {
+        if (!exercise.exerciseTemplate || !exercise.exerciseTemplate.exerciseTemplateMuscle) return [];
+
+        return exercise.exerciseTemplate.exerciseTemplateMuscle.flatMap((muscle) => {
+          return muscle.muscle;
+        });
+      });
+    });
+
+    const distinctExerciseTemplateMuscles = [...new Map(exerciseTemplateMuscles.map((item) => [item.id, item])).values()];
+
+    obj.exerciseTemplateMuscle = distinctExerciseTemplateMuscles;
+  });
+
+  return arr;
+};
+
 export const findNextItemById = (array, id: string) => {
   for (let i = 0; i < array.length; i++) {
     if (array[i].id === id) {

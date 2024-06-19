@@ -131,6 +131,7 @@ const traininglink = (data) => {
 };
 
 const link = (data) => {
+  //console.log(data);
   return new Slug(data, props.cardLink).getSlug();
 };
 const { currentUserId, isLoggedIn } = useAuthUser();

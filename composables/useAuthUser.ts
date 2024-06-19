@@ -1,120 +1,89 @@
 const user = ref(null);
+import { type CredentialResponse } from "vue3-google-signin";
+// import { useTokenClient, type AuthCodeFlowSuccessResponse, type AuthCodeFlowErrorResponse } from "vue3-google-signin";
 
 export const useAuthUser = () => {
   const store = useProfileStore();
-  const supabase = useSupabaseClient();
-  const user = useSupabaseUser();
-
-  const login = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+  const handleFBLoginSuccess = async (response: CredentialResponse) => {
+    const { credential } = response;
+    var x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/GoogleSignIn", {
+      method: "POST",
+      body: { IdToken: credential },
+    }).then(async function (data) {
+      setTokens(data.tokens);
+      await navigateTo("/training");
     });
-    if (error) {
-      if (error.message.includes("Email not confirmed")) {
-        notifyMsgNegative("нужно подтвердить почту");
-        await navigateTo("/auth/confirm");
-      }
-      if (error.message.includes("Invalid login credentials")) notifyMsgNegative("в логине/пароле");
-    }
-    console.log(data);
+  };
+
+  const handleFBLoginError = () => {
+    console.error("Login failed");
+  };
+
+  const login = () => {};
+  const loginEmailPassword = async (email, password) => {
     if (data.session) {
       await navigateTo("/training");
     }
   };
 
-  const loginWithSocialProvider = async (_provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: _provider,
-      options: {
-        // queryParams: {
-        //   access_type: "offline",
-        //   prompt: "consent",
-        // },
-        //redirectTo,
-      },
-    });
-    if (error) {
-    }
+  const setTokens = (tokens) => {
+    localStorage.setItem("accesstoken", tokens.accessToken);
+    localStorage.setItem("refreshtoken", tokens.refreshToken);
   };
+  const getRefreshToken = () => {
+    return localStorage.getItem("refreshtoken");
+  };
+  const resetTokens = () => {
+    localStorage.removeItem("accesstoken");
+    localStorage.removeItem("refreshtoken");
+  };
+
+  const loginWithSocialProvider = async (_provider) => {};
 
   /**
    * Logout
    */
   const logout = async () => {
     store.resetCurrentItem();
-    const { error } = await supabase.auth.signOut();
-    await navigateTo("/");
+    resetTokens();
+    const x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/signout", {
+      method: "POST",
+    });
+    await navigateTo("/auth");
   };
 
   /**
    * Check if the user is logged in or not
    */
   const isLoggedIn = () => {
-    // const { data, error } = await supabase.auth.refreshSession();
-    // console.log(error, data);
-    // console.log(user.value);
-    return user.value !== null && user.value !== undefined;
+    // const x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/RefreshToken", {
+    //   method: "POST",
+    //   body: { RefreshToken: getRefreshToken() },
+    // })
+    //   .then(async function (data) {
+    //     setTokens(data.tokens);
+    //   })
+    //   .catch(function (error, any) {
+    //     resetTokens();
+    //   });
+    // console.log(localStorage.getItem("refreshtoken") !== null && localStorage.getItem("refreshtoken").length > 0 ? true : false);
+    return localStorage.getItem("refreshtoken") !== null && localStorage.getItem("refreshtoken").length > 0 ? true : false;
   };
 
   /**
    * Register
    */
-  const register = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      // options: {
-      //   data: {
-      //     name: name,
-      //   },
-      // },
-    });
-    if (error) {
-      notifyMsgNegative(error.message);
-    }
-    if (data) {
-      await navigateTo("/auth/confirm");
-    }
-  };
+  const register = async (email, password) => {};
 
   const update = async (data) => {};
 
-  const resetPasswordWithToken = async (password, token) => {
-    const { data, error } = await supabase.auth.updateUser({
-      password: password,
-      nonce: token,
-    });
-    if (error) {
-      notifyMsgNegative(error.message);
-    }
-    if (data) {
-      await navigateTo("/auth/confirm");
-    }
-  };
+  const resetPasswordWithToken = async (password, token) => {};
 
   const sendSignupEmail = async (email) => {
-    const { data, error } = await supabase.auth.resend({
-      type: "signup",
-      email: email,
-      options: {
-        emailRedirectTo: "/auth/confirm",
-      },
-    });
     await navigateTo("/auth/confirm");
   };
 
-  const sendPasswordResetEmail = async (email) => {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "/resetpassword",
-    });
-    if (error) {
-      notifyMsgNegative(error.message);
-    }
-    if (data) {
-      await navigateTo("/auth/confirm");
-    }
-  };
+  const sendPasswordResetEmail = async (email) => {};
 
   const isAdmin = computed(() => {
     return user.value?.user_metadata.is_admin === true;
@@ -135,6 +104,10 @@ export const useAuthUser = () => {
   };
 
   return {
+    handleFBLoginSuccess,
+    handleFBLoginError,
+
+    loginEmailPassword,
     getCurrentUserProfile,
     currentUserId,
     isAdmin,

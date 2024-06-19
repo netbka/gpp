@@ -13,7 +13,7 @@
           bordered
           ref="tableRef"
           class=""
-          :rows="rows"
+          :rows="store.itemArray"
           :columns="columns"
           :row-key="(row) => row.id"
           :filter="filter"

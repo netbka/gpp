@@ -37,6 +37,12 @@
             :style="{ backgroundImage: 'url(' + website_fb_icon() + ')' }"
           >
           </q-btn>
+          <GoogleSignInButton
+            class="full-width"
+            @success="handleFBLoginSuccess"
+            @error="handleFBLoginError"
+            width="354"
+          ></GoogleSignInButton>
         </div>
       </div>
     </q-card-section>
@@ -44,6 +50,13 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  GoogleSignInButton,
+  type CredentialResponse,
+} from "vue3-google-signin";
+
+
+
 const props = defineProps({
   showSocial: {
     type: Boolean,
@@ -58,9 +71,9 @@ const props = defineProps({
   },
 });
 const store = authStore();
-const { login, loginWithSocialProvider } = useAuthUser();
+const { login, loginEmailPassword,handleFBLoginSuccess,handleFBLoginError } = useAuthUser();
 const socialLogin = async (provider: string) => {
-  loginWithSocialProvider(provider);
+  login(provider);
 };
 </script>
 
