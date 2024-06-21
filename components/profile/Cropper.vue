@@ -149,7 +149,7 @@ const cropImage = async () => {
   const { canvas } = cropper.value.getResult();
   canvas.toBlob(
     (blob) => {
-      croppedFile.value = blobToFile(blob, store.currentItem.user_id);
+      croppedFile.value = blobToFile(blob, store.currentItem.id);
       setAvatar(croppedFile.value);
     },
     image.value.type,
@@ -158,7 +158,7 @@ const cropImage = async () => {
 };
 const initPreview = async () => {
   const imgUrl = await getAvatar();
-  const imgFile = await urlToFile(imgUrl, store.currentItem.user_id);
+  const imgFile = await urlToFile(imgUrl, store.currentItem.id);
   setAvatar(imgFile);
 };
 

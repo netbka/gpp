@@ -15,19 +15,25 @@
     </q-card-actions>
     <q-card-section v-if="showSocial">
       <q-separator />
-      <div class="row q-mt-sm">
+      <div class="row q-my-sm">
         <div class="col">
-          <q-btn
+          <GoogleSignInButton
+            class="full-width"
+            @success="handleFBLoginSuccess"
+            @error="handleFBLoginError"
+            width="354"
+          ></GoogleSignInButton>
+          <!-- <q-btn
             align="between"
             @click="socialLogin('google')"
             label="Google"
             class="full-width btn_google"
             :style="{ backgroundImage: 'url(' + website_google_icon() + ')' }"
           >
-          </q-btn>
+          </q-btn> -->
         </div>
       </div>
-      <div class="row">
+      <div class="row q-mt-sm">
         <div class="col">
           <q-btn
             align="between"
@@ -37,12 +43,6 @@
             :style="{ backgroundImage: 'url(' + website_fb_icon() + ')' }"
           >
           </q-btn>
-          <GoogleSignInButton
-            class="full-width"
-            @success="handleFBLoginSuccess"
-            @error="handleFBLoginError"
-            width="354"
-          ></GoogleSignInButton>
         </div>
       </div>
     </q-card-section>

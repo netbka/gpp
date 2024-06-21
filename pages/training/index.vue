@@ -15,7 +15,7 @@
 
     <TrainingForm ref="form"></TrainingForm>
 
-    <BaseFab @newItem="showForm"></BaseFab>
+    <BaseFab @newItem="showForm" :readOnly="true"></BaseFab>
 
     <!-- </NuxtErrorBoundary> -->
   </div>
@@ -37,7 +37,7 @@ useSeoMeta({
 
 const form = ref(null);
 
-const { isAdmin, isLoggedIn } = useAuthUser();
+const { isLoggedIn } = useAuthUser();
 
 const showForm = (id) => {
   form.value.show(id);

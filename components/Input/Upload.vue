@@ -96,7 +96,7 @@ const undoImageHandler = () => {
 };
 
 const uploadImageHandler = async () => {
-  const { data } = await uploadImage(
+  const data = await uploadImage(
     image.value,
     props.store.currentItem.id,
     props.store.$id

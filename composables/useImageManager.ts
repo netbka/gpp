@@ -1,7 +1,8 @@
 import defaultImage from "~/public/defaultCover-transparent.png";
 import errorImage from "/exerciseSmall.png";
+
 //import { type FileObject, type StorageError } from "@supabase/storage-js";
-import { timestamp } from "@vueuse/core";
+import { fetch, refreshToken, shouldRefreshToken } from "../composables/api.js";
 export function useImageManager(store) {
   const preview = ref(defaultImage);
   //const supabase = useSupabaseClient();
@@ -21,25 +22,31 @@ export function useImageManager(store) {
   };
 
   const uploadImageUsingStorage = async (fileToUpload: File): Promise<{ error?: any; data?: any }> => {
-    return await uploadImage(fileToUpload, store.currentItem.user_id, store.$id);
+    return await uploadImage(fileToUpload, store.currentItem.id, store.$id);
   };
-  const uploadImage = async (fileToUpload: File, fileName: string, storage: string): Promise<{ error?: any; data?: any }> => {
+  const uploadImage = async (fileToUpload: File, fileName: string, storage: string): Promise<{ data?: any }> => {
     try {
-      let { error, data } = await supabase.storage.from(storage).upload(String(fileName), fileToUpload, {
-        upsert: true,
+      const formData = new FormData();
+      formData.append("file", fileToUpload);
+      formData.append("store", storage);
+      formData.append("fileName", fileName);
+      const uploadResponse = await fetch("/api/" + storage + "/upload", {
+        method: "POST",
+        body: formData,
       });
-      if (error) notifyMsgNegative("Файл не загружен. " + error.message);
-      if (data) notifyMsgPositive("Файл загружен");
-      return { error, data };
+      if (!uploadResponse.ok) notifyMsgNegative("Файл не загружен. " + uploadResponse.statusText);
+      if (uploadResponse.ok) notifyMsgPositive("Файл загружен");
+      return uploadResponse;
     } catch (error) {
-      return { error };
+      return null;
     }
   };
   const getImageUrl = (fileName: string, storage: string, addTimestamp: boolean): string => {
-    const { data } = supabase.storage.from(storage).getPublicUrl(fileName);
+    const data = useRuntimeConfig().public.wwwwUrl + "/" + storage + "/" + fileName + ".gif";
+    //supabase.storage.from(storage).getPublicUrl(fileName);
     const timestamp = addTimestamp === true ? "?" + new Date().getTime() : "";
-
-    return data.publicUrl + timestamp;
+    //console.log(await isImageAvailable(data));
+    return data + timestamp;
   };
   const deleteFile = async (
     fileName: string,
@@ -72,16 +79,17 @@ export function useImageManager(store) {
   };
   const getImageUsingStore = (storage: string): void => {
     const image = store.currentItem.id;
-    preview.value = getImageUrl(image, storage);
+    preview.value = getImageUrl(image, storage, false);
   };
   const getImageById = (storage: string, id: string): void => {
     const image = id;
-    preview.value = getImageUrl(image, storage);
+    preview.value = getImageUrl(image, storage, false);
   };
   const getAvatar = async (): Promise<string> => {
     //const supabase = useSupabaseClient();
-    const { data } = supabase.storage.from(store.$id).getPublicUrl(store.currentItem.user_id);
-    const result = (await isImageAvailable(data.publicUrl)) ? data.publicUrl + "?" + new Date().getTime() : "https://eu.ui-avatars.com/api/?name=" + store.currentItem.name + "&size=100";
+    const data = useRuntimeConfig().public.wwwwUrl + "/" + store.$id + "/" + store.currentItem.id + ".gif";
+
+    const result = (await isImageAvailable(data)) ? data + "?" + new Date().getTime() : "https://eu.ui-avatars.com/api/?name=" + store.currentItem.name + "&size=100";
     return result;
   };
 
@@ -103,20 +111,24 @@ export function useImageManager(store) {
     return errorImage;
   };
   const isImageAvailable = async (url: string) => {
-    return await fetch(url, {
-      method: "HEAD",
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return true;
-        } else {
-          return false;
-        }
+    try {
+      return await fetch(url, {
+        method: "HEAD",
       })
-      .catch((error) => {
-        console.error("Error checking file existence:", error);
-        return false;
-      });
+        .then((response) => {
+          if (response.status === 200) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking file existence:", error);
+          return false;
+        });
+    } catch (err) {
+      return false;
+    }
   };
   return {
     uploadImageUsingStorage,

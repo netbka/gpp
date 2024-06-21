@@ -135,7 +135,7 @@ const link = (data) => {
   return new Slug(data, props.cardLink).getSlug();
 };
 const { currentUserId, isLoggedIn } = useAuthUser();
-const canDeleteEdit = computed(() => props.data.user_id === currentUserId());
+const canDeleteEdit = computed(async () => await currentUserId);
 </script>
 
 <style scoped>

@@ -1,12 +1,18 @@
-//import { ofetch } from "ofetch";
 import { useQuasar } from "quasar";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const $q = useQuasar();
+  const { rtoken } = useAuthUser();
 
   globalThis.$fetch = $fetch.create({
-    headers: useRequestHeaders(["cookie"]),
+    //headers: useRequestHeaders(["cookie"]),
+    headers: {
+      ...useRequestHeaders(["cookie"]),
+      Authorization: `Bearer ${rtoken.value}`,
+    },
+
     async onResponseError({ request, options, response }) {
+      //console.log(response);
       try {
         $q.notify({
           type: "negative",
@@ -22,7 +28,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         $q.notify({
           type: "positive",
           caption: "Все ок",
-          message: "Создал",
+          message: response._data.message,
           timeout: 500,
         });
       }

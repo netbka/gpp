@@ -8,7 +8,7 @@ export function useCanEditDelete(store) {
   watch(
     () => store.getCurrentItem,
     (val) => {
-      userIsequal.value = val.user_id === currentUserId();
+      userIsequal.value = val.id === currentUserId();
     },
 
     { deep: true, immediate: true }

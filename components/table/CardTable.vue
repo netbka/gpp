@@ -110,7 +110,20 @@ const tableRef = ref(null);
 
 // };
 
+//const cache = ref(false);
 const onRequest = (prop) => {
+  //console.log("onRequest", prop);
+  // if (cache.value === true && props.pagination) {
+  //   console.log("onRequest", prop);
+  //   emits("onRequest", prop);
+  //   //if (cache.value === true && props.pagination === undefined)
+  // }
+  // if (cache.value === false) {
+  //   console.log("onRequest", prop);
+  //   emits("onRequest", prop);
+  //   //if (cache.value === true && props.pagination === undefined)
+  // }
+  // cache.value = true;
   emits("onRequest", prop);
 };
 const customSortFunction = (rows, sortBy, descending) => {};

@@ -1,9 +1,15 @@
 const user = ref(null);
 import { type CredentialResponse } from "vue3-google-signin";
+import Cookies from "js-cookie";
 // import { useTokenClient, type AuthCodeFlowSuccessResponse, type AuthCodeFlowErrorResponse } from "vue3-google-signin";
 
 export const useAuthUser = () => {
   const store = useProfileStore();
+
+  const isLoggedIn = () => {
+    return store.refreshtoken.length > 0 ? true : false;
+  };
+
   const handleFBLoginSuccess = async (response: CredentialResponse) => {
     const { credential } = response;
     var x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/GoogleSignIn", {
@@ -11,6 +17,8 @@ export const useAuthUser = () => {
       body: { IdToken: credential },
     }).then(async function (data) {
       setTokens(data.tokens);
+
+      store.currentItem = data.entity;
       await navigateTo("/training");
     });
   };
@@ -27,15 +35,23 @@ export const useAuthUser = () => {
   };
 
   const setTokens = (tokens) => {
-    localStorage.setItem("accesstoken", tokens.accessToken);
-    localStorage.setItem("refreshtoken", tokens.refreshToken);
+    store.refreshtoken = tokens.refreshToken;
+
+    store.accesstoken = tokens.accessToken;
+    Cookies.set("RToken", tokens.refreshToken);
+    Cookies.set("AToken", tokens.accessToken);
   };
   const getRefreshToken = () => {
-    return localStorage.getItem("refreshtoken");
+    return Cookies.get("RToken");
+  };
+  const getAccessToken = () => {
+    return Cookies.get("AToken");
   };
   const resetTokens = () => {
-    localStorage.removeItem("accesstoken");
-    localStorage.removeItem("refreshtoken");
+    store.refreshtoken = "";
+    store.accesstoken = "";
+    Cookies.remove("RToken");
+    Cookies.remove("AToken");
   };
 
   const loginWithSocialProvider = async (_provider) => {};
@@ -52,27 +68,17 @@ export const useAuthUser = () => {
     await navigateTo("/auth");
   };
 
-  /**
-   * Check if the user is logged in or not
-   */
-  const isLoggedIn = () => {
-    // const x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/RefreshToken", {
-    //   method: "POST",
-    //   body: { RefreshToken: getRefreshToken() },
-    // })
-    //   .then(async function (data) {
-    //     setTokens(data.tokens);
-    //   })
-    //   .catch(function (error, any) {
-    //     resetTokens();
-    //   });
-    // console.log(localStorage.getItem("refreshtoken") !== null && localStorage.getItem("refreshtoken").length > 0 ? true : false);
-    return localStorage.getItem("refreshtoken") !== null && localStorage.getItem("refreshtoken").length > 0 ? true : false;
+  const refreshToken = async () => {
+    var x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/RefreshToken", {
+      method: "POST",
+      body: { RefreshToken: getRefreshToken() },
+    }).then(async function (data) {
+      setTokens(data.tokens);
+      store.currentItem.id = data.entity;
+    });
+    return store.refreshtoken;
   };
 
-  /**
-   * Register
-   */
   const register = async (email, password) => {};
 
   const update = async (data) => {};
@@ -85,25 +91,35 @@ export const useAuthUser = () => {
 
   const sendPasswordResetEmail = async (email) => {};
 
-  const isAdmin = computed(() => {
-    return user.value?.user_metadata.is_admin === true;
-  });
-
   const getCurrentUserProfile = async () => {
-    const id = user.value?.id;
+    const id = store.currentItem.id;
 
-    if (id !== null && id !== undefined && store.currentItem.user_id !== id) {
+    if (id !== null && id !== undefined && store.currentItem.id !== id) {
       const crud = useClientCrud(store);
       const x = await crud.getItem();
-      //console.log("Fetching user profile", store.currentItem);
     }
   };
 
-  const currentUserId = () => {
-    return user.value?.id;
+  const isAdmin = () => {
+    return store.currentItem.admin;
   };
+  const currentUserId = () => {
+    return store.currentItem.id;
+  };
+  //  async () => {
+  //   console.log(store.currentItem.id);
+  //   return store.currentItem.id;
+  // };
 
+  // onMounted(async () => {
+  //   if (store.currentItem.id === null) await refreshToken();
+  // });
+  const rtoken = computed(() => store.refreshtoken);
   return {
+    rtoken,
+    getAccessToken,
+    refreshToken,
+    isLoggedIn,
     handleFBLoginSuccess,
     handleFBLoginError,
 
@@ -114,7 +130,7 @@ export const useAuthUser = () => {
     //isAdminClient,
     login,
     loginWithSocialProvider,
-    isLoggedIn,
+
     logout,
     register,
     update,

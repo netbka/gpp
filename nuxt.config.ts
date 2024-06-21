@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
   },
+  piniaPersistedstate: {
+    cookieOptions: {
+      sameSite: "strict",
+    },
+  },
   ssr: true,
   //cors: true,
 
@@ -18,7 +23,7 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin"], //"@nuxtjs/supabase",
+  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin"], //"@nuxtjs/supabase",
   googleSignIn: {
     clientId: "1012403012975-8klr44gtthf5ngdu61u4au91c28l00h7.apps.googleusercontent.com",
   },

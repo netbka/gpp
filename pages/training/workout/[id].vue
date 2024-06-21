@@ -53,10 +53,10 @@ const crudSSR = useSSRCrud(store);
 const { data, pending, error, refresh } = await crudSSR.getItemById(parseSlugId(id));
 
 useSeoMeta({
-  titleTemplate: data.value.name + " | ОФП для бегунов",
-  description: "Занимайся онлайн. " + data.value.description,
-  ogTitle: data.value.name + " | ОФП для бегунов",
-  ogDescription: "Занимайся онлайн. " + data.value.description,
+  titleTemplate: data.value.entity.name + " | ОФП для бегунов",
+  description: "Занимайся онлайн. " + data.value.entity.description,
+  ogTitle: data.value.entity.name + " | ОФП для бегунов",
+  ogDescription: "Занимайся онлайн. " + data.value.entity.description,
 });
 
 const updateItemField = async (field, value, id) => {
@@ -67,7 +67,7 @@ const { currentUserId } = useAuthUser();
 
 const storeExerciseTemplate = exerciseTemplateStore();
 const crudExerciseTemplate = useSSRCrud(storeExerciseTemplate);
-await crudExerciseTemplate.fetchAll("myandpublic");
+await crudExerciseTemplate.fetchAll("public");
 
 const { canEditDelete } = useCanEditDelete(store);
 

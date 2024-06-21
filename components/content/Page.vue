@@ -34,7 +34,7 @@
       <div class="col-12">
         <span class="text-caption"> Обновлено: </span>
         <q-chip outline square color="deep-grey" text-color="white" size="sm">
-          {{ formatDate(data.updatedAt) }}
+          {{ formatDate(data.dateModified) }}
         </q-chip>
         <q-btn outline color="primary" size="xs" class="float-right">
           <NuxtLink class="no-style" :to="'/' + props.link.toLowerCase()"
@@ -73,7 +73,7 @@ const props = defineProps({
 });
 
 //const emits = defineEmits(["onUpdateField", "editItem"]);
-
+console.log(props.data);
 const loading = toRef(() => props.loading);
 </script>
 

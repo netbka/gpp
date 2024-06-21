@@ -108,7 +108,7 @@ const storeMuscle = muscleStore();
 const uploader = ref(null);
 
 const onSubmit = async () => {
-  store.currentItem.newItems = storeMuscle.currentItem;
+  store.currentItem.exerciseTemplateMuscle = storeMuscle.currentItem;
   store.currentItem.description = sanitizeHtml(store.currentItem.description);
   if (store.currentItem.id === null) {
     await crud.createItem(store);

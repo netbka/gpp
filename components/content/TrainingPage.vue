@@ -22,7 +22,7 @@
         <span class="text-subtitle2 text-weight-medium"><b>Мышцы: </b> </span>
         <q-chip
           size="12px"
-          v-for="muscle in props.muscleArr"
+          v-for="muscle in data.exerciseTemplateMuscle"
           :key="muscle.id"
           outline
           color="primary"
@@ -97,6 +97,8 @@ const props = defineProps({
   muscleArr: { Type: Array, default: [] },
   link: { Type: String, default: "" },
 });
+//console.log(props.data);
+console.log(props.data);
 const { getImageUrl } = useImageManager();
 const loading = toRef(() => props.loading);
 const description = exerciseToTextNoName(props.data.exerciseGroup);

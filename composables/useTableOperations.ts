@@ -10,7 +10,7 @@ export function useUseTableOperations(store, emits, data) {
   };
   const onDeleteItem = async (id: number) => {
     await crudClient.deleteItem(id, store.itemArray);
-    await imageManager.deleteFileUsingStorage(String(id));
+    //await imageManager.deleteFileUsingStorage(String(id));
   };
 
   const onCloneItem = async (id: number) => {

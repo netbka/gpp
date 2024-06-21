@@ -23,6 +23,7 @@
 const props = defineProps({
   readOnly: { Type: Boolean, default: false },
 });
+
 const { isAdmin, isLoggedIn } = useAuthUser();
 </script>
 

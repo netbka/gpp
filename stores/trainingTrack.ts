@@ -10,8 +10,8 @@ const baseUrl = "/api/trainingTrack/";
 export const useTrainingTrackStore = defineStore("trainingTrack", {
   state: (): TrainingTrackStoreState => ({
     itemArray: [],
-    currentItem: { id: null, user_id: "", trainingId: 0, duration: 0 },
-    defaultItem: { id: null, user_id: "", trainingId: 0, duration: 0 },
+    currentItem: { id: null, userId: "", trainingId: 0, duration: 0 },
+    defaultItem: { id: null, userId: "", trainingId: 0, duration: 0 },
     loading: false,
   }),
   getters: {

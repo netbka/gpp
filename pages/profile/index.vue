@@ -70,7 +70,7 @@ const onHide = async () => {
 };
 
 watch(
-  () => store.currentItem.user_id,
+  () => store.currentItem.id,
   async (val) => {
     //avatar.value = (await getProfile(val)) + "?" + new Date().getTime();
     if (val.length > 0) avatar.value = await getAvatar();
@@ -78,10 +78,7 @@ watch(
   { immediate: true }
 );
 
-// const updateProfile = async () => {
-//   avatar.value =
-//     (await getProfile(store.currentItem.user_id)) + "?" + new Date().getTime();
-// };
+
 </script>
 
 <style scoped>

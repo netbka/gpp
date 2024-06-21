@@ -3,16 +3,19 @@ import { type IProfile, Profile } from "~/types/types";
 interface ProfileStoreState {
   //profiles: Profile[];
   currentItem: IProfile;
-
   loading: boolean;
+  accesstoken: string;
+  refreshtoken: string;
 }
 const baseUrl = "/api/profile/";
 export const useProfileStore = defineStore("profile", {
   state: (): ProfileStoreState => ({
     currentItem: new Profile().getAll(),
     loading: false,
+    accesstoken: "",
+    refreshtoken: "",
   }),
-
+  persist: true,
   actions: {
     resetCurrentItem(): void {
       this.currentItem = new Profile().getAll();

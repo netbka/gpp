@@ -37,7 +37,7 @@ const props = defineProps({
   },
 });
 const { selectedIds } = props;
-
+console.log(props.selectedIds);
 const store = useMuscleStore();
 const crud = useClientCrud(store);
 await crud.fetchAll();
