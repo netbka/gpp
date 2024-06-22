@@ -34,9 +34,9 @@ definePageMeta({
 });
 
 const store = authStore();
-const { login } = useAuthUser();
+const { loginEmailPassword } = useAuthUser();
 const onSubmit = async () => {
-  await login(store.email, store.password);
+  await loginEmailPassword(store.email, store.password);
 };
 </script>
 

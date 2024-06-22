@@ -49,8 +49,8 @@ const shouldRefreshToken = (error) => {
 
 // Do the actual token refreshing and update the saved token
 const refreshToken = () => {
-  //console.log("options in refreshToken", optionsWithToken);
-  return $fetch("api/auth/RefreshToken", {
+  console.log("options in refreshToken");
+  return $fetch("/api/auth/RefreshToken", {
     method: "POST",
     body: { RefreshToken: retrieveRToken() },
   })

@@ -99,9 +99,11 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
   updateNestedItem(storeExercise.currentItem, store.currentItem.exerciseGroup);
 };
 
+const crudTraining = useClientCrud(store);
 const onSaveTrainingPlan = async () => {
   store.currentItem.description = description.value;
-  await store.updateTrainingPlan();
+  await crudTraining.updateItem();
+  //await store.updateTrainingPlan();
   //await onSaveTraining();
 };
 

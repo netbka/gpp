@@ -60,10 +60,10 @@ export const useTrainingStore = defineStore("training", {
           child.duration = val;
         });
       });
-      const response = await $fetch(baseUrl + "updateGroupDuration", {
-        method: "post",
-        body: { id: this.currentItem.id, duration: val },
-      });
+      // const response = await $fetch(baseUrl + "updateGroupDuration", {
+      //   method: "post",
+      //   body: { id: this.currentItem.id, duration: val },
+      // });
     },
     getActiveExerciseDuration() {
       var index = this.getActiveExerciseIndex();

@@ -23,26 +23,18 @@
             @error="handleFBLoginError"
             width="354"
           ></GoogleSignInButton>
-          <!-- <q-btn
-            align="between"
-            @click="socialLogin('google')"
-            label="Google"
-            class="full-width btn_google"
-            :style="{ backgroundImage: 'url(' + website_google_icon() + ')' }"
-          >
-          </q-btn> -->
         </div>
       </div>
       <div class="row q-mt-sm">
         <div class="col">
-          <q-btn
+          <!-- <q-btn
             align="between"
             @click="socialLogin('facebook')"
             label="Facebook"
             class="full-width btn_fb"
             :style="{ backgroundImage: 'url(' + website_fb_icon() + ')' }"
           >
-          </q-btn>
+          </q-btn> -->
         </div>
       </div>
     </q-card-section>
@@ -71,10 +63,10 @@ const props = defineProps({
   },
 });
 const store = authStore();
-const { login, loginEmailPassword,handleFBLoginSuccess,handleFBLoginError } = useAuthUser();
-const socialLogin = async (provider: string) => {
-  login(provider);
-};
+const { loginEmailPassword,handleFBLoginSuccess,handleFBLoginError } = useAuthUser();
+// const socialLogin = async (provider: string) => {
+//   login(provider);
+// };
 </script>
 
 <style scoped>

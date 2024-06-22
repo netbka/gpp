@@ -34,8 +34,12 @@ export function useImageManager(store) {
         method: "POST",
         body: formData,
       });
-      if (!uploadResponse.ok) notifyMsgNegative("Файл не загружен. " + uploadResponse.statusText);
-      if (uploadResponse.ok) notifyMsgPositive("Файл загружен");
+      if (uploadResponse.success) {
+        notifyMsgPositive("Файл загружен");
+      } else {
+        notifyMsgNegative("Файл не загружен. " + uploadResponse.statusText);
+      }
+
       return uploadResponse;
     } catch (error) {
       return null;

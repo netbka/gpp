@@ -58,7 +58,7 @@
 
     <q-card-actions class="card-actions" align="left">
       <q-btn
-        v-show="!canDeleteEdit && currentUserId() && cardLink === 'training'"
+        v-show="!isOwner(data.userId) && isLoggedIn() && cardLink === 'training'"
         outline
         color="teal"
         size="sm"
@@ -67,7 +67,7 @@
         class="q-px-xs q-mx-xs"
       />
       <q-btn
-        v-show="canDeleteEdit"
+        v-show="isOwner(data.userId)"
         flat
         color="light-green-9"
         size="sm"
@@ -77,7 +77,7 @@
       />
 
       <q-btn
-        v-show="canDeleteEdit"
+        v-show="isOwner(data.userId)"
         flat
         color="red-7"
         size="sm"
@@ -90,7 +90,8 @@
         vertical
         class="gt-xs"
         v-if="
-          (!canDeleteEdit && currentUserId() && cardLink === 'training') || canDeleteEdit
+          (!isOwner(data.userId) && currentUserId() && cardLink === 'training') ||
+          isOwner(data.userId)
         "
       />
       <q-space />
@@ -135,7 +136,9 @@ const link = (data) => {
   return new Slug(data, props.cardLink).getSlug();
 };
 const { currentUserId, isLoggedIn } = useAuthUser();
-const canDeleteEdit = computed(async () => await currentUserId);
+const isOwner = (itemOwnerId) => {
+  return itemOwnerId === currentUserId();
+};
 </script>
 
 <style scoped>

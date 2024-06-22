@@ -72,7 +72,8 @@ export const updateArray = (val: Object, arr: Array) => {
   if (index > -1) {
     arr[index] = val;
   } else {
-    arr.push(val);
+    //arr.push(val);
+    arr.unshift(val); // = [val, ...arr];
   }
 };
 export const removeItemFromArr = (val: number, arr: Array) => {

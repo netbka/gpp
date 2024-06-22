@@ -2,8 +2,8 @@
   <div>
     <ClientOnly>
       <AuthCardForm
-        heading="Регистрация"
-        subheading="с помощью почты"
+        heading="Подтверждение почты"
+        subheading="с помощью token"
         @onSubmit="onSubmit"
       >
         <q-input
@@ -14,18 +14,21 @@
             (val) => validateEmail(val) || emailAvailable(val) || 'ошибка формата email ',
           ]"
         />
+
         <q-input
           lazy-rules
-          label="пароль"
-          type="password"
-          v-model="store.password"
-          :rules="[
-            (val) => (!!val && val.length > 5) || 'минимальная длина пароля 6 символов',
-          ]"
+          label="Token"
+          v-model="store.token"
+          :rules="[(val) => (!!val && val.length > 5) || 'укажите token из письма']"
         />
-        <q-btn type="submit" label="Регистрация" class="full-width q-mt-md" outline />
+        <q-btn
+          type="submit"
+          label="Подтвердить почту"
+          class="full-width q-mt-md"
+          outline
+        />
         <template #actions>
-          <q-btn label="Забыл пароль" to="/auth/recover" size="sm" />
+          <q-btn label="На вход" to="/auth" size="sm" />
         </template>
       </AuthCardForm>
     </ClientOnly>
@@ -37,13 +40,15 @@ definePageMeta({
   layout: "auth",
   auth: false,
   title: "Регистрация",
-  description: "Страница регистрации в сервисе",
+  description: "Страница сброса пароля",
 });
-
+const route = useRoute();
 const store = authStore();
-const { registerWithEmail, emailAvailable } = useAuthUser();
+store.token = route.query.Token;
+store.email = route.query.Email;
+const { confirmEmail } = useAuthUser();
 const onSubmit = () => {
-  registerWithEmail(store.email, store.password);
+  confirmEmail(store);
 };
 //netbka@gmail.com
 //validateEmail(val) ||

@@ -12,12 +12,11 @@ export const useAuthUser = () => {
 
   const handleFBLoginSuccess = async (response: CredentialResponse) => {
     const { credential } = response;
-    var x = await $fetch(useRuntimeConfig().public.baseUrl + "/auth/GoogleSignIn", {
+    await $fetch(useRuntimeConfig().public.baseUrl + "/auth/GoogleSignIn", {
       method: "POST",
       body: { IdToken: credential },
     }).then(async function (data) {
       setTokens(data.tokens);
-
       store.currentItem = data.entity;
       await navigateTo("/training");
     });
@@ -27,11 +26,72 @@ export const useAuthUser = () => {
     console.error("Login failed");
   };
 
-  const login = () => {};
-  const loginEmailPassword = async (email, password) => {
-    if (data.session) {
+  const loginEmailPassword = async (email: string, password: string) => {
+    await $fetch(useRuntimeConfig().public.baseUrl + "/auth/EmailSignIn", {
+      method: "POST",
+      body: { email: email, password: password },
+    }).then(async function (data) {
+      setTokens(data.tokens);
+      store.currentItem = data.entity;
       await navigateTo("/training");
-    }
+    });
+  };
+
+  const registerWithEmail = async (email: string, password: string) => {
+    await $fetch(useRuntimeConfig().public.baseUrl + "/account/Register", {
+      method: "POST",
+      body: { email: email, password: password },
+    }).then(async function (data) {
+      setTokens(data.tokens);
+      store.currentItem = data.entity;
+      await navigateTo("/training");
+    });
+  };
+
+  const emailAvailable = async (email: string) => {
+    if (email.length === 0) return false;
+    return await $fetch(useRuntimeConfig().public.baseUrl + "/account/EmailAvailable", {
+      method: "POST",
+      body: { email: email },
+    }).then(async function (data) {
+      console.log(data);
+      if (data.found === true) return data.message;
+      return true;
+    });
+  };
+  const sendPasswordResetEmail = async (email: string) => {
+    if (email.length === 0) return false;
+    await $fetch(useRuntimeConfig().public.baseUrl + "/account/SendPasswordResetEmail", {
+      method: "POST",
+      body: { email: email },
+    }).then(async function (data) {});
+    await navigateTo("/auth/confirm");
+  };
+
+  const resetPasswordWithToken = async (body) => {
+    await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResestPasswordWithToken", {
+      method: "POST",
+      body: body,
+    }).then(async function (data) {
+      if (data.success === true) {
+        setTokens(data.tokens);
+        store.currentItem = data.entity;
+        await navigateTo("/training");
+      }
+    });
+  };
+
+  const confirmEmail = async (email: string, token: string) => {
+    await $fetch(useRuntimeConfig().public.baseUrl + "/auth/confirmEmail", {
+      method: "POST",
+      body: { email: email, token: token },
+    }).then(async function (data) {
+      if (data.success === true) {
+        setTokens(data.tokens);
+        store.currentItem = data.entity;
+        await navigateTo("/training");
+      }
+    });
   };
 
   const setTokens = (tokens) => {
@@ -79,17 +139,7 @@ export const useAuthUser = () => {
     return store.refreshtoken;
   };
 
-  const register = async (email, password) => {};
-
   const update = async (data) => {};
-
-  const resetPasswordWithToken = async (password, token) => {};
-
-  const sendSignupEmail = async (email) => {
-    await navigateTo("/auth/confirm");
-  };
-
-  const sendPasswordResetEmail = async (email) => {};
 
   const getCurrentUserProfile = async () => {
     const id = store.currentItem.id;
@@ -106,16 +156,11 @@ export const useAuthUser = () => {
   const currentUserId = () => {
     return store.currentItem.id;
   };
-  //  async () => {
-  //   console.log(store.currentItem.id);
-  //   return store.currentItem.id;
-  // };
 
-  // onMounted(async () => {
-  //   if (store.currentItem.id === null) await refreshToken();
-  // });
   const rtoken = computed(() => store.refreshtoken);
   return {
+    confirmEmail,
+    emailAvailable,
     rtoken,
     getAccessToken,
     refreshToken,
@@ -128,14 +173,13 @@ export const useAuthUser = () => {
     currentUserId,
     isAdmin,
     //isAdminClient,
-    login,
     loginWithSocialProvider,
 
     logout,
-    register,
+    registerWithEmail,
     update,
     sendPasswordResetEmail,
-    sendSignupEmail,
+
     resetPasswordWithToken,
   };
 };
