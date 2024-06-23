@@ -4,7 +4,7 @@ export interface IProfile extends IIdName {
   lastName?: string;
   birthDay?: string;
 
-  profilesSportType: ISportType[];
+  sportType: ISportType[];
   admin: boolean;
 }
 
@@ -14,7 +14,7 @@ export class Profile extends IdName implements IProfile {
   birthDay?: string;
 
   admin: boolean;
-  profilesSportType: ISportType[] = [];
+  sportType: ISportType[] = [];
   constructor(name?: string) {
     super(name);
     this.firstName = "";
@@ -33,7 +33,8 @@ export class Profile extends IdName implements IProfile {
       birthDay: this.birthDay,
 
       admin: this.admin,
-      profilesSportType: this.profilesSportType,
+      sportType: this.sportType,
     };
   }
 }
+//SportType

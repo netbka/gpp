@@ -57,7 +57,7 @@ const store = profileStore();
 const { getAvatar } = useImageManager(store);
 
 onBeforeMount(async () => {
-  //avatar.value = await getAvatar();
+  avatar.value = await getAvatar();
 });
 
 const openCropper = () => {
@@ -73,12 +73,10 @@ watch(
   () => store.currentItem.id,
   async (val) => {
     //avatar.value = (await getProfile(val)) + "?" + new Date().getTime();
-    if (val.length > 0) avatar.value = await getAvatar();
+    if (val !== null && val.length > 0) avatar.value = await getAvatar();
   },
   { immediate: true }
 );
-
-
 </script>
 
 <style scoped>

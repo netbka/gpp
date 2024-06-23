@@ -1,22 +1,6 @@
 <template>
   <div>
     <q-form @submit="onSubmit" @reset="onReset" class="">
-      <div class="row">
-        <div class="col-12">
-          <q-input
-            bg-color="white"
-            dense
-            outlined
-            v-model="store.currentItem.name"
-            label="Ник *"
-            :rules="[(val) => !!val || 'Нужно указать значение']"
-            :disable="store.loading"
-            :input-style="{ fontSize: '12px' }"
-            maxlength="16"
-            counter
-          />
-        </div>
-      </div>
       <div class="row q-col-gutter-sm">
         <div class="col-6">
           <q-input
@@ -47,7 +31,7 @@
       <div class="row q-mb-md">
         <div class="col-12">
           <InputSelectSportType
-            :selectedIds="store.currentItem.profilesSportType"
+            :selectedIds="store.currentItem.sportType"
             :loading="store.loading"
           ></InputSelectSportType>
         </div>
@@ -93,10 +77,12 @@ const {
   error: errorSportStyle,
   refresh: refreshSportStyle,
 } = await crudSportType.fetchAll();
+//console.log("init", store.currentItem.sportType);
 const onSubmit = async () => {
-  store.currentItem.newItems = storeSportType.currentItem;
+  store.currentItem.sportType = storeSportType.currentItem;
   await crudClient.updateItem();
-  // store.currentItem.profilesSportType = storeSportType.currentItem;
+  //console.log("after upd", store.currentItem.sportType);
+  // store.currentItem.sportType = storeSportType.currentItem;
 };
 
 const onReset = () => {};

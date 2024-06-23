@@ -13,6 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async onResponseError({ request, options, response }) {
       //console.log(response);
+      if (response.status === 404) return;
       try {
         $q.notify({
           type: "negative",

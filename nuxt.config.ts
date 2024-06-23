@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     },
   },
   ssr: true,
-  //cors: true,
+  cors: true,
 
   // compilerOptions: {
   //   isCustomElement: (tag) => tag === "Textareatool",
@@ -83,9 +83,9 @@ export default defineNuxtConfig({
     url: "https://ofp.mamrukov.com",
   },
   sitemap: {
-    hostname: "https://ofp.mamrukov.com",
+    //hostname: "https://ofp.mamrukov.com",
     exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
-    gzip: true,
+    //gzip: true,
 
     sources: ["/api/__sitemap__/urls"],
   },

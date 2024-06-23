@@ -69,7 +69,7 @@ export const useClientCrud = <T>(store) => ({
         method: "PUT",
         body: { ...store.currentItem },
       });
-
+      //console.log("reponse", response.entity);
       if (store.itemArray !== undefined) updateArray(response.entity, store.itemArray);
       store.currentItem = response.entity;
     })(null);

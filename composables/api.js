@@ -20,7 +20,7 @@ const fetchJSONWithToken = (url, options = {}) => {
     const token = retrieveAToken();
 
     let optionsWithToken = options;
-    console.log(optionsWithToken);
+    //console.log(optionsWithToken);
     if (token != null) {
       optionsWithToken = merge({}, options, {
         baseUrl: useRuntimeConfig().public.baseUrl,

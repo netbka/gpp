@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
   //const body = method !== "GET" && method !== "HEAD" ? await readBody(event) : undefined;
   try {
-    //console.log("this is server request: " + target);
+    console.log("this is server request: " + target);
     return await proxyRequest(event, target);
 
     // return response._data;

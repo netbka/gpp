@@ -159,6 +159,7 @@ const cropImage = async () => {
 const initPreview = async () => {
   const imgUrl = await getAvatar();
   const imgFile = await urlToFile(imgUrl, store.currentItem.id);
+  //console.log(imgFile);
   setAvatar(imgFile);
 };
 

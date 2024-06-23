@@ -112,7 +112,6 @@ const tableRef = ref(null);
 
 //const cache = ref(false);
 const onRequest = (prop) => {
-  //console.log("onRequest", prop);
   // if (cache.value === true && props.pagination) {
   //   console.log("onRequest", prop);
   //   emits("onRequest", prop);
@@ -146,7 +145,7 @@ const onUpdateField = (field, val, id) => {
 watch(
   () => store.pagination.level,
   (val) => {
-    onRequest({ filter: filter.value });
+    onRequest({ filter: filter.value, pagination: store.pagination });
   },
   { deep: true }
 );

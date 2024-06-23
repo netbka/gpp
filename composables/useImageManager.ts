@@ -7,9 +7,15 @@ export function useImageManager(store) {
   const preview = ref(defaultImage);
   //const supabase = useSupabaseClient();
   const urlToBlob = async (url: string): Promise<Blob> => {
-    const response = await fetch(url);
-    const imageData = await response.blob();
-    return imageData;
+    try {
+      let imageData = new Blob();
+      return await $fetch(url).then((response) => {
+        return response;
+      });
+    } catch (error) {
+      console.log("urlToBlob error", error);
+      return imageData;
+    }
   };
   const urlToFile = async (url: string, filename: string): Promise<File> => {
     const blob = await urlToBlob(url);
@@ -90,11 +96,14 @@ export function useImageManager(store) {
     preview.value = getImageUrl(image, storage, false);
   };
   const getAvatar = async (): Promise<string> => {
-    //const supabase = useSupabaseClient();
     const data = useRuntimeConfig().public.wwwwUrl + "/" + store.$id + "/" + store.currentItem.id + ".gif";
-
-    const result = (await isImageAvailable(data)) ? data + "?" + new Date().getTime() : "https://eu.ui-avatars.com/api/?name=" + store.currentItem.name + "&size=100";
+    const defaultavatar = useRuntimeConfig().public.wwwwUrl + "/" + store.$id + "/defaultavatar.png";
+    const result = (await isImageAvailable(data)) ? data + "?" + new Date().getTime() : defaultavatar;
     return result;
+  };
+
+  const getExternalAvatar = (name: string): string => {
+    return "https://eu.ui-avatars.com/api/?name=" + name + "&size=100";
   };
 
   const handleImageChange = (file: File) => {
@@ -116,18 +125,14 @@ export function useImageManager(store) {
   };
   const isImageAvailable = async (url: string) => {
     try {
-      return await fetch(url, {
+      return await $fetch(url, {
         method: "HEAD",
       })
         .then((response) => {
-          if (response.status === 200) {
-            return true;
-          } else {
-            return false;
-          }
+          return true;
         })
         .catch((error) => {
-          console.error("Error checking file existence:", error);
+          //console.error("Error checking file existence:", error);
           return false;
         });
     } catch (err) {
@@ -162,91 +167,3 @@ export const getImageFromStorage = (storage: string, fileName: string) => {
     return null;
   }
 };
-
-// export const updateUserAvatar = async (fileToUpload: File, filename: string) => {
-//   const supabase = useSupabaseClient();
-//   let { error: uploadError, data } = await supabase.storage.from("avatars").upload(filename, fileToUpload, {
-//     upsert: true,
-//   });
-//   if (uploadError) {
-//     //throw createError;
-//     notifyMsgPositive("аватар загружен. " + uploadError);
-//   }
-//   return filename; //not in use
-// };
-// export const blobToFile = (blob: Blob, fileName: string) => {
-//   const file = new File([blob], fileName, { type: blob.type });
-//   return file;
-// };
-
-// export const urlToFile = async (url: string | URL, filename: string) => {
-//   try {
-//     // const response = await fetch(url);
-//     // if (!response.ok) return genericAvatar("N", filename);
-//     const response = await getAvatar(url);
-//     const blob = await response.blob();
-//     const newFile = new File([blob], filename, { type: blob.type });
-//     return newFile;
-//   } catch (error) {
-//     return genericAvatar("N", filename);
-//   }
-// };
-// export const urlToBlob = async (url: string) => {
-//   try {
-//     // const response = await fetch(url);
-//     // if (!response.ok) return genericAvatar("N", filename);
-//     const response = await getAvatar(url);
-//     const blob = await response.blob();
-
-//     return blob;
-//   } catch (error) {
-//     return genericAvatar("N", filename);
-//   }
-// };
-
-// export const getProfile = (fileName: string) => {
-//   const supabase = useSupabaseClient();
-//   try {
-//     const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
-
-//     return data.publicUrl;
-//   } catch (error) {
-//     return null;
-//   }
-
-// };
-
-// export const getExerciseImage = (fileName: string) => {
-//   const supabase = useSupabaseClient();
-//   try {
-//     const { data } = supabase.storage.from("exerciseTemplate").getPublicUrl(fileName);
-//     return data.publicUrl + "?" + new Date().getTime();
-//   } catch (error) {
-//     return null;
-//   }
-// };
-
-// export const updateExerciseImage = async (fileToUpload: File, filename: string) => {
-//   const supabase = useSupabaseClient();
-//   let { error: uploadError } = await supabase.storage.from("exerciseTemplate").upload(filename, fileToUpload, {
-//     upsert: true,
-//   });
-//   if (uploadError) throw uploadError;
-
-//   return filename;
-// };
-
-// export const genericAvatar = async (name: string, filename: string) => {
-//   const response = await fetch("https://eu.ui-avatars.com/api/?name=" + name + "&size=48");
-//   const blob = await response.blob();
-//   const newFile = new File([blob], filename, { type: blob.type });
-//   return newFile;
-// };
-
-// export const getAvatar = async (url: string | URL) => {
-//   try {
-//     return await fetch(url);
-//   } catch (error) {
-//     return await fetch("https://eu.ui-avatars.com/api/?name=X&size=100");
-//   }
-// };
