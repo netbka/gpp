@@ -151,7 +151,6 @@ export const useAuthUser = () => {
   };
 
   const isAdmin = () => {
-    console.log(store.currentItem);
     return store.currentItem.admin;
   };
   const currentUserId = () => {
