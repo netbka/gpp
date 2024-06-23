@@ -71,6 +71,7 @@ export const useClientCrud = <T>(store) => ({
       });
       //console.log("reponse", response.entity);
       if (store.itemArray !== undefined) updateArray(response.entity, store.itemArray);
+
       store.currentItem = response.entity;
     })(null);
   },
