@@ -101,6 +101,7 @@ const onUpdateExercise = async (id, exerciseTemplate) => {
 
 const crudTraining = useClientCrud(store);
 const onSaveTrainingPlan = async () => {
+  store.currentItem.duration = store.getDuration;
   store.currentItem.description = description.value;
   await crudTraining.updateItem();
   //await store.updateTrainingPlan();
