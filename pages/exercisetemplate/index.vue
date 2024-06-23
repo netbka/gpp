@@ -35,7 +35,7 @@ useSeoMeta({
 const form = ref(null);
 
 const { isAdmin, currentUserId } = useAuthUser();
-console.log(isAdmin());
+
 //const _isAdmin = await isAdmin;
 //const _currentUserId = await currentUserId;
 
