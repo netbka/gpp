@@ -83,7 +83,7 @@ export const useAuthUser = () => {
     try {
       await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResetPasswordWithToken", {
         method: "POST",
-        body: body,
+        body: { ...body },
       }).then(async function (data) {
         if (data.success === true) {
           setTokens(data.tokens);
