@@ -82,7 +82,7 @@ export const getFirstWords = (html) => {
 import DOMPurify from "dompurify";
 export const sanitizeHtml = (val) => {
   return DOMPurify.sanitize(val, {
-    FORBID_ATTR: ["style", "a", "href", "class", "path", "data-sourcepos"],
+    FORBID_ATTR: ["style", "class", "path", "data-sourcepos"], //"a", "href",
     FORBID_TAGS: ["style", "class", "path"],
   });
 };

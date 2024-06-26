@@ -77,7 +77,7 @@ export const editorToolbar = ($q) => {
       },
     ],
     ["bold", "italic", "strike", "underline", "subscript", "superscript"],
-    ["hr"],
+    ["hr", "link"],
     ["fullscreen"],
     [
       {
