@@ -62,30 +62,41 @@ export const useAuthUser = () => {
   const sendPasswordResetEmail = async (email: string) => {
     loading.value = true;
     if (email.length === 0) return false;
-    await $fetch(useRuntimeConfig().public.baseUrl + "/account/SendPasswordResetEmail", {
-      method: "POST",
-      body: { email: email },
-    }).then(async function (data) {
-      await navigateTo("/auth/confirm");
-    });
-    loading.value = false;
+    try {
+      await $fetch(useRuntimeConfig().public.baseUrl + "/account/SendPasswordResetEmail", {
+        method: "POST",
+        body: { email: email },
+      }).then(async function (data) {
+        await navigateTo("/auth/confirm");
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      loading.value = false;
+    }
+
     //await navigateTo("/auth/confirm");
   };
 
   const resetPasswordWithToken = async (body) => {
     loading.value = true;
-    await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResetPasswordWithToken", {
-      method: "POST",
-      body: body,
-    }).then(async function (data) {
-      if (data.success === true) {
-        setTokens(data.tokens);
-        store.currentItem = data.entity;
-        loading.value = false;
-        await navigateTo("/training");
-      }
-    });
-    loading.value = false;
+    try {
+      await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResetPasswordWithToken", {
+        method: "POST",
+        body: body,
+      }).then(async function (data) {
+        if (data.success === true) {
+          setTokens(data.tokens);
+          store.currentItem = data.entity;
+          loading.value = false;
+          await navigateTo("/training");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      loading.value = false;
+    }
   };
 
   const confirmEmail = async (email: string, token: string) => {
