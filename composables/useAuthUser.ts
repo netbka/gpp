@@ -69,7 +69,7 @@ export const useAuthUser = () => {
   };
 
   const resetPasswordWithToken = async (body) => {
-    await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResestPasswordWithToken", {
+    await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResetPasswordWithToken", {
       method: "POST",
       body: body,
     }).then(async function (data) {
