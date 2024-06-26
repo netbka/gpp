@@ -35,6 +35,10 @@
           <q-btn label="На вход" to="/auth" size="sm" />
         </template>
       </AuthCardForm>
+      <q-inner-loading :showing="loading">
+        <q-spinner-box size="100px" color="primary" />
+        <div class="text-h3">Сохраняю...</div>
+      </q-inner-loading>
     </ClientOnly>
   </div>
 </template>
@@ -50,7 +54,7 @@ const route = useRoute();
 const store = authStore();
 store.token = route.query.Token;
 store.email = route.query.Email;
-const { resetPasswordWithToken } = useAuthUser();
+const { resetPasswordWithToken, loading } = useAuthUser();
 const onSubmit = () => {
   resetPasswordWithToken(store);
 };

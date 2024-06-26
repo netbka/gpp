@@ -19,6 +19,10 @@
         <q-btn label="Войти" to="/auth" size="sm" />
       </template>
     </AuthCardForm>
+    <q-inner-loading :showing="loading">
+      <q-spinner-box size="100px" color="primary" />
+      <div class="text-h3">Отправляю...</div>
+    </q-inner-loading>
   </div>
 </template>
 
@@ -31,7 +35,7 @@ definePageMeta({
 });
 
 const store = authStore();
-const { sendPasswordResetEmail } = useAuthUser();
+const { sendPasswordResetEmail, loading } = useAuthUser();
 const onSubmit = async () => {
   await sendPasswordResetEmail(store.email, store.password);
 };

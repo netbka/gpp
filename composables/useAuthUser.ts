@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 export const useAuthUser = () => {
   const store = useProfileStore();
-
+  const loading = useState("loading", () => false);
   const isLoggedIn = () => {
     return store.refreshtoken.length > 0 ? true : false;
   };
@@ -60,15 +60,20 @@ export const useAuthUser = () => {
     });
   };
   const sendPasswordResetEmail = async (email: string) => {
+    loading.value = true;
     if (email.length === 0) return false;
     await $fetch(useRuntimeConfig().public.baseUrl + "/account/SendPasswordResetEmail", {
       method: "POST",
       body: { email: email },
-    }).then(async function (data) {});
-    await navigateTo("/auth/confirm");
+    }).then(async function (data) {
+      await navigateTo("/auth/confirm");
+    });
+    loading.value = false;
+    //await navigateTo("/auth/confirm");
   };
 
   const resetPasswordWithToken = async (body) => {
+    loading.value = true;
     await $fetch(useRuntimeConfig().public.baseUrl + "/account/ResetPasswordWithToken", {
       method: "POST",
       body: body,
@@ -76,9 +81,11 @@ export const useAuthUser = () => {
       if (data.success === true) {
         setTokens(data.tokens);
         store.currentItem = data.entity;
+        loading.value = false;
         await navigateTo("/training");
       }
     });
+    loading.value = false;
   };
 
   const confirmEmail = async (email: string, token: string) => {
@@ -159,6 +166,7 @@ export const useAuthUser = () => {
 
   const rtoken = computed(() => store.refreshtoken);
   return {
+    loading,
     confirmEmail,
     emailAvailable,
     rtoken,
