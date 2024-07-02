@@ -25,7 +25,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     async onResponse({ request, options, response }) {
       if (!response.ok) return;
-      if (options.method === "POST") {
+      const isAuthRequest = request.toString().includes("auth");
+
+      if (options.method === "POST" && !isAuthRequest) {
         $q.notify({
           type: "positive",
           caption: "Все ок",
