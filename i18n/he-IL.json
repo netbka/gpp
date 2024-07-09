@@ -1,0 +1,81 @@
+{
+  "auth": {
+    "form": {
+      "heading": "כניסה",
+      "subheading": "באמצעות דואר",
+      "email": "דואר אלקטרוני",
+      "password": "סיסמה",
+      "enterBtn": "היכנס",
+      "registerBtn": "הרשם",
+      "forgotBtn": "שכחתי סיסמה",
+      "forgot_password": "שכחת את הסיסמה?",
+      "sign_in": "התחבר",
+      "error_email": "אנא הזן כתובת דואר תקינה",
+      "error_password": "אנא הזן סיסמה"
+    },
+    "register": {
+      "heading": "הרשמה",
+      "subheading": "באמצעות דוא\"ל",
+      "email": "דוא\"ל",
+      "password": "סיסמה",
+      "registration": "הרשמה",
+      "forgot_password": "שכחת את הסיסמה?",
+      "error_email": "אנא הזן כתובת דוא\"ל תקינה",
+      "error_password": "אורך הסיסמה המינימלי הוא 6 תווים"
+    },
+    "recover": {
+      "heading": "שחזור סיסמה",
+      "subheading": "באמצעות דוא\"ל",
+      "email": "שלח סיסמא",
+      "recovery": "שלח סיסמה",
+      "registerBtn": "הרשם",
+      "sign_in": "היכנס",
+      "sending": "שולח...",
+      "error_email": "אנא הזן כתובת דוא\"ל תקינה"
+    },
+    "confirmemail": {
+      "heading": "אישור דוא\"ל",
+      "subheading": "באמצעות טוקן",
+      "email": "דוא\"ל",
+      "confirm": "אשר",
+      "enter": "היכנס",
+      "error_email": "אנא הזן כתובת דוא\"ל תקינה",
+      "error_token": "ספק את הטוקן מהדוא\"ל"
+    },
+    "confirm": {
+      "heading": "הדוא\"ל נשלח",
+      "subheading": "ל",
+      "text": "בדוק את הדוא\"ל שלך ופעל לפי ההוראות בדוא\"ל. זה פשוט.",
+      "enter": "היכנס"
+    },
+    "resetpassword": {
+      "heading": "איפוס סיסמה",
+      "subheading": "באמצעות טוקן",
+      "email": "דוא\"ל",
+      "password": "סיסמה",
+      "newpassword": "סיסמה חדשה",
+      "reset": "אפס סיסמה",
+      "enter": "היכנס",
+      "saving": "שומר...",
+      "error_email": "אנא הזן כתובת דוא\"ל תקינה",
+      "error_token": "ספק את הטוקן מהדוא\"ל",
+      "error_password": "אורך הסיסמה המינימלי הוא 6 תווים"
+    }
+  },
+
+  "navbar": {
+    "title": "כושר גופני לרצים",
+    "exercise": "תרגילים",
+    "training": "אימונים"
+  },
+  "navbarlogin": {
+    "enter": "כניסה",
+    "profile": "הפרופיל שלי",
+    "logoff": "התנתק"
+  },
+  "navbarfooter": {
+    "policy": "מדיניות פרטיות",
+    "i": "אני",
+    "sport": "לרוץ"
+  }
+}

@@ -8,6 +8,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     //headers: useRequestHeaders(["cookie"]),
     headers: {
       ...useRequestHeaders(["cookie"]),
+      ...useRequestHeaders(["gpp_i18n"]),
       Authorization: `Bearer ${rtoken.value}`,
     },
 

@@ -1,0 +1,80 @@
+{
+  "auth": {
+    "form": {
+      "heading": "Login",
+      "subheading": "via email",
+      "email": "Email",
+      "password": "Password",
+      "enterBtn": "Login",
+      "registerBtn": "Register",
+      "forgotBtn": "Forgot password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign In",
+      "error_email": "Please enter a valid email address",
+      "error_password": "Please enter a password"
+    },
+    "register": {
+      "heading": "Registration",
+      "subheading": "via email",
+      "email": "Email",
+      "password": "Password",
+      "registration": "Register",
+      "forgot_password": "Forgot password?",
+      "error_email": "Please enter a valid email address",
+      "error_password": "Minimum password length is 6 characters"
+    },
+    "recover": {
+      "heading": "Password recovery",
+      "subheading": "via email",
+      "email": "Send email",
+      "recovery": "Send password",
+      "registerBtn": "Register",
+      "sign_in": "Sign In",
+      "sending": "Sending...",
+      "error_email": "Please enter a valid email address"
+    },
+    "confirmemail": {
+      "heading": "Email confirmation",
+      "subheading": "via token",
+      "email": "Email",
+      "confirm": "Confirm",
+      "enter": "Enter",
+      "error_email": "Please enter a valid email address",
+      "error_token": "Please provide the token from the email"
+    },
+    "confirm": {
+      "heading": "Email sent",
+      "subheading": "to",
+      "text": "Please check your email and follow the instructions in the email. It's that simple.",
+      "enter": "Enter"
+    },
+    "resetpassword": {
+      "heading": "Password reset",
+      "subheading": "via token",
+      "email": "Email",
+      "password": "Password",
+      "newpassword": "New password",
+      "reset": "Reset password",
+      "enter": "Enter",
+      "saving": "Saving...",
+      "error_email": "Please enter a valid email address",
+      "error_token": "Please provide the token from the email",
+      "error_password": "Minimum password length is 6 characters"
+    }
+  },
+  "navbar": {
+    "title": "Just Running",
+    "exercise": "Exercises",
+    "training": "Trainings"
+  },
+  "navbarlogin": {
+    "enter": "Login",
+    "profile": "My profile",
+    "logoff": "Logout"
+  },
+  "navbarfooter": {
+    "policy": "Privacy Policy",
+    "i": "I",
+    "sport": "Running"
+  }
+}

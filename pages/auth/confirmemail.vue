@@ -2,16 +2,19 @@
   <div>
     <ClientOnly>
       <AuthCardForm
-        heading="Подтверждение почты"
-        subheading="с помощью token"
+        :heading="$t('auth.confirmemail.heading')"
+        :subheading="$t('auth.confirmemail.subheading')"
         @onSubmit="onSubmit"
       >
         <q-input
           lazy-rules
-          label="Почта"
+          :label="$t('auth.confirmemail.email')"
           v-model="store.email"
           :rules="[
-            (val) => validateEmail(val) || emailAvailable(val) || 'ошибка формата email ',
+            (val) =>
+              validateEmail(val) ||
+              emailAvailable(val) ||
+              $t('auth.confirmemail.error_email'),
           ]"
         />
 
@@ -19,16 +22,22 @@
           lazy-rules
           label="Token"
           v-model="store.token"
-          :rules="[(val) => (!!val && val.length > 5) || 'укажите token из письма']"
+          :rules="[
+            (val) => (!!val && val.length > 5) || $t('auth.confirmemail.error_token'),
+          ]"
         />
         <q-btn
           type="submit"
-          label="Подтвердить почту"
+          :label="$t('auth.confirmemail.confirm')"
           class="full-width q-mt-md"
           outline
         />
         <template #actions>
-          <q-btn label="На вход" to="/auth" size="sm" />
+          <q-btn
+            :label="$t('auth.confirmemail.enter')"
+            :to="localePath('/auth')"
+            size="sm"
+          />
         </template>
       </AuthCardForm>
     </ClientOnly>

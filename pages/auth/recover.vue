@@ -1,27 +1,36 @@
 <template>
   <div>
     <AuthCardForm
-      heading="Восстановить доступ"
-      subheading="с помощью почты"
+      :heading="$t('auth.recover.heading')"
+      :subheading="$t('auth.recover.subheading')"
       @onSubmit="onSubmit"
       :showSocial="false"
     >
       <q-input
         lazy-rules
-        label="Почта"
+        :label="$t('auth.form.email')"
         v-model="store.email"
-        :rules="[(val) => validateEmail(val) || 'ошибка формата email ']"
+        :rules="[(val) => validateEmail(val) || $t('auth.recover.error_email')]"
       />
 
-      <q-btn type="submit" label="Отправить пароль" class="full-width q-mt-md" outline />
+      <q-btn
+        type="submit"
+        :label="$t('auth.recover.email')"
+        class="full-width q-mt-md"
+        outline
+      />
       <template #actions>
-        <q-btn label="Зарегистрироваться" size="sm" to="/auth/register" />
-        <q-btn label="Войти" to="/auth" size="sm" />
+        <q-btn
+          :label="$t('auth.recover.registerBtn')"
+          size="sm"
+          :to="localePath('/auth/register')"
+        />
+        <q-btn :label="$t('auth.recover.sign_in')" :to="localePath('/auth')" size="sm" />
       </template>
     </AuthCardForm>
     <q-inner-loading :showing="loading">
       <q-spinner-box size="100px" color="primary" />
-      <div class="text-h3">Отправляю...</div>
+      <div class="text-h3">{{ $t("auth.recover.sending") }}</div>
     </q-inner-loading>
   </div>
 </template>

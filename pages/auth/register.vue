@@ -2,30 +2,42 @@
   <div>
     <ClientOnly>
       <AuthCardForm
-        heading="Регистрация"
-        subheading="с помощью почты"
+        :heading="$t('auth.register.heading')"
+        :subheading="$t('auth.register.subheading')"
         @onSubmit="onSubmit"
       >
         <q-input
           lazy-rules
-          label="Почта"
+          :label="$t('auth.register.email')"
           v-model="store.email"
           :rules="[
-            (val) => validateEmail(val) || emailAvailable(val) || 'ошибка формата email ',
+            (val) =>
+              validateEmail(val) ||
+              emailAvailable(val) ||
+              $t('auth.register.error_email'),
           ]"
         />
         <q-input
           lazy-rules
-          label="пароль"
+          :label="$t('auth.register.password')"
           type="password"
           v-model="store.password"
           :rules="[
-            (val) => (!!val && val.length > 5) || 'минимальная длина пароля 6 символов',
+            (val) => (!!val && val.length > 5) || $t('auth.register.error_password'),
           ]"
         />
-        <q-btn type="submit" label="Регистрация" class="full-width q-mt-md" outline />
+        <q-btn
+          type="submit"
+          :label="$t('auth.register.registration')"
+          class="full-width q-mt-md"
+          outline
+        />
         <template #actions>
-          <q-btn label="Забыл пароль" to="/auth/recover" size="sm" />
+          <q-btn
+            :label="$t('auth.register.forgot_password')"
+            :to="localePath('/auth/recover')"
+            size="sm"
+          />
         </template>
       </AuthCardForm>
     </ClientOnly>

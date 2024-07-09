@@ -1,5 +1,7 @@
 //import { quasar } from "@quasar/vite-plugin";
 
+import { Lang } from "quasar";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 //import vsharp from "vite-plugin-vsharp";
 
@@ -23,7 +25,45 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin"], //"@nuxtjs/supabase",
+  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin", "@nuxtjs/i18n"], //"@nuxtjs/supabase",
+  i18n: {
+    lazy: true,
+    langDir: "i18n",
+    strategy: "prefix_except_default",
+    locales: [
+      {
+        code: "en-US",
+        file: "en-US.json",
+        name: "English",
+        shortname: "EN",
+        iso: "en-US",
+        default: true,
+        dir: "ltr",
+      },
+      {
+        code: "ru-RU",
+        file: "ru-RU.json",
+        name: "Русский",
+        shortname: "РУ",
+        iso: "ru-RU",
+        dir: "ltr",
+      },
+      {
+        code: "he-IL",
+        file: "he-IL.json",
+        name: "עברית",
+        shortname: "עב",
+        iso: "he-IL",
+        dir: "rtl",
+      },
+    ],
+    defaultLocale: "en-US",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "gpp_i18n",
+      alwaysRedirect: true,
+    },
+  },
   googleSignIn: {
     clientId: "1012403012975-8klr44gtthf5ngdu61u4au91c28l00h7.apps.googleusercontent.com",
   },
@@ -35,6 +75,7 @@ export default defineNuxtConfig({
     //"~/plugins/prisma-client.ts",
     "~/plugins/fetch.ts",
     "~/plugins/apifetch.ts",
+    "~/plugins/i18n.ts",
 
     // ... other plugins
   ],

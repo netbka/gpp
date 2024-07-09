@@ -14,6 +14,7 @@
     "seed": "node prisma/seed"
   },
   "devDependencies": {
+    "@nuxtjs/i18n": "^8.3.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.11.2",

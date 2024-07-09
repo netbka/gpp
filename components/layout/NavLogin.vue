@@ -10,7 +10,7 @@
       <div class="col-grow self-center">
         <div class="q-py-sm">
           <q-btn
-            label="Мой профиль"
+            :label="$t('navbarlogin.profile')"
             outline
             size="sm"
             v-close-popup
@@ -20,7 +20,7 @@
         </div>
         <q-btn
           color="primary"
-          label="Выход"
+          :label="$t('navbarlogin.logoff')"
           push
           outline
           size="sm"
@@ -32,7 +32,14 @@
     </div>
   </q-btn-dropdown>
 
-  <q-btn stretch flat label="Вход" v-show="!isLoggedIn()" to="/auth" data-nosnippet />
+  <q-btn
+    stretch
+    flat
+    :label="$t('navbarlogin.enter')"
+    v-show="!isLoggedIn()"
+    :to="localePath('/auth')"
+    data-nosnippet
+  />
 </template>
 
 <script lang="ts" setup>

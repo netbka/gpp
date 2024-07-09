@@ -13,22 +13,29 @@
               />
             </q-avatar>
           </span>
-          <h1 class="text-weight-thin text-uppercase logo-text gt-xs">Просто ОФП</h1>
+          <h1 class="text-weight-thin text-uppercase logo-text gt-xs">
+            {{ $t("navbar.title") }}
+          </h1>
         </q-toolbar-title>
 
         <q-separator dark vertical class="gt-xs" />
         <a href="https://t.me/prostoofp" target="_blank"
           ><q-icon name="img:/icons/telegram-icon.svg" size="md"></q-icon
         ></a>
-        <NuxtLink class="no-style text-uppercase q-px-md" to="/exercisetemplate">
+        <NuxtLinkLocale class="no-style text-uppercase q-px-md" to="/exercisetemplate">
           <q-icon name="img:/icons/exercise.svg" size="sm"></q-icon>
-          <span class="gt-sm" data-nosnippet>Упражнения</span></NuxtLink
+          <span class="gt-sm" data-nosnippet>{{
+            $t("navbar.exercise")
+          }}</span></NuxtLinkLocale
         >
-        <NuxtLink class="no-style text-uppercase q-px-md" to="/training">
+        <NuxtLinkLocale class="no-style text-uppercase q-px-md" to="/training">
           <q-icon name="img:/icons/training.svg" size="sm"></q-icon>
-          <span class="gt-sm" data-nosnippet>Тренировки</span></NuxtLink
+          <span class="gt-sm" data-nosnippet>{{
+            $t("navbar.training")
+          }}</span></NuxtLinkLocale
         >
-
+        <q-separator dark vertical class="gt-xs" />
+        <LayoutLangSwitch></LayoutLangSwitch>
         <q-separator dark vertical class="gt-xs" />
         <ClientOnly>
           <LayoutNavLogin></LayoutNavLogin>

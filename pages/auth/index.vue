@@ -1,24 +1,41 @@
 <template>
   <div>
     <ClientOnly>
-      <AuthCardForm heading="Вход" subheading="с помощью почты" @onSubmit="onSubmit">
+      <AuthCardForm
+        :heading="$t('auth.form.heading')"
+        :subheading="$t('auth.form.subheading')"
+        @onSubmit="onSubmit"
+      >
         <q-input
           lazy-rules
-          label="Почта"
+          :label="$t('auth.form.email')"
           v-model="store.email"
-          :rules="[(val) => validateEmail(val) || 'ошибка формата email ']"
+          :rules="[(val) => validateEmail(val) || $t('auth.form.error_email')]"
         />
         <q-input
           lazy-rules
-          label="пароль"
+          :label="$t('auth.form.password')"
           type="password"
           v-model="store.password"
-          :rules="[(val) => !!val || 'нужно указать пароль']"
+          :rules="[(val) => !!val || $t('auth.form.error_password')]"
         />
-        <q-btn type="submit" label="Войти" class="full-width q-mt-md" outline />
+        <q-btn
+          type="submit"
+          :label="$t('auth.form.enterBtn')"
+          class="full-width q-mt-md"
+          outline
+        />
         <template #actions>
-          <q-btn label="Зарегистрироваться" size="sm" to="/auth/register" />
-          <q-btn label="Забыл пароль" to="/auth/recover" size="sm" />
+          <q-btn
+            :label="$t('auth.form.registerBtn')"
+            size="sm"
+            :to="localePath('/auth/register')"
+          />
+          <q-btn
+            :label="$t('auth.form.forgotBtn')"
+            :to="localePath('/auth/recover')"
+            size="sm"
+          />
         </template>
       </AuthCardForm>
     </ClientOnly>
