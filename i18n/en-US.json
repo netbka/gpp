@@ -76,5 +76,10 @@
     "policy": "Privacy Policy",
     "i": "I",
     "sport": "Running"
+  },
+  "index": {
+    "heading": "Boost your running speed and endurance",
+    "subheading": "Use tailored workouts or create your own",
+    "button": "GO training"
   }
 }

@@ -20,13 +20,16 @@
           :loading="loading"
           v-model:pagination="store.pagination"
           binary-state-sort
-          no-data-label="Нет данных"
-          no-results-label="Ничего не найдено"
+          no-data-label="$t('components.table.nodata')"
+          :no-results-label="$t('components.table.noresults')"
           @request="onRequest"
           :rows-per-page-options="[12, 24, 48, 96]"
-          rows-per-page-label="показывать по"
-          :loading-label="'Загружаю'"
-          :pagination-label="(start, end, total) => `${start}-${end} из ${total}`"
+          rows-per-page-label="$t('components.table.rowsperpage')"
+          :loading-label="$t('components.table.loading')"
+          :pagination-label="
+            (start, end, total) =>
+              `${start}-${end} ${$t('components.table.from')} ${total}`
+          "
         >
           <template v-slot:loading>
             <q-inner-loading showing color="primary" />

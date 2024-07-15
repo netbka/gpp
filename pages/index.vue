@@ -1,6 +1,7 @@
 <template>
-  <div class="back_main"
-  :style="{ backgroundImage: 'url(' + website_main_page_background() + ')' }"
+  <div
+    class="back_main"
+    :style="{ backgroundImage: 'url(' + website_main_page_background() + ')' }"
   >
     <div
       :style="{ backgroundImage: 'url(' + website_main_page_hero() + ')' }"
@@ -9,8 +10,8 @@
 
     <div class="row window-height-100 no-wrap justify-between items-center">
       <div class="col q-pa-md z-top">
-        <h2 class="text-black custom">Прокачай скорость и выносливость</h2>
-        <h3 class="">Выбирай готовую тренировку или создай свою</h3>
+        <h2 class="text-black custom">{{ $t("index.heading") }}</h2>
+        <h3 class="">{{ $t("index.subheading") }}</h3>
 
         <q-btn
           style="
@@ -20,7 +21,9 @@
           size="md"
           class="main-btn"
         >
-          <NuxtLink class="no-style" to="/training/">GO к тренировкам</NuxtLink></q-btn
+          <NuxtLink class="no-style" to="/training/">{{
+            $t("index.button")
+          }}</NuxtLink></q-btn
         >
       </div>
     </div>

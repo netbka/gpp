@@ -22,7 +22,7 @@
         </div>
         <div class="text-left">
           <span class="text-subtitle2 text-weight-medium text-accent text-left"
-            >Сложность:
+            >{{ $t("components.table.card.difficulty") }}:
           </span>
           <q-rating
             v-model="data.level"

@@ -9,9 +9,9 @@
         class="row q-col-gutter-md justify-center items-start content-start shadow-2 q-pa-md q-mx-md"
       >
         <div class="col-12 col-sm">
-          <div class="text-h6">Давайте познакомимся</div>
+          <div class="text-h6">{{ $t("profile.header") }}</div>
           <span class="text-caption">
-            Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки
+            {{ $t("exercisprofiletemplate.heading") }}
           </span>
           <div class="q-mt-md">
             <ClientOnly>

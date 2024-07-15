@@ -10,7 +10,7 @@
           label-color="black"
           :model-value="modelValue"
           @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
-          label="Поиск"
+          :label="$t('components.table.filter.search')"
         >
           <template v-slot:append>
             <q-icon name="search" />
@@ -21,7 +21,7 @@
 
     <div class="row q-my-lg q-ml-xs">
       <div class="col-12">
-        <span>Сложность</span>
+        <span>{{ $t("components.table.filter.rating") }}</span>
         <q-rating
           color="primary"
           v-model="store.pagination.level"

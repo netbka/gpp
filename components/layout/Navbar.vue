@@ -4,14 +4,16 @@
       <q-toolbar class="m-l">
         <q-toolbar-title>
           <span data-nosnippet>
-            <q-avatar @click="redirect">
-              <img
-                :src="websitelogo()"
-                class="cursor-pointer"
-                data-nosnippet
-                alt="Логотип Просто ОФП"
-              />
-            </q-avatar>
+            <NuxtLinkLocale class="no-style" to="/">
+              <q-avatar>
+                <img
+                  :src="websitelogo()"
+                  class="cursor-pointer"
+                  data-nosnippet
+                  alt="Логотип Просто ОФП"
+                />
+              </q-avatar>
+            </NuxtLinkLocale>
           </span>
           <h1 class="text-weight-thin text-uppercase logo-text gt-xs">
             {{ $t("navbar.title") }}

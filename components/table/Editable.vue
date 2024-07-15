@@ -12,11 +12,11 @@
       binary-state-sort
       flat
       bordered
-      no-data-label="Нет данных"
-      no-results-label="Ничего не найдено"
+      :no-data-label="$t('components.table.nodata')"
+      :no-results-label="$t('components.table.noresults')"
       @request="onRequest"
       :rows-per-page-options="[10, 20]"
-      rows-per-page-label="Записей на странице"
+      :rows-per-page-label="$t('components.table.recordsonpage')"
     >
       <template v-slot:loading>
         <q-inner-loading showing color="primary" />

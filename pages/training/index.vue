@@ -6,9 +6,9 @@
         <ErrorBoundary :error="error" />
       </template> -->
     <ContentHero
-      :header="'Тренировки ОФП для бега'"
-      :subHeading="'Подборка лучших упражнений на скорость и выносливость'"
-      :subHeading2="'Занимайся ОФП - это просто'"
+      :header="$t('training.header')"
+      :subHeading="$t('training.subheading')"
+      :subHeading2="$t('training.subheading2')"
     ></ContentHero>
 
     <TrainingTable @onEditItem="showForm"></TrainingTable>

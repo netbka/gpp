@@ -6,9 +6,9 @@
         <ErrorBoundary :error="error" />
       </template> -->
     <ContentHero
-      :header="'Подборка упражнений'"
-      :subHeading="'Популярные упражнения от Просто ОФП'"
-      :subHeading2="' Делай упражнения правильно'"
+      :header="$t('exercisetemplate.header')"
+      :subHeading="$t('exercisetemplate.subheading')"
+      :subHeading2="$t('exercisetemplate.subheading2')"
     ></ContentHero>
 
     <ExercisetemplateTable

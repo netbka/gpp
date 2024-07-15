@@ -17,7 +17,7 @@ export function numToSecText(val: number) {
 export const durationToText = (duration: number) => {
   var minutes = Math.floor(duration / 60);
   var seconds = duration - minutes * 60;
-  return minutes + " мин " + (seconds < 10 ? "0" + seconds : seconds) + " сек.";
+  return minutes + " min " + (seconds < 10 ? "0" + seconds : seconds) + " sec.";
 };
 
 export const durationToTextCounter = (duration: number) => {
