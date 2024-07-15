@@ -2,7 +2,7 @@
   <div>
     <q-btn
       v-show="props.propNewVisible"
-      label="Новое"
+      :label="$t('components.base.btnsubmitnew.labelnew')"
       size="sm"
       color="accent"
       outline
@@ -12,7 +12,7 @@
       @click="$emit('newItem')"
     />
     <q-btn
-      label="Сохранить"
+      :label="$t('components.base.btnsubmitnew.labelsave')"
       size="sm"
       type="submit"
       color="secondary"

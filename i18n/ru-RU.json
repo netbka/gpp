@@ -92,13 +92,48 @@
   "exercisetemplate": {
     "header": "Подборка упражнений",
     "subheading": "Популярные упражнения от Просто ОФП",
-    "subheading2": "Делай упражнения правильно"
+    "subheading2": "Делай упражнения правильно",
+    "table": {
+      "cardCaption": "Подробнее"
+    },
+    "form": {
+      "name": "Название упражнения *",
+      "nameerror": "Нужно указать значение",
+      "description": "",
+      "duration": "Прододжительность (сек.)",
+      "level": "Сложность",
+      "checkbox": "Доступно всем"
+    }
   },
   "profile": {
     "header": "Давайте познакомимся",
     "subheading": "Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки"
   },
+ 
   "components": {
+    "base": {
+      "btnsubmitnew": {
+        "labelnew": "Новое",
+        "labelsave": "Сохранить"
+      },
+      "dialogempty": {
+        "label": "Закрыть"
+      }
+    },
+    "content": {
+      "sec": "сек"
+    },
+    "dialogyesno": {
+      "propHeader": "Подтвердите действие",
+      "propOkText": "Удалить",
+      "propCancelText": "Отменить",
+      "propBody": "Данные будут удалены без возможности восстановления"
+    },
+    "input": {
+      "selectmuscle": {
+        "label": "Группа мышц"
+      }
+    },
     "table": {
       "nodata": "Нет данных",
       "noresults": "Ничего не найдено",

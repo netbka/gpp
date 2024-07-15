@@ -23,7 +23,7 @@
           outline
           color="secondary"
           @click="hide()"
-          label="Закрыть"
+          :label="$t('components.base.dialogempty.labelsave')"
         ></q-btn>
       </q-card-actions>
       <q-inner-loading :showing="propLoading">

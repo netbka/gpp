@@ -2,7 +2,7 @@
   <q-select
     dense
     v-model="store.currentItem"
-    label="Группа мышц"
+    :label="$t('components.input.selectmuscle.label')"
     :options="store.itemArray"
     lazy-rules
     clearable

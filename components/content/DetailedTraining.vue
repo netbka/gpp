@@ -22,7 +22,7 @@
             >
           </div>
           <div class="col-shrink self-center border_bottom">
-            {{ ex.duration }} сек.
+            {{ ex.duration }} {{ $t("components.content.sec") }}.
             <div>
               <!-- <NuxtLink
                       class="no-style"

@@ -27,8 +27,8 @@
                 dense
                 outlined
                 v-model="store.currentItem.name"
-                label="Название упражнения *"
-                :rules="[(val) => !!val || 'Нужно указать значение']"
+                :label="$t('exercisetemplate.form.name')"
+                :rules="[(val) => !!val || $t('exercisetemplate.form.nameerror')]"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 counter
@@ -51,7 +51,7 @@
                 dense
                 outlined
                 v-model.number="store.currentItem.duration"
-                label="Прододжительность (сек.)"
+                :label="$t('exercisetemplate.form.duration')"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="300"
@@ -66,7 +66,7 @@
                 dense
                 outlined
                 v-model.number="store.currentItem.level"
-                label="Сложность"
+                :label="$t('exercisetemplate.form.level')"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="3"
@@ -88,7 +88,10 @@
           </div>
           <div class="row" v-if="isAdmin">
             <div class="col-12">
-              <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
+              <q-checkbox
+                v-model="store.currentItem.public"
+                :label="$t('exercisetemplate.form.checkbox')"
+              />
             </div>
           </div>
         </div>

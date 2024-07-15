@@ -69,7 +69,7 @@ export const editorToolbar = ($q) => {
   return [
     [
       {
-        label: $q.lang.editor.align,
+        //label: $q.lang.editor.align,
         icon: $q.iconSet.editor.align,
         fixedLabel: true,
         list: "only-icons",
@@ -81,13 +81,13 @@ export const editorToolbar = ($q) => {
     ["fullscreen"],
     [
       {
-        label: "форматирование",
+        //label: "форматирование",
         icon: $q.iconSet.editor.formatting,
         list: "no-icons",
         options: ["p", "h2", "h3", "code"],
       },
       {
-        label: "шрифт",
+        //label: "шрифт",
         icon: $q.iconSet.editor.fontSize,
         fixedLabel: true,
         fixedIcon: true,
