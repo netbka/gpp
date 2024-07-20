@@ -87,7 +87,7 @@
       :class="['text-weight-light inline', { 'border-edit': !readOnly }]"
       @click="changeVisibility"
     >
-      {{ model.name }}
+      {{ `${model.exerciseTemplate ? model.exerciseTemplate.name : model.name}` }}
     </span>
   </div>
 </template>

@@ -24,7 +24,7 @@
           :no-results-label="$t('components.table.noresults')"
           @request="onRequest"
           :rows-per-page-options="[12, 24, 48, 96]"
-          rows-per-page-label="$t('components.table.rowsperpage')"
+          :rows-per-page-label="$t('components.table.rowsperpage')"
           :loading-label="$t('components.table.loading')"
           :pagination-label="
             (start, end, total) =>

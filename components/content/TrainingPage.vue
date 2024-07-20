@@ -11,7 +11,9 @@
     </div>
     <div class="row q-px-sm">
       <div class="col-12">
-        <span class="text-subtitle2 text-weight-medium"><b>Продолжительность: </b> </span>
+        <span class="text-subtitle2 text-weight-medium"
+          ><b>{{ $t("components.content.trainingpage.duration") }}: </b>
+        </span>
         <q-chip square size="12px" outline color="blue-grey-14" icon="timer">
           {{ durationToText(data.duration) }}
         </q-chip>
@@ -19,7 +21,9 @@
     </div>
     <div class="row q-px-sm">
       <div class="col-12">
-        <span class="text-subtitle2 text-weight-medium"><b>Мышцы: </b> </span>
+        <span class="text-subtitle2 text-weight-medium"
+          ><b>{{ $t("components.content.trainingpage.muscle") }}: </b>
+        </span>
         <q-chip
           size="12px"
           v-for="muscle in data.exerciseTemplateMuscle"
@@ -33,7 +37,9 @@
     </div>
     <div class="row q-px-sm">
       <div class="col-grow self-center">
-        <span class="text-subtitle2 text-weight-medium"><b>Сложность: </b> </span>
+        <span class="text-subtitle2 text-weight-medium"
+          ><b>{{ $t("components.content.trainingpage.level") }}: </b>
+        </span>
         <q-rating
           v-model="data.level"
           size="1em"
@@ -46,7 +52,11 @@
       </div>
       <div class="col-auto col-sm-6 col-md-8 self-center">
         <q-toggle
-          :label="toggleText ? 'Детально' : 'Текст'"
+          :label="
+            toggleText
+              ? $t('components.content.trainingpage.toggleon')
+              : $t('components.content.trainingpage.toggleoff')
+          "
           color="secondary"
           keep-color
           v-model="toggleText"
@@ -56,14 +66,16 @@
     <div class="row q-px-sm">
       <div class="col-grow self-center">
         <q-btn color="primary" size="sm" class="float-left">
-          <NuxtLink class="no-style" :to="traininglink()">Заниматься</NuxtLink></q-btn
+          <NuxtLinkLocale class="no-style" :to="traininglink()">{{
+            $t("components.content.trainingpage.btnstart")
+          }}</NuxtLinkLocale></q-btn
         >
       </div>
       <div class="col-auto col-sm-6 col-md-8 self-center">
         <q-btn color="secondary" size="sm" class="float-left q-ml-lg">
-          <NuxtLink class="no-style" :to="'/' + props.link.toLowerCase()"
-            >Назад</NuxtLink
-          ></q-btn
+          <NuxtLinkLocale class="no-style" :to="'/' + props.link.toLowerCase()">{{
+            $t("components.content.trainingpage.btnback")
+          }}</NuxtLinkLocale></q-btn
         >
       </div>
     </div>
@@ -97,8 +109,7 @@ const props = defineProps({
   muscleArr: { Type: Array, default: [] },
   link: { Type: String, default: "" },
 });
-//console.log(props.data);
-console.log(props.data);
+
 const { getImageUrl } = useImageManager();
 const loading = toRef(() => props.loading);
 const description = exerciseToTextNoName(props.data.exerciseGroup);

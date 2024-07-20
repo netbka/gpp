@@ -6,7 +6,7 @@
       :rows="store.itemArray"
       :loading="pending"
       :readOnly="props.readOnly"
-      :cardCaption="$t('exercisetemplate.table.cardCaption')"
+      :cardCaption="$t('components.exercisetemplate.table.cardCaption')"
       :cardLink="store.$id"
       @onEditItem="onEditItem"
       @onDeleteItem="onDeleteItem"

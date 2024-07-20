@@ -97,7 +97,9 @@
       <q-space />
 
       <q-btn outline color="secondary" size="sm">
-        <NuxtLink class="no-style" :to="link(data)">{{ cardCaption }}</NuxtLink></q-btn
+        <NuxtLinkLocale class="no-style" :to="link(data)">{{
+          cardCaption
+        }}</NuxtLinkLocale></q-btn
       >
       <q-btn
         outline
@@ -105,9 +107,9 @@
         size="sm"
         v-if="props.cardCaptionSecondary.length > 0"
       >
-        <NuxtLink class="no-style" :to="traininglink(data)">{{
+        <NuxtLinkLocale class="no-style" :to="traininglink(data)">{{
           cardCaptionSecondary
-        }}</NuxtLink></q-btn
+        }}</NuxtLinkLocale></q-btn
       >
     </q-card-actions>
   </q-card>

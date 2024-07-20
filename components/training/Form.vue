@@ -26,10 +26,12 @@
                 dense
                 outlined
                 v-model="store.currentItem.name"
-                label="Название плана *"
-                :rules="[(val) => !!val || 'Нужно указать значение']"
+                :label="$t('components.training.form.name')"
+                :rules="[(val) => !!val || $t('components.training.form.errorname')]"
                 :disable="store.loading"
-                :input-style="{ fontSize: '12px' }"
+                :input-style="{
+                  fontSize: '12px',
+                }"
                 counter
                 maxlength="37"
               />
@@ -39,7 +41,7 @@
                 dense
                 outlined
                 v-model.number="store.currentItem.level"
-                label="Сложность"
+                :label="$t('components.training.form.difficulty')"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="3"
@@ -71,6 +73,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
+const $t = useI18n().t;
 //import DOMPurify from "dompurify";
 const $q = useQuasar();
 const store = useTrainingStore();
@@ -104,7 +108,8 @@ const onSubmit = async () => {
   }
 };
 const validate = (val) => {
-  if (val === null || val < 0) return "нужно указать значение";
+  if (val === null || val.length == 0 || val < 0)
+    return $t("components.training.form.errorname");
 };
 </script>
 

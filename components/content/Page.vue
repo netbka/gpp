@@ -8,7 +8,9 @@
       </div>
 
       <div class="col-12">
-        <span class="text-subtitle2 text-weight-medium"><b>Мышцы: </b> </span>
+        <span class="text-subtitle2 text-weight-medium"
+          ><b>{{ $t("components.content.page.muscle") }}: </b>
+        </span>
         <q-chip
           size="12px"
           v-for="muscle in props.muscleArr"
@@ -20,7 +22,9 @@
         </q-chip>
       </div>
       <div class="col-12">
-        <span class="text-subtitle2 text-weight-medium"><b>Сложность: </b> </span>
+        <span class="text-subtitle2 text-weight-medium"
+          ><b>{{ $t("components.content.page.difficulty") }}: </b>
+        </span>
         <q-rating
           v-model="data.level"
           size="1em"
@@ -32,14 +36,14 @@
         />
       </div>
       <div class="col-12">
-        <span class="text-caption"> Обновлено: </span>
+        <span class="text-caption"> {{ $t("components.content.page.updated") }}: </span>
         <q-chip outline square color="deep-grey" text-color="white" size="sm">
           {{ formatDate(data.dateModified) }}
         </q-chip>
         <q-btn outline color="primary" size="xs" class="float-right">
-          <NuxtLink class="no-style" :to="'/' + props.link.toLowerCase()"
-            >Назад</NuxtLink
-          ></q-btn
+          <NuxtLinkLocale class="no-style" :to="'/' + props.link.toLowerCase()">{{
+            $t("components.content.page.back")
+          }}</NuxtLinkLocale></q-btn
         >
       </div>
     </div>

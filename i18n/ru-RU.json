@@ -92,24 +92,18 @@
   "exercisetemplate": {
     "header": "Подборка упражнений",
     "subheading": "Популярные упражнения от Просто ОФП",
-    "subheading2": "Делай упражнения правильно",
-    "table": {
-      "cardCaption": "Подробнее"
-    },
-    "form": {
-      "name": "Название упражнения *",
-      "nameerror": "Нужно указать значение",
-      "description": "",
-      "duration": "Прододжительность (сек.)",
-      "level": "Сложность",
-      "checkbox": "Доступно всем"
-    }
+    "subheading2": "Делай упражнения правильно"
   },
   "profile": {
     "header": "Давайте познакомимся",
     "subheading": "Расскажи о себе, а я постараюсь подобрать для тебя оптимальные тренировки"
   },
- 
+  "workout": {
+    "duration": "Прододжительность",
+    "toggleoff": "Конструктор",
+    "toggleon": "Тренировка"
+  },
+
   "components": {
     "base": {
       "btnsubmitnew": {
@@ -121,7 +115,39 @@
       }
     },
     "content": {
-      "sec": "сек"
+      "detailedtraining": {
+        "sec": "сек"
+      },
+      "dialogexercisetemplate": {},
+      "page": {
+        "muscle": "Мышцы",
+        "difficulty": "Сложность",
+        "updated": "Обновлено",
+        "back": "Назад"
+      },
+
+      "trainingpage": {
+        "duration": "Прододжительность",
+        "muscle": "Мышцы",
+        "toggleon": "Детально",
+        "toggleoff": "Текст",
+        "level": "Сложность",
+        "btnstart": "Заниматься",
+        "btnback": "Назад"
+      }
+    },
+    "exercisetemplate": {
+      "table": {
+        "cardCaption": "Подробнее"
+      },
+      "form": {
+        "name": "Название упражнения *",
+        "nameerror": "Нужно указать значение",
+        "description": "",
+        "duration": "Прододжительность (сек.)",
+        "level": "Сложность",
+        "checkbox": "Доступно всем"
+      }
     },
     "dialogyesno": {
       "propHeader": "Подтвердите действие",
@@ -132,6 +158,10 @@
     "input": {
       "selectmuscle": {
         "label": "Группа мышц"
+      },
+      "number": {
+        "labelTime": "сек",
+        "labelReps": "раз"
       }
     },
     "table": {
@@ -148,6 +178,13 @@
       },
       "card": {
         "difficulty": "Сложность"
+      }
+    },
+    "training": {
+      "form": {
+        "labelname": "Название плана *",
+        "difficulty": "Сложность",
+        "errorname": "Нужно указать значение"
       }
     }
   }

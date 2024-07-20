@@ -17,12 +17,15 @@
             />
           </div>
           <div class="col col-sm-5 col-md-4 self-center q-pa-md border_bottom">
-            <span class="text-body1 cursor-pointer" @click="showExercise(ex.template)">
-              {{ ex.name }}</span
+            <span
+              class="text-body1 cursor-pointer"
+              @click="showExercise(ex.exerciseTemplate)"
+            >
+              {{ getName(ex) }}</span
             >
           </div>
           <div class="col-shrink self-center border_bottom">
-            {{ ex.duration }} {{ $t("components.content.sec") }}.
+            {{ ex.duration }} {{ $t("components.content.detailedtraining.sec") }}.
             <div>
               <!-- <NuxtLink
                       class="no-style"
@@ -34,8 +37,8 @@
               <q-icon
                 name="img:/icons/exercise.svg"
                 size="sm"
-                v-if="ex.template"
-                @click="showExercise(ex.template)"
+                v-if="ex.exerciseTemplate"
+                @click="showExercise(ex.exerciseTemplate)"
               ></q-icon>
             </div>
           </div>
@@ -52,6 +55,9 @@ const props = defineProps({
   data: { Type: Object, required: true },
 });
 const { getImageUrl } = useImageManager();
+const getName = (exercise) => {
+  return exercise.exerciseTemplate?.name ?? exercise.name;
+};
 const exerciseImage = (fileName) => {
   try {
     return fileName !== undefined

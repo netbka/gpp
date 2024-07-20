@@ -27,8 +27,10 @@
                 dense
                 outlined
                 v-model="store.currentItem.name"
-                :label="$t('exercisetemplate.form.name')"
-                :rules="[(val) => !!val || $t('exercisetemplate.form.nameerror')]"
+                :label="$t('components.exercisetemplate.form.name')"
+                :rules="[
+                  (val) => !!val || $t('components.exercisetemplate.form.nameerror'),
+                ]"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 counter
@@ -51,7 +53,7 @@
                 dense
                 outlined
                 v-model.number="store.currentItem.duration"
-                :label="$t('exercisetemplate.form.duration')"
+                :label="$t('components.exercisetemplate.form.duration')"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="300"
@@ -66,7 +68,7 @@
                 dense
                 outlined
                 v-model.number="store.currentItem.level"
-                :label="$t('exercisetemplate.form.level')"
+                :label="$t('components.exercisetemplate.form.level')"
                 :disable="store.loading"
                 :input-style="{ fontSize: '12px' }"
                 max="3"
@@ -90,7 +92,7 @@
             <div class="col-12">
               <q-checkbox
                 v-model="store.currentItem.public"
-                :label="$t('exercisetemplate.form.checkbox')"
+                :label="$t('components.exercisetemplate.form.checkbox')"
               />
             </div>
           </div>
@@ -101,6 +103,8 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
+const $t = useI18n().t;
 const $q = useQuasar();
 const store = useExerciseTemplateStore();
 const crud = useClientCrud(store);
@@ -134,7 +138,8 @@ const show = async (id) => {
   form.value.show();
 };
 const validate = (val) => {
-  if (val === null || val < 0) return "нужно указать значение";
+  if (val === null || val.length == 0 || val < 0)
+    return $t("components.exercisetemplate.form.errorname");
 };
 
 defineExpose({

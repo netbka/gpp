@@ -1,13 +1,23 @@
 <template>
   <div class="fit row shadow-1 q-py-sm no-wrap ellipsis justify-between q-mb-xs">
     <div class="col-auto self-center">
-      <q-btn
+      <!-- <q-btn
         icon="arrow_back_ios"
         size="sm"
         class="q-mx-xs padding-2"
         outline
         @click="back()"
-      ></q-btn>
+      ></q-btn> -->
+      <NuxtLinkLocale
+        class="no-style text-uppercase q-px-md"
+        :to="
+          router.currentRoute.value.fullPath.split('/')[1].indexOf('-') === -1
+            ? router.currentRoute.value.fullPath.split('/')[1]
+            : router.currentRoute.value.fullPath.split('/')[2]
+        "
+      >
+        <q-icon name="arrow_back_ios" size="sm"></q-icon>
+      </NuxtLinkLocale>
     </div>
     <div class="col-auto" v-if="!props.readOnly">
       <q-btn
@@ -75,10 +85,26 @@ const props = defineProps({
   },
 });
 const router = useRouter();
-
-const back = async () => {
-  await navigateTo({ path: "/" + router.currentRoute.value.fullPath.split("/")[1] });
+const path = () => {
+  var x =
+    router.currentRoute.value.fullPath.split("/")[1].indexOf("-") === -1
+      ? router.currentRoute.value.fullPath.split("/")[1]
+      : router.currentRoute.value.fullPath.split("/")[2];
+  console.log(x);
+  return " x";
+  // return router.currentRoute.value.fullPath.split("/")[1].indexOf("-") === -1
+  //   ? router.currentRoute.value.fullPath.split("/")[1]
+  //   : router.currentRoute.value.fullPath.split("/")[2];
 };
+// const back = async () => {
+//   await navigateTo({
+//     path:
+//       "/" +
+//       router.currentRoute.value.fullPath.split("/")[1] +
+//       "/" +
+//       router.currentRoute.value.fullPath.split("/")[2],
+//   });
+// };
 const store = trainingStore();
 </script>
 

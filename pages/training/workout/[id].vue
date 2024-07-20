@@ -14,11 +14,13 @@
           </div>
           <div class="row">
             <div class="col-grow self-center">
-              <q-item-label caption>Продолжительность: {{ duration }}</q-item-label>
+              <q-item-label caption
+                >{{ $t("workout.duration") }}: {{ duration }}</q-item-label
+              >
             </div>
             <div class="col-auto align-right q-mr-md">
               <q-toggle
-                :label="toggleText ? 'Конструктор' : 'Тренировка'"
+                :label="toggleText ? $t('workout.toggleoff') : $t('workout.toggleon')"
                 color="secondary"
                 keep-color
                 class="float-right inline"
