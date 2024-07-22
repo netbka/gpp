@@ -13,7 +13,8 @@ export const setPagination = (store, pagination: ITablePagination) => {
 };
 export const setPaginationAndFilter = (store, pagination: ITablePagination, filter: string) => {
   if (pagination) store.pagination = pagination;
-  store.filter = filter;
+  if (filter !== null && filter !== undefined) store.filter = filter;
+  //store.filter = filter;
 };
 interface ItemResponse<T> {
   data: T;
@@ -46,6 +47,7 @@ export const useSSRCrud = <T>(store) => ({
       if (data.value) {
         store.itemArray = data.value.entity;
         store.pagination.rowsNumber = data.value.count;
+        console.log(store.filter);
         //store.itemArray = flatMuscle(store.itemArray);
       }
 

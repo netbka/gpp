@@ -1,7 +1,7 @@
 <template>
   <BaseDialogEmpty
     ref="dialog"
-    :propHeading="$t("components.profile.cropper.heading")"
+    :propHeading="$t('components.profile.cropper.heading')"
     @onHide="$emit('onHide')"
   >
     <div>
