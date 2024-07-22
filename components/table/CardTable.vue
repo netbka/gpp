@@ -126,6 +126,7 @@ const onRequest = (prop) => {
   //   //if (cache.value === true && props.pagination === undefined)
   // }
   // cache.value = true;
+  console.log("request");
   emits("onRequest", prop);
 };
 const customSortFunction = (rows, sortBy, descending) => {};
@@ -149,8 +150,8 @@ watch(
   () => store.pagination.level,
   (val) => {
     onRequest({ filter: filter.value, pagination: store.pagination });
-  },
-  { deep: true }
+  }
+  //  { deep: true }
 );
 </script>
 <style scoped>
