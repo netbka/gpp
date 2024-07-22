@@ -28,15 +28,15 @@
     <BaseDialogYesNo
       ref="dialog"
       @ok="onSaveTrainingPlan"
-      propHeader="Сохранить тренировку?"
-      propOkText="Да"
+      :propHeader="$t('components.training.constructor.header') + ' ?'"
+      :propOkText="$t('components.training.constructor.ok')"
       propOkColor="green"
-      propCancelText="Нет"
+      :propCancelText="$t('components.training.constructor.cancel')"
       :propBody="description"
     ></BaseDialogYesNo>
     <q-inner-loading :showing="store.loading">
       <q-spinner-box size="100px" color="primary" />
-      <div class="text-h3">Сохраняю...</div>
+      <div class="text-h3">{{ $t("components.training.constructor.saving") }}</div>
     </q-inner-loading>
   </div>
 </template>

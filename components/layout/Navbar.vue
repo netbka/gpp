@@ -10,7 +10,7 @@
                   :src="websitelogo()"
                   class="cursor-pointer"
                   data-nosnippet
-                  alt="Логотип Просто ОФП"
+                  alt="Logo OFP"
                 />
               </q-avatar>
             </NuxtLinkLocale>

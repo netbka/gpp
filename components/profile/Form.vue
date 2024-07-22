@@ -8,7 +8,7 @@
             dense
             outlined
             v-model="store.currentItem.firstName"
-            label="Имя "
+            :label="$t('components.profile.form.firstName')"
             :disable="store.loading"
             :input-style="{ fontSize: '12px' }"
             maxlength="16"
@@ -20,7 +20,7 @@
             dense
             outlined
             v-model="store.currentItem.lastName"
-            label="Фамилия"
+            :label="$t('components.profile.form.lastName')"
             :disable="store.loading"
             :input-style="{ fontSize: '12px' }"
             maxlength="16"
@@ -40,7 +40,7 @@
       <div class="row q-pt-md">
         <div class="col-12 text-right">
           <q-btn
-            label="Сохранить"
+            :label="$t('components.profile.form.save')"
             size="sm"
             type="submit"
             color="secondary"
@@ -51,7 +51,7 @@
           >
             <template v-slot:loading>
               <q-spinner-hourglass class="on-left" />
-              Сохраняю...
+              {{ $t("components.profile.form.saving") }}...
             </template>
           </q-btn>
         </div>

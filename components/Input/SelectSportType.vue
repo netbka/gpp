@@ -2,7 +2,7 @@
   <q-select
     dense
     v-model="store.currentItem"
-    label="Я занимаюсь"
+    :label="$t('components.input.selectsporttype.label')"
     :options="store.itemArray"
     lazy-rules
     clearable

@@ -55,19 +55,19 @@ const props = defineProps({
 const store = useTrainingStore();
 
 let startBtn = reactive({
-  textStart: "Погнали",
+  textStart: "GO",
   iconStart: "play_arrow",
 
-  textRestart: "Заново",
+  //textRestart: "Заново",
   iconRestart: "restart_alt",
 
-  textForward: "След. упражнение",
+  //textForward: "След. упражнение",
   iconForward: "last_page",
 
-  textBackward: "Пред. упражнение",
+  //textBackward: "Пред. упражнение",
   iconBackward: "first_page",
 
-  textPause: "Пауза",
+  //textPause: "Пауза",
   iconPause: "pause",
 });
 const emits = defineEmits(["restart", "forwardExercise", "backwardExercise"]);

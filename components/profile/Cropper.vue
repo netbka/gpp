@@ -1,7 +1,7 @@
 <template>
   <BaseDialogEmpty
     ref="dialog"
-    propHeading="Редактировать аватар"
+    :propHeading="$t("components.profile.cropper.heading")"
     @onHide="$emit('onHide')"
   >
     <div>

@@ -26,7 +26,7 @@
                 dense
                 outlined
                 v-model="store.currentItem.name"
-                :label="$t('components.training.form.name')"
+                :label="$t('components.training.form.labelname')"
                 :rules="[(val) => !!val || $t('components.training.form.errorname')]"
                 :disable="store.loading"
                 :input-style="{
@@ -63,7 +63,10 @@
           </div>
           <div class="row">
             <div class="col-12" v-if="isAdmin">
-              <q-checkbox v-model="store.currentItem.public" label="Доступно всем" />
+              <q-checkbox
+                v-model="store.currentItem.public"
+                :label="$t('components.training.form.public')"
+              />
             </div>
           </div>
         </div>

@@ -48,7 +48,7 @@
                 </span>
               </q-item-label>
               <q-item-label caption
-                ><span class="text-weight-thin">сложность:</span>
+                ><span class="text-weight-thin">{{$t("components.input.selectexercisetemplate.difficulty")}}:</span>
                 <q-rating
                   v-model="scope.opt.level"
                   size="1em"
@@ -66,7 +66,7 @@
         <template v-slot:no-option>
           <q-item>
             <q-item-section class="text-grey">
-              Упражнения нет в базе. Добавить?
+              {{$t("components.input.selectexercisetemplate.addnew")}}?
               <div>
                 <q-btn
                   color="primary"

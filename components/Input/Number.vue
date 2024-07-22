@@ -62,8 +62,8 @@ const max = props.typeDuration ? 300 : 100;
 const min = props.typeDuration ? 10 : 1;
 const step = props.typeDuration ? 5 : 1;
 let label = props.typeDuration
-  ? $t("components.input.number.form.labelTime")
-  : $t("components.input.number.form.labelReps");
+  ? $t("components.input.number.labelTime")
+  : $t("components.input.number.labelReps");
 label = props.label.length > 0 ? props.label : label;
 const emits = defineEmits(["update:modelValue", "updatedb"]);
 const save = () => {

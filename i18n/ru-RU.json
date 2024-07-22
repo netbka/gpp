@@ -105,6 +105,18 @@
   },
 
   "components": {
+    "profile": {
+      "form": {
+        "firstName": "Имя",
+        "lastName": "Эл. почта",
+        "save": "Сохранить",
+        "saving": "Сохраняю"
+      },
+      "cropper":{
+        "heading":"Редактировать аватар",
+
+      }
+    },
     "base": {
       "btnsubmitnew": {
         "labelnew": "Новое",
@@ -159,9 +171,16 @@
       "selectmuscle": {
         "label": "Группа мышц"
       },
+      "selectsporttype": {
+        "label": "Я занимаюсь"
+      },
       "number": {
         "labelTime": "сек",
         "labelReps": "раз"
+      },
+      "selectexercisetemplate": {
+        "difficulty": "сложность",
+        "addnew": "Упражнения нет в базе. Добавить"
       }
     },
     "table": {
@@ -184,7 +203,18 @@
       "form": {
         "labelname": "Название плана *",
         "difficulty": "Сложность",
+        "public": "Доступно всем",
         "errorname": "Нужно указать значение"
+      },
+      "countdown": {
+        "label": "Начинаем через"
+      },
+      "constructor": {
+        "header": "Сохранить тренировку",
+        "ok": "Да",
+        "cancel": "Нет",
+
+        "saving": "Сохраняю..."
       }
     }
   }
