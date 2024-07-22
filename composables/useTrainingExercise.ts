@@ -42,7 +42,7 @@ export function useTrainingExercise() {
   const showExerciseName = () => {
     const index = store.getActiveExerciseIndex();
     try {
-      return index > 0 ? store.activeGroup.exercise[index].name : store.activeGroup.exercise[0].name;
+      return index > 0 ? (store.activeGroup.exercise[index].templateId !== null ? store.activeGroup.exercise[index].exerciseTemplate.name : store.activeGroup.exercise[index].name) : store.activeGroup.exercise[0].name;
     } catch (error) {}
   };
   const endOfTraining = () => {

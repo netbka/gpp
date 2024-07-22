@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="text-light-blue-7 text-h4 text-uppercase text-center">
-      Тренировка завершена
+      {{ $t("components.training.dialogcard.header") }}
     </div>
-    <div class="text-light-blue-10 text-h4 text-center">Ты молодец!</div>
+    <div class="text-light-blue-10 text-h4 text-center">
+      {{ $t("components.training.dialogcard.subheader") }}!
+    </div>
     <q-scroll-area class="scroll-height" :bar-style="barStyle()">
       <div class="row justify-center">
         <div class="col-auto">
