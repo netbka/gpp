@@ -86,12 +86,10 @@ const props = defineProps({
 });
 const router = useRouter();
 const path = () => {
-  var x =
-    router.currentRoute.value.fullPath.split("/")[1].indexOf("-") === -1
-      ? router.currentRoute.value.fullPath.split("/")[1]
-      : router.currentRoute.value.fullPath.split("/")[2];
-  console.log(x);
-  return " x";
+  return router.currentRoute.value.fullPath.split("/")[1].indexOf("-") === -1
+    ? router.currentRoute.value.fullPath.split("/")[1]
+    : router.currentRoute.value.fullPath.split("/")[2];
+
   // return router.currentRoute.value.fullPath.split("/")[1].indexOf("-") === -1
   //   ? router.currentRoute.value.fullPath.split("/")[1]
   //   : router.currentRoute.value.fullPath.split("/")[2];

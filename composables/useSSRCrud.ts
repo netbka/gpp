@@ -47,7 +47,7 @@ export const useSSRCrud = <T>(store) => ({
       if (data.value) {
         store.itemArray = data.value.entity;
         store.pagination.rowsNumber = data.value.count;
-        console.log(store.filter);
+
         //store.itemArray = flatMuscle(store.itemArray);
       }
 
