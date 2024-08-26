@@ -3,6 +3,7 @@ export default defineEventHandler(async (event) => {
   let proxyURL = useRuntimeConfig().public.baseUrl;
   let path = event.path.replace(/^\/training\/workout/, "");
   path = path.replace(/^\/api\//, "");
+  //let path = event.path.replace(/^\/api\//, "");
   //let { method, url, headers } = event.node.req;
   //console.log("headers", headers);
   const target = joinURL(proxyURL, path);
