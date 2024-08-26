@@ -81,5 +81,140 @@
     "heading": "Boost your running speed and endurance",
     "subheading": "Use tailored workouts or create your own",
     "button": "GO training"
+  },
+  "training": {
+    "header": "General Physical Training for Runners",
+    "subheading": "Collection of exercises for speed and endurance workouts",
+    "subheading2": "Run fast. GPP is the key",
+    "cardCaption": "Program",
+    "cardCaptionSecondary": "Exercise"
+  },
+  "exercisetemplate": {
+    "header": "Collection selection",
+    "subheading": "Efficient exercises from Just GPP",
+    "subheading2": "Know how-to-do GPP"
+  },
+  "profile": {
+    "header": "Hi, nice to meet you!",
+    "subheading": "Tell us about yourself, and we will choose optimal workouts for you"
+  },
+  "workout": {
+    "duration": "Duration",
+    "toggleoff": "Constructor",
+    "toggleon": "Workout"
+  },
+  "components": {
+    "profile": {
+      "form": {
+        "firstName": "Name",
+        "lastName": "Email",
+        "save": "Save",
+        "saving": "Saving"
+      },
+      "cropper": {
+        "heading": "Edit avatar"
+      }
+    },
+    "base": {
+      "btnsubmitnew": {
+        "labelnew": "New",
+        "labelsave": "Save"
+      },
+      "dialogempty": {
+        "label": "Close"
+      }
+    },
+    "content": {
+      "detailedtraining": {
+        "sec": "sec"
+      },
+      "dialogexercisetemplate": {},
+      "page": {
+        "muscle": "Muscles",
+        "difficulty": "Difficulty",
+        "updated": "Updated",
+        "back": "Back"
+      },
+      "trainingpage": {
+        "duration": "Duration",
+        "muscle": "Muscles",
+        "toggleon": "Detailed",
+        "toggleoff": "Text",
+        "level": "Difficulty",
+        "btnstart": "Start",
+        "btnback": "Back"
+      }
+    },
+    "exercisetemplate": {
+      "table": {
+        "cardCaption": "Details"
+      },
+      "form": {
+        "name": "Exercise name *",
+        "nameerror": "Please specify a value",
+        "description": "",
+        "duration": "Duration (sec.)",
+        "level": "Difficulty",
+        "checkbox": "Available to everyone"
+      }
+    },
+    "dialogyesno": {
+      "propHeader": "Confirm action",
+      "propOkText": "Delete",
+      "propCancelText": "Cancel",
+      "propBody": "Data will be deleted and cannot be restored"
+    },
+    "input": {
+      "selectmuscle": {
+        "label": "Muscle group"
+      },
+      "selectsporttype": {
+        "label": "I do"
+      },
+      "number": {
+        "labelTime": "sec",
+        "labelReps": "reps"
+      },
+      "selectexercisetemplate": {
+        "difficulty": "difficulty",
+        "addnew": "Exercise not found in the database. Add"
+      }
+    },
+    "table": {
+      "nodata": "No data",
+      "noresults": "No results found",
+      "recordsonpage": "Records per page",
+      "loading": "Loading",
+      "from": "of",
+      "rowsperpage": "show per page",
+      "filter": {
+        "rating": "Difficulty",
+        "search": "Search"
+      },
+      "card": {
+        "difficulty": "Difficulty"
+      }
+    },
+    "training": {
+      "form": {
+        "labelname": "Plan name *",
+        "difficulty": "Difficulty",
+        "public": "Available to everyone",
+        "errorname": "Please specify a value"
+      },
+      "countdown": {
+        "label": "Starting in"
+      },
+      "constructor": {
+        "header": "Save workout",
+        "ok": "Yes",
+        "cancel": "No",
+        "saving": "Saving..."
+      },
+      "dialogcard": {
+        "header": "Workout completed",
+        "subheader": "Good job"
+      }
+    }
   }
 }

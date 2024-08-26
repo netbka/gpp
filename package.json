@@ -6,6 +6,7 @@
     "seed": "node prisma/seed.js"
   },
   "scripts": {
+    "iis": "npx nuxi build --preset=iis_node",
     "build": "npx nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -38,6 +39,7 @@
     "ufo": "^1.5.3",
     "vue-advanced-cropper": "^2.8.8",
     "vue-draggable-next": "^2.2.1",
-    "vue-flatpickr-component": "^11.0.3"
+    "vue-flatpickr-component": "^11.0.3",
+    "xml2js": "^0.6.2"
   }
 }

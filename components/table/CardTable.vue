@@ -20,7 +20,7 @@
           :loading="loading"
           v-model:pagination="store.pagination"
           binary-state-sort
-          no-data-label="$t('components.table.nodata')"
+          :no-data-label="$t('components.table.nodata')"
           :no-results-label="$t('components.table.noresults')"
           @request="onRequest"
           :rows-per-page-options="[12, 24, 48, 96]"

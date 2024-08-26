@@ -9,11 +9,13 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
   },
+
   piniaPersistedstate: {
     cookieOptions: {
       sameSite: "strict",
     },
   },
+
   ssr: true,
   cors: true,
 
@@ -21,11 +23,14 @@ export default defineNuxtConfig({
   //   isCustomElement: (tag) => tag === "Textareatool",
   // },
   css: ["@quasar/extras/material-icons/material-icons.css", "~/assets/styles/style.css", "~/assets/styles/hero.css"],
+
   //devtools: { enabled: true },
   // vite: {
   //   plugins: [vsharp()],
   // },
-  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin", "@nuxtjs/i18n"], //"@nuxtjs/supabase",
+  //"@nuxtjs/supabase",
+  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin", "@nuxtjs/i18n"],
+
   i18n: {
     lazy: true,
     langDir: "i18n",
@@ -64,9 +69,11 @@ export default defineNuxtConfig({
       alwaysRedirect: true,
     },
   },
+
   googleSignIn: {
     clientId: "1012403012975-8klr44gtthf5ngdu61u4au91c28l00h7.apps.googleusercontent.com",
   },
+
   gtag: {
     id: "G-F8G8QM2PBG",
   },
@@ -79,6 +86,7 @@ export default defineNuxtConfig({
 
     // ... other plugins
   ],
+
   // image: {
   //   dir: "assets/images",
   // },
@@ -116,13 +124,15 @@ export default defineNuxtConfig({
   runtimeConfig: {
     dbPassword: process.env.DB_PASSWORD,
     public: {
-      baseUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094/api" : "https://apiofp.mamrukov.com/api",
-      wwwwUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094" : "https://apiofp.mamrukov.com",
+      baseUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094/api" : "https://apiofp.runasp.net/api",
+      wwwwUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094" : "https://apiofp.runasp.net",
     },
   },
+
   site: {
     url: "https://ofp.mamrukov.com",
   },
+
   sitemap: {
     //hostname: "https://ofp.mamrukov.com",
     exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
@@ -166,6 +176,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   // build: {
   //   transpile: ["quasar"],
   // },
@@ -186,12 +197,6 @@ export default defineNuxtConfig({
     // },
   },
 
-  devServer: {
-    https: {
-      key: "localhost-key-home.pem",
-      cert: "localhost-home.pem",
-    },
-  },
   // supabase: {
   //   // cookieOptions: {
   //   //   name: 'test',
@@ -211,4 +216,12 @@ export default defineNuxtConfig({
   //     exclude: ["/", "/public/*", "/training/*", "/training", "/auth/*", "/exerciseTemplate/*", "/exercisetemplate/*", "/exercisetemplate", "/exerciseTemplate", "/privacy-policy/*"],
   //   },
   // },
+  devServer: {
+    https: {
+      key: "localhost-key-home.pem",
+      cert: "localhost-home.pem",
+    },
+  },
+
+  compatibilityDate: "2024-08-26",
 });

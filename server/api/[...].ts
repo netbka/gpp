@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
     return createError({
       statusCode: error.status,
-      statusMessage: error.message,
+      statusMessage: error.message + "proxy URL:" + proxyURL + " path:" + path + " target:" + target,
       data: error.data,
     });
   }

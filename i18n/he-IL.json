@@ -82,5 +82,140 @@
     "heading": "שדרג את מהירות הריצה והסיבולת שלך",
     "subheading": "בחר אימון מוכן או צור משלך",
     "button": "GO לאימונים"
+  },
+  "training": {
+    "header": "אימוני כושר כללי לריצה",
+    "subheading": "מבחר התרגילים הטובים ביותר למהירות וסיבולת",
+    "subheading2": "אימון כושר כללי - זה פשוט",
+    "cardCaption": "תוכנית",
+    "cardCaptionSecondary": " להתאמן"
+  },
+  "exercisetemplate": {
+    "header": "מבחר תרגילים",
+    "subheading": "תרגילים פופולריים מ-פשוט כושר כללי",
+    "subheading2": "בצע את התרגילים נכון"
+  },
+  "profile": {
+    "header": "בואו נכיר",
+    "subheading": "ספר לנו על עצמך, ואנחנו ננסה להתאים לך את האימונים האופטימליים"
+  },
+  "workout": {
+    "duration": "משך",
+    "toggleoff": "בונה",
+    "toggleon": "אימון"
+  },
+  "components": {
+    "profile": {
+      "form": {
+        "firstName": "שם פרטי",
+        "lastName": "דואר אלקטרוני",
+        "save": "שמור",
+        "saving": "שומר"
+      },
+      "cropper": {
+        "heading": "ערוך תמונת פרופיל"
+      }
+    },
+    "base": {
+      "btnsubmitnew": {
+        "labelnew": "חדש",
+        "labelsave": "שמור"
+      },
+      "dialogempty": {
+        "label": "סגור"
+      }
+    },
+    "content": {
+      "detailedtraining": {
+        "sec": "שניות"
+      },
+      "dialogexercisetemplate": {},
+      "page": {
+        "muscle": "שרירים",
+        "difficulty": "קושי",
+        "updated": "עודכן",
+        "back": "חזור"
+      },
+      "trainingpage": {
+        "duration": "משך",
+        "muscle": "שרירים",
+        "toggleon": "מפורט",
+        "toggleoff": "טקסט",
+        "level": "רמה",
+        "btnstart": "תתחיל להתאמן",
+        "btnback": "חזור"
+      }
+    },
+    "exercisetemplate": {
+      "table": {
+        "cardCaption": "פרטים נוספים"
+      },
+      "form": {
+        "name": "שם התרגיל *",
+        "nameerror": "יש להזין ערך",
+        "description": "",
+        "duration": "משך (שניות)",
+        "level": "רמה",
+        "checkbox": "זמין לכולם"
+      }
+    },
+    "dialogyesno": {
+      "propHeader": "אשר פעולה",
+      "propOkText": "מחק",
+      "propCancelText": "בטל",
+      "propBody": "הנתונים יימחקו ללא אפשרות שחזור"
+    },
+    "input": {
+      "selectmuscle": {
+        "label": "קבוצת שרירים"
+      },
+      "selectsporttype": {
+        "label": "אני עוסק ב"
+      },
+      "number": {
+        "labelTime": "שניות",
+        "labelReps": "חזרות"
+      },
+      "selectexercisetemplate": {
+        "difficulty": "קושי",
+        "addnew": "אין תרגיל במאגר. הוסף"
+      }
+    },
+    "table": {
+      "nodata": "אין נתונים",
+      "noresults": "לא נמצאו תוצאות",
+      "recordsonpage": "רשומות בעמוד",
+      "loading": "טוען",
+      "from": "מתוך",
+      "rowsperpage": "הצג לפי",
+      "filter": {
+        "rating": "קושי",
+        "search": "חיפוש"
+      },
+      "card": {
+        "difficulty": "קושי"
+      }
+    },
+    "training": {
+      "form": {
+        "labelname": "שם התכנית*",
+        "difficulty": "קושי",
+        "public": "זמין לכולם",
+        "errorname": "יש להזין ערך"
+      },
+      "countdown": {
+        "label": "מתחילים בעוד"
+      },
+      "constructor": {
+        "header": "שמור אימון",
+        "ok": "כן",
+        "cancel": "לא",
+        "saving": "שומר..."
+      },
+      "dialogcard": {
+        "header": "האימון הסתיים",
+        "subheader": "כל הכבוד לך"
+      }
+    }
   }
 }
