@@ -15,7 +15,10 @@
           ><b>{{ $t("components.content.trainingpage.duration") }}: </b>
         </span>
         <q-chip square size="12px" outline color="blue-grey-14" icon="timer">
-          {{ durationToText(data.duration) }}
+          {{ numToMinText(data.duration) }}
+          {{ $t("workout.min") }}
+          {{ numToSecText(data.duration) }}
+          {{ $t("workout.sec") }}
         </q-chip>
       </div>
     </div>

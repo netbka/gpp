@@ -35,7 +35,10 @@
           />
           <div class="float-right">
             <q-chip square size="10px" outline color="yellow-3" icon="timer">
-              {{ durationToText(data.duration) }}
+              {{ numToMinText(data.duration) }}
+              {{ $t("workout.min") }}
+              {{ numToSecText(data.duration) }}
+              {{ $t("workout.sec") }}
             </q-chip>
           </div>
         </div>

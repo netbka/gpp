@@ -101,7 +101,9 @@
   "workout": {
     "duration": "Duration",
     "toggleoff": "Constructor",
-    "toggleon": "Workout"
+    "toggleon": "Workout",
+    "min": "min",
+    "sec": "sec"
   },
   "components": {
     "profile": {

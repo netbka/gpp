@@ -102,7 +102,9 @@
   "workout": {
     "duration": "משך",
     "toggleoff": "בונה",
-    "toggleon": "אימון"
+    "toggleon": "אימון",
+    "min": "דק ",
+    "sec": "שניות"
   },
   "components": {
     "profile": {

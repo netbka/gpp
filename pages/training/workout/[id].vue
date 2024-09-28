@@ -15,8 +15,11 @@
           <div class="row">
             <div class="col-grow self-center">
               <q-item-label caption
-                >{{ $t("workout.duration") }}: {{ duration }}</q-item-label
-              >
+                >{{ $t("workout.duration") }}: {{ durationMin }}
+                {{ $t("workout.min") }}
+                {{ durationSec }}
+                {{ $t("workout.sec") }}
+              </q-item-label>
             </div>
             <div class="col-auto align-right q-mr-md">
               <q-toggle
@@ -73,11 +76,13 @@ await crudExerciseTemplate.fetchAll("public");
 
 const { canEditDelete } = useCanEditDelete(store);
 
-const duration = ref("");
+const durationMin = ref("");
+const durationSec = ref("");
 watch(
   () => store.getDuration,
   (val) => {
-    duration.value = durationToText(val);
+    durationMin.value = numToMinText(val);
+    durationSec.value = numToSecText(val);
   },
 
   { immediate: true }
