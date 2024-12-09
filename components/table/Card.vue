@@ -12,13 +12,13 @@
       </div>
       <div class="card-body q-px-sm">
         <div class="">
-          <NuxtLink class="no-style" :to="link(data)">
+          <NuxtLinkLocale class="no-style" :to="link(data)">
             <h3
               class="text-subtitle1 text-weight-bold text-white q-py-sm q-ma-none text-no-wrap text-left"
             >
               {{ data.name }}
             </h3>
-          </NuxtLink>
+          </NuxtLinkLocale>
         </div>
         <div class="text-left">
           <span class="text-subtitle2 text-weight-medium text-accent text-left"

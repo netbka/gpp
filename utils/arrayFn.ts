@@ -183,7 +183,7 @@ export const exerciseToText = (arr: Array, name: string, duration: string) => {
       i++;
       //let prefix = i === 1 ? "  " : "  + ";
       let prefix = "- ";
-      text += `${prefix}${exercise.name} (${exercise.duration} сек)</br>`;
+      text += `${prefix}${exercise.exerciseTemplate?.name || exercise.name} (${exercise.duration} сек)</br>`;
     });
     text += "</br>";
   });
