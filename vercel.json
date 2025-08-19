@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/sitemap_index.xml.func": {
+      "excludeFiles": "**"
+    }
+  }
+}
