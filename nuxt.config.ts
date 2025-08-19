@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   //   plugins: [vsharp()],
   // },
   //"@nuxtjs/supabase",
-  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin", "@nuxtjs/i18n"],
+  modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "nuxt-vue3-google-signin", "@nuxtjs/i18n"], // "@nuxtjs/sitemap"],
 
   i18n: {
     langDir: "i18n",
