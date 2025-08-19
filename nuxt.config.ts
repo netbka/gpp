@@ -137,7 +137,7 @@ export default defineNuxtConfig({
     //hostname: "https://ofp.mamrukov.com",
     exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
     //gzip: true,
-
+    //generateOnBuild: true,
     sources: ["/api/__sitemap__/urls"],
   },
 
