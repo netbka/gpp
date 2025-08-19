@@ -128,9 +128,9 @@ export default defineNuxtConfig({
     },
   },
 
-  site: {
-    url: "https://ofp.mamrukov.com",
-  },
+  // site: {
+  //   url: "https://ofp.mamrukov.com",
+  // },
 
   // sitemap: {
   //   //hostname: "https://ofp.mamrukov.com",

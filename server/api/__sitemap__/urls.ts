@@ -1,13 +1,13 @@
-export default defineSitemapEventHandler(async () => {
-  try {
-    return [{ loc: "exerciseTemplate/" }, { lastmod: "111" }];
+// export default defineSitemapEventHandler(async () => {
+//   try {
+//     return [{ loc: "exerciseTemplate/" }, { lastmod: "111" }];
 
-    //return desiredResult;
-  } catch (error) {
-    console.log("erro in fetching:", error);
-  } finally {
-  }
-});
+//     //return desiredResult;
+//   } catch (error) {
+//     console.log("erro in fetching:", error);
+//   } finally {
+//   }
+// });
 
 const generateSlug = (text: String) => {
   text = replaceRussianWithEnglish(text);
