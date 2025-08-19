@@ -137,7 +137,16 @@ export default defineNuxtConfig({
     exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
     //gzip: true,
     //generateOnBuild: true,
+    generateOnBuild: true, // генерит файлы при билде
+    autoI18n: false,
+    defaultSitemapsChunkSize: 1000,
+    sitemapName: "sitemap-main.xml",
     sources: ["/api/__sitemap__/urls"],
+  },
+  nitro: {
+    prerender: {
+      routes: ["/sitemap.xml"], // говорим Nitro, что sitemap нужно пререндерить в статический файл
+    },
   },
 
   app: {
