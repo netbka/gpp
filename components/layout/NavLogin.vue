@@ -44,7 +44,7 @@
     flat
     :label="$t('navbarlogin.enter')"
     v-show="!isLoggedIn()"
-    :to="localePath('/auth')"
+    :to="$localePath('/auth')"
     data-nosnippet
   />
 </template>

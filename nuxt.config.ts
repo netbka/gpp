@@ -32,7 +32,6 @@ export default defineNuxtConfig({
   modules: ["nuxt-quasar-ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-gtag", "@nuxtjs/sitemap", "nuxt-vue3-google-signin", "@nuxtjs/i18n"],
 
   i18n: {
-    lazy: true,
     langDir: "i18n",
     strategy: "prefix_and_default",
     locales: [
@@ -40,25 +39,25 @@ export default defineNuxtConfig({
         code: "en-US",
         file: "en-US.json",
         name: "English",
-        shortname: "EN",
-        iso: "en-US",
-        default: true,
-        dir: "ltr",
+        //shortname: "EN",
+        //iso: "en-US",
+        //default: true,
+        //dir: "ltr",
       },
       {
         code: "ru-RU",
         file: "ru-RU.json",
         name: "Русский",
-        shortname: "РУ",
-        iso: "ru-RU",
-        dir: "ltr",
+        // shortname: "РУ",
+        // iso: "ru-RU",
+        // dir: "ltr",
       },
       {
         code: "he-IL",
         file: "he-IL.json",
         name: "עברית",
-        shortname: "עב",
-        iso: "he-IL",
+        // shortname: "עב",
+        // iso: "he-IL",
         dir: "rtl",
       },
     ],
@@ -218,10 +217,10 @@ export default defineNuxtConfig({
   // },
   devServer: {
     https: {
-      key: "localhost-key-home.pem",
-      cert: "localhost-home.pem",
+      key: "localhost-key.pem",
+      cert: "localhost.pem",
     },
   },
 
-  compatibilityDate: "2024-08-26",
+  compatibilityDate: "2025-08-19",
 });

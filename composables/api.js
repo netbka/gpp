@@ -23,7 +23,7 @@ const fetchJSONWithToken = (url, options = {}) => {
     //console.log(optionsWithToken);
     if (token != null) {
       optionsWithToken = merge({}, options, {
-        baseUrl: useRuntimeConfig().public.baseUrl,
+        baseURL: useRuntimeConfig().public.baseUrl,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,12 +43,12 @@ const fetchJSONWithToken = (url, options = {}) => {
 // Decide whether this error returned from API means that we want
 // to try refreshing the token. error.response contains the fetch Response
 // object, error.body contains the parsed JSON response body
-const shouldRefreshToken = (error) => {
+export const shouldRefreshToken = (error) => {
   return error.response.status === 401 && error.response.statusText === "Unauthorized";
 };
 
 // Do the actual token refreshing and update the saved token
-const refreshToken = () => {
+export const refreshToken = () => {
   console.log("options in refreshToken");
   return $fetch("/api/auth/RefreshToken", {
     method: "POST",
@@ -60,7 +60,7 @@ const refreshToken = () => {
       return response;
     })
     .catch((error) => {
-      console.log(erorr);
+      console.log(error);
       // If we failed by any reason in refreshing, just clear the token,
       // it's not that big of a deal
       clearRToken();
