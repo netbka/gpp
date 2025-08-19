@@ -10,7 +10,7 @@ interface TrainingStoreState {
   activeGroup: IExerciseGroup;
   isStarted: boolean;
 }
-const baseUrl = "/training/";
+const baseUrl = "/api/training/";
 export const useTrainingStore = defineStore("training", {
   state: (): TrainingStoreState => ({
     currentItem: new Training("").getAll(),
