@@ -132,22 +132,30 @@ export default defineNuxtConfig({
     url: "https://ofp.mamrukov.com",
   },
 
-  sitemap: {
-    //hostname: "https://ofp.mamrukov.com",
-    exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
-    //gzip: true,
-    //generateOnBuild: true,
-    generateOnBuild: true, // генерит файлы при билде
-    autoI18n: false,
-    defaultSitemapsChunkSize: 1000,
-    sitemapName: "sitemap-main.xml",
-    sources: ["/api/__sitemap__/urls"],
-  },
-  nitro: {
-    prerender: {
-      routes: ["/sitemap.xml"], // говорим Nitro, что sitemap нужно пререндерить в статический файл
-    },
-  },
+  // sitemap: {
+  //   //hostname: "https://ofp.mamrukov.com",
+  //   exclude: ["/auth/**", "/profile/**", "/trainingtrack/**", "/privacy-policy/**"],
+  //   //gzip: true,
+  //   //generateOnBuild: true,
+  //   generateOnBuild: true, // генерит файлы при билде
+  //   autoI18n: false,
+  //   defaultSitemapsChunkSize: 1000,
+  //   sitemapName: "sitemap-main.xml",
+  //   sources: ["/api/__sitemap__/urls"],
+  // },
+
+  // sitemap: {
+  //   generateOnBuild: true, // генерируем статический файл
+  //   sitemapName: "sitemap.xml", // имя файла только одно
+  //   autoI18n: false, // если нет мультиязычности — отключаем
+  //   sitemaps: false, // убираем мультикарты (чтобы не было sitemap-main.xml и т.д.)
+  // },
+
+  // nitro: {
+  //   prerender: {
+  //     routes: ["/sitemap.xml"], // скажем Nitro пререндерить этот файл
+  //   },
+  // },
 
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
