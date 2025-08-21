@@ -123,7 +123,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     dbPassword: process.env.DB_PASSWORD,
     public: {
-      baseUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094/api" : "https://apiofp.mamrukov.com", //"https://apiofp.runasp.net/api",
+      baseUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094/api" : "https://apiofp.mamrukov.com/api", //"https://apiofp.runasp.net/api",
       wwwUrl: process.env.NODE_ENV === "development" ? "https://localhost:7094" : "https://apiofp.mamrukov.com", //"https://apiofp.runasp.net/api",
       //baseUrl: process.env.NUXT_PUBLIC_API_BASE ?? (process.env.NODE_ENV === "development" ? "https://localhost:7094" : "https://apiofp.mamrukov.com"),
       //wwwUrl: process.env.NUXT_PUBLIC_WWW_URL ?? (process.env.NODE_ENV === "development" ? "https://localhost:7094" : "https://apiofp.mamrukov.com"),
