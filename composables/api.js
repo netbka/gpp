@@ -14,31 +14,54 @@ const saveRToken = (token) => Cookies.set("RToken", token);
 const saveAToken = (token) => Cookies.set("AToken", token);
 const clearRToken = () => Cookies.remove("RToken");
 const clearAToken = () => Cookies.remove("AToken");
-
 const fetchJSONWithToken = (url, options = {}) => {
   try {
     const token = retrieveAToken();
+    const config = useRuntimeConfig();
+    const isAbsolute = /^https?:\/\//i.test(url);
+    const isServerApi = url.startsWith("/api/"); // это пойдет через Nuxt-прокси
 
-    let optionsWithToken = options;
-    //console.log(optionsWithToken);
-    if (token != null) {
-      optionsWithToken = merge({}, options, {
-        baseURL: useRuntimeConfig().public.baseUrl,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
-    //console.log("options in JSON", optionsWithToken);
-    return $fetch(url, optionsWithToken);
+    // Базовые опции и заголовки
+    const baseOpts = merge(
+      {},
+      options,
+      token
+        ? {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        : {}
+    );
+
+    // Для абсолютных URL или нефронтовых путей - добавляем baseURL
+    const opts = isAbsolute || !isServerApi ? merge({}, baseOpts, { baseURL: config.public.baseUrl }) : baseOpts;
+
+    return $fetch(url, opts);
   } catch (err) {
     console.log(err);
     throw err;
   }
-  //   console.log(url);
-  //   var x = fetchJSON(url, optionsWithToken);
-  //   console.log(x);
 };
+// const fetchJSONWithToken = (url, options = {}) => {
+//   try {
+//     const token = retrieveAToken();
+
+//     let optionsWithToken = options;
+//     //console.log(optionsWithToken);
+//     if (token != null) {
+//       optionsWithToken = merge({}, options, {
+//         baseURL: useRuntimeConfig().public.baseUrl,
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//     }
+
+//     return $fetch(url, optionsWithToken);
+//   } catch (err) {
+//     console.log(err);
+//     throw err;
+//   }
+// };
 
 // Decide whether this error returned from API means that we want
 // to try refreshing the token. error.response contains the fetch Response

@@ -29,11 +29,11 @@
           <q-btn
             :label="$t('auth.form.registerBtn')"
             size="sm"
-            :to="localePath('/auth/register')"
+            :to="$localePath('/auth/register')"
           />
           <q-btn
             :label="$t('auth.form.forgotBtn')"
-            :to="localePath('/auth/recover')"
+            :to="$localePath('/auth/recover')"
             size="sm"
           />
         </template>

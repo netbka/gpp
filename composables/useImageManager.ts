@@ -52,7 +52,7 @@ export function useImageManager(store) {
     }
   };
   const getImageUrl = (fileName: string, storage: string, addTimestamp: boolean): string => {
-    const data = useRuntimeConfig().public.wwwwUrl + "/" + storage + "/" + fileName + ".gif";
+    const data = useRuntimeConfig().public.baseUrl + "/" + storage + "/" + fileName + ".gif";
     //supabase.storage.from(storage).getPublicUrl(fileName);
     const timestamp = addTimestamp === true ? "?" + new Date().getTime() : "";
     //console.log(await isImageAvailable(data));
@@ -96,8 +96,8 @@ export function useImageManager(store) {
     preview.value = getImageUrl(image, storage, false);
   };
   const getAvatar = async (): Promise<string> => {
-    const data = useRuntimeConfig().public.wwwwUrl + "/" + store.$id + "/" + store.currentItem.id + ".gif";
-    const defaultavatar = useRuntimeConfig().public.wwwwUrl + "/" + store.$id + "/defaultavatar.png";
+    const data = useRuntimeConfig().public.baseUrl + "/" + store.$id + "/" + store.currentItem.id + ".gif";
+    const defaultavatar = useRuntimeConfig().public.baseUrl + "/" + store.$id + "/defaultavatar.png";
     const result = (await isImageAvailable(data)) ? data + "?" + new Date().getTime() : defaultavatar;
     return result;
   };
@@ -162,7 +162,7 @@ export function useImageManager(store) {
 export const getImageFromStorage = (storage: string, fileName: string) => {
   //const supabase = useSupabaseClient();
   try {
-    return useRuntimeConfig().public.wwwwUrl + "/" + storage + "/" + fileName + ".gif";
+    return useRuntimeConfig().public.baseUrl + "/" + storage + "/" + fileName + ".gif";
   } catch (error) {
     return null;
   }
